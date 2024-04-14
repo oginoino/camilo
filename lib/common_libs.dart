@@ -18,6 +18,11 @@ export 'router.dart';
 // main instance
 export 'main.dart';
 
+// models
+
+// product
+export 'models/product.dart';
+
 // ui
 
 // themes
@@ -50,4 +55,6 @@ export 'ui/components/cart_icon.dart';
 export 'ui/components/add_product_icon.dart';
 
 // constants
+
+// ui constants
 export 'ui/ui_constants.dart';

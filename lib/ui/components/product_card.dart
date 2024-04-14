@@ -1,5 +1,4 @@
 import '../../common_libs.dart';
-import '../../models/product.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
