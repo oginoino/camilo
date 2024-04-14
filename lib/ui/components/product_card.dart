@@ -5,8 +5,6 @@ class ProductCard extends StatelessWidget {
     super.key,
   });
 
-  Product get product => GetIt.I<Product>();
-
   @override
   Widget build(BuildContext context) {
     double contaninerWidth = 160.0;

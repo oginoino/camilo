@@ -8,8 +8,6 @@ class ProductCarossel extends StatelessWidget {
 
   final String category;
 
-  List<Product> get products => GetIt.I<ProductList>().products;
-
   @override
   Widget build(BuildContext context) {
     return Column(
