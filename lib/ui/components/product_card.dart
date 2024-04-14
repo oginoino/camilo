@@ -10,6 +10,10 @@ class ProductCard extends StatelessWidget {
     double contaninerWidth = 160.0;
     double contaninerHeght = 160.0;
 
+    const String productName = 'Produto 1';
+    const String productPrice = '10,00';
+    const String imageSrc = 'https://via.placeholder.com/200';
+
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(uiConstants.paddingMedium),
@@ -33,13 +37,13 @@ class ProductCard extends StatelessWidget {
                     topRight: Radius.circular(uiConstants.paddingMedium),
                   ),
                   child: Image.network(
-                    'https://via.placeholder.com/200',
+                    imageSrc,
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              const Text('Produto 1'),
-              const Text('R\$ 10,00'),
+              const Text(productName),
+              const Text('R\$ $productPrice'),
             ],
           ),
           const AddProductIcon(),
