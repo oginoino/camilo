@@ -42,3 +42,9 @@ export 'ui/components/product_carousel.dart';
 
 // product card
 export 'ui/components/product_card.dart';
+
+// cart icon
+export 'ui/components/cart_icon.dart';
+
+// add product icon
+export 'ui/components/add_product_icon.dart';

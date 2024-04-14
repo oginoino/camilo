@@ -22,17 +22,8 @@ class CustomAppBar extends StatelessWidget {
         ),
         onPressed: () {},
       ),
-      actions: [
-        IconButton(
-          icon: CircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            child: Icon(
-              Icons.shopping_cart_rounded,
-              color: Theme.of(context).colorScheme.onPrimary,
-            ),
-          ),
-          onPressed: () {},
-        ),
+      actions: const [
+        CartIcon(),
       ],
       title: TextButton.icon(
         style: TextButton.styleFrom(
