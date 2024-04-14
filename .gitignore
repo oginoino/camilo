@@ -54,6 +54,8 @@ lib/firebase_options.dart
 /macos
 /web
 
+android/
+
 
 .env
 .firebaserc
