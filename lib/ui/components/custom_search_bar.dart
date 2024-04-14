@@ -12,7 +12,7 @@ class CustomSearchBar extends StatelessWidget {
     TextEditingController textEditingControllerValue = TextEditingController();
 
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: EdgeInsets.all(uiConstants.paddingSmall),
       child: SearchBar(
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.search,
