@@ -11,6 +11,9 @@ class CustomSearchBar extends StatelessWidget {
     FocusNode focusNodeValue = FocusNode();
     TextEditingController textEditingControllerValue = TextEditingController();
 
+    double value = 0.0;
+    double minHeight = 40.0;
+    double maxHeight = 40.0;
     return Padding(
       padding: EdgeInsets.all(uiConstants.paddingSmall),
       child: SearchBar(
@@ -25,11 +28,11 @@ class CustomSearchBar extends StatelessWidget {
             color: Theme.of(context).colorScheme.secondary,
           ),
         ],
-        elevation: MaterialStateProperty.all(0.0),
+        elevation: MaterialStateProperty.all(value),
         backgroundColor: MaterialStateProperty.all(Colors.white),
-        constraints: const BoxConstraints(
-          minHeight: 40.0,
-          maxHeight: 40.0,
+        constraints: BoxConstraints(
+          minHeight: minHeight,
+          maxHeight: maxHeight,
           maxWidth: double.infinity,
           minWidth: double.infinity,
         ),

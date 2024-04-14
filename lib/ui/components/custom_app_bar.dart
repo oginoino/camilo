@@ -7,6 +7,9 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double expandedHeight = 140.0;
+    double collapsedHeight = 108.0;
+    double expandedTitleScale = 1.1;
     return SliverAppBar(
       leading: IconButton(
         icon: CircleAvatar(
@@ -63,13 +66,13 @@ class CustomAppBar extends StatelessWidget {
       snap: true,
       pinned: false,
       forceElevated: false,
-      expandedHeight: 140,
-      collapsedHeight: 108,
-      flexibleSpace: const FlexibleSpaceBar(
+      expandedHeight: expandedHeight,
+      collapsedHeight: collapsedHeight,
+      flexibleSpace: FlexibleSpaceBar(
         centerTitle: false,
         collapseMode: CollapseMode.parallax,
-        title: CustomSearchBar(),
-        expandedTitleScale: 1.1,
+        title: const CustomSearchBar(),
+        expandedTitleScale: expandedTitleScale,
         titlePadding: EdgeInsets.zero,
       ),
     );
