@@ -3,21 +3,18 @@ import '../../common_libs.dart';
 class ProductCard extends StatelessWidget {
   const ProductCard({
     super.key,
+    required this.product,
   });
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
+    debugPrint(product.productName);
+
     double contaninerWidth = 160.0;
     double contaninerHeght = 160.0;
     double cardElevation = 0.0;
-
-    const String productUnitOfMeasurement = 'unidade(s)';
-    const String productUnitQuantity = '1';
-    const String productName =
-        'Sorvete Ben & Jerry\'s morango com pedaços de chocolate e biscoito';
-    const String productPrice = '10,00';
-    const String productImageSrc =
-        'https://acdn.mitiendanube.com/stores/001/165/503/products/coca-zero21-16e7cba0588363da7616192142363168-640-0.png';
 
     return Card(
       color: Theme.of(context).colorScheme.background,
@@ -46,7 +43,7 @@ class ProductCard extends StatelessWidget {
                     topRight: Radius.circular(uiConstants.paddingMedium),
                   ),
                   child: Image.network(
-                    productImageSrc,
+                    product.productImageSrc!,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -64,12 +61,12 @@ class ProductCard extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            productUnitQuantity,
+                            product.productUnitQuantity,
                             style: Theme.of(context).textTheme.labelSmall,
                           ),
                           SizedBox(width: uiConstants.paddingExtraSmall),
                           Text(
-                            productUnitOfMeasurement,
+                            product.productUnitOfMeasurement,
                             style: Theme.of(context).textTheme.labelSmall,
                           ),
                         ],
@@ -77,15 +74,15 @@ class ProductCard extends StatelessWidget {
                       SizedBox(
                         height: 40,
                         child: Text(
-                          productName,
+                          product.productName,
                           style: Theme.of(context).textTheme.labelMedium,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          semanticsLabel: productName,
+                          semanticsLabel: product.productName,
                         ),
                       ),
                       Text(
-                        'R\$ $productPrice',
+                        'R\$ ${product.productPrice.toStringAsFixed(2)}',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: Theme.of(context).colorScheme.tertiary,
                               fontWeight: FontWeight.bold,
