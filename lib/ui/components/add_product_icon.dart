@@ -51,34 +51,42 @@ void _buildAddProductTooltip(BuildContext context) {
     position: position,
     items: [
       PopupMenuItem(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            IconButton(
+        padding: EdgeInsets.zero,
+        height: 10,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconButton(
+                  visualDensity: VisualDensity.compact,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.remove_rounded,
+                    size: uiConstants.iconSizeSmall,
+                  )),
+              Text(
+                '1',
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.tertiary,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              IconButton(
                 visualDensity: VisualDensity.compact,
                 padding: EdgeInsets.zero,
                 onPressed: () {},
                 icon: Icon(
-                  Icons.remove_rounded,
+                  Icons.add_rounded,
                   size: uiConstants.iconSizeSmall,
-                )),
-            Text(
-              '1',
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.tertiary,
-                  fontWeight: FontWeight.bold),
-            ),
-            IconButton(
-              visualDensity: VisualDensity.compact,
-              padding: EdgeInsets.zero,
-              onPressed: () {},
-              icon: Icon(
-                Icons.add_rounded,
-                size: uiConstants.iconSizeSmall,
-              ),
-            )
-          ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     ],
