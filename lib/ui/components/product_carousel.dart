@@ -35,9 +35,11 @@ class ProductCarossel extends StatelessWidget with WatchItMixin {
             children: [
               Row(
                 children: [
-                  ...productFromCategory.map((product) => ProductCard(
-                        product: product,
-                      )),
+                  ...productFromCategory.map(
+                    (product) => ProductCard(
+                      product: product,
+                    ),
+                  ),
                   Center(
                     child: Padding(
                       padding: EdgeInsets.symmetric(
