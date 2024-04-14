@@ -10,8 +10,6 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(product.productName);
-
     double contaninerWidth = 160.0;
     double contaninerHeght = 160.0;
     double cardElevation = 0.0;
@@ -94,7 +92,9 @@ class ProductCard extends StatelessWidget {
               ),
             ],
           ),
-          const AddProductIcon(),
+          AddProductIcon(
+            product: product,
+          ),
         ],
       ),
     );

@@ -96,7 +96,7 @@ class ProductListData {
           Product(
             id: '10',
             productName: 'Coca-Cola lata Original 350ml',
-            productPrice: 15.99,
+            productPrice: 2.99,
             productUnitOfMeasurement: 'unidade(s)',
             productUnitQuantity: '1',
             productImageSrc:

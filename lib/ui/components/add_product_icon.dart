@@ -3,7 +3,10 @@ import '../../common_libs.dart';
 class AddProductIcon extends StatelessWidget {
   const AddProductIcon({
     super.key,
+    required this.product,
   });
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +23,14 @@ class AddProductIcon extends StatelessWidget {
           size: uiConstants.iconSizeLarge,
         ),
         onPressed: () {
-          _buildAddProductTooltip(context);
+          _buildAddProductTooltip(context, product);
         },
       ),
     );
   }
 }
 
-void _buildAddProductTooltip(BuildContext context) {
+void _buildAddProductTooltip(BuildContext context, Product product) {
   final RenderBox renderBox = context.findRenderObject() as RenderBox;
 
   final position = RelativeRect.fromLTRB(
@@ -80,7 +83,9 @@ void _buildAddProductTooltip(BuildContext context) {
               IconButton(
                 visualDensity: VisualDensity.compact,
                 padding: EdgeInsets.zero,
-                onPressed: () {},
+                onPressed: () {
+                  product.incrementQuantity();
+                },
                 icon: Icon(
                   Icons.add_rounded,
                   size: uiConstants.iconSizeSmall,
