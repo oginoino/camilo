@@ -28,7 +28,10 @@ class HomePage extends StatelessWidget {
     ];
     return SliverList.list(children: [
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+        padding: EdgeInsets.symmetric(
+          horizontal: uiConstants.paddingSmall,
+          vertical: uiConstants.paddingMedium,
+        ),
         child: ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),

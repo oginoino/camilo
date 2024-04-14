@@ -36,17 +36,18 @@ class ProductCarossel extends StatelessWidget {
                   const ProductCard(),
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: uiConstants.paddingSmall),
                       child: TextButton(
                         onPressed: () {},
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Text('Ver tudo'),
-                            SizedBox(width: 4.0),
+                            const Text('Ver tudo'),
+                            SizedBox(width: uiConstants.paddingExtraSmall),
                             Icon(
                               Icons.arrow_forward_ios_rounded,
-                              size: 16.0,
-                              opticalSize: 16.0,
+                              size: uiConstants.iconSizeSmall,
+                              opticalSize: uiConstants.iconSizeSmall,
                             ),
                           ],
                         ),
@@ -55,7 +56,7 @@ class ProductCarossel extends StatelessWidget {
                   )
                 ],
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: uiConstants.paddingMedium),
             ],
           ),
         ),

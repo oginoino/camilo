@@ -9,23 +9,23 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(uiConstants.paddingMedium),
       ),
       child: Column(
         children: [
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
+                topLeft: Radius.circular(uiConstants.paddingMedium),
+                topRight: Radius.circular(uiConstants.paddingMedium),
               ),
             ),
             width: 160,
             height: 160,
             child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(uiConstants.paddingMedium),
+                topRight: Radius.circular(uiConstants.paddingMedium),
               ),
               child: Image.network(
                 'https://via.placeholder.com/200',
