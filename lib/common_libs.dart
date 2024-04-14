@@ -23,6 +23,9 @@ export 'main.dart';
 // product
 export 'models/product.dart';
 
+// products list
+export 'models/products_list.dart';
+
 // ui
 
 // themes
