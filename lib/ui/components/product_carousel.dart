@@ -56,7 +56,6 @@ class ProductCarossel extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(height: uiConstants.paddingMedium),
             ],
           ),
         ),
