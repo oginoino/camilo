@@ -23,6 +23,7 @@ class AddProductIcon extends StatelessWidget {
           size: uiConstants.iconSizeLarge,
         ),
         onPressed: () {
+          product.incrementQuantity();
           _buildAddProductTooltip(context, product);
         },
       ),
@@ -45,7 +46,7 @@ void _buildAddProductTooltip(BuildContext context, Product product) {
     renderBox.localToGlobal(Offset.zero).dy,
   );
 
-  int selectedQuantity = 1;
+  int selectedQuantity = product.selectedQuantity;
   showMenu(
     constraints: const BoxConstraints(maxWidth: 120),
     context: context,
@@ -68,7 +69,9 @@ void _buildAddProductTooltip(BuildContext context, Product product) {
               IconButton(
                   visualDensity: VisualDensity.compact,
                   padding: EdgeInsets.zero,
-                  onPressed: () {},
+                  onPressed: () {
+                    product.decrementQuantity();
+                  },
                   icon: Icon(
                     Icons.remove_rounded,
                     size: uiConstants.iconSizeSmall,
