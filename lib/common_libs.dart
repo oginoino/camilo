@@ -48,3 +48,6 @@ export 'ui/components/cart_icon.dart';
 
 // add product icon
 export 'ui/components/add_product_icon.dart';
+
+// constants
+export 'ui/ui_constants.dart';

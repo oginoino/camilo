@@ -1,5 +1,3 @@
-import 'package:camilo/ui/ui_constants.dart';
-
 import 'common_libs.dart';
 
 void main() async {

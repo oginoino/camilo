@@ -1,9 +1,12 @@
 import '../../common_libs.dart';
+import '../../models/product.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
     super.key,
   });
+
+  Product get product => GetIt.I<Product>();
 
   @override
   Widget build(BuildContext context) {
