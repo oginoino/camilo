@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
   SliverList _buildPageBody(BuildContext context) {
     List<String> categories = [
       'Destaques',
+      'Promoções',
       'Favoritos',
       'Verduras',
       'Carnes',
