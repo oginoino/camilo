@@ -7,6 +7,9 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double contaninerWidth = 160.0;
+    double contaninerHeght = 160.0;
+
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(uiConstants.paddingMedium),
@@ -20,8 +23,8 @@ class ProductCard extends StatelessWidget {
                 topRight: Radius.circular(uiConstants.paddingMedium),
               ),
             ),
-            width: 160,
-            height: 160,
+            width: contaninerWidth,
+            height: contaninerHeght,
             child: ClipRRect(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(uiConstants.paddingMedium),

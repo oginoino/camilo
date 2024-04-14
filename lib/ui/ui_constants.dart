@@ -19,6 +19,7 @@ class UiConstants {
   Color get yellowSubmarine => const Color(0xFFE9C46A);
   Color get cyanGreen => const Color(0xFF2A9D8F);
   Color get orangeLagrange => const Color(0xFFF4A261);
+  Color get jeanGrey => const Color.fromARGB(255, 134, 173, 147);
 
   // padding
   double get paddingExtraSmall => 4.0;
