@@ -52,7 +52,7 @@ void _buildAddProductTooltip(BuildContext context) {
     items: [
       PopupMenuItem(
         padding: EdgeInsets.zero,
-        height: 10,
+        height: 0,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
