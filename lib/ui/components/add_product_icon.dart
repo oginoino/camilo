@@ -70,13 +70,14 @@ void _buildAddProductTooltip(BuildContext context) {
                   fontWeight: FontWeight.bold),
             ),
             IconButton(
-                visualDensity: VisualDensity.compact,
-                padding: EdgeInsets.zero,
-                onPressed: () {},
-                icon: Icon(
-                  Icons.add_rounded,
-                  size: uiConstants.iconSizeSmall,
-                ))
+              visualDensity: VisualDensity.compact,
+              padding: EdgeInsets.zero,
+              onPressed: () {},
+              icon: Icon(
+                Icons.add_rounded,
+                size: uiConstants.iconSizeSmall,
+              ),
+            )
           ],
         ),
       ),
