@@ -73,7 +73,7 @@ class ProductListData {
             productUnitOfMeasurement: 'kg',
             productUnitQuantity: '1',
             productImageSrc: 'assets/images/morango.jpg',
-            productCategories: ['Frutas'],
+            productCategories: ['Frutas', 'Doces'],
           ),
         ],
       );

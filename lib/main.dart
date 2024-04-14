@@ -1,3 +1,5 @@
+import 'package:camilo/mock/products_list_data.dart';
+
 import 'common_libs.dart';
 
 void main() async {
@@ -26,6 +28,9 @@ class CamiloApp extends StatelessWidget {
 
 void registerSingletons() {
   GetIt.I.registerLazySingleton<UiConstants>(() => UiConstants());
+  GetIt.I
+      .registerLazySingleton<ProductList>(() => ProductListData.productsList);
 }
 
 UiConstants get uiConstants => GetIt.I<UiConstants>();
+ProductList get products => GetIt.I<ProductList>();
