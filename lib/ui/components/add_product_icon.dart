@@ -42,6 +42,7 @@ void _buildAddProductTooltip(BuildContext context) {
     renderBox.localToGlobal(Offset.zero).dy,
   );
 
+  int selectedQuantity = 1;
   showMenu(
     constraints: const BoxConstraints(maxWidth: 120),
     context: context,
@@ -70,7 +71,7 @@ void _buildAddProductTooltip(BuildContext context) {
                     size: uiConstants.iconSizeSmall,
                   )),
               Text(
-                '1',
+                selectedQuantity.toString(),
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: Theme.of(context).colorScheme.tertiary,
                       fontWeight: FontWeight.bold,
