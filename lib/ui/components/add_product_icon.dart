@@ -7,9 +7,12 @@ class AddProductIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double addIconPositionTop = 0.0;
+    double addIconPositionRight = 0.0;
+
     return Positioned(
-      top: 0,
-      right: 0,
+      top: addIconPositionTop,
+      right: addIconPositionRight,
       child: IconButton(
         icon: Icon(
           Icons.add_circle_rounded,
