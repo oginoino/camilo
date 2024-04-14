@@ -11,7 +11,7 @@ class ProductListData {
             productUnitQuantity: '1',
             productImageSrc:
                 'https://acdn.mitiendanube.com/stores/001/254/392/products/frutas_hortifruti_hortifit_delivery_banana-prata1-860e400e9aee2c4e5a16922230786998-1024-1024.png',
-            productCategories: ['Frutas'],
+            productCategories: ['Frutas', 'Promoções'],
           ),
           Product(
             id: '2',
@@ -61,7 +61,7 @@ class ProductListData {
             productUnitQuantity: '1',
             productImageSrc:
                 'https://superprix.vteximg.com.br/arquivos/ids/176012-210-210/Uva-Thompson-Verde-sem-semente-500g--Bandeja-.png?v=636414113862070000',
-            productCategories: ['Frutas'],
+            productCategories: ['Frutas', 'Promoções'],
           ),
           Product(
             id: '7',
@@ -82,6 +82,26 @@ class ProductListData {
             productImageSrc:
                 'https://cdn.lojazmart.com/media/catalog/product/cache/1/image/363x/040ec09b1e35df139433887a97daa66f/m/o/morango_zmart.png',
             productCategories: ['Frutas', 'Doces'],
+          ),
+          Product(
+            id: '9',
+            productName: 'Sorvete Ben & Jerry\'s 458ml',
+            productPrice: 52.99,
+            productUnitOfMeasurement: 'pote',
+            productUnitQuantity: '1',
+            productImageSrc:
+                'https://www.benandjerry.com.br/files/live/sites/systemsite/files/flavors/products/br/pints/open-closed-pints/doce-deleite-core-landing.png',
+            productCategories: ['Doces', 'Promoções'],
+          ),
+          Product(
+            id: '10',
+            productName: 'Coca-Cola lata Original 350ml',
+            productPrice: 15.99,
+            productUnitOfMeasurement: 'unidade(s)',
+            productUnitQuantity: '1',
+            productImageSrc:
+                'https://supermercadobomdemais.com.br/wp-content/uploads/2020/05/Refrigerante-Coca-Cola-220.png',
+            productCategories: ['Doces', 'Bebidas', 'Promoções'],
           ),
         ],
       );
