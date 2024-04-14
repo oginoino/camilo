@@ -1,0 +1,80 @@
+import '../common_libs.dart';
+
+class ProductListData {
+  static ProductList get productsList => ProductList(
+        products: [
+          Product(
+            id: '1',
+            productName: 'Banana',
+            productPrice: 2.99,
+            productUnitOfMeasurement: 'kg',
+            productUnitQuantity: '1',
+            productImageSrc: 'assets/images/banana.jpg',
+            productCategories: ['Frutas'],
+          ),
+          Product(
+            id: '2',
+            productName: 'Maçã',
+            productPrice: 3.99,
+            productUnitOfMeasurement: 'kg',
+            productUnitQuantity: '1',
+            productImageSrc: 'assets/images/maca.jpg',
+            productCategories: ['Frutas'],
+          ),
+          Product(
+            id: '3',
+            productName: 'Pera',
+            productPrice: 4.99,
+            productUnitOfMeasurement: 'kg',
+            productUnitQuantity: '1',
+            productImageSrc: 'assets/images/pera.jpg',
+            productCategories: ['Frutas'],
+          ),
+          Product(
+            id: '4',
+            productName: 'Abacaxi',
+            productPrice: 5.99,
+            productUnitOfMeasurement: 'un',
+            productUnitQuantity: '1',
+            productImageSrc: 'assets/images/abacaxi.jpg',
+            productCategories: ['Frutas'],
+          ),
+          Product(
+            id: '5',
+            productName: 'Melancia',
+            productPrice: 6.99,
+            productUnitOfMeasurement: 'kg',
+            productUnitQuantity: '1',
+            productImageSrc: 'assets/images/melancia.jpg',
+            productCategories: ['Frutas'],
+          ),
+          Product(
+            id: '6',
+            productName: 'Uva',
+            productPrice: 7.99,
+            productUnitOfMeasurement: 'kg',
+            productUnitQuantity: '1',
+            productImageSrc: 'assets/images/uva.jpg',
+            productCategories: ['Frutas'],
+          ),
+          Product(
+            id: '7',
+            productName: 'Laranja',
+            productPrice: 8.99,
+            productUnitOfMeasurement: 'kg',
+            productUnitQuantity: '1',
+            productImageSrc: 'assets/images/laranja.jpg',
+            productCategories: ['Frutas'],
+          ),
+          Product(
+            id: '8',
+            productName: 'Morango',
+            productPrice: 9.99,
+            productUnitOfMeasurement: 'kg',
+            productUnitQuantity: '1',
+            productImageSrc: 'assets/images/morango.jpg',
+            productCategories: ['Frutas'],
+          ),
+        ],
+      );
+}
