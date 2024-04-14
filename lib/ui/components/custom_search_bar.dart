@@ -14,6 +14,7 @@ class CustomSearchBar extends StatelessWidget {
     double value = 0.0;
     double minHeight = 40.0;
     double maxHeight = 40.0;
+
     return Padding(
       padding: EdgeInsets.all(uiConstants.paddingSmall),
       child: SearchBar(

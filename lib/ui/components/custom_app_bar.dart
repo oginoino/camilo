@@ -10,6 +10,7 @@ class CustomAppBar extends StatelessWidget {
     double expandedHeight = 140.0;
     double collapsedHeight = 108.0;
     double expandedTitleScale = 1.1;
+
     return SliverAppBar(
       leading: IconButton(
         icon: CircleAvatar(
