@@ -17,6 +17,7 @@ class AddProductIcon extends StatelessWidget {
         icon: Icon(
           Icons.add_circle_rounded,
           color: Theme.of(context).colorScheme.secondary,
+          size: uiConstants.iconSizeLarge,
         ),
         onPressed: () {},
       ),
