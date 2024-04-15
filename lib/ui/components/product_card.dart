@@ -1,6 +1,7 @@
 import 'package:provider/provider.dart';
 
 import '../../common_libs.dart';
+import '../../models/product_cart.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({
@@ -114,10 +115,14 @@ class _ProductCardState extends State<ProductCard> {
       widget.product.incrementQuantity();
       Provider.of<ProductList>(context, listen: false)
           .updateProduct(widget.product);
+      Provider.of<ProductCart>(context, listen: false)
+          .addProduct(widget.product);
     } else {
       widget.product.decrementQuantity();
       Provider.of<ProductList>(context, listen: false)
           .updateProduct(widget.product);
+      Provider.of<ProductCart>(context, listen: false)
+          .removeProduct(widget.product);
     }
     setState(() {}); // This will refresh the main icon state
   }
