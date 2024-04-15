@@ -34,12 +34,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
             ),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                visualDensity: VisualDensity.standard,
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-                padding: EdgeInsets.symmetric(
+                  visualDensity: VisualDensity.standard,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  padding: EdgeInsets.symmetric(
                     horizontal: uiConstants.paddingMedium,
-                    vertical: uiConstants.paddingSmall),
-              ),
+                    vertical: uiConstants.paddingSmall,
+                  ),
+                  elevation: 2),
               onPressed: () {},
               icon: Icon(
                 Icons.payment_rounded,
@@ -47,7 +48,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onSecondary,
               ),
               label: Text(
-                'Pagar',
+                'Ir para pagamento',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSecondary,
                     ),
