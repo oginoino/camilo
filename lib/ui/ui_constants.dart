@@ -32,4 +32,5 @@ class UiConstants {
   double get iconSizeSmall => 16.0;
   double get iconSizeMedium => 24.0;
   double get iconSizeLarge => 32.0;
+  double get iconSizeExtraLarge => 64.0;
 }
