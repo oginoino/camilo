@@ -1,7 +1,4 @@
-import 'package:provider/provider.dart';
-
 import '../../common_libs.dart';
-import '../../models/product_cart.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({

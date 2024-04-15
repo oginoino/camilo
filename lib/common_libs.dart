@@ -3,6 +3,9 @@
 // material package
 export 'package:flutter/material.dart';
 
+// provider package
+export 'package:provider/provider.dart';
+
 // get_it package
 export 'package:get_it/get_it.dart';
 
@@ -25,6 +28,14 @@ export 'models/product.dart';
 
 // products list
 export 'models/products_list.dart';
+
+// product cart
+export 'models/product_cart.dart';
+
+// mock
+
+// mock product list data
+export 'mock/products_list_data.dart';
 
 // ui
 
@@ -61,3 +72,6 @@ export 'ui/components/add_product_icon.dart';
 
 // ui constants
 export 'ui/ui_constants.dart';
+
+// top box adapter
+export 'ui/components/custom_top_box_adapter.dart';

@@ -1,5 +1,3 @@
-import 'package:provider/provider.dart';
-
 import '../../common_libs.dart';
 
 class AddProductIcon extends StatelessWidget {

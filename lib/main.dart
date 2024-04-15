@@ -1,7 +1,3 @@
-import 'package:camilo/mock/products_list_data.dart';
-import 'package:camilo/models/product_cart.dart';
-import 'package:provider/provider.dart';
-
 import 'common_libs.dart';
 
 void main() async {
