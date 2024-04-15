@@ -102,6 +102,7 @@ class _ProductCardState extends State<ProductCard> {
           AddProductIcon(
             product: widget.product,
             updateProductSelectedQuantity: updateProductSelectedQuantity,
+            productSelectedQuantity: widget.product.selectedQuantity,
           ),
         ],
       ),

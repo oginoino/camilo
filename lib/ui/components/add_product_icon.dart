@@ -1,3 +1,5 @@
+import 'package:provider/provider.dart';
+
 import '../../common_libs.dart';
 
 class AddProductIcon extends StatefulWidget {
@@ -5,6 +7,7 @@ class AddProductIcon extends StatefulWidget {
     super.key,
     required this.product,
     required this.updateProductSelectedQuantity,
+    required int productSelectedQuantity,
   });
 
   final Product product;
@@ -107,13 +110,20 @@ class _AddProductIconState extends State<AddProductIcon> {
                           size: uiConstants.iconSizeSmall,
                           color: Theme.of(context).colorScheme.tertiary,
                         )),
-                    Text(
-                      widget.product.selectedQuantity.toString(),
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.tertiary,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
+                    Consumer<ProductList>(builder: (context, products, child) {
+                      return Text(
+                          products
+                              .getProductById(widget.product.id)
+                              .selectedQuantity
+                              .toString(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.tertiary,
+                                fontWeight: FontWeight.bold,
+                              ));
+                    }),
                     IconButton(
                         visualDensity: VisualDensity.compact,
                         padding: EdgeInsets.zero,

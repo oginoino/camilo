@@ -43,3 +43,4 @@ void registerSingletons() {
 
 UiConstants get uiConstants => GetIt.I<UiConstants>();
 ProductList get products => GetIt.I<ProductList>();
+

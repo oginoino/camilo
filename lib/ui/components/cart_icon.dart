@@ -41,7 +41,7 @@ class CartIcon extends StatelessWidget {
                 ),
             label: const Center(
               child: Text(
-                '1',
+                '0',
                 textAlign: TextAlign.center,
               ),
             ),

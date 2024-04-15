@@ -30,4 +30,8 @@ class ProductList extends ChangeNotifier {
   String toString() {
     return 'ProductList{products: $products}';
   }
+
+  Product getProductById(String id) {
+    return products.firstWhere((product) => product.id == id);
+  }
 }
