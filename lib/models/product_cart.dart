@@ -6,7 +6,11 @@ class ProductCart with ChangeNotifier {
   int get totalProducts => products.products.length;
 
   void addProduct(Product product) {
-    products.addProduct(product);
+    if (product.selectedQuantity < product.availableQuantity) {
+      products.addProduct(product);
+      notifyListeners();
+    }
+
     notifyListeners();
   }
 

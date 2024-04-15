@@ -18,6 +18,12 @@ class CustomTopBoxAdapter extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Text(
+                  'Entrega em até 30 minutos',
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.tertiary,
+                      ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -29,17 +35,11 @@ class CustomTopBoxAdapter extends StatelessWidget {
                     SizedBox(width: uiConstants.paddingExtraSmall),
                     Text(
                       'Mercado aberto agora!',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           color: Theme.of(context).colorScheme.secondary,
                           fontWeight: FontWeight.bold),
                     ),
                   ],
-                ),
-                Text(
-                  'Entrega em até 30 minutos',
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.tertiary,
-                      ),
                 ),
               ],
             ),

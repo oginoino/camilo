@@ -5,6 +5,7 @@ import 'common_libs.dart';
 class ScreenPaths {
   static String splash = '/';
   static String home = '/home';
+  static String cart = '/cart';
 }
 
 final appRouter = GoRouter(
@@ -23,6 +24,10 @@ final appRouter = GoRouter(
         AppRoute(
           ScreenPaths.home,
           (state) => const HomePage(),
+        ),
+        AppRoute(
+          ScreenPaths.cart,
+          (state) => const CartPage(),
         ),
       ],
     ),
@@ -68,11 +73,8 @@ String? _handleRedirect(BuildContext context, GoRouterState state) {
 }
 
 String? _redirectBasedOnState(GoRouterState state, BuildContext context) {
-  final String path = state.uri.path;
-
-  return _redirectToHome(path);
-}
-
-String? _redirectToHome(String path) {
-  return ScreenPaths.home;
+  if (state.uri.path == ScreenPaths.splash) {
+    return ScreenPaths.home;
+  }
+  return null;
 }

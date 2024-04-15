@@ -33,7 +33,6 @@ class CamiloApp extends StatelessWidget {
 }
 
 void registerSingletons() {
-  GetIt.I.registerLazySingleton<GoRouter>(() => appRouter);
   GetIt.I.registerLazySingleton<UiConstants>(() => UiConstants());
   GetIt.I
       .registerLazySingleton<ProductList>(() => ProductListData.productsList);

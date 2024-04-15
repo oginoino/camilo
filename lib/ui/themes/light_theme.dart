@@ -97,13 +97,27 @@ ThemeData lightTheme = ThemeData(
     centerTitle: true,
     elevation: 2,
     titleTextStyle: TextStyle(
-      fontSize: 26,
-      fontWeight: FontWeight.w400,
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
       fontFamily: GoogleFonts.nunito().fontFamily,
+      color: uiConstants.seedColors['tertiaryLight'],
     ),
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: uiConstants.seedColors['secondaryLight']!,
     foregroundColor: uiConstants.seedColors['onSecondaryLight']!,
+  ),
+  snackBarTheme: SnackBarThemeData(
+    backgroundColor: uiConstants.seedColors['secondaryLight']!,
+    contentTextStyle: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+      fontFamily: GoogleFonts.nunito().fontFamily,
+      color: uiConstants.seedColors['onSecondaryLight'],
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
+    behavior: SnackBarBehavior.floating,
   ),
 );

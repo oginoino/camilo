@@ -1,3 +1,5 @@
+import 'package:flutter_animate/flutter_animate.dart';
+
 import '../../common_libs.dart';
 
 class CartIcon extends StatelessWidget {
@@ -22,7 +24,9 @@ class CartIcon extends StatelessWidget {
               color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            appRouter.push(ScreenPaths.cart);
+          },
         ),
         Positioned(
           right: positionBadgeRight,
@@ -51,7 +55,14 @@ class CartIcon extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                );
+                )
+                    .animate(
+                      autoPlay: true,
+                    )
+                    .shake(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOut,
+                    );
               } else {
                 return Container();
               }

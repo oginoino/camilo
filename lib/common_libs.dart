@@ -46,7 +46,11 @@ export 'ui/themes/light_theme.dart';
 export 'package:camilo/ui/screens/custom_scaffold.dart';
 
 // pages
+// home page
 export 'ui/pages/home_page.dart';
+
+// cart page
+export 'ui/pages/cart_page.dart';
 
 // components
 
