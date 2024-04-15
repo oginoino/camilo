@@ -109,17 +109,17 @@ class _ProductCardState extends State<ProductCard> {
 
   void updateProductSelectedQuantity({required bool isIncrement}) {
     if (isIncrement) {
+      Provider.of<ProductCart>(context, listen: false)
+          .addProduct(widget.product);
       widget.product.incrementSelectedQuantity(context);
       Provider.of<ProductList>(context, listen: false)
           .updateProduct(widget.product);
-      Provider.of<ProductCart>(context, listen: false)
-          .addProduct(widget.product);
     } else {
+      Provider.of<ProductCart>(context, listen: false)
+          .removeProduct(widget.product);
       widget.product.decrementSelectedQuantity(context);
       Provider.of<ProductList>(context, listen: false)
           .updateProduct(widget.product);
-      Provider.of<ProductCart>(context, listen: false)
-          .removeProduct(widget.product);
     } // This will refresh the main icon state
   }
 }
