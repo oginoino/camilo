@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import '../../common_libs.dart';
 
 class CartPage extends StatelessWidget {
