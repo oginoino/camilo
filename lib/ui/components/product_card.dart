@@ -49,9 +49,11 @@ class _ProductCardState extends State<ProductCard> {
                     widget.product.productImageSrc!,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
-                      return const Center(
+                      return Center(
                         child: Icon(
                           Icons.shopping_bag_rounded,
+                          size: uiConstants.iconSizeLarge,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       );
                     },
