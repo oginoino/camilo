@@ -44,7 +44,7 @@ class CartIcon extends StatelessWidget {
                     horizontal: uiConstants.paddingExtraSmall,
                   ),
                   isLabelVisible: true,
-                  textStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  textStyle: Theme.of(context).textTheme.labelMedium?.copyWith(
                         color: Theme.of(context).colorScheme.onPrimary,
                         leadingDistribution: TextLeadingDistribution.even,
                       ),
