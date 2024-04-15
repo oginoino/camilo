@@ -36,7 +36,8 @@ class HomePage extends StatelessWidget with WatchItMixin {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: productCategories.length,
           itemBuilder: (context, index) {
-            return ProductCarossel(category: productCategories[index]);
+            return ProductCarossel(
+                category: productCategories[index], products: products);
           },
         ),
       )

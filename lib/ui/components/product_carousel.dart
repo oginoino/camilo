@@ -2,22 +2,21 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../common_libs.dart';
 
-class ProductCarossel extends StatelessWidget with WatchItMixin {
+class ProductCarossel extends StatelessWidget {
   const ProductCarossel({
     super.key,
     required this.category,
+    required this.products,
   });
 
   final String category;
+  final ProductList products;
 
   @override
   Widget build(BuildContext context) {
-    final productFromCategory = watchPropertyValue((ProductList p) {
-      return p.products.where((product) {
-        return product.productCategories.contains(category);
-      }).toList();
-    });
-
+    final productsFromCategory = products.products
+        .where((product) => product.productCategories.contains(category))
+        .toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -35,11 +34,9 @@ class ProductCarossel extends StatelessWidget with WatchItMixin {
             children: [
               Row(
                 children: [
-                  ...productFromCategory.map(
-                    (product) => ProductCard(
-                      product: product,
-                    ),
-                  ),
+                  ...productsFromCategory.map((product) {
+                    return ProductCard(product: product);
+                  }),
                   Center(
                     child: Padding(
                       padding: EdgeInsets.symmetric(

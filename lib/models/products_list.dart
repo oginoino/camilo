@@ -20,6 +20,12 @@ class ProductList extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateProduct(Product product) {
+    final productIndex = products.indexWhere((p) => p.id == product.id);
+    products[productIndex] = product;
+    notifyListeners();
+  }
+
   @override
   String toString() {
     return 'ProductList{products: $products}';
