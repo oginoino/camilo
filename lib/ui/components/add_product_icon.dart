@@ -25,6 +25,7 @@ class _AddProductIconState extends State<AddProductIcon> {
       top: addIconPositionTop,
       right: addIconPositionRight,
       child: IconButton(
+        tooltip: 'Adicionar ou remover',
         icon: widget.product.selectedQuantity == 0
             ? Icon(
                 Icons.add_circle_rounded,
@@ -89,13 +90,16 @@ class _AddProductIconState extends State<AddProductIcon> {
                     IconButton(
                         visualDensity: VisualDensity.compact,
                         padding: EdgeInsets.zero,
+                        tooltip: 'Remover',
                         onPressed: () {
                           widget.updateProductSelectedQuantity(
                               isIncrement: false);
                           setStateMenu(() {});
                         },
                         icon: Icon(
-                          Icons.remove_rounded,
+                          widget.product.selectedQuantity == 1
+                              ? Icons.delete_rounded
+                              : Icons.remove_rounded,
                           size: uiConstants.iconSizeSmall,
                           color: Theme.of(context).colorScheme.tertiary,
                         )),
@@ -109,6 +113,7 @@ class _AddProductIconState extends State<AddProductIcon> {
                     IconButton(
                         visualDensity: VisualDensity.compact,
                         padding: EdgeInsets.zero,
+                        tooltip: 'Adicionar',
                         onPressed: () {
                           widget.updateProductSelectedQuantity(
                               isIncrement: true);
