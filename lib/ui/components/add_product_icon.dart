@@ -125,7 +125,10 @@ class AddProductIcon extends StatelessWidget {
                     icon: Icon(
                       Icons.add_rounded,
                       size: uiConstants.iconSizeSmall,
-                      color: Theme.of(context).colorScheme.tertiary,
+                      color:
+                          product.availableQuantity <= product.selectedQuantity
+                              ? Colors.transparent
+                              : Theme.of(context).colorScheme.tertiary,
                     ),
                   )
                 ],
