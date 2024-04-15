@@ -27,10 +27,14 @@ class _AddProductIconState extends State<AddProductIcon> {
       child: IconButton(
         tooltip: 'Adicionar ou remover',
         icon: widget.product.selectedQuantity == 0
-            ? Icon(
-                Icons.add_circle_rounded,
-                color: Theme.of(context).colorScheme.secondary,
-                size: uiConstants.iconSizeLarge,
+            ? CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.background,
+                radius: uiConstants.iconSizeSmall,
+                child: Icon(
+                  Icons.add_circle_rounded,
+                  color: Theme.of(context).colorScheme.secondary,
+                  size: uiConstants.iconSizeLarge,
+                ),
               )
             : CircleAvatar(
                 backgroundColor: Theme.of(context).colorScheme.secondary,
