@@ -48,7 +48,7 @@ class CartPage extends StatelessWidget {
                               subtitle: Row(
                                 children: [
                                   Text(
-                                      '${product.selectedQuantity} x R\$ ${product.productPrice.toStringAsFixed(2)} = '),
+                                      '${product.productUnitQuantity} ${product.productUnitOfMeasurement} x R\$ ${product.productPrice.toStringAsFixed(2)} = '),
                                   Text(
                                       'R\$ ${product.productPrice.toStringAsFixed(2)}'),
                                 ],
