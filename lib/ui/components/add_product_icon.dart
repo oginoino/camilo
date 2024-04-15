@@ -2,7 +2,7 @@ import 'package:provider/provider.dart';
 
 import '../../common_libs.dart';
 
-class AddProductIcon extends StatefulWidget {
+class AddProductIcon extends StatelessWidget {
   const AddProductIcon({
     super.key,
     required this.product,
@@ -15,11 +15,6 @@ class AddProductIcon extends StatefulWidget {
   final Function updateProductSelectedQuantity;
 
   @override
-  State<AddProductIcon> createState() => _AddProductIconState();
-}
-
-class _AddProductIconState extends State<AddProductIcon> {
-  @override
   Widget build(BuildContext context) {
     double addIconPositionTop = 0.0;
     double addIconPositionRight = 0.0;
@@ -29,7 +24,7 @@ class _AddProductIconState extends State<AddProductIcon> {
       right: addIconPositionRight,
       child: IconButton(
         tooltip: 'Adicionar ou remover',
-        icon: widget.product.selectedQuantity == 0
+        icon: product.selectedQuantity == 0
             ? CircleAvatar(
                 backgroundColor: Theme.of(context).colorScheme.background,
                 radius: uiConstants.iconSizeSmall,
@@ -43,7 +38,7 @@ class _AddProductIconState extends State<AddProductIcon> {
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 radius: uiConstants.iconSizeSmall,
                 child: Text(
-                  widget.product.selectedQuantity.toString(),
+                  product.selectedQuantity.toString(),
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: Theme.of(context).colorScheme.background,
                         fontWeight: FontWeight.bold,
@@ -51,10 +46,8 @@ class _AddProductIconState extends State<AddProductIcon> {
                 ),
               ),
         onPressed: () {
-          if (widget.product.selectedQuantity == 0) {
-            setState(() {
-              widget.updateProductSelectedQuantity(isIncrement: true);
-            });
+          if (product.selectedQuantity == 0) {
+            updateProductSelectedQuantity(isIncrement: true);
           }
           showIncrementMenu(context);
         },
@@ -80,68 +73,76 @@ class _AddProductIconState extends State<AddProductIcon> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
       position: position,
       clipBehavior: Clip.antiAliasWithSaveLayer,
+      popUpAnimationStyle: AnimationStyle(
+        reverseDuration: const Duration(milliseconds: 100),
+      ),
+      useRootNavigator: true,
       items: [
         PopupMenuItem(
           padding: EdgeInsets.zero,
           height: 0,
-          child: StatefulBuilder(
-            builder: (BuildContext context, StateSetter setStateMenu) {
-              return Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    IconButton(
-                        visualDensity: VisualDensity.compact,
-                        padding: EdgeInsets.zero,
-                        tooltip: 'Remover',
-                        onPressed: () {
-                          widget.updateProductSelectedQuantity(
-                              isIncrement: false);
-                          setStateMenu(() {});
-                        },
-                        icon: Icon(
-                          widget.product.selectedQuantity == 1
-                              ? Icons.delete_rounded
-                              : Icons.remove_rounded,
-                          size: uiConstants.iconSizeSmall,
-                          color: Theme.of(context).colorScheme.tertiary,
-                        )),
-                    Consumer<ProductList>(builder: (context, products, child) {
-                      return Text(
-                          products
-                              .getProductById(widget.product.id)
-                              .selectedQuantity
-                              .toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.tertiary,
-                                fontWeight: FontWeight.bold,
-                              ));
-                    }),
-                    IconButton(
-                        visualDensity: VisualDensity.compact,
-                        padding: EdgeInsets.zero,
-                        tooltip: 'Adicionar',
-                        onPressed: () {
-                          widget.updateProductSelectedQuantity(
-                              isIncrement: true);
-                          setStateMenu(() {});
-                        },
-                        icon: Icon(
-                          Icons.add_rounded,
-                          size: uiConstants.iconSizeSmall,
-                          color: Theme.of(context).colorScheme.tertiary,
-                        ))
-                  ],
-                ),
-              );
+          child: TapRegion(
+            onTapOutside: (tap) {
+              FocusScope.of(context).unfocus();
             },
+            child: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setStateMenu) {
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      IconButton(
+                          visualDensity: VisualDensity.compact,
+                          padding: EdgeInsets.zero,
+                          tooltip: 'Remover',
+                          onPressed: () {
+                            updateProductSelectedQuantity(isIncrement: false);
+                            setStateMenu(() {});
+                          },
+                          icon: Icon(
+                            product.selectedQuantity == 1
+                                ? Icons.delete_rounded
+                                : Icons.remove_rounded,
+                            size: uiConstants.iconSizeSmall,
+                            color: Theme.of(context).colorScheme.tertiary,
+                          )),
+                      Consumer<ProductList>(
+                          builder: (context, products, child) {
+                        return Text(
+                            products
+                                .getProductById(product.id)
+                                .selectedQuantity
+                                .toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.tertiary,
+                                  fontWeight: FontWeight.bold,
+                                ));
+                      }),
+                      IconButton(
+                          visualDensity: VisualDensity.compact,
+                          padding: EdgeInsets.zero,
+                          tooltip: 'Adicionar',
+                          onPressed: () {
+                            updateProductSelectedQuantity(isIncrement: true);
+                            setStateMenu(() {});
+                          },
+                          icon: Icon(
+                            Icons.add_rounded,
+                            size: uiConstants.iconSizeSmall,
+                            color: Theme.of(context).colorScheme.tertiary,
+                          ))
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ],

@@ -123,7 +123,6 @@ class _ProductCardState extends State<ProductCard> {
           .updateProduct(widget.product);
       Provider.of<ProductCart>(context, listen: false)
           .removeProduct(widget.product);
-    }
-    setState(() {}); // This will refresh the main icon state
+    } // This will refresh the main icon state
   }
 }
