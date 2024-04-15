@@ -72,7 +72,6 @@ class _AddProductIconState extends State<AddProductIcon> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
       position: position,
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      color: Theme.of(context).colorScheme.primary,
       items: [
         PopupMenuItem(
           padding: EdgeInsets.zero,
