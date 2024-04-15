@@ -24,7 +24,9 @@ class CartIcon extends StatelessWidget {
               color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            appRouter.go(ScreenPaths.cart);
+          },
         ),
         Positioned(
           right: positionBadgeRight,

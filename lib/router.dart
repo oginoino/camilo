@@ -5,6 +5,7 @@ import 'common_libs.dart';
 class ScreenPaths {
   static String splash = '/';
   static String home = '/home';
+  static String cart = '/cart';
 }
 
 final appRouter = GoRouter(
@@ -23,6 +24,10 @@ final appRouter = GoRouter(
         AppRoute(
           ScreenPaths.home,
           (state) => const HomePage(),
+        ),
+        AppRoute(
+          ScreenPaths.cart,
+          (state) => const CartPage(),
         ),
       ],
     ),
