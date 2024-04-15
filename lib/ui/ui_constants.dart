@@ -6,14 +6,14 @@ class UiConstants {
         'primaryLight': const Color(0xFF007F5F),
         'primaryContainerLight': const Color(0xFF32DE8A),
         'secondaryLight': const Color(0xFF2A9D8F),
-        'secondaryContainerLight': const Color(0xFFA2E8DD),
+        'secondaryContainerLight': const Color(0xFF8AC4B2),
         'backgroundLight': const Color(0xFFF7F7FF),
         'onPrimaryLight': const Color(0xFFF7F7FF),
         'onSecondaryLight': const Color(0xFFF7F7FF),
         'tertiaryLight': const Color(0xFF264653),
         'onBackgroundLight': const Color(0xFF052018),
         'errorLight': const Color(0xFFE76F51),
-        'surfaceLight': const Color(0xFFA2E8DD),
+        'surfaceLight': const Color(0xFFABECD9),
       };
 
   // colors

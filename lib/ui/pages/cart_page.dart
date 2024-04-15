@@ -40,7 +40,7 @@ class CartPage extends StatelessWidget {
                                 style: ElevatedButton.styleFrom(
                                   visualDensity: VisualDensity.comfortable,
                                   backgroundColor:
-                                      Theme.of(context).colorScheme.surface,
+                                      Theme.of(context).colorScheme.primary.withOpacity(0.8),
                                 ),
                                 onPressed: () {
                                   Provider.of<ProductCart>(context,
@@ -59,14 +59,14 @@ class CartPage extends StatelessWidget {
                                       ?.copyWith(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .tertiary,
+                                            .onPrimary,
                                         fontWeight: FontWeight.bold,
                                       ),
                                 ),
                                 icon: Icon(
                                   Icons.remove_shopping_cart_rounded,
                                   size: uiConstants.iconSizeSmall,
-                                  color: Theme.of(context).colorScheme.tertiary,
+                                  color: Theme.of(context).colorScheme.onPrimary,
                                 ),
                               ),
                             ),
