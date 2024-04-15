@@ -73,11 +73,8 @@ String? _handleRedirect(BuildContext context, GoRouterState state) {
 }
 
 String? _redirectBasedOnState(GoRouterState state, BuildContext context) {
-  final String path = state.uri.path;
-
-  return _redirectToHome(path);
-}
-
-String? _redirectToHome(String path) {
-  return ScreenPaths.home;
+  if (state.uri.path == ScreenPaths.splash) {
+    return ScreenPaths.home;
+  }
+  return null;
 }
