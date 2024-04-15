@@ -1,3 +1,5 @@
+import 'package:provider/provider.dart';
+
 import '../../common_libs.dart';
 
 class ProductCard extends StatefulWidget {
@@ -109,8 +111,12 @@ class _ProductCardState extends State<ProductCard> {
   void updateProductSelectedQuantity({required bool isIncrement}) {
     if (isIncrement) {
       widget.product.incrementQuantity();
+      Provider.of<ProductList>(context, listen: false)
+          .updateProduct(widget.product);
     } else {
       widget.product.decrementQuantity();
+      Provider.of<ProductList>(context, listen: false)
+          .updateProduct(widget.product);
     }
     setState(() {}); // This will refresh the main icon state
   }

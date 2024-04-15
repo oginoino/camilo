@@ -46,7 +46,7 @@ class _AddProductIconState extends State<AddProductIcon> {
         onPressed: () {
           if (widget.product.selectedQuantity == 0) {
             setState(() {
-              widget.product.incrementQuantity();
+              widget.updateProductSelectedQuantity(isIncrement: true);
             });
           }
           showIncrementMenu(context);
