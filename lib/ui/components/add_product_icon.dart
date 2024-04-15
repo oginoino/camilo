@@ -86,7 +86,7 @@ class _AddProductIconState extends State<AddProductIcon> {
                         visualDensity: VisualDensity.compact,
                         padding: EdgeInsets.zero,
                         onPressed: () {
-                          updateQuantity(isIncrement: false);
+                          updateProductSelectedQuantity(isIncrement: false);
                           setStateMenu(() {});
                         },
                         icon: Icon(
@@ -105,7 +105,7 @@ class _AddProductIconState extends State<AddProductIcon> {
                         visualDensity: VisualDensity.compact,
                         padding: EdgeInsets.zero,
                         onPressed: () {
-                          updateQuantity(isIncrement: true);
+                          updateProductSelectedQuantity(isIncrement: true);
                           setStateMenu(() {});
                         },
                         icon: Icon(
@@ -123,7 +123,7 @@ class _AddProductIconState extends State<AddProductIcon> {
     );
   }
 
-  void updateQuantity({required bool isIncrement}) {
+  void updateProductSelectedQuantity({required bool isIncrement}) {
     if (isIncrement) {
       widget.product.incrementQuantity();
     } else {
