@@ -11,8 +11,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: uiConstants.paddingMedium),
         decoration: BoxDecoration(
-          color:
-              Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.5),
+          border: Border(
+            top: BorderSide(
+              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.3),
+              width: .5,
+            ),
+          ),
         ),
         height: 80.0,
         child: Row(

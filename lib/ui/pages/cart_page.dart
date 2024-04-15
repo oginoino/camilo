@@ -39,8 +39,10 @@ class CartPage extends StatelessWidget {
                               child: ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
                                   visualDensity: VisualDensity.comfortable,
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.primary.withOpacity(0.8),
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(0.8),
                                 ),
                                 onPressed: () {
                                   Provider.of<ProductCart>(context,
@@ -66,7 +68,8 @@ class CartPage extends StatelessWidget {
                                 icon: Icon(
                                   Icons.remove_shopping_cart_rounded,
                                   size: uiConstants.iconSizeSmall,
-                                  color: Theme.of(context).colorScheme.onPrimary,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                 ),
                               ),
                             ),
@@ -93,22 +96,50 @@ class CartPage extends StatelessWidget {
                       : Column(
                           children: [
                             ListView.builder(
-                              // never scrollable
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: cart.products.products.length,
                               itemBuilder: (context, index) {
                                 final product = cart.products.products[index];
                                 return ListTile(
+                                  leading: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: Image.network(
+                                      product.productImageSrc ?? '',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  visualDensity: VisualDensity.compact,
                                   isThreeLine: true,
-                                  title: Text(product.productName),
-                                  subtitle: Row(
-                                    children: [
-                                      Text(
-                                          '${product.productUnitQuantity} ${product.productUnitOfMeasurement} x R\$ ${product.productPrice.toStringAsFixed(2)} = '),
-                                      Text(
-                                          'R\$ ${product.productPrice.toStringAsFixed(2)}'),
-                                    ],
+                                  title: Text(
+                                    product.productName,
+                                    style:
+                                        Theme.of(context).textTheme.labelLarge,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    semanticsLabel: product.productName,
+                                  ),
+                                  subtitle: SizedBox(
+                                    width: 180,
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          '${product.productUnitQuantity} ${product.productUnitOfMeasurement} x R\$ ${product.productPrice.toStringAsFixed(2)} = ',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium,
+                                        ),
+                                        Text(
+                                          'R\$ ${product.productPrice.toStringAsFixed(2)}',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   trailing: IconButton(
                                     icon: const Icon(Icons.delete),
