@@ -5,23 +5,71 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double expandedTitleScale = 1.1;
+    double collapsedHeight = 108.0;
+    double expandedHeight = 100.0;
+
     return Consumer<ProductCart>(
       builder: (context, cart, child) {
-        double deviceHeight = MediaQuery.of(context).size.height;
-
         return CustomScrollView(
           slivers: [
-            const SliverAppBar(
-              title: Text('Seu carrinho'),
-              leading: BackButton(
-                style: ButtonStyle(),
-              ),
-            ),
+            SliverAppBar(
+                title: const Text('Seu carrinho'),
+                leading: const BackButton(
+                  style: ButtonStyle(),
+                ),
+                floating: true,
+                snap: true,
+                pinned: false,
+                forceElevated: false,
+                expandedHeight: expandedHeight,
+                collapsedHeight: collapsedHeight,
+                flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: false,
+                  collapseMode: CollapseMode.parallax,
+                  expandedTitleScale: expandedTitleScale,
+                  titlePadding: EdgeInsets.zero,
+                  title: cart.products.products.isEmpty
+                      ? const SizedBox()
+                      : Padding(
+                          padding: EdgeInsets.all(uiConstants.paddingSmall),
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                  visualDensity: VisualDensity.compact),
+                              onPressed: () {
+                                Provider.of<ProductCart>(context, listen: false)
+                                    .clearProducts();
+
+                                Provider.of<ProductList>(context, listen: false)
+                                    .clearProductSelectedQuantity();
+                              },
+                              label: Text(
+                                'Limpar carrinho',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelSmall
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .tertiary,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                              icon: Icon(
+                                Icons.remove_shopping_cart_rounded,
+                                size: uiConstants.iconSizeSmall,
+                                color: Theme.of(context).colorScheme.tertiary,
+                              ),
+                            ),
+                          ),
+                        ),
+                )),
             SliverList.list(
               children: [
                 cart.products.products.isEmpty
                     ? SizedBox(
-                        height: deviceHeight * 0.5,
                         child: Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -39,6 +87,8 @@ class CartPage extends StatelessWidget {
                     : Column(
                         children: [
                           ListView.builder(
+                            // never scrollable
+                            physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: cart.products.products.length,
                             itemBuilder: (context, index) {
@@ -74,16 +124,6 @@ class CartPage extends StatelessWidget {
                             title: const Text('Total'),
                             subtitle: Text(
                                 'R\$ ${cart.totalPrice.toStringAsFixed(2)}'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              Provider.of<ProductCart>(context, listen: false)
-                                  .clearProducts();
-
-                              Provider.of<ProductList>(context, listen: false)
-                                  .clearProductSelectedQuantity();
-                            },
-                            child: const Text('Limpar carrinho'),
                           ),
                         ],
                       ),
