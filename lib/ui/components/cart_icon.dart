@@ -25,7 +25,7 @@ class CartIcon extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            appRouter.go(ScreenPaths.cart);
+            appRouter.push(ScreenPaths.cart);
           },
         ),
         Positioned(

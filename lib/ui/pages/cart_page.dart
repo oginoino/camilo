@@ -7,7 +7,12 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CustomScrollView(
       slivers: [
-        CustomAppBar(),
+        SliverAppBar(
+          title: Text('Seu carrinho'),
+          leading: BackButton(
+            style: ButtonStyle(),
+          ),
+        ),
       ],
     );
   }

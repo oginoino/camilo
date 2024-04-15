@@ -97,9 +97,10 @@ ThemeData lightTheme = ThemeData(
     centerTitle: true,
     elevation: 2,
     titleTextStyle: TextStyle(
-      fontSize: 26,
-      fontWeight: FontWeight.w400,
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
       fontFamily: GoogleFonts.nunito().fontFamily,
+      color: uiConstants.seedColors['tertiaryLight'],
     ),
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
