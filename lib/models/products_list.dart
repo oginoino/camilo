@@ -20,9 +20,10 @@ class ProductList extends ChangeNotifier {
     notifyListeners();
   }
 
-  void clearProductSelectedQuantity(Product product) {
-    final productIndex = products.indexWhere((p) => p.id == product.id);
-    products[productIndex].selectedQuantity = 0;
+  void clearProductSelectedQuantity() {
+    for (final product in products) {
+      product.selectedQuantity = 0;
+    }
     notifyListeners();
   }
 

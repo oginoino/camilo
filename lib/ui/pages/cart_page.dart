@@ -80,10 +80,9 @@ class CartPage extends StatelessWidget {
                             onPressed: () {
                               Provider.of<ProductCart>(context, listen: false)
                                   .clearProducts();
-                              for (final product in products.products) {
-                                Provider.of<ProductList>(context, listen: false)
-                                    .clearProductSelectedQuantity(product);
-                              }
+
+                              Provider.of<ProductList>(context, listen: false)
+                                  .clearProductSelectedQuantity();
                             },
                             child: const Text('Limpar carrinho'),
                           );
