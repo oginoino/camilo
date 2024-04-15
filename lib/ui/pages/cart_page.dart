@@ -38,7 +38,10 @@ class CartPage extends StatelessWidget {
                               alignment: Alignment.bottomRight,
                               child: ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
-                                    visualDensity: VisualDensity.comfortable),
+                                  visualDensity: VisualDensity.comfortable,
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.surface,
+                                ),
                                 onPressed: () {
                                   Provider.of<ProductCart>(context,
                                           listen: false)
@@ -50,9 +53,6 @@ class CartPage extends StatelessWidget {
                                 },
                                 label: Text(
                                   'Limpar carrinho',
-                                  selectionColor: Theme.of(context)
-                                      .colorScheme
-                                      .onSecondary,
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelSmall
@@ -133,31 +133,7 @@ class CartPage extends StatelessWidget {
               ),
             ],
           ),
-          bottomNavigationBar: ListTile(
-            title: const Text('Total'),
-            subtitle: Text('R\$ ${cart.totalPrice.toStringAsFixed(2)}'),
-            trailing: ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                visualDensity: VisualDensity.standard,
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-                padding: EdgeInsets.symmetric(
-                    horizontal: uiConstants.paddingMedium,
-                    vertical: uiConstants.paddingSmall),
-              ),
-              onPressed: () {},
-              icon: Icon(
-                Icons.payment_rounded,
-                size: uiConstants.iconSizeSmall,
-                color: Theme.of(context).colorScheme.onSecondary,
-              ),
-              label: Text(
-                'Pagar',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onSecondary,
-                    ),
-              ),
-            ),
-          ),
+          bottomNavigationBar: const CustomBottomNavigationBar(),
         );
       },
     );
