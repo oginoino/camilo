@@ -83,26 +83,30 @@ class AddProductIcon extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                IconButton(
-                    visualDensity: VisualDensity.compact,
-                    padding: EdgeInsets.zero,
-                    tooltip: 'Remover',
-                    onPressed: () {
-                      updateProductSelectedQuantity(isIncrement: false);
-                    },
-                    icon: Icon(
-                      product.selectedQuantity == 1
-                          ? Icons.delete_rounded
-                          : Icons.remove_rounded,
-                      size: uiConstants.iconSizeSmall,
-                      color: Theme.of(context).colorScheme.tertiary,
-                    )),
-                Consumer<ProductList>(builder: (context, products, child) {
-                  return Text(
+            child: Consumer<ProductList>(builder: (context, products, child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                      visualDensity: VisualDensity.compact,
+                      padding: EdgeInsets.zero,
+                      tooltip: 'Remover',
+                      onPressed: product.selectedQuantity > 0
+                          ? () {
+                              updateProductSelectedQuantity(isIncrement: false);
+                            }
+                          : null,
+                      icon: Icon(
+                        product.selectedQuantity < 1
+                            ? null
+                            : product.selectedQuantity == 1
+                                ? Icons.delete_rounded
+                                : Icons.remove_rounded,
+                        size: uiConstants.iconSizeSmall,
+                        color: Theme.of(context).colorScheme.tertiary,
+                      )),
+                  Text(
                       products
                           .getProductById(product.id)
                           .selectedQuantity
@@ -110,23 +114,23 @@ class AddProductIcon extends StatelessWidget {
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             color: Theme.of(context).colorScheme.tertiary,
                             fontWeight: FontWeight.bold,
-                          ));
-                }),
-                IconButton(
-                  visualDensity: VisualDensity.compact,
-                  padding: EdgeInsets.zero,
-                  tooltip: 'Adicionar',
-                  onPressed: () {
-                    updateProductSelectedQuantity(isIncrement: true);
-                  },
-                  icon: Icon(
-                    Icons.add_rounded,
-                    size: uiConstants.iconSizeSmall,
-                    color: Theme.of(context).colorScheme.tertiary,
-                  ),
-                )
-              ],
-            ),
+                          )),
+                  IconButton(
+                    visualDensity: VisualDensity.compact,
+                    padding: EdgeInsets.zero,
+                    tooltip: 'Adicionar',
+                    onPressed: () {
+                      updateProductSelectedQuantity(isIncrement: true);
+                    },
+                    icon: Icon(
+                      Icons.add_rounded,
+                      size: uiConstants.iconSizeSmall,
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
+                  )
+                ],
+              );
+            }),
           ),
         ),
       ],
