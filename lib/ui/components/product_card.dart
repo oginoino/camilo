@@ -109,13 +109,13 @@ class _ProductCardState extends State<ProductCard> {
 
   void updateProductSelectedQuantity({required bool isIncrement}) {
     if (isIncrement) {
-      widget.product.incrementQuantity();
+      widget.product.incrementSelectedQuantity(context);
       Provider.of<ProductList>(context, listen: false)
           .updateProduct(widget.product);
       Provider.of<ProductCart>(context, listen: false)
           .addProduct(widget.product);
     } else {
-      widget.product.decrementQuantity();
+      widget.product.decrementSelectedQuantity(context);
       Provider.of<ProductList>(context, listen: false)
           .updateProduct(widget.product);
       Provider.of<ProductCart>(context, listen: false)

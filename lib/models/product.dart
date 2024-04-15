@@ -23,19 +23,34 @@ class Product extends ChangeNotifier {
     required this.availableQuantity,
   });
 
-  void incrementQuantity() {
-    selectedQuantity++;
+  void incrementSelectedQuantity(BuildContext context) {
+    if (selectedQuantity < availableQuantity) {
+      selectedQuantity++;
+      notifyListeners();
+    } else {
+      String message = 'Só temos $availableQuantity desse produto no momento!';
+      context.mounted
+          ? ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  message,
+                ),
+                duration: const Duration(seconds: 2),
+              ),
+            )
+          : null;
+    }
     notifyListeners();
   }
 
-  void decrementQuantity() {
+  void decrementSelectedQuantity(BuildContext context) {
     if (selectedQuantity > 0) {
       selectedQuantity--;
       notifyListeners();
     }
   }
 
-  void resetQuantity() {
+  void resetSelectedQuantity() {
     selectedQuantity = 0;
     notifyListeners();
   }
