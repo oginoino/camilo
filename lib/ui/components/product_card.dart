@@ -1,6 +1,6 @@
 import '../../common_libs.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   const ProductCard({
     super.key,
     required this.product,
@@ -8,6 +8,11 @@ class ProductCard extends StatelessWidget {
 
   final Product product;
 
+  @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     double contaninerWidth = 160.0;
@@ -41,7 +46,7 @@ class ProductCard extends StatelessWidget {
                     topRight: Radius.circular(uiConstants.paddingMedium),
                   ),
                   child: Image.network(
-                    product.productImageSrc!,
+                    widget.product.productImageSrc!,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -59,12 +64,12 @@ class ProductCard extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            product.productUnitQuantity,
+                            widget.product.productUnitQuantity,
                             style: Theme.of(context).textTheme.labelSmall,
                           ),
                           SizedBox(width: uiConstants.paddingExtraSmall),
                           Text(
-                            product.productUnitOfMeasurement,
+                            widget.product.productUnitOfMeasurement,
                             style: Theme.of(context).textTheme.labelSmall,
                           ),
                         ],
@@ -72,15 +77,15 @@ class ProductCard extends StatelessWidget {
                       SizedBox(
                         height: 40,
                         child: Text(
-                          product.productName,
+                          widget.product.productName,
                           style: Theme.of(context).textTheme.labelMedium,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          semanticsLabel: product.productName,
+                          semanticsLabel: widget.product.productName,
                         ),
                       ),
                       Text(
-                        'R\$ ${product.productPrice.toStringAsFixed(2)}',
+                        'R\$ ${widget.product.productPrice.toStringAsFixed(2)}',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: Theme.of(context).colorScheme.tertiary,
                               fontWeight: FontWeight.bold,
@@ -93,10 +98,20 @@ class ProductCard extends StatelessWidget {
             ],
           ),
           AddProductIcon(
-            product: product,
+            product: widget.product,
+            updateProductSelectedQuantity: updateProductSelectedQuantity,
           ),
         ],
       ),
     );
+  }
+
+  void updateProductSelectedQuantity({required bool isIncrement}) {
+    if (isIncrement) {
+      widget.product.incrementQuantity();
+    } else {
+      widget.product.decrementQuantity();
+    }
+    setState(() {}); // This will refresh the main icon state
   }
 }

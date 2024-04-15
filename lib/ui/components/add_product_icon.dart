@@ -4,9 +4,12 @@ class AddProductIcon extends StatefulWidget {
   const AddProductIcon({
     super.key,
     required this.product,
+    required this.updateProductSelectedQuantity,
   });
 
   final Product product;
+
+  final Function updateProductSelectedQuantity;
 
   @override
   State<AddProductIcon> createState() => _AddProductIconState();
@@ -86,7 +89,8 @@ class _AddProductIconState extends State<AddProductIcon> {
                         visualDensity: VisualDensity.compact,
                         padding: EdgeInsets.zero,
                         onPressed: () {
-                          updateProductSelectedQuantity(isIncrement: false);
+                          widget.updateProductSelectedQuantity(
+                              isIncrement: false);
                           setStateMenu(() {});
                         },
                         icon: Icon(
@@ -105,7 +109,8 @@ class _AddProductIconState extends State<AddProductIcon> {
                         visualDensity: VisualDensity.compact,
                         padding: EdgeInsets.zero,
                         onPressed: () {
-                          updateProductSelectedQuantity(isIncrement: true);
+                          widget.updateProductSelectedQuantity(
+                              isIncrement: true);
                           setStateMenu(() {});
                         },
                         icon: Icon(
@@ -121,14 +126,5 @@ class _AddProductIconState extends State<AddProductIcon> {
         ),
       ],
     );
-  }
-
-  void updateProductSelectedQuantity({required bool isIncrement}) {
-    if (isIncrement) {
-      widget.product.incrementQuantity();
-    } else {
-      widget.product.decrementQuantity();
-    }
-    setState(() {}); // This will refresh the main icon state
   }
 }
