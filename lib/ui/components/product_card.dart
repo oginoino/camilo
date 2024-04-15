@@ -48,6 +48,13 @@ class _ProductCardState extends State<ProductCard> {
                   child: Image.network(
                     widget.product.productImageSrc!,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Center(
+                        child: Icon(
+                          Icons.shopping_bag_rounded,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
