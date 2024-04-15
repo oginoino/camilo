@@ -1,13 +1,11 @@
-import 'package:watch_it/watch_it.dart';
-
 import '../../common_libs.dart';
 
-class HomePage extends StatelessWidget with WatchItMixin {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final productList = watchPropertyValue((ProductList p) => p.products);
+    final productList = products.products;
 
     List<String> productCategories = productList
         .map((product) => product.productCategories)

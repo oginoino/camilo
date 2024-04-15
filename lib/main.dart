@@ -1,4 +1,5 @@
 import 'package:camilo/mock/products_list_data.dart';
+import 'package:provider/provider.dart';
 
 import 'common_libs.dart';
 
@@ -7,7 +8,14 @@ void main() async {
 
   GoRouter.optionURLReflectsImperativeAPIs = true;
 
-  runApp(const CamiloApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => products),
+      ],
+      child: const CamiloApp(),
+    ),
+  );
 }
 
 class CamiloApp extends StatelessWidget {
