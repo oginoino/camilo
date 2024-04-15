@@ -22,7 +22,7 @@ class CustomTopBoxAdapter extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      Icons.shopping_bag_rounded,
+                      Icons.shopping_basket_rounded,
                       size: uiConstants.iconSizeSmall,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
