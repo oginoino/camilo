@@ -101,7 +101,7 @@ class AddProductIcon extends StatelessWidget {
                         product.selectedQuantity < 1
                             ? null
                             : product.selectedQuantity == 1
-                                ? Icons.delete_rounded
+                                ? Icons.delete
                                 : Icons.remove_rounded,
                         size: uiConstants.iconSizeSmall,
                         color: Theme.of(context).colorScheme.tertiary,
