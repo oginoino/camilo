@@ -23,8 +23,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Total'),
-                Text('R\$ ${cart.totalPrice.toStringAsFixed(2)}'),
+                Text('Total', style: Theme.of(context).textTheme.bodyMedium),
+                Text(
+                  'R\$ ${cart.totalPrice.toStringAsFixed(2)}',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.tertiary,
+                      fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             ElevatedButton.icon(
@@ -43,7 +48,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               ),
               label: Text(
                 'Pagar',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSecondary,
                     ),
               ),
