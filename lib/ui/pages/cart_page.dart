@@ -74,19 +74,16 @@ class CartPage extends StatelessWidget {
                           subtitle:
                               Text('R\$ ${cart.totalPrice.toStringAsFixed(2)}'),
                         ),
-                        Consumer<ProductList>(
-                            builder: (context, products, child) {
-                          return ElevatedButton(
-                            onPressed: () {
-                              Provider.of<ProductCart>(context, listen: false)
-                                  .clearProducts();
+                        ElevatedButton(
+                          onPressed: () {
+                            Provider.of<ProductCart>(context, listen: false)
+                                .clearProducts();
 
-                              Provider.of<ProductList>(context, listen: false)
-                                  .clearProductSelectedQuantity();
-                            },
-                            child: const Text('Limpar carrinho'),
-                          );
-                        }),
+                            Provider.of<ProductList>(context, listen: false)
+                                .clearProductSelectedQuantity();
+                          },
+                          child: const Text('Limpar carrinho'),
+                        ),
                       ],
                     ),
             ],
