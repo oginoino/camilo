@@ -9,6 +9,7 @@ class Product extends ChangeNotifier {
   final String? productImageSrc;
   int selectedQuantity;
   final List<String> productCategories;
+  final int availableQuantity;
 
   Product({
     required this.id,
@@ -19,6 +20,7 @@ class Product extends ChangeNotifier {
     this.productImageSrc,
     this.selectedQuantity = 0,
     required this.productCategories,
+    required this.availableQuantity,
   });
 
   void incrementQuantity() {
