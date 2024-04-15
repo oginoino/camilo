@@ -1,3 +1,5 @@
+import 'package:provider/provider.dart';
+
 import '../../common_libs.dart';
 
 class HomePage extends StatelessWidget {
@@ -5,20 +7,20 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productList = products.products;
+    return Consumer<ProductList>(builder: (context, products, child) {
+      List<String> productCategories = products.products
+          .map((product) => product.productCategories)
+          .expand((element) => element)
+          .toSet()
+          .toList();
 
-    List<String> productCategories = productList
-        .map((product) => product.productCategories)
-        .expand((element) => element)
-        .toSet()
-        .toList();
-
-    return CustomScrollView(
-      slivers: [
-        const CustomAppBar(),
-        _buildPageBody(context, productCategories),
-      ],
-    );
+      return CustomScrollView(
+        slivers: [
+          const CustomAppBar(),
+          _buildPageBody(context, productCategories),
+        ],
+      );
+    });
   }
 
   SliverList _buildPageBody(
