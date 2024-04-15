@@ -1,5 +1,3 @@
-import 'package:watch_it/watch_it.dart';
-
 import '../../common_libs.dart';
 
 class ProductCarossel extends StatelessWidget {
