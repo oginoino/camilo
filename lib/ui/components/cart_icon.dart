@@ -1,4 +1,7 @@
+import 'package:provider/provider.dart';
+
 import '../../common_libs.dart';
+import '../../models/product_cart.dart';
 
 class CartIcon extends StatelessWidget {
   const CartIcon({
@@ -27,24 +30,35 @@ class CartIcon extends StatelessWidget {
         Positioned(
           right: positionBadgeRight,
           bottom: positionBadgeBotton,
-          child: Badge(
-            backgroundColor: Theme.of(context).colorScheme.secondary,
-            smallSize: badgeSmallSize,
-            largeSize: badgeLargeSize,
-            padding: EdgeInsets.symmetric(
-              horizontal: uiConstants.paddingExtraSmall,
-            ),
-            isLabelVisible: true,
-            textStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  leadingDistribution: TextLeadingDistribution.even,
-                ),
-            label: const Center(
-              child: Text(
-                '0',
-                textAlign: TextAlign.center,
-              ),
-            ),
+          child: Consumer<ProductCart>(
+            builder:
+                (BuildContext context, ProductCart productCart, Widget? child) {
+              if (productCart.totalProducts == 0) {
+                return Container();
+              } else if (productCart.totalProducts > 0) {
+                return Badge(
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  smallSize: badgeSmallSize,
+                  largeSize: badgeLargeSize,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: uiConstants.paddingExtraSmall,
+                  ),
+                  isLabelVisible: true,
+                  textStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        leadingDistribution: TextLeadingDistribution.even,
+                      ),
+                  label: Center(
+                    child: Text(
+                      productCart.totalProducts.toString(),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
+              } else {
+                return Container();
+              }
+            },
           ),
         )
       ],
