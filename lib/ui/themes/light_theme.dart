@@ -121,19 +121,7 @@ ThemeData lightTheme = ThemeData(
     ),
     behavior: SnackBarBehavior.floating,
   ),
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: uiConstants.seedColors['surfaceLight'],
-    selectedItemColor: uiConstants.seedColors['secondaryLight'],
-    unselectedItemColor: uiConstants.seedColors['onBackgroundLight'],
-    selectedLabelStyle: TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.bold,
-      fontFamily: GoogleFonts.nunito().fontFamily,
-    ),
-    unselectedLabelStyle: TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-      fontFamily: GoogleFonts.nunito().fontFamily,
-    ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    elevation: 2,
   ),
 );
