@@ -38,7 +38,7 @@ class CartPage extends StatelessWidget {
                               alignment: Alignment.bottomRight,
                               child: ElevatedButton.icon(
                                 style: ElevatedButton.styleFrom(
-                                    visualDensity: VisualDensity.compact),
+                                    visualDensity: VisualDensity.comfortable),
                                 onPressed: () {
                                   Provider.of<ProductCart>(context,
                                           listen: false)
@@ -50,6 +50,9 @@ class CartPage extends StatelessWidget {
                                 },
                                 label: Text(
                                   'Limpar carrinho',
+                                  selectionColor: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondary,
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelSmall
