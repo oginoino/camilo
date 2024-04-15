@@ -113,17 +113,18 @@ class AddProductIcon extends StatelessWidget {
                           ));
                 }),
                 IconButton(
-                    visualDensity: VisualDensity.compact,
-                    padding: EdgeInsets.zero,
-                    tooltip: 'Adicionar',
-                    onPressed: () {
-                      updateProductSelectedQuantity(isIncrement: true);
-                    },
-                    icon: Icon(
-                      Icons.add_rounded,
-                      size: uiConstants.iconSizeSmall,
-                      color: Theme.of(context).colorScheme.tertiary,
-                    ))
+                  visualDensity: VisualDensity.compact,
+                  padding: EdgeInsets.zero,
+                  tooltip: 'Adicionar',
+                  onPressed: () {
+                    updateProductSelectedQuantity(isIncrement: true);
+                  },
+                  icon: Icon(
+                    Icons.add_rounded,
+                    size: uiConstants.iconSizeSmall,
+                    color: Theme.of(context).colorScheme.tertiary,
+                  ),
+                )
               ],
             ),
           ),
