@@ -4,12 +4,17 @@ class ProductCarossel extends StatelessWidget {
   const ProductCarossel({
     super.key,
     required this.category,
+    required this.products,
   });
 
   final String category;
+  final ProductList products;
 
   @override
   Widget build(BuildContext context) {
+    final productsFromCategory = products.products
+        .where((product) => product.productCategories.contains(category))
+        .toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -27,26 +32,23 @@ class ProductCarossel extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const ProductCard(),
-                  const ProductCard(),
-                  const ProductCard(),
-                  const ProductCard(),
-                  const ProductCard(),
-                  const ProductCard(),
-                  const ProductCard(),
+                  ...productsFromCategory.map((product) {
+                    return ProductCard(product: product);
+                  }),
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: uiConstants.paddingSmall),
                       child: TextButton(
                         onPressed: () {},
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Text('Ver tudo'),
-                            SizedBox(width: 4.0),
+                            const Text('Ver tudo'),
+                            SizedBox(width: uiConstants.paddingExtraSmall),
                             Icon(
                               Icons.arrow_forward_ios_rounded,
-                              size: 16.0,
-                              opticalSize: 16.0,
+                              size: uiConstants.iconSizeSmall,
+                              opticalSize: uiConstants.iconSizeSmall,
                             ),
                           ],
                         ),
@@ -55,7 +57,6 @@ class ProductCarossel extends StatelessWidget {
                   )
                 ],
               ),
-              const SizedBox(height: 16),
             ],
           ),
         ),

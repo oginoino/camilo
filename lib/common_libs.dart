@@ -3,6 +3,9 @@
 // material package
 export 'package:flutter/material.dart';
 
+// provider package
+export 'package:provider/provider.dart';
+
 // get_it package
 export 'package:get_it/get_it.dart';
 
@@ -17,6 +20,22 @@ export 'router.dart';
 
 // main instance
 export 'main.dart';
+
+// models
+
+// product
+export 'models/product.dart';
+
+// products list
+export 'models/products_list.dart';
+
+// product cart
+export 'models/product_cart.dart';
+
+// mock
+
+// mock product list data
+export 'mock/products_list_data.dart';
 
 // ui
 
@@ -35,10 +54,24 @@ export 'ui/pages/home_page.dart';
 export 'ui/components/custom_app_bar.dart';
 
 // search bar
-export 'ui/components/custon_search_bar.dart';
+export 'ui/components/custom_search_bar.dart';
 
 // product carousel
 export 'ui/components/product_carousel.dart';
 
 // product card
 export 'ui/components/product_card.dart';
+
+// cart icon
+export 'ui/components/cart_icon.dart';
+
+// add product icon
+export 'ui/components/add_product_icon.dart';
+
+// constants
+
+// ui constants
+export 'ui/ui_constants.dart';
+
+// top box adapter
+export 'ui/components/custom_top_box_adapter.dart';

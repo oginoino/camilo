@@ -1,30 +1,19 @@
 import 'package:camilo/common_libs.dart';
 
-Color _primaryLight = const Color(0xFF007F5F);
-Color _primaryContainerLight = const Color(0xFF32DE8A);
-Color _secondaryLight = const Color(0xFF2A9D8F);
-Color _secondaryContainerLight = const Color(0xFFA2E8DD);
-Color _backgroundLight = const Color(0xFFF7F7FF);
-Color _onPrimaryLight = const Color(0xFFF7F7FF);
-Color _onSecondaryLight = const Color(0xFFF7F7FF);
-Color _tertiaryLight = const Color(0xFF264653);
-Color _onBackgroundLight = const Color(0xFF052018);
-Color _errorLight = const Color(0xFFE76F51);
-
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(
-    seedColor: _primaryLight,
-    primary: _primaryLight,
-    primaryContainer: _primaryContainerLight,
-    onPrimary: _onPrimaryLight,
-    secondary: _secondaryLight,
-    secondaryContainer: _secondaryContainerLight,
-    onSecondary: _onSecondaryLight,
-    tertiary: _tertiaryLight,
-    background: _backgroundLight,
-    onBackground: _onBackgroundLight,
-    error: _errorLight,
+    seedColor: uiConstants.seedColors['primaryLight']!,
+    primary: uiConstants.seedColors['primaryLight'],
+    primaryContainer: uiConstants.seedColors['primaryContainerLight'],
+    onPrimary: uiConstants.seedColors['onPrimaryLight'],
+    secondary: uiConstants.seedColors['secondaryLight'],
+    secondaryContainer: uiConstants.seedColors['secondaryContainerLight'],
+    onSecondary: uiConstants.seedColors['onSecondaryLight'],
+    tertiary: uiConstants.seedColors['tertiaryLight'],
+    background: uiConstants.seedColors['backgroundLight'],
+    onBackground: uiConstants.seedColors['onBackgroundLight'],
+    error: uiConstants.seedColors['errorLight'],
   ),
   textTheme: TextTheme(
     displayLarge: TextStyle(
@@ -104,7 +93,7 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
   appBarTheme: AppBarTheme(
-    color: _backgroundLight,
+    color: uiConstants.seedColors['backgroundLight'],
     centerTitle: true,
     elevation: 2,
     titleTextStyle: TextStyle(
@@ -114,7 +103,7 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: _secondaryLight,
-    foregroundColor: _onPrimaryLight,
+    backgroundColor: uiConstants.seedColors['secondaryLight']!,
+    foregroundColor: uiConstants.seedColors['onSecondaryLight']!,
   ),
 );

@@ -1,5 +1,3 @@
-import 'package:camilo/ui/ui_constants.dart';
-
 import 'common_libs.dart';
 
 void main() async {
@@ -7,7 +5,15 @@ void main() async {
 
   GoRouter.optionURLReflectsImperativeAPIs = true;
 
-  runApp(const CamiloApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => products),
+        ChangeNotifierProvider(create: (_) => productCart),
+      ],
+      child: const CamiloApp(),
+    ),
+  );
 }
 
 class CamiloApp extends StatelessWidget {
@@ -27,7 +33,13 @@ class CamiloApp extends StatelessWidget {
 }
 
 void registerSingletons() {
+  GetIt.I.registerLazySingleton<GoRouter>(() => appRouter);
   GetIt.I.registerLazySingleton<UiConstants>(() => UiConstants());
+  GetIt.I
+      .registerLazySingleton<ProductList>(() => ProductListData.productsList);
+  GetIt.I.registerLazySingleton<ProductCart>(() => ProductCart());
 }
 
 UiConstants get uiConstants => GetIt.I<UiConstants>();
+ProductList get products => GetIt.I<ProductList>();
+ProductCart get productCart => GetIt.I<ProductCart>();

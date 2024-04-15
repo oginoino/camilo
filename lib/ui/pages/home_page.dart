@@ -5,36 +5,41 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        const CustomAppBar(),
-        _buildPageBody(context),
-      ],
-    );
+    return Consumer<ProductList>(builder: (context, products, child) {
+      List<String> productCategories = products.products
+          .map((product) => product.productCategories)
+          .expand((element) => element)
+          .toSet()
+          .toList();
+
+      return CustomScrollView(
+        slivers: [
+          const CustomAppBar(),
+          _buildSliverTopBoxAdapter(context),
+          _buildPageBody(context, productCategories),
+        ],
+      );
+    });
   }
 
-  SliverList _buildPageBody(BuildContext context) {
-    List<String> categories = [
-      'Destaques',
-      'Favoritos',
-      'Verduras',
-      'Carnes',
-      'Peixes',
-      'Bebidas',
-      'Laticínios',
-      'Padaria',
-      'Higiene',
-      'Limpeza',
-    ];
+  CustomTopBoxAdapter _buildSliverTopBoxAdapter(BuildContext context) {
+    return const CustomTopBoxAdapter();
+  }
+
+  SliverList _buildPageBody(
+      BuildContext context, List<String> productCategories) {
     return SliverList.list(children: [
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+        padding: EdgeInsets.symmetric(
+          horizontal: uiConstants.paddingSmall,
+        ),
         child: ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: categories.length,
+          itemCount: productCategories.length,
           itemBuilder: (context, index) {
-            return ProductCarossel(category: categories[index]);
+            return ProductCarossel(
+                category: productCategories[index], products: products);
           },
         ),
       )
