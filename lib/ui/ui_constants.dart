@@ -13,6 +13,7 @@ class UiConstants {
         'tertiaryLight': const Color(0xFF264653),
         'onBackgroundLight': const Color(0xFF052018),
         'errorLight': const Color(0xFFE76F51),
+        'surfaceLight': const Color(0xFFA2E8DD),
       };
 
   // colors

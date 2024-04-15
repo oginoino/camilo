@@ -14,6 +14,7 @@ ThemeData lightTheme = ThemeData(
     background: uiConstants.seedColors['backgroundLight'],
     onBackground: uiConstants.seedColors['onBackgroundLight'],
     error: uiConstants.seedColors['errorLight'],
+    surface: uiConstants.seedColors['surfaceLight'],
   ),
   textTheme: TextTheme(
     displayLarge: TextStyle(
@@ -119,5 +120,20 @@ ThemeData lightTheme = ThemeData(
       borderRadius: BorderRadius.circular(16),
     ),
     behavior: SnackBarBehavior.floating,
+  ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    backgroundColor: uiConstants.seedColors['surfaceLight'],
+    selectedItemColor: uiConstants.seedColors['secondaryLight'],
+    unselectedItemColor: uiConstants.seedColors['onBackgroundLight'],
+    selectedLabelStyle: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+      fontFamily: GoogleFonts.nunito().fontFamily,
+    ),
+    unselectedLabelStyle: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      fontFamily: GoogleFonts.nunito().fontFamily,
+    ),
   ),
 );
