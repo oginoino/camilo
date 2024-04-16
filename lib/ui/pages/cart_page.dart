@@ -14,6 +14,8 @@ class CartPage extends StatelessWidget {
         const String pageTitle = 'Seu carrinho';
         const String clearCartButtonText = 'Limpar carrinho';
         const String voidCartMessage = 'Seu carrinho está vazio';
+        const String voidCartButtonText = 'Adicionar produtos';
+        const String endCardButtonText = 'Adicionar mais produtos';
         return Scaffold(
           body: CustomScrollView(
             slivers: [
@@ -90,15 +92,17 @@ class CartPage extends StatelessWidget {
                                   color: uiConstants.jeanGrey,
                                 ),
                                 const Text(voidCartMessage),
-                                const SizedBox(height: 16),
+                                SizedBox(height: uiConstants.paddingMedium),
                                 FilledButton.icon(
                                   onPressed: () =>
                                       appRouter.go(ScreenPaths.home),
                                   label: const Text(
-                                    'Adicionar produtos',
+                                    voidCartButtonText,
                                   ),
-                                  icon: const Icon(
-                                      Icons.add_shopping_cart_rounded),
+                                  icon: Icon(
+                                    Icons.add_shopping_cart_rounded,
+                                    size: uiConstants.iconSizeSmall,
+                                  ),
                                 )
                               ],
                             ),
@@ -170,11 +174,21 @@ class CartPage extends StatelessWidget {
                             ),
                             const Divider(),
                             FilledButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.background),
                               onPressed: () => appRouter.go(ScreenPaths.home),
-                              label: const Text(
-                                'Adicionar mais produtos',
+                              label: Text(
+                                endCardButtonText,
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
                               ),
-                              icon: const Icon(Icons.add_shopping_cart_rounded),
+                              icon: Icon(
+                                Icons.add_shopping_cart_rounded,
+                                color: Theme.of(context).colorScheme.primary,
+                                size: uiConstants.iconSizeSmall,
+                              ),
                             )
                           ],
                         ),
