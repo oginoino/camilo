@@ -10,6 +10,8 @@ class Product extends ChangeNotifier {
   int selectedQuantity;
   final List<String> productCategories;
   final int availableQuantity;
+  final double? producKilogramsWeight;
+  final double? productCubicMeterVolume;
 
   Product({
     required this.id,
@@ -21,6 +23,8 @@ class Product extends ChangeNotifier {
     this.selectedQuantity = 0,
     required this.productCategories,
     required this.availableQuantity,
+    this.producKilogramsWeight = 0.3,
+    this.productCubicMeterVolume = 0.0001,
   });
 
   void incrementSelectedQuantity(BuildContext context) {
@@ -57,6 +61,6 @@ class Product extends ChangeNotifier {
 
   @override
   String toString() {
-    return 'Product{id: $id, productName: $productName, productPrice: $productPrice, productUnitOfMeasurement: $productUnitOfMeasurement, productUnitQuantity: $productUnitQuantity, productImageSrc: $productImageSrc, selectedQuantity: $selectedQuantity, productCategories: $productCategories}';
+    return 'Product{id: $id, productName: $productName, productPrice: $productPrice, productUnitOfMeasurement: $productUnitOfMeasurement, productUnitQuantity: $productUnitQuantity, productImageSrc: $productImageSrc, selectedQuantity: $selectedQuantity, productCategories: $productCategories, availableQuantity: $availableQuantity, producKilogramsWeight: $producKilogramsWeight, productCubicMeterVolume: $productCubicMeterVolume}';
   }
 }
