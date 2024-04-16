@@ -10,6 +10,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
     return Consumer<ProductCart>(builder: (context, cart, child) {
       const String bottomSheetTitle = 'Total';
       const String bottomSheetCtaButtonText = 'Pedir agora';
+      const String bottomSheetCtaButtonTextDisabled = 'Pedido mínimo 10,00';
+
       return Container(
         padding: EdgeInsets.symmetric(horizontal: uiConstants.paddingMedium),
         decoration: BoxDecoration(
@@ -50,14 +52,16 @@ class CustomBottomNavigationBar extends StatelessWidget {
                     vertical: uiConstants.paddingSmall,
                   ),
                   elevation: 2),
-              onPressed: () {},
+              onPressed: cart.isMinimumOrder ? () {} : null,
               icon: Icon(
                 Icons.payment_rounded,
                 size: uiConstants.iconSizeSmall,
                 color: Theme.of(context).colorScheme.onSecondary,
               ),
               label: Text(
-                bottomSheetCtaButtonText,
+                cart.isMinimumOrder
+                    ? bottomSheetCtaButtonText
+                    : bottomSheetCtaButtonTextDisabled,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSecondary,
                     ),
