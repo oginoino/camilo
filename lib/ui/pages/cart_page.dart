@@ -137,18 +137,22 @@ class CartPage extends StatelessWidget {
                                   ),
                                   subtitle: SizedBox(
                                     width: 180,
-                                    child: Row(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '${product.productUnitQuantity} ${product.productUnitOfMeasurement} x R\$ ${product.productPrice.toStringAsFixed(2)} = ',
-                                          overflow: TextOverflow.ellipsis,
+                                          '${product.productUnitQuantity} ${product.productUnitOfMeasurement} por R\$ ${product.productPrice.toStringAsFixed(2)}',
+                                          overflow: TextOverflow.fade,
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelMedium,
                                         ),
                                         Text(
                                           'R\$ ${product.productPrice.toStringAsFixed(2)}',
-                                          overflow: TextOverflow.ellipsis,
+                                          overflow: TextOverflow.fade,
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelMedium,
