@@ -43,4 +43,8 @@ class UiConstants {
 
   // heights
   double get bottomNavigationBarHeight => 80.0;
+
+  // image sizes
+  double get squareImageSizeSmall => 60.0;
+  double get squareImageSizeMedium => 160.0;
 }

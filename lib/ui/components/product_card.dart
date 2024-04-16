@@ -15,10 +15,9 @@ class ProductCard extends StatefulWidget {
 class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
-    double contaninerWidth = 160.0;
-    double contaninerHeght = 160.0;
-    double cardElevation = 0.0;
+    const double cardElevation = 0.0;
 
+    const double cardTextBoxHeight = 100;
     return Card(
       color: Theme.of(context).colorScheme.background,
       elevation: cardElevation,
@@ -38,8 +37,8 @@ class _ProductCardState extends State<ProductCard> {
                     topRight: Radius.circular(uiConstants.paddingMedium),
                   ),
                 ),
-                width: contaninerWidth,
-                height: contaninerHeght,
+                width: uiConstants.squareImageSizeMedium,
+                height: uiConstants.squareImageSizeMedium,
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(uiConstants.paddingMedium),
@@ -61,8 +60,8 @@ class _ProductCardState extends State<ProductCard> {
                 ),
               ),
               SizedBox(
-                height: 100,
-                width: contaninerWidth,
+                height: cardTextBoxHeight,
+                width: uiConstants.squareImageSizeMedium,
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: uiConstants.paddingSmall),

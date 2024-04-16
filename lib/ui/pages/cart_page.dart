@@ -118,8 +118,8 @@ class CartPage extends StatelessWidget {
                                 final product = cart.products.products[index];
                                 return ListTile(
                                   leading: SizedBox(
-                                    width: 50,
-                                    height: 50,
+                                    width: uiConstants.squareImageSizeSmall,
+                                    height: uiConstants.squareImageSizeSmall,
                                     child: Image.network(
                                       product.productImageSrc ?? '',
                                       fit: BoxFit.cover,
