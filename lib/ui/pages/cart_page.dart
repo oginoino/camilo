@@ -172,7 +172,9 @@ class CartPage extends StatelessWidget {
                                 );
                               },
                             ),
-                            const Divider(),
+                            Divider(
+                              height: uiConstants.dividerHeightMedium,
+                            ),
                             FilledButton.icon(
                               style: ElevatedButton.styleFrom(
                                   backgroundColor:

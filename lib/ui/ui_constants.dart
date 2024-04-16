@@ -38,6 +38,8 @@ class UiConstants {
   // border side width
   double get borderSideWidthMedium => 0.5;
 
+  // divider height
+  double get dividerHeightMedium => 1.0;
 
   // heights
   double get bottomNavigationBarHeight => 80.0;
