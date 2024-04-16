@@ -11,70 +11,71 @@ class CartPage extends StatelessWidget {
 
     return Consumer<ProductCart>(
       builder: (context, cart, child) {
+        const String pageTitle = 'Seu carrinho';
+        const String clearCartButtonText = 'Limpar carrinho';
+        const String voidCartMessage = 'Seu carrinho está vazio';
         return Scaffold(
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                  title: const Text('Seu carrinho'),
-                  leading: const BackButton(
-                    style: ButtonStyle(),
-                  ),
-                  floating: true,
-                  snap: true,
-                  pinned: false,
-                  forceElevated: false,
-                  expandedHeight: expandedHeight,
-                  collapsedHeight: collapsedHeight,
-                  flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: false,
-                    collapseMode: CollapseMode.parallax,
-                    expandedTitleScale: expandedTitleScale,
-                    titlePadding: EdgeInsets.zero,
-                    title: cart.products.products.isEmpty
-                        ? const SizedBox()
-                        : Padding(
-                            padding: EdgeInsets.all(uiConstants.paddingSmall),
-                            child: Align(
-                              alignment: Alignment.bottomRight,
-                              child: ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  visualDensity: VisualDensity.comfortable,
-                                  backgroundColor: Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .withOpacity(0.8),
-                                ),
-                                onPressed: () {
-                                  Provider.of<ProductCart>(context,
-                                          listen: false)
-                                      .clearProducts();
+                title: const Text(pageTitle),
+                leading: const BackButton(
+                  style: ButtonStyle(),
+                ),
+                floating: true,
+                snap: true,
+                pinned: false,
+                forceElevated: false,
+                expandedHeight: expandedHeight,
+                collapsedHeight: collapsedHeight,
+                flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: false,
+                  collapseMode: CollapseMode.parallax,
+                  expandedTitleScale: expandedTitleScale,
+                  titlePadding: EdgeInsets.zero,
+                  title: cart.products.products.isEmpty
+                      ? const SizedBox()
+                      : Padding(
+                          padding: EdgeInsets.all(uiConstants.paddingSmall),
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                visualDensity: VisualDensity.comfortable,
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withOpacity(0.8),
+                              ),
+                              onPressed: () {
+                                Provider.of<ProductCart>(context, listen: false)
+                                    .clearProducts();
 
-                                  Provider.of<ProductList>(context,
-                                          listen: false)
-                                      .clearProductSelectedQuantity();
-                                },
-                                label: Text(
-                                  'Limpar carrinho',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelSmall
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onPrimary,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                                icon: Icon(
-                                  Icons.remove_shopping_cart_rounded,
-                                  size: uiConstants.iconSizeSmall,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                ),
+                                Provider.of<ProductList>(context, listen: false)
+                                    .clearProductSelectedQuantity();
+                              },
+                              label: Text(
+                                clearCartButtonText,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelSmall
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                              icon: Icon(
+                                Icons.remove_shopping_cart_rounded,
+                                size: uiConstants.iconSizeSmall,
+                                color: Theme.of(context).colorScheme.onPrimary,
                               ),
                             ),
                           ),
-                  )),
+                        ),
+                ),
+              ),
               SliverList.list(
                 children: [
                   cart.products.products.isEmpty
@@ -88,7 +89,17 @@ class CartPage extends StatelessWidget {
                                   size: uiConstants.iconSizeExtraLarge,
                                   color: uiConstants.jeanGrey,
                                 ),
-                                const Text('Seu carrinho está vazio'),
+                                const Text(voidCartMessage),
+                                const SizedBox(height: 16),
+                                FilledButton.icon(
+                                  onPressed: () =>
+                                      appRouter.go(ScreenPaths.home),
+                                  label: const Text(
+                                    'Adicionar produtos',
+                                  ),
+                                  icon: const Icon(
+                                      Icons.add_shopping_cart_rounded),
+                                )
                               ],
                             ),
                           ),
@@ -158,6 +169,13 @@ class CartPage extends StatelessWidget {
                               },
                             ),
                             const Divider(),
+                            FilledButton.icon(
+                              onPressed: () => appRouter.go(ScreenPaths.home),
+                              label: const Text(
+                                'Adicionar mais produtos',
+                              ),
+                              icon: const Icon(Icons.add_shopping_cart_rounded),
+                            )
                           ],
                         ),
                 ],
