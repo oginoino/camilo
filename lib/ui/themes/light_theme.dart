@@ -14,6 +14,7 @@ ThemeData lightTheme = ThemeData(
     background: uiConstants.seedColors['backgroundLight'],
     onBackground: uiConstants.seedColors['onBackgroundLight'],
     error: uiConstants.seedColors['errorLight'],
+    surface: uiConstants.seedColors['surfaceLight'],
   ),
   textTheme: TextTheme(
     displayLarge: TextStyle(
@@ -119,5 +120,8 @@ ThemeData lightTheme = ThemeData(
       borderRadius: BorderRadius.circular(16),
     ),
     behavior: SnackBarBehavior.floating,
+  ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    elevation: 2,
   ),
 );
