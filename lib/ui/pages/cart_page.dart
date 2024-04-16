@@ -15,7 +15,7 @@ class CartPage extends StatelessWidget {
         const String clearCartButtonText = 'Limpar carrinho';
         const String voidCartMessage = 'Seu carrinho está vazio';
         const String voidCartButtonText = 'Adicionar produtos';
-        const String endCardButtonText = 'Adicionar mais produtos';
+        const String endCardButtonText = 'Adicionar outros produtos';
         return Scaffold(
           body: CustomScrollView(
             slivers: [
@@ -110,6 +110,31 @@ class CartPage extends StatelessWidget {
                         )
                       : Column(
                           children: [
+                            cart.isMinimumOrder
+                                ? const SizedBox()
+                                : Padding(
+                                    padding: EdgeInsets.all(
+                                        uiConstants.paddingMedium),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.warning_rounded,
+                                          size: uiConstants.iconSizeMedium,
+                                          color: uiConstants.yellowSubmarine,
+                                        ),
+                                        SizedBox(
+                                            width: uiConstants.paddingSmall),
+                                        Text(
+                                          'Faltam ${10 - cart.totalPrice} para completar o pedido mínimo',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                             ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
@@ -179,20 +204,31 @@ class CartPage extends StatelessWidget {
                             Divider(
                               height: uiConstants.dividerHeightMedium,
                             ),
+                            SizedBox(
+                              height: uiConstants.paddingSmall,
+                            ),
                             FilledButton.icon(
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.background),
+                                backgroundColor: cart.isMinimumOrder
+                                    ? Theme.of(context).colorScheme.background
+                                    : Theme.of(context).colorScheme.primary,
+                              ),
                               onPressed: () => appRouter.go(ScreenPaths.home),
                               label: Text(
                                 endCardButtonText,
                                 style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
+                                  color: cart.isMinimumOrder
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .background,
                                 ),
                               ),
                               icon: Icon(
                                 Icons.add_shopping_cart_rounded,
-                                color: Theme.of(context).colorScheme.primary,
+                                color: cart.isMinimumOrder
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Theme.of(context).colorScheme.background,
                                 size: uiConstants.iconSizeSmall,
                               ),
                             )
