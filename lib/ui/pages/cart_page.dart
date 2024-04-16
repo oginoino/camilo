@@ -141,27 +141,31 @@ class CartPage extends StatelessWidget {
                             ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: cart.products.products.length,
+                              itemCount: cart.productsGruppedByProductId.length,
                               itemBuilder: (context, index) {
-                                final product = cart.products.products[index];
+                                final productGroup =
+                                    cart.productsGruppedByProductId[index];
                                 return ListTile(
                                   leading: SizedBox(
                                     width: uiConstants.squareImageSizeSmall,
                                     height: uiConstants.squareImageSizeSmall,
                                     child: Image.network(
-                                      product.productImageSrc ?? '',
+                                      productGroup
+                                              .products.first.productImageSrc ??
+                                          '',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
                                   visualDensity: VisualDensity.compact,
                                   isThreeLine: true,
                                   title: Text(
-                                    product.productName,
+                                    productGroup.products.first.productName,
                                     style:
                                         Theme.of(context).textTheme.labelLarge,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    semanticsLabel: product.productName,
+                                    semanticsLabel:
+                                        productGroup.products.first.productName,
                                   ),
                                   subtitle: SizedBox(
                                     width: 180,
@@ -172,14 +176,14 @@ class CartPage extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '${product.productUnitQuantity} ${product.productUnitOfMeasurement} por R\$ ${product.productPrice.toStringAsFixed(2)}',
+                                          '${productGroup.products.length} ${productGroup.products.first.productUnitOfMeasurement} por R\$ ${productGroup.products.first.productPrice.toStringAsFixed(2)}',
                                           overflow: TextOverflow.fade,
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelMedium,
                                         ),
                                         Text(
-                                          'R\$ ${product.productPrice.toStringAsFixed(2)}',
+                                          'R\$ ${(productGroup.products.first.productPrice * productGroup.products.length).toStringAsFixed(2)}',
                                           overflow: TextOverflow.fade,
                                           style: Theme.of(context)
                                               .textTheme
@@ -193,12 +197,14 @@ class CartPage extends StatelessWidget {
                                     onPressed: () {
                                       Provider.of<ProductCart>(context,
                                               listen: false)
-                                          .removeProduct(product);
-                                      product
+                                          .removeProduct(
+                                              productGroup.products.last);
+                                      productGroup.products.last
                                           .decrementSelectedQuantity(context);
                                       Provider.of<ProductList>(context,
                                               listen: false)
-                                          .updateProduct(product);
+                                          .updateProduct(
+                                              productGroup.products.last);
                                     },
                                   ),
                                 );
