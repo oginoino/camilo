@@ -15,7 +15,11 @@ class CartPage extends StatelessWidget {
         const String clearCartButtonText = 'Limpar carrinho';
         const String voidCartMessage = 'Seu carrinho está vazio';
         const String voidCartButtonText = 'Adicionar produtos';
-        const String endCardButtonText = 'Adicionar mais produtos';
+        const String endCardButtonText = 'Adicionar outros produtos';
+        const String endCardButtonIextNotMinimumOrder =
+            'Adicionar mais produtos';
+        var notMinimumOrderMessage =
+            'Faltam ${(cart.minimumOrder - cart.totalPrice).toStringAsFixed(2)} para completar o pedido mínimo';
         return Scaffold(
           body: CustomScrollView(
             slivers: [
@@ -44,10 +48,9 @@ class CartPage extends StatelessWidget {
                             child: ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
                                 visualDensity: VisualDensity.comfortable,
-                                backgroundColor: Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                    .withOpacity(0.8),
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.background,
+                                elevation: 0.0,
                               ),
                               onPressed: () {
                                 Provider.of<ProductCart>(context, listen: false)
@@ -64,14 +67,14 @@ class CartPage extends StatelessWidget {
                                     ?.copyWith(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onPrimary,
+                                          .secondary,
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
                               icon: Icon(
                                 Icons.remove_shopping_cart_rounded,
                                 size: uiConstants.iconSizeSmall,
-                                color: Theme.of(context).colorScheme.onPrimary,
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                             ),
                           ),
@@ -110,30 +113,55 @@ class CartPage extends StatelessWidget {
                         )
                       : Column(
                           children: [
+                            cart.isMinimumOrder
+                                ? const SizedBox()
+                                : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.warning_rounded,
+                                      size: uiConstants.iconSizeMedium,
+                                      color: uiConstants.yellowSubmarine,
+                                    ),
+                                    SizedBox(
+                                        width: uiConstants.paddingSmall),
+                                    Text(
+                                      notMinimumOrderMessage,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium,
+                                    ),
+                                  ],
+                                ),
                             ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: cart.products.products.length,
+                              itemCount: cart.productsGruppedByProductId.length,
                               itemBuilder: (context, index) {
-                                final product = cart.products.products[index];
+                                final productGroup =
+                                    cart.productsGruppedByProductId[index];
                                 return ListTile(
                                   leading: SizedBox(
                                     width: uiConstants.squareImageSizeSmall,
                                     height: uiConstants.squareImageSizeSmall,
                                     child: Image.network(
-                                      product.productImageSrc ?? '',
+                                      productGroup
+                                              .products.first.productImageSrc ??
+                                          '',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
                                   visualDensity: VisualDensity.compact,
                                   isThreeLine: true,
                                   title: Text(
-                                    product.productName,
+                                    productGroup.products.first.productName,
                                     style:
                                         Theme.of(context).textTheme.labelLarge,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    semanticsLabel: product.productName,
+                                    semanticsLabel:
+                                        productGroup.products.first.productName,
                                   ),
                                   subtitle: SizedBox(
                                     width: 180,
@@ -144,14 +172,14 @@ class CartPage extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '${product.productUnitQuantity} ${product.productUnitOfMeasurement} por R\$ ${product.productPrice.toStringAsFixed(2)}',
+                                          '${productGroup.products.length} ${productGroup.products.first.productUnitOfMeasurement} por R\$ ${productGroup.products.first.productPrice.toStringAsFixed(2)}',
                                           overflow: TextOverflow.fade,
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelMedium,
                                         ),
                                         Text(
-                                          'R\$ ${product.productPrice.toStringAsFixed(2)}',
+                                          'R\$ ${(productGroup.products.first.productPrice * productGroup.products.length).toStringAsFixed(2)}',
                                           overflow: TextOverflow.fade,
                                           style: Theme.of(context)
                                               .textTheme
@@ -160,18 +188,82 @@ class CartPage extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  trailing: IconButton(
-                                    icon: const Icon(Icons.delete),
-                                    onPressed: () {
-                                      Provider.of<ProductCart>(context,
-                                              listen: false)
-                                          .removeProduct(product);
-                                      product
-                                          .decrementSelectedQuantity(context);
-                                      Provider.of<ProductList>(context,
-                                              listen: false)
-                                          .updateProduct(product);
-                                    },
+                                  trailing: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
+                                        width: uiConstants.dividerHeightMedium,
+                                      ),
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    width: 100,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        IconButton(
+                                          style: ButtonStyle(
+                                            padding: MaterialStateProperty.all<
+                                                    EdgeInsetsGeometry>(
+                                                EdgeInsets.zero),
+                                            visualDensity:
+                                                VisualDensity.compact,
+                                          ),
+                                          icon: Icon(
+                                            productGroup.products.length == 1
+                                                ? Icons.delete
+                                                : Icons.remove,
+                                          ),
+                                          onPressed: () {
+                                            Provider.of<ProductCart>(context,
+                                                    listen: false)
+                                                .removeProduct(
+                                                    productGroup.products.last);
+                                            productGroup.products.last
+                                                .decrementSelectedQuantity(
+                                                    context);
+                                            Provider.of<ProductList>(context,
+                                                    listen: false)
+                                                .updateProduct(
+                                                    productGroup.products.last);
+                                          },
+                                        ),
+                                        Text(
+                                          productGroup.products.length
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge,
+                                        ),
+                                        IconButton(
+                                          style: ButtonStyle(
+                                            padding: MaterialStateProperty.all<
+                                                    EdgeInsetsGeometry>(
+                                                EdgeInsets.zero),
+                                            visualDensity:
+                                                VisualDensity.compact,
+                                          ),
+                                          icon: const Icon(Icons.add),
+                                          onPressed: () {
+                                            Provider.of<ProductCart>(context,
+                                                    listen: false)
+                                                .addProduct(productGroup
+                                                    .products.first);
+                                            productGroup.products.first
+                                                .incrementSelectedQuantity(
+                                                    context);
+                                            Provider.of<ProductList>(context,
+                                                    listen: false)
+                                                .updateProduct(productGroup
+                                                    .products.first);
+                                          },
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
@@ -179,20 +271,33 @@ class CartPage extends StatelessWidget {
                             Divider(
                               height: uiConstants.dividerHeightMedium,
                             ),
+                            SizedBox(
+                              height: uiConstants.paddingSmall,
+                            ),
                             FilledButton.icon(
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.background),
+                                backgroundColor: cart.isMinimumOrder
+                                    ? Theme.of(context).colorScheme.background
+                                    : Theme.of(context).colorScheme.primary,
+                              ),
                               onPressed: () => appRouter.go(ScreenPaths.home),
                               label: Text(
-                                endCardButtonText,
+                                cart.isMinimumOrder
+                                    ? endCardButtonText
+                                    : endCardButtonIextNotMinimumOrder,
                                 style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
+                                  color: cart.isMinimumOrder
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .background,
                                 ),
                               ),
                               icon: Icon(
                                 Icons.add_shopping_cart_rounded,
-                                color: Theme.of(context).colorScheme.primary,
+                                color: cart.isMinimumOrder
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Theme.of(context).colorScheme.background,
                                 size: uiConstants.iconSizeSmall,
                               ),
                             )
