@@ -8,6 +8,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductCart>(builder: (context, cart, child) {
+      const String bottomSheetTitle = 'Total';
+      const String bottomSheetCtaButtonText = 'Pedir agora';
       return Container(
         padding: EdgeInsets.symmetric(horizontal: uiConstants.paddingMedium),
         decoration: BoxDecoration(
@@ -27,7 +29,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Total', style: Theme.of(context).textTheme.bodyMedium),
+                Text(
+                  bottomSheetTitle,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
                 Text(
                   'R\$ ${cart.totalPrice.toStringAsFixed(2)}',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -52,7 +57,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onSecondary,
               ),
               label: Text(
-                'Ir para pagamento',
+                bottomSheetCtaButtonText,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSecondary,
                     ),
