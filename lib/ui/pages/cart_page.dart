@@ -16,6 +16,8 @@ class CartPage extends StatelessWidget {
         const String voidCartMessage = 'Seu carrinho está vazio';
         const String voidCartButtonText = 'Adicionar produtos';
         const String endCardButtonText = 'Adicionar outros produtos';
+        const String endCardButtonIextNotMinimumOrder =
+            'Adicionar mais produtos';
         return Scaffold(
           body: CustomScrollView(
             slivers: [
@@ -44,10 +46,9 @@ class CartPage extends StatelessWidget {
                             child: ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
                                 visualDensity: VisualDensity.comfortable,
-                                backgroundColor: Theme.of(context)
-                                    .colorScheme
-                                    .primary
-                                    .withOpacity(0.8),
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.background,
+                                elevation: 0.0,
                               ),
                               onPressed: () {
                                 Provider.of<ProductCart>(context, listen: false)
@@ -64,14 +65,14 @@ class CartPage extends StatelessWidget {
                                     ?.copyWith(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onPrimary,
+                                          .secondary,
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
                               icon: Icon(
                                 Icons.remove_shopping_cart_rounded,
                                 size: uiConstants.iconSizeSmall,
-                                color: Theme.of(context).colorScheme.onPrimary,
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                             ),
                           ),
@@ -215,7 +216,9 @@ class CartPage extends StatelessWidget {
                               ),
                               onPressed: () => appRouter.go(ScreenPaths.home),
                               label: Text(
-                                endCardButtonText,
+                                cart.isMinimumOrder
+                                    ? endCardButtonText
+                                    : endCardButtonIextNotMinimumOrder,
                                 style: TextStyle(
                                   color: cart.isMinimumOrder
                                       ? Theme.of(context).colorScheme.primary
