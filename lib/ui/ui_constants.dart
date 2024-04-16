@@ -34,4 +34,11 @@ class UiConstants {
   double get iconSizeMedium => 24.0;
   double get iconSizeLarge => 32.0;
   double get iconSizeExtraLarge => 64.0;
+
+  // border side width
+  double get borderSideWidthMedium => 0.5;
+
+
+  // heights
+  double get bottomNavigationBarHeight => 80.0;
 }

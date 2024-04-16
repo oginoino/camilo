@@ -16,11 +16,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
           border: Border(
             top: BorderSide(
               color: Theme.of(context).colorScheme.tertiary.withOpacity(0.3),
-              width: .5,
+              width: uiConstants.borderSideWidthMedium,
             ),
           ),
         ),
-        height: 80.0,
+        height: uiConstants.bottomNavigationBarHeight,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
