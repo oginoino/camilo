@@ -64,7 +64,6 @@ class _ProductCardState extends State<ProductCard> {
                       } else {
                         return Center(
                           child: CircularProgressIndicator(
-                            color: Theme.of(context).colorScheme.surface,
                             value: loadingProgress.expectedTotalBytes != null
                                 ? loadingProgress.cumulativeBytesLoaded /
                                     loadingProgress.expectedTotalBytes!
