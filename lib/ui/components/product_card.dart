@@ -16,8 +16,8 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     const double cardElevation = 0.0;
-
     const double cardTextBoxHeight = 100;
+
     return Card(
       color: Theme.of(context).colorScheme.background,
       elevation: cardElevation,
@@ -46,6 +46,8 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                   child: Image.network(
                     widget.product.productImageSrc!,
+                    cacheHeight: 420,
+                    cacheWidth: 420,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Center(
@@ -55,6 +57,20 @@ class _ProductCardState extends State<ProductCard> {
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                       );
+                    },
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      }
                     },
                   ),
                 ),

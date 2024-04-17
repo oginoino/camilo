@@ -116,24 +116,22 @@ class CartPage extends StatelessWidget {
                             cart.isMinimumOrder
                                 ? const SizedBox()
                                 : Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.warning_rounded,
-                                      size: uiConstants.iconSizeMedium,
-                                      color: uiConstants.yellowSubmarine,
-                                    ),
-                                    SizedBox(
-                                        width: uiConstants.paddingSmall),
-                                    Text(
-                                      notMinimumOrderMessage,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium,
-                                    ),
-                                  ],
-                                ),
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.warning_rounded,
+                                        size: uiConstants.iconSizeMedium,
+                                        color: uiConstants.yellowSubmarine,
+                                      ),
+                                      SizedBox(width: uiConstants.paddingSmall),
+                                      Text(
+                                        notMinimumOrderMessage,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelMedium,
+                                      ),
+                                    ],
+                                  ),
                             ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
@@ -146,10 +144,43 @@ class CartPage extends StatelessWidget {
                                     width: uiConstants.squareImageSizeSmall,
                                     height: uiConstants.squareImageSizeSmall,
                                     child: Image.network(
+                                      cacheWidth: 126,
+                                      cacheHeight: 126,
                                       productGroup
                                               .products.first.productImageSrc ??
                                           '',
                                       fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Center(
+                                          child: Icon(
+                                            Icons.shopping_bag_rounded,
+                                            size: uiConstants.iconSizeSmall,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
+                                          ),
+                                        );
+                                      },
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        } else {
+                                          return Center(
+                                            child: CircularProgressIndicator(
+                                              value: loadingProgress
+                                                          .expectedTotalBytes !=
+                                                      null
+                                                  ? loadingProgress
+                                                          .cumulativeBytesLoaded /
+                                                      loadingProgress
+                                                          .expectedTotalBytes!
+                                                  : null,
+                                            ),
+                                          );
+                                        }
+                                      },
                                     ),
                                   ),
                                   visualDensity: VisualDensity.compact,
