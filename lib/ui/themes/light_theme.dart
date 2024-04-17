@@ -124,4 +124,7 @@ ThemeData lightTheme = ThemeData(
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     elevation: 2,
   ),
+  progressIndicatorTheme: ProgressIndicatorThemeData(
+    color: uiConstants.seedColors['surfaceLight'],
+  ),
 );
