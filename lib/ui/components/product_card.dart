@@ -16,8 +16,8 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     const double cardElevation = 0.0;
-
     const double cardTextBoxHeight = 100;
+
     return Card(
       color: Theme.of(context).colorScheme.background,
       elevation: cardElevation,
@@ -46,6 +46,8 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                   child: Image.network(
                     widget.product.productImageSrc!,
+                    cacheHeight: 420,
+                    cacheWidth: 420,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Center(
