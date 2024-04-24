@@ -34,14 +34,15 @@ class Product extends ChangeNotifier {
     } else {
       String message = 'Só temos $availableQuantity desse produto no momento!';
       context.mounted
-          ? ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  message,
+          ? {
+              ScaffoldMessenger.of(context).clearSnackBars(),
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(message),
+                  duration: const Duration(seconds: 2),
                 ),
-                duration: const Duration(seconds: 2),
               ),
-            )
+            }
           : null;
     }
     notifyListeners();
