@@ -120,6 +120,8 @@ ThemeData lightTheme = ThemeData(
       borderRadius: BorderRadius.circular(16),
     ),
     behavior: SnackBarBehavior.floating,
+    showCloseIcon: true,
+    dismissDirection: DismissDirection.horizontal,
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     elevation: 2,
