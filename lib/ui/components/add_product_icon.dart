@@ -75,13 +75,13 @@ class AddProductIcon extends StatelessWidget {
       timer = Timer(const Duration(milliseconds: 2500), () {
         if (menuOpen) {
           Navigator.of(context, rootNavigator: true).pop();
-          menuOpen = false; 
+          menuOpen = false;
         }
       });
     }
 
-    restartTimer(); 
-    
+    restartTimer();
+
     var menu = showMenu(
       constraints: const BoxConstraints(maxWidth: 120),
       context: context,
@@ -159,7 +159,7 @@ class AddProductIcon extends StatelessWidget {
     );
 
     menu.then((value) {
-      menuOpen = false; // Atualiza o estado quando o menu é fechado
+      menuOpen = false;
       if (timer != null && timer!.isActive) {
         timer?.cancel();
       }
