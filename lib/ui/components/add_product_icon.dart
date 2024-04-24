@@ -1,3 +1,4 @@
+import 'dart:async';
 import '../../common_libs.dart';
 
 class AddProductIcon extends StatelessWidget {
@@ -9,7 +10,6 @@ class AddProductIcon extends StatelessWidget {
   });
 
   final Product product;
-
   final Function updateProductSelectedQuantity;
 
   @override
@@ -54,6 +54,9 @@ class AddProductIcon extends StatelessWidget {
   }
 
   Future<dynamic> showIncrementMenu(BuildContext context) {
+    Timer? timer;
+    bool menuOpen = true;
+
     final RenderBox renderBox = context.findRenderObject() as RenderBox;
     final position = RelativeRect.fromLTRB(
       renderBox
@@ -65,7 +68,21 @@ class AddProductIcon extends StatelessWidget {
       renderBox.localToGlobal(Offset.zero).dy,
     );
 
-    return showMenu(
+    void restartTimer() {
+      if (timer != null && timer!.isActive) {
+        timer!.cancel();
+      }
+      timer = Timer(const Duration(milliseconds: 2500), () {
+        if (menuOpen) {
+          Navigator.of(context, rootNavigator: true).pop();
+          menuOpen = false; 
+        }
+      });
+    }
+
+    restartTimer(); 
+    
+    var menu = showMenu(
       constraints: const BoxConstraints(maxWidth: 120),
       context: context,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
@@ -92,11 +109,12 @@ class AddProductIcon extends StatelessWidget {
                       visualDensity: VisualDensity.compact,
                       padding: EdgeInsets.zero,
                       tooltip: 'Remover',
-                      onPressed: product.selectedQuantity > 0
-                          ? () {
-                              updateProductSelectedQuantity(isIncrement: false);
-                            }
-                          : null,
+                      onPressed: () {
+                        if (product.selectedQuantity > 0) {
+                          updateProductSelectedQuantity(isIncrement: false);
+                        }
+                        restartTimer();
+                      },
                       icon: Icon(
                         product.selectedQuantity < 1
                             ? null
@@ -121,6 +139,7 @@ class AddProductIcon extends StatelessWidget {
                     tooltip: 'Adicionar',
                     onPressed: () {
                       updateProductSelectedQuantity(isIncrement: true);
+                      restartTimer();
                     },
                     icon: Icon(
                       Icons.add_rounded,
@@ -138,5 +157,14 @@ class AddProductIcon extends StatelessWidget {
         ),
       ],
     );
+
+    menu.then((value) {
+      menuOpen = false; // Atualiza o estado quando o menu é fechado
+      if (timer != null && timer!.isActive) {
+        timer?.cancel();
+      }
+    });
+
+    return menu;
   }
 }
