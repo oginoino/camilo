@@ -133,6 +133,7 @@ class CartPage extends StatelessWidget {
                                     ],
                                   ),
                             ListView.builder(
+                              padding: EdgeInsets.zero,
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: cart.productsGruppedByProductId.length,
@@ -140,6 +141,10 @@ class CartPage extends StatelessWidget {
                                 final productGroup =
                                     cart.productsGruppedByProductId[index];
                                 return ListTile(
+                                  contentPadding: EdgeInsets.symmetric(
+                                    horizontal: uiConstants.paddingSmall,
+                                  ),
+                                  minVerticalPadding: uiConstants.paddingSmall,
                                   leading: SizedBox(
                                     width: uiConstants.squareImageSizeSmall,
                                     height: uiConstants.squareImageSizeSmall,
@@ -204,14 +209,14 @@ class CartPage extends StatelessWidget {
                                       children: [
                                         Text(
                                           '${productGroup.products.length} ${productGroup.products.first.productUnitOfMeasurement} por R\$ ${productGroup.products.first.productPrice.toStringAsFixed(2)}',
-                                          overflow: TextOverflow.fade,
+                                          overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelMedium,
                                         ),
                                         Text(
                                           'R\$ ${(productGroup.products.first.productPrice * productGroup.products.length).toStringAsFixed(2)}',
-                                          overflow: TextOverflow.fade,
+                                          overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelMedium,
@@ -219,81 +224,84 @@ class CartPage extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  trailing: Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .tertiary,
-                                        width: uiConstants.dividerHeightMedium,
+                                  trailing: Expanded(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .tertiary,
+                                          width:
+                                              uiConstants.dividerHeightMedium,
+                                        ),
+                                        borderRadius: BorderRadius.circular(50),
                                       ),
-                                      borderRadius: BorderRadius.circular(50),
-                                    ),
-                                    width: 100,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        IconButton(
-                                          style: ButtonStyle(
-                                            padding: MaterialStateProperty.all<
-                                                    EdgeInsetsGeometry>(
-                                                EdgeInsets.zero),
-                                            visualDensity:
-                                                VisualDensity.compact,
+                                      width: 116,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          IconButton(
+                                            style: ButtonStyle(
+                                              padding: MaterialStateProperty
+                                                  .all<EdgeInsetsGeometry>(
+                                                      EdgeInsets.zero),
+                                              visualDensity:
+                                                  VisualDensity.compact,
+                                            ),
+                                            icon: Icon(
+                                              productGroup.products.length == 1
+                                                  ? Icons.delete
+                                                  : Icons.remove,
+                                            ),
+                                            onPressed: () {
+                                              Provider.of<ProductCart>(context,
+                                                      listen: false)
+                                                  .removeProduct(productGroup
+                                                      .products.last);
+                                              productGroup.products.last
+                                                  .decrementSelectedQuantity(
+                                                      context);
+                                              Provider.of<ProductList>(context,
+                                                      listen: false)
+                                                  .updateProduct(productGroup
+                                                      .products.last);
+                                            },
                                           ),
-                                          icon: Icon(
-                                            productGroup.products.length == 1
-                                                ? Icons.delete
-                                                : Icons.remove,
+                                          Text(
+                                            productGroup.products.length
+                                                .toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelLarge,
                                           ),
-                                          onPressed: () {
-                                            Provider.of<ProductCart>(context,
-                                                    listen: false)
-                                                .removeProduct(
-                                                    productGroup.products.last);
-                                            productGroup.products.last
-                                                .decrementSelectedQuantity(
-                                                    context);
-                                            Provider.of<ProductList>(context,
-                                                    listen: false)
-                                                .updateProduct(
-                                                    productGroup.products.last);
-                                          },
-                                        ),
-                                        Text(
-                                          productGroup.products.length
-                                              .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelLarge,
-                                        ),
-                                        IconButton(
-                                          style: ButtonStyle(
-                                            padding: MaterialStateProperty.all<
-                                                    EdgeInsetsGeometry>(
-                                                EdgeInsets.zero),
-                                            visualDensity:
-                                                VisualDensity.compact,
+                                          IconButton(
+                                            style: ButtonStyle(
+                                              padding: MaterialStateProperty
+                                                  .all<EdgeInsetsGeometry>(
+                                                      EdgeInsets.zero),
+                                              visualDensity:
+                                                  VisualDensity.compact,
+                                            ),
+                                            icon: const Icon(Icons.add),
+                                            onPressed: () {
+                                              Provider.of<ProductCart>(context,
+                                                      listen: false)
+                                                  .addProduct(productGroup
+                                                      .products.first);
+                                              productGroup.products.first
+                                                  .incrementSelectedQuantity(
+                                                      context);
+                                              Provider.of<ProductList>(context,
+                                                      listen: false)
+                                                  .updateProduct(productGroup
+                                                      .products.first);
+                                            },
                                           ),
-                                          icon: const Icon(Icons.add),
-                                          onPressed: () {
-                                            Provider.of<ProductCart>(context,
-                                                    listen: false)
-                                                .addProduct(productGroup
-                                                    .products.first);
-                                            productGroup.products.first
-                                                .incrementSelectedQuantity(
-                                                    context);
-                                            Provider.of<ProductList>(context,
-                                                    listen: false)
-                                                .updateProduct(productGroup
-                                                    .products.first);
-                                          },
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 );
