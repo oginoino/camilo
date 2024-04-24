@@ -139,6 +139,8 @@ class CartPage extends StatelessWidget {
                                     ],
                                   ),
                             ListView.builder(
+                              key: const PageStorageKey<String>('cart-items'),
+                              addSemanticIndexes: true,
                               padding: EdgeInsets.zero,
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
