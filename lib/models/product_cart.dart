@@ -5,6 +5,7 @@ class ProductCart with ChangeNotifier {
 
   List<ProductList> get productsGruppedByProductId {
     List<ProductList> productsGruppedByProductId = [];
+    products.products.sort((a, b) => a.id.compareTo(b.id));
     for (Product product in products.products) {
       if (productsGruppedByProductId
           .any((element) => element.products.first.id == product.id)) {
