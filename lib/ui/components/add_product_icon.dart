@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import '../../common_libs.dart';
 
 class AddProductIcon extends StatelessWidget {
@@ -61,7 +62,7 @@ class AddProductIcon extends StatelessWidget {
     final position = RelativeRect.fromLTRB(
       renderBox
           .localToGlobal(
-              Offset(renderBox.size.width - 120, renderBox.size.height - 120))
+              Offset(renderBox.size.width - 142, renderBox.size.height - 120))
           .dx,
       renderBox.localToGlobal(Offset.zero).dy,
       renderBox.localToGlobal(Offset.zero).dx,
@@ -83,7 +84,7 @@ class AddProductIcon extends StatelessWidget {
     restartTimer();
 
     Future<Widget?> menu = showMenu(
-      constraints: const BoxConstraints(maxWidth: 120),
+      constraints: const BoxConstraints(maxWidth: 140),
       context: context,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
       position: position,
@@ -92,6 +93,7 @@ class AddProductIcon extends StatelessWidget {
         reverseDuration: const Duration(milliseconds: 100),
       ),
       useRootNavigator: true,
+      color: Theme.of(context).colorScheme.primary,
       items: [
         PopupMenuItem(
           padding: EdgeInsets.zero,
@@ -102,52 +104,75 @@ class AddProductIcon extends StatelessWidget {
             ),
             child: Consumer<ProductList>(builder: (context, products, child) {
               return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  IconButton(
-                      visualDensity: VisualDensity.compact,
-                      padding: EdgeInsets.zero,
-                      tooltip: 'Remover',
-                      onPressed: () {
-                        if (product.selectedQuantity > 0) {
-                          updateProductSelectedQuantity(isIncrement: false);
-                        }
-                        restartTimer();
-                      },
-                      icon: Icon(
-                        product.selectedQuantity < 1
-                            ? null
-                            : product.selectedQuantity == 1
-                                ? Icons.delete
-                                : Icons.remove_rounded,
-                        size: uiConstants.iconSizeSmall,
-                        color: Theme.of(context).colorScheme.tertiary,
-                      )),
-                  Text(
+                  Padding(
+                    padding: EdgeInsets.only(left: UiConstants().paddingSmall),
+                    child: IconButton(
+                        visualDensity: VisualDensity.compact,
+                        padding: EdgeInsets.zero,
+                        tooltip: 'Remover',
+                        onPressed: () {
+                          if (product.selectedQuantity > 0) {
+                            updateProductSelectedQuantity(isIncrement: false);
+                          }
+                          restartTimer();
+                        },
+                        iconSize: uiConstants.iconSizeMedium,
+                        icon: Icon(
+                          product.selectedQuantity < 1
+                              ? null
+                              : product.selectedQuantity == 1
+                                  ? Icons.delete
+                                  : Icons.remove_rounded,
+                          color: Theme.of(context).colorScheme.background,
+                        )),
+                  ),
+                  Container(
+                    constraints: const BoxConstraints(
+                      minWidth: 40,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(8),
+                      shape: BoxShape.rectangle,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: UiConstants().paddingSmall,
+                      vertical: UiConstants().paddingExtraSmall,
+                    ),
+                    child: Text(
                       products
                           .getProductById(product.id)
                           .selectedQuantity
                           .toString(),
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.tertiary,
+                            color: Theme.of(context).colorScheme.background,
                             fontWeight: FontWeight.bold,
-                          )),
-                  IconButton(
-                    visualDensity: VisualDensity.compact,
-                    padding: EdgeInsets.zero,
-                    tooltip: 'Adicionar',
-                    onPressed: () {
-                      updateProductSelectedQuantity(isIncrement: true);
-                      restartTimer();
-                    },
-                    icon: Icon(
-                      Icons.add_rounded,
-                      size: uiConstants.iconSizeSmall,
-                      color:
-                          product.availableQuantity <= product.selectedQuantity
-                              ? Colors.transparent
-                              : Theme.of(context).colorScheme.tertiary,
+                            fontSize: 20,
+                          ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: UiConstants().paddingSmall),
+                    child: IconButton(
+                      visualDensity: VisualDensity.compact,
+                      padding: EdgeInsets.zero,
+                      tooltip: 'Adicionar',
+                      onPressed: () {
+                        updateProductSelectedQuantity(isIncrement: true);
+                        restartTimer();
+                      },
+                      iconSize: uiConstants.iconSizeMedium,
+                      icon: Icon(
+                        Icons.add_rounded,
+                        color: product.availableQuantity <=
+                                product.selectedQuantity
+                            ? Colors.transparent
+                            : Theme.of(context).colorScheme.background,
+                      ),
                     ),
                   )
                 ],
