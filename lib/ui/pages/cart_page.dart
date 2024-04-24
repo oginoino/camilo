@@ -19,7 +19,7 @@ class CartPage extends StatelessWidget {
         const String endCardButtonIextNotMinimumOrder =
             'Adicionar mais produtos';
         var notMinimumOrderMessage =
-            'Faltam ${(cart.minimumOrder - cart.totalPrice).toStringAsFixed(2)} para completar o pedido mínimo';
+            'Apenas R\$ ${(cart.minimumOrder - cart.totalPrice).toStringAsFixed(2)} para completar o pedido mínimo';
         return Scaffold(
           body: CustomScrollView(
             slivers: [
@@ -124,11 +124,17 @@ class CartPage extends StatelessWidget {
                                         color: uiConstants.yellowSubmarine,
                                       ),
                                       SizedBox(width: uiConstants.paddingSmall),
-                                      Text(
-                                        notMinimumOrderMessage,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelMedium,
+                                      SizedBox(
+                                        height: 48,
+                                        child: Center(
+                                          child: Text(
+                                            notMinimumOrderMessage,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelMedium,
+                                            maxLines: 2,
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
