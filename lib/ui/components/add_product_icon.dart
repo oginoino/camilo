@@ -82,7 +82,7 @@ class AddProductIcon extends StatelessWidget {
 
     restartTimer();
 
-    var menu = showMenu(
+    Future<Widget?> menu = showMenu(
       constraints: const BoxConstraints(maxWidth: 120),
       context: context,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
