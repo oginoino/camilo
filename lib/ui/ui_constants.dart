@@ -3,7 +3,7 @@ import '../common_libs.dart';
 class UiConstants {
   // seed colors
   Map<String, Color> get seedColors => {
-        'primaryLight': const Color(0xFF007F5F),
+        'primaryLight': const Color(0xFF008080),
         'primaryContainerLight': const Color(0xFF32DE8A),
         'secondaryLight': const Color(0xFF2A9D8F),
         'secondaryContainerLight': const Color(0xFF8AC4B2),
