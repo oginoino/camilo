@@ -11,7 +11,7 @@ class CategoryPage extends StatelessWidget {
       slivers: [
         const CustomAppBar(),
         const CustomBackButton(),
-        _buildPageTitle(context),
+        _buildBodyTitle(context),
         _buildPageBody(),
       ],
     );
@@ -47,7 +47,7 @@ class CategoryPage extends StatelessWidget {
     );
   }
 
-  SliverToBoxAdapter _buildPageTitle(BuildContext context) {
+  SliverToBoxAdapter _buildBodyTitle(BuildContext context) {
     return SliverToBoxAdapter(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
