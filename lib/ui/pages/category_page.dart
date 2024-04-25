@@ -10,42 +10,59 @@ class CategoryPage extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         const CustomAppBar(),
-        SliverGridBody(
-          categoryName: categoryName,
-        ),
+        _buildPageTitle(context),
+        _buildPageBody(),
       ],
     );
   }
-}
 
-class SliverGridBody extends StatelessWidget {
-  const SliverGridBody({
-    super.key,
-    required this.categoryName,
-  });
+  Consumer<ProductList> _buildPageBody() {
+    return Consumer<ProductList>(
+      builder: (context, products, child) {
+        final productsFromCategory = products.products
+            .where(
+                (product) => product.productCategories.contains(categoryName))
+            .toList();
+        return SliverGrid(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: uiConstants.paddingSmall,
+            mainAxisSpacing: uiConstants.paddingSmall,
+            childAspectRatio: 0.7,
+          ),
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return ProductCard(product: productsFromCategory[index]);
+            },
+            childCount: productsFromCategory.length,
+          ),
+        );
+      },
+    );
+  }
 
-  final String categoryName;
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<ProductList>(builder: (context, products, child) {
-      final productsFromCategory = products.products
-          .where((product) => product.productCategories.contains(categoryName))
-          .toList();
-      return SliverGrid(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          childAspectRatio: 0.7,
-        ),
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            return ProductCard(product: productsFromCategory[index]);
-          },
-          childCount: productsFromCategory.length,
-        ),
-      );
-    });
+  SliverToBoxAdapter _buildPageTitle(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              left: uiConstants.paddingSmall,
+              top: uiConstants.paddingMedium,
+            ),
+            child: Text(
+              categoryName,
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: uiConstants.cyanGreen,
+                  ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
