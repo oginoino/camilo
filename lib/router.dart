@@ -6,6 +6,8 @@ class ScreenPaths {
   static String splash = '/';
   static String home = '/home';
   static String cart = '/cart';
+
+  static String categoryPath(String categoryName) => '/category/$categoryName';
 }
 
 final appRouter = GoRouter(
@@ -28,6 +30,11 @@ final appRouter = GoRouter(
         AppRoute(
           ScreenPaths.cart,
           (state) => const CartPage(),
+        ),
+        AppRoute(
+          ScreenPaths.categoryPath(':categoryName'),
+          (state) =>
+              CategoryPage(categoryName: state.pathParameters['categoryName']!),
         ),
       ],
     ),
