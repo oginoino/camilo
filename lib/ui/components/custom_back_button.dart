@@ -19,6 +19,7 @@ class CustomBackButton extends StatelessWidget {
               'Voltar',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.w600
                   )
             ),
             style: TextButton.styleFrom(
