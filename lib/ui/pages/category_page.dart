@@ -32,8 +32,8 @@ class CategoryPage extends StatelessWidget {
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 200,
               crossAxisSpacing: uiConstants.paddingSmall,
-              
-              childAspectRatio: 0.6,
+              mainAxisSpacing: uiConstants.paddingSmall,
+              childAspectRatio: 0.5,
             ),
             delegate: SliverChildBuilderDelegate(
               (context, index) {
