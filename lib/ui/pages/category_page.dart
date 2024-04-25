@@ -7,10 +7,45 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomScrollView(
+    return CustomScrollView(
       slivers: [
-        CustomAppBar(),
+        const CustomAppBar(),
+        SliverGridBody(
+          categoryName: categoryName,
+        ),
       ],
     );
+  }
+}
+
+class SliverGridBody extends StatelessWidget {
+  const SliverGridBody({
+    super.key,
+    required this.categoryName,
+  });
+
+  final String categoryName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ProductList>(builder: (context, products, child) {
+      final productsFromCategory = products.products
+          .where((product) => product.productCategories.contains(categoryName))
+          .toList();
+      return SliverGrid(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 0.7,
+        ),
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return ProductCard(product: productsFromCategory[index]);
+          },
+          childCount: productsFromCategory.length,
+        ),
+      );
+    });
   }
 }
