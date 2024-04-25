@@ -78,6 +78,9 @@ export 'ui/components/add_product_icon.dart';
 // custom bottom navigation bar
 export 'ui/components/custom_bottom_navigation_bar.dart';
 
+// custom back button
+export 'ui/components/custom_back_button.dart';
+
 // constants
 
 // ui constants

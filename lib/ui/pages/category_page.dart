@@ -10,6 +10,7 @@ class CategoryPage extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         const CustomAppBar(),
+        const CustomBackButton(),
         _buildPageTitle(context),
         _buildPageBody(),
       ],
@@ -23,18 +24,23 @@ class CategoryPage extends StatelessWidget {
             .where(
                 (product) => product.productCategories.contains(categoryName))
             .toList();
-        return SliverGrid(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: uiConstants.paddingSmall,
-            mainAxisSpacing: uiConstants.paddingSmall,
-            childAspectRatio: 0.7,
+        return SliverPadding(
+          padding: EdgeInsets.symmetric(
+            horizontal: uiConstants.paddingSmall,
           ),
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              return ProductCard(product: productsFromCategory[index]);
-            },
-            childCount: productsFromCategory.length,
+          sliver: SliverGrid(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 200,
+              crossAxisSpacing: uiConstants.paddingSmall,
+              
+              childAspectRatio: 0.6,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return ProductCard(product: productsFromCategory[index]);
+              },
+              childCount: productsFromCategory.length,
+            ),
           ),
         );
       },
