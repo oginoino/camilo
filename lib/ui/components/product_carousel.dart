@@ -40,7 +40,11 @@ class ProductCarossel extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           horizontal: uiConstants.paddingSmall),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          appRouter.push(
+                            ScreenPaths.categoryPath(category),
+                          );
+                        },
                         child: Row(
                           children: [
                             const Text('Ver tudo'),

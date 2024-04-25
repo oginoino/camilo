@@ -52,6 +52,9 @@ export 'ui/pages/home_page.dart';
 // cart page
 export 'ui/pages/cart_page.dart';
 
+// category page
+export 'ui/pages/category_page.dart';
+
 // components
 
 // app bar
