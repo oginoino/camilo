@@ -33,6 +33,11 @@ class ProductList extends ChangeNotifier {
     notifyListeners();
   }
 
+  void getProductsByCategory(String category) {
+    products.where((product) => product.productCategories.contains(category));
+    notifyListeners();
+  }
+
   @override
   String toString() {
     return 'ProductList{products: $products}';
