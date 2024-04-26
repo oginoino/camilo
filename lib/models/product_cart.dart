@@ -43,7 +43,12 @@ class ProductCart with ChangeNotifier {
   }
 
   void decrementProduct(BuildContext context, Product product) {
-    cartProducts.remove(product);
+    // where the product is in the cart
+    int index = cartProducts.indexWhere((element) => element.id == product.id);
+    if (index != -1) {
+      cartProducts.removeAt(index);
+      notifyListeners();
+    }
     notifyListeners();
   }
 
