@@ -26,23 +26,21 @@ class CustomSearchBar extends StatelessWidget {
         controller: textEditingControllerValue,
         hintText: hintTextValue,
         trailing: [
-          textEditingControllerValue.text.isNotEmpty
-              ? IconButton(
-                  icon: Icon(
-                    Icons.close_rounded,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  onPressed: () {
-                    textEditingControllerValue.clear();
-                    products.getAllProducts();
-                  },
-                )
-              : const SizedBox(),
-          Icon(
-            Icons.search_rounded,
-            color: Theme.of(context).colorScheme.secondary,
+          IconButton(
+            icon: Icon(
+              Icons.clear_all_rounded,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+            onPressed: () {
+              textEditingControllerValue.clear();
+              products.getAllProducts();
+            },
           ),
         ],
+        leading: Icon(
+          Icons.search_rounded,
+          color: Theme.of(context).colorScheme.secondary,
+        ),
         elevation: MaterialStateProperty.all(value),
         backgroundColor: MaterialStateProperty.all(Colors.white),
         constraints: BoxConstraints(
