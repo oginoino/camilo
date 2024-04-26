@@ -86,6 +86,9 @@ export 'ui/components/custom_bottom_navigation_bar.dart';
 // custom back button
 export 'ui/components/custom_back_button.dart';
 
+// custom page body
+export 'ui/components/custom_page_body.dart';
+
 // constants
 
 // ui constants
