@@ -10,18 +10,16 @@ class CustomBackButton extends StatelessWidget {
         children: [
           TextButton.icon(
             onPressed: () {
+              products.getAllProducts();
               appRouter.canPop()
                   ? appRouter.pop()
-                  : appRouter.push(ScreenPaths.home);
+                  : appRouter.go(ScreenPaths.home);
             },
             icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 16),
-            label: Text(
-              'Voltar',
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            label: Text('Voltar',
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.w600
-                  )
-            ),
+                    fontWeight: FontWeight.w600)),
             style: TextButton.styleFrom(
               visualDensity: VisualDensity.compact,
             ),
