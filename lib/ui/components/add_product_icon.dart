@@ -2,7 +2,7 @@ import 'dart:async';
 
 import '../../common_libs.dart';
 
-class AddProductIcon extends StatelessWidget {
+class AddProductIcon extends StatefulWidget {
   const AddProductIcon({
     super.key,
     required this.product,
@@ -12,13 +12,18 @@ class AddProductIcon extends StatelessWidget {
   final Product product;
 
   @override
+  State<AddProductIcon> createState() => _AddProductIconState();
+}
+
+class _AddProductIconState extends State<AddProductIcon> {
+  @override
   Widget build(BuildContext context) {
     double addIconPositionTop = 0.0;
     double addIconPositionRight = 0.0;
 
     return Consumer<ProductCart>(builder: (context, productCart, child) {
       int selectedQuantityByProductId =
-          productCart.getSelectedQuantityByProductId(product.id);
+          productCart.getSelectedQuantityByProductId(widget.product.id);
       return Positioned(
         top: addIconPositionTop,
         right: addIconPositionRight,
@@ -47,7 +52,7 @@ class AddProductIcon extends StatelessWidget {
                 ),
           onPressed: () {
             if (selectedQuantityByProductId == 0) {
-              productCart.incrementProduct(context, product);
+              productCart.incrementProduct(context, widget.product);
             }
             showIncrementMenu(context);
           },
@@ -107,7 +112,7 @@ class AddProductIcon extends StatelessWidget {
             child:
                 Consumer<ProductCart>(builder: (context, productCart, child) {
               int selectedQuantityByProductId =
-                  productCart.getSelectedQuantityByProductId(product.id);
+                  productCart.getSelectedQuantityByProductId(widget.product.id);
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -120,7 +125,8 @@ class AddProductIcon extends StatelessWidget {
                         tooltip: 'Remover',
                         onPressed: () {
                           if (selectedQuantityByProductId > 0) {
-                            productCart.decrementProduct(context, product);
+                            productCart.decrementProduct(
+                                context, widget.product);
                           }
                           restartTimer();
                         },
@@ -164,13 +170,13 @@ class AddProductIcon extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       tooltip: 'Adicionar',
                       onPressed: () {
-                        productCart.incrementProduct(context, product);
+                        productCart.incrementProduct(context, widget.product);
                         restartTimer();
                       },
                       iconSize: uiConstants.iconSizeMedium,
                       icon: Icon(
                         Icons.add_rounded,
-                        color: product.availableQuantity <=
+                        color: widget.product.availableQuantity <=
                                 selectedQuantityByProductId
                             ? Colors.transparent
                             : Theme.of(context).colorScheme.background,
