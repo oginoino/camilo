@@ -5,18 +5,12 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
+    return const CustomScrollView(
       slivers: [
-        const CustomAppBar(),
-        _buildSliverTopBoxAdapter(context),
-        const CustomPageBody()
+        CustomAppBar(),
+        CustomTopBoxAdapter(),
+        CustomPageBody(),
       ],
     );
   }
-
-  CustomTopBoxAdapter _buildSliverTopBoxAdapter(BuildContext context) {
-    return const CustomTopBoxAdapter();
-  }
 }
-
-
