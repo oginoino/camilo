@@ -43,6 +43,7 @@ extension StringExtension on String {
         .replaceAll('ã', 'a')
         .replaceAll('â', 'a')
         .replaceAll('à', 'a')
+        .replaceAll('ä', 'a')
         .replaceAll('é', 'e')
         .replaceAll('ê', 'e')
         .replaceAll('í', 'i')
