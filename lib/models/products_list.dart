@@ -48,7 +48,7 @@ class ProductList extends ChangeNotifier {
   }
 
   void searchProducts(String value) {
-    products = productsService.products
+    products = productsService.productListService.products
         .where(
           (product) => product.productName.toLowerCase().contains(
                 value.toLowerCase(),
@@ -59,7 +59,7 @@ class ProductList extends ChangeNotifier {
   }
 
   void getAllProducts() {
-    products = productsService.products;
+    products = productsService.productListService.products;
     notifyListeners();
   }
 }
