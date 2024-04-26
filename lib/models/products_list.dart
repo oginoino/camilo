@@ -50,6 +50,7 @@ extension StringExtension on String {
         .replaceAll('ô', 'o')
         .replaceAll('õ', 'o')
         .replaceAll('ú', 'u')
+        .replaceAll('ü', 'u')
         .replaceAll('ç', 'c')
         .replaceAll('\'', '')
         .replaceAll('-', '');
