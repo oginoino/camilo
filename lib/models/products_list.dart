@@ -5,33 +5,6 @@ class ProductList extends ChangeNotifier {
 
   ProductList({required this.products});
 
-  void addProduct(Product product) {
-    products.add(product);
-    notifyListeners();
-  }
-
-  void removeProduct(Product product) {
-    products.remove(product);
-    notifyListeners();
-  }
-
-  void clearProducts() {
-    products.clear();
-    notifyListeners();
-  }
-
-  void clearProductSelectedQuantity() {
-    for (final product in products) {
-      product.selectedQuantity = 0;
-    }
-    notifyListeners();
-  }
-
-  void updateProduct(Product product) {
-    final productIndex = products.indexWhere((p) => p.id == product.id);
-    products[productIndex] = product;
-    notifyListeners();
-  }
 
   void getProductsByCategory(String category) {
     products.where((product) => product.productCategories.contains(category));
