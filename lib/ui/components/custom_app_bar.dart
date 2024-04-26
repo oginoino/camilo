@@ -65,7 +65,7 @@ class CustomAppBar extends StatelessWidget {
         collapseMode: CollapseMode.parallax,
         expandedTitleScale: expandedTitleScale,
         titlePadding: EdgeInsets.zero,
-        title: const CustomSearchBar(),
+        title: CustomSearchBar(),
       ),
     );
   }

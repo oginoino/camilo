@@ -1,15 +1,17 @@
 import '../../common_libs.dart';
 
 class CustomSearchBar extends StatelessWidget {
-  const CustomSearchBar({
+  CustomSearchBar({
     super.key,
   });
+
+  final TextEditingController textEditingControllerValue =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     String hintTextValue = 'O que você precisa hoje?';
     FocusNode focusNodeValue = FocusNode();
-    TextEditingController textEditingControllerValue = TextEditingController();
 
     double value = 0.0;
     double minHeight = 40.0;
@@ -24,6 +26,18 @@ class CustomSearchBar extends StatelessWidget {
         controller: textEditingControllerValue,
         hintText: hintTextValue,
         trailing: [
+          textEditingControllerValue.text.isNotEmpty
+              ? IconButton(
+                  icon: Icon(
+                    Icons.close_rounded,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  onPressed: () {
+                    textEditingControllerValue.clear();
+                    products.getAllProducts();
+                  },
+                )
+              : const SizedBox(),
           Icon(
             Icons.search_rounded,
             color: Theme.of(context).colorScheme.secondary,
