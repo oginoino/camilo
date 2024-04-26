@@ -39,7 +39,7 @@ class CartPage extends StatelessWidget {
                   collapseMode: CollapseMode.parallax,
                   expandedTitleScale: expandedTitleScale,
                   titlePadding: EdgeInsets.zero,
-                  title: cart.products.products.isEmpty
+                  title: cart.cartProducts.isEmpty
                       ? const SizedBox()
                       : Padding(
                           padding: EdgeInsets.all(uiConstants.paddingSmall),
@@ -54,10 +54,7 @@ class CartPage extends StatelessWidget {
                               ),
                               onPressed: () {
                                 Provider.of<ProductCart>(context, listen: false)
-                                    .clearProducts();
-
-                                Provider.of<ProductList>(context, listen: false)
-                                    .clearProductSelectedQuantity();
+                                    .clearCart();
                               },
                               label: Text(
                                 clearCartButtonText,
@@ -83,7 +80,7 @@ class CartPage extends StatelessWidget {
               ),
               SliverList.list(
                 children: [
-                  cart.products.products.isEmpty
+                  cart.cartProducts.isEmpty
                       ? SizedBox(
                           child: Center(
                             child: Column(
@@ -159,9 +156,7 @@ class CartPage extends StatelessWidget {
                                     child: Image.network(
                                       cacheWidth: 126,
                                       cacheHeight: 126,
-                                      productGroup
-                                              .products.first.productImageSrc ??
-                                          '',
+                                      productGroup.first.productImageSrc ?? '',
                                       fit: BoxFit.cover,
                                       errorBuilder:
                                           (context, error, stackTrace) {
@@ -199,13 +194,13 @@ class CartPage extends StatelessWidget {
                                   visualDensity: VisualDensity.compact,
                                   isThreeLine: true,
                                   title: Text(
-                                    productGroup.products.first.productName,
+                                    productGroup.first.productName,
                                     style:
                                         Theme.of(context).textTheme.labelLarge,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     semanticsLabel:
-                                        productGroup.products.first.productName,
+                                        productGroup.first.productName,
                                   ),
                                   subtitle: SizedBox(
                                     width: 180,
@@ -216,14 +211,14 @@ class CartPage extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '${productGroup.products.length} ${productGroup.products.first.productUnitOfMeasurement} por R\$ ${productGroup.products.first.productPrice.toStringAsFixed(2)}',
+                                          '${productGroup.length} ${productGroup.first.productUnitOfMeasurement} por R\$ ${productGroup.first.productPrice.toStringAsFixed(2)}',
                                           overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelMedium,
                                         ),
                                         Text(
-                                          'R\$ ${(productGroup.products.first.productPrice * productGroup.products.length).toStringAsFixed(2)}',
+                                          'R\$ ${(productGroup.first.productPrice * productGroup.length).toStringAsFixed(2)}',
                                           overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme
@@ -258,27 +253,19 @@ class CartPage extends StatelessWidget {
                                                 VisualDensity.compact,
                                           ),
                                           icon: Icon(
-                                            productGroup.products.length == 1
+                                            productGroup.length == 1
                                                 ? Icons.delete_rounded
                                                 : Icons.remove_rounded,
                                           ),
                                           onPressed: () {
                                             Provider.of<ProductCart>(context,
                                                     listen: false)
-                                                .removeProduct(
-                                                    productGroup.products.last);
-                                            productGroup.products.last
-                                                .decrementSelectedQuantity(
-                                                    context);
-                                            Provider.of<ProductList>(context,
-                                                    listen: false)
-                                                .updateProduct(
-                                                    productGroup.products.last);
+                                                .decrementProduct(
+                                                    context, productGroup.last);
                                           },
                                         ),
                                         Text(
-                                          productGroup.products.length
-                                              .toString(),
+                                          productGroup.length.toString(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelLarge,
@@ -295,15 +282,8 @@ class CartPage extends StatelessWidget {
                                           onPressed: () {
                                             Provider.of<ProductCart>(context,
                                                     listen: false)
-                                                .addProduct(productGroup
-                                                    .products.first);
-                                            productGroup.products.first
-                                                .incrementSelectedQuantity(
-                                                    context);
-                                            Provider.of<ProductList>(context,
-                                                    listen: false)
-                                                .updateProduct(productGroup
-                                                    .products.first);
+                                                .incrementProduct(context,
+                                                    productGroup.first);
                                           },
                                         ),
                                       ],

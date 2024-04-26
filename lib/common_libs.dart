@@ -32,6 +32,11 @@ export 'models/products_list.dart';
 // product cart
 export 'models/product_cart.dart';
 
+// services
+
+// products service
+export 'services/products_service.dart';
+
 // mock
 
 // mock product list data
@@ -80,6 +85,9 @@ export 'ui/components/custom_bottom_navigation_bar.dart';
 
 // custom back button
 export 'ui/components/custom_back_button.dart';
+
+// custom page body
+export 'ui/components/custom_page_body.dart';
 
 // constants
 

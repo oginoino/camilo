@@ -2,56 +2,63 @@ import 'dart:async';
 
 import '../../common_libs.dart';
 
-class AddProductIcon extends StatelessWidget {
+class AddProductIcon extends StatefulWidget {
   const AddProductIcon({
     super.key,
     required this.product,
-    required this.updateProductSelectedQuantity,
     required int productSelectedQuantity,
   });
 
   final Product product;
-  final Function updateProductSelectedQuantity;
 
+  @override
+  State<AddProductIcon> createState() => _AddProductIconState();
+}
+
+class _AddProductIconState extends State<AddProductIcon> {
   @override
   Widget build(BuildContext context) {
     double addIconPositionTop = 0.0;
     double addIconPositionRight = 0.0;
 
-    return Positioned(
-      top: addIconPositionTop,
-      right: addIconPositionRight,
-      child: IconButton(
-        tooltip: 'Adicionar ou remover',
-        icon: product.selectedQuantity == 0
-            ? CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.background,
-                radius: uiConstants.iconSizeSmall,
-                child: Icon(
-                  Icons.add_circle_rounded,
-                  color: Theme.of(context).colorScheme.secondary,
-                  size: uiConstants.iconSizeLarge,
+    return Consumer<ProductCart>(builder: (context, productCart, child) {
+      int selectedQuantityByProductId =
+          productCart.getSelectedQuantityByProductId(widget.product.id);
+      return Positioned(
+        top: addIconPositionTop,
+        right: addIconPositionRight,
+        child: IconButton(
+          tooltip: 'Adicionar ou remover',
+          icon: selectedQuantityByProductId == 0
+              ? CircleAvatar(
+                  backgroundColor: Theme.of(context).colorScheme.background,
+                  radius: uiConstants.iconSizeSmall,
+                  child: Icon(
+                    Icons.add_circle_rounded,
+                    color: Theme.of(context).colorScheme.secondary,
+                    size: uiConstants.iconSizeLarge,
+                  ),
+                )
+              : CircleAvatar(
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  radius: uiConstants.iconSizeSmall,
+                  child: Text(
+                    selectedQuantityByProductId.toString(),
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.background,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
                 ),
-              )
-            : CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-                radius: uiConstants.iconSizeSmall,
-                child: Text(
-                  product.selectedQuantity.toString(),
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.background,
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-              ),
-        onPressed: () {
-          if (product.selectedQuantity == 0) {
-            updateProductSelectedQuantity(isIncrement: true);
-          }
-          showIncrementMenu(context);
-        },
-      ),
-    );
+          onPressed: () {
+            if (selectedQuantityByProductId == 0) {
+              productCart.incrementProduct(context, widget.product);
+            }
+            showIncrementMenu(context);
+          },
+        ),
+      );
+    });
   }
 
   Future<dynamic> showIncrementMenu(BuildContext context) {
@@ -102,7 +109,10 @@ class AddProductIcon extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
             ),
-            child: Consumer<ProductList>(builder: (context, products, child) {
+            child:
+                Consumer<ProductCart>(builder: (context, productCart, child) {
+              int selectedQuantityByProductId =
+                  productCart.getSelectedQuantityByProductId(widget.product.id);
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -114,16 +124,17 @@ class AddProductIcon extends StatelessWidget {
                         padding: EdgeInsets.zero,
                         tooltip: 'Remover',
                         onPressed: () {
-                          if (product.selectedQuantity > 0) {
-                            updateProductSelectedQuantity(isIncrement: false);
+                          if (selectedQuantityByProductId > 0) {
+                            productCart.decrementProduct(
+                                context, widget.product);
                           }
                           restartTimer();
                         },
                         iconSize: uiConstants.iconSizeMedium,
                         icon: Icon(
-                          product.selectedQuantity < 1
+                          selectedQuantityByProductId < 1
                               ? null
-                              : product.selectedQuantity == 1
+                              : selectedQuantityByProductId == 1
                                   ? Icons.delete
                                   : Icons.remove_rounded,
                           color: Theme.of(context).colorScheme.background,
@@ -143,10 +154,7 @@ class AddProductIcon extends StatelessWidget {
                       vertical: UiConstants().paddingExtraSmall,
                     ),
                     child: Text(
-                      products
-                          .getProductById(product.id)
-                          .selectedQuantity
-                          .toString(),
+                      selectedQuantityByProductId.toString(),
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             color: Theme.of(context).colorScheme.background,
                             fontWeight: FontWeight.bold,
@@ -162,14 +170,14 @@ class AddProductIcon extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       tooltip: 'Adicionar',
                       onPressed: () {
-                        updateProductSelectedQuantity(isIncrement: true);
+                        productCart.incrementProduct(context, widget.product);
                         restartTimer();
                       },
                       iconSize: uiConstants.iconSizeMedium,
                       icon: Icon(
                         Icons.add_rounded,
-                        color: product.availableQuantity <=
-                                product.selectedQuantity
+                        color: widget.product.availableQuantity <=
+                                selectedQuantityByProductId
                             ? Colors.transparent
                             : Theme.of(context).colorScheme.background,
                       ),

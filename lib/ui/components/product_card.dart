@@ -113,7 +113,10 @@ class _ProductCardState extends State<ProductCard> {
                         ),
                         Text(
                           'R\$ ${widget.product.productPrice.toStringAsFixed(2)}',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(
                                 color: Theme.of(context).colorScheme.tertiary,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -126,28 +129,12 @@ class _ProductCardState extends State<ProductCard> {
             ),
             AddProductIcon(
               product: widget.product,
-              updateProductSelectedQuantity: updateProductSelectedQuantity,
-              productSelectedQuantity: widget.product.selectedQuantity,
+              productSelectedQuantity: Provider.of<ProductCart>(context)
+                  .getSelectedQuantityByProductId(widget.product.id),
             ),
           ],
         ),
       ),
     );
-  }
-
-  void updateProductSelectedQuantity({required bool isIncrement}) {
-    if (isIncrement) {
-      Provider.of<ProductCart>(context, listen: false)
-          .addProduct(widget.product);
-      widget.product.incrementSelectedQuantity(context);
-      Provider.of<ProductList>(context, listen: false)
-          .updateProduct(widget.product);
-    } else {
-      Provider.of<ProductCart>(context, listen: false)
-          .removeProduct(widget.product);
-      widget.product.decrementSelectedQuantity(context);
-      Provider.of<ProductList>(context, listen: false)
-          .updateProduct(widget.product);
-    } // This will refresh the main icon state
   }
 }
