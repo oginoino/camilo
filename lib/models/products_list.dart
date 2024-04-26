@@ -5,7 +5,6 @@ class ProductList extends ChangeNotifier {
 
   ProductList({required this.products});
 
-
   void getProductsByCategory(String category) {
     products.where((product) => product.productCategories.contains(category));
     notifyListeners();
@@ -23,9 +22,10 @@ class ProductList extends ChangeNotifier {
   void searchProducts(String value) {
     products = productsService.productListService.products
         .where(
-          (product) => product.productName.toLowerCase().contains(
-                value.toLowerCase(),
-              ),
+          (product) =>
+              product.productName.toLowerCase().ignoreAccents().contains(
+                    value.toLowerCase().ignoreAccents(),
+                  ),
         )
         .toList();
     notifyListeners();
@@ -34,5 +34,24 @@ class ProductList extends ChangeNotifier {
   void getAllProducts() {
     products = productsService.productListService.products;
     notifyListeners();
+  }
+}
+
+extension StringExtension on String {
+  String ignoreAccents() {
+    return replaceAll('á', 'a')
+        .replaceAll('ã', 'a')
+        .replaceAll('â', 'a')
+        .replaceAll('à', 'a')
+        .replaceAll('é', 'e')
+        .replaceAll('ê', 'e')
+        .replaceAll('í', 'i')
+        .replaceAll('ó', 'o')
+        .replaceAll('ô', 'o')
+        .replaceAll('õ', 'o')
+        .replaceAll('ú', 'u')
+        .replaceAll('ç', 'c')
+        .replaceAll('\'', '')
+        .replaceAll('-', '');
   }
 }
