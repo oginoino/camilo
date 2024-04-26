@@ -40,7 +40,13 @@ class CustomSearchBar extends StatelessWidget {
         textStyle: MaterialStateProperty.all(
           Theme.of(context).textTheme.labelMedium,
         ),
-        onChanged: (value) {},
+        onChanged: (value) {
+          if (value.isNotEmpty) {
+            products.searchProducts(value);
+          } else {
+            products.getAllProducts();
+          }
+        },
         onSubmitted: (value) {
           focusNodeValue.unfocus();
         },

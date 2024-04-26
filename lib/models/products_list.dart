@@ -1,7 +1,7 @@
-import 'package:camilo/common_libs.dart';
+import '../common_libs.dart';
 
 class ProductList extends ChangeNotifier {
-  final List<Product> products;
+  List<Product> products;
 
   ProductList({required this.products});
 
@@ -45,5 +45,21 @@ class ProductList extends ChangeNotifier {
 
   Product getProductById(String id) {
     return products.firstWhere((product) => product.id == id);
+  }
+
+  void searchProducts(String value) {
+    products = productsService.products
+        .where(
+          (product) => product.productName.toLowerCase().contains(
+                value.toLowerCase(),
+              ),
+        )
+        .toList();
+    notifyListeners();
+  }
+
+  void getAllProducts() {
+    products = productsService.products;
+    notifyListeners();
   }
 }

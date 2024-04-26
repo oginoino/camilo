@@ -32,6 +32,11 @@ export 'models/products_list.dart';
 // product cart
 export 'models/product_cart.dart';
 
+// services
+
+// products service
+export 'services/products_service.dart';
+
 // mock
 
 // mock product list data
