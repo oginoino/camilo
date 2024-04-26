@@ -1,5 +1,6 @@
 import 'common_libs.dart';
 
+
 void main() async {
   registerSingletons();
 
@@ -10,6 +11,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => products),
         ChangeNotifierProvider(create: (_) => productCart),
+        ChangeNotifierProvider(create: (_) => productsService),
       ],
       child: const CamiloApp(),
     ),
@@ -34,11 +36,13 @@ class CamiloApp extends StatelessWidget {
 
 void registerSingletons() {
   GetIt.I.registerLazySingleton<UiConstants>(() => UiConstants());
-  GetIt.I
-      .registerLazySingleton<ProductList>(() => ProductListData.productsList);
+  GetIt.I.registerLazySingleton<ProductList>(
+      () => productsService.productListService);
   GetIt.I.registerLazySingleton<ProductCart>(() => ProductCart());
+  GetIt.I.registerLazySingleton<ProductsService>(() => ProductsService());
 }
 
 UiConstants get uiConstants => GetIt.I<UiConstants>();
 ProductList get products => GetIt.I<ProductList>();
 ProductCart get productCart => GetIt.I<ProductCart>();
+ProductsService get productsService => GetIt.I<ProductsService>();

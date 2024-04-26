@@ -34,9 +34,9 @@ class CartIcon extends StatelessWidget {
           child: Consumer<ProductCart>(
             builder:
                 (BuildContext context, ProductCart productCart, Widget? child) {
-              if (productCart.totalProducts == 0) {
+              if (productCart.cartProducts.isEmpty) {
                 return Container();
-              } else if (productCart.totalProducts > 0) {
+              } else if (productCart.cartProducts.isNotEmpty) {
                 return Badge(
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                   smallSize: badgeSmallSize,
@@ -51,7 +51,7 @@ class CartIcon extends StatelessWidget {
                       ),
                   label: Center(
                     child: Text(
-                      productCart.totalProducts.toString(),
+                      productCart.cartProducts.length.toString(),
                       textAlign: TextAlign.center,
                     ),
                   ),
