@@ -13,6 +13,7 @@ class ProductListData {
                 'https://acdn.mitiendanube.com/stores/001/254/392/products/frutas_hortifruti_hortifit_delivery_banana-prata1-860e400e9aee2c4e5a16922230786998-1024-1024.png',
             productCategories: ['Frutas', 'Promoções'],
             availableQuantity: 10,
+            contentValue: '1kg',
           ),
           Product(
             id: '2',
@@ -24,6 +25,7 @@ class ProductListData {
                 'https://acdn.mitiendanube.com/stores/001/254/392/products/frutas_hortifruti_hortifit_delivery_maca_red1-7cc45afdb5df004f1d16922896021639-640-0.png',
             productCategories: ['Frutas'],
             availableQuantity: 8,
+            contentValue: '500g',
           ),
           Product(
             id: '3',
@@ -35,6 +37,7 @@ class ProductListData {
                 'https://phygital-files.mercafacil.com/fazfeira/uploads/produto/pera_d_anjou_kg_7aa5c892-1f31-4a0f-a791-59f4e0429c2f.png',
             productCategories: ['Frutas'],
             availableQuantity: 5,
+            contentValue: '100g',
           ),
           Product(
             id: '4',
@@ -46,6 +49,7 @@ class ProductListData {
                 'https://www.hortifrutinovohorizonte.com.br/image/cache/catalog/frutas/abacaxi-caixa-c-10-unidades-800x800.png',
             productCategories: ['Frutas'],
             availableQuantity: 3,
+            contentValue: '1kg (aproximadamente)',
           ),
           Product(
             id: '5',
@@ -57,6 +61,7 @@ class ProductListData {
                 'https://tdc01z.vteximg.com.br/arquivos/ids/161989-292-292/melancia-granel-21464.png?v=638067865344730000',
             productCategories: ['Frutas'],
             availableQuantity: 2,
+            contentValue: '5kg a 6kg (aproximadamente)',
           ),
           Product(
             id: '6',
@@ -68,6 +73,7 @@ class ProductListData {
                 'https://superprix.vteximg.com.br/arquivos/ids/176012-210-210/Uva-Thompson-Verde-sem-semente-500g--Bandeja-.png?v=636414113862070000',
             productCategories: ['Frutas', 'Promoções'],
             availableQuantity: 12,
+            contentValue: '250g',
           ),
           Product(
             id: '7',
@@ -79,6 +85,7 @@ class ProductListData {
                 'https://acdn.mitiendanube.com/stores/001/254/392/products/frutas_hortifruti_hortifit_delivery_laranja-pera1-2474be1e3e6ee53e2f16926317496643-480-0.png',
             productCategories: ['Frutas'],
             availableQuantity: 6,
+            contentValue: '1kg',
           ),
           Product(
             id: '8',
@@ -90,6 +97,7 @@ class ProductListData {
                 'https://cdn.lojazmart.com/media/catalog/product/cache/1/image/363x/040ec09b1e35df139433887a97daa66f/m/o/morango_zmart.png',
             productCategories: ['Frutas', 'Doces'],
             availableQuantity: 4,
+            contentValue: '250g',
           ),
           Product(
             id: '9',
@@ -101,6 +109,7 @@ class ProductListData {
                 'https://www.benandjerry.com.br/files/live/sites/systemsite/files/flavors/products/br/pints/open-closed-pints/doce-deleite-core-landing.png',
             productCategories: ['Doces', 'Promoções'],
             availableQuantity: 1,
+            contentValue: '458ml',
           ),
           Product(
             id: '10',
@@ -112,6 +121,7 @@ class ProductListData {
                 'https://supermercadobomdemais.com.br/wp-content/uploads/2020/05/Refrigerante-Coca-Cola-220.png',
             productCategories: ['Doces', 'Bebidas', 'Promoções'],
             availableQuantity: 7,
+            contentValue: '350ml',
           ),
         ],
       );

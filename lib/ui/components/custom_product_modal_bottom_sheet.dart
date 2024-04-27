@@ -11,6 +11,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
           height: 200,
@@ -39,10 +40,68 @@ class CustomProductModalBottomSheet extends StatelessWidget {
             }
           }),
         ),
-        Center(
-          child: Text(
-            'Product details',
-            style: Theme.of(context).textTheme.labelLarge,
+        Padding(
+          padding: EdgeInsets.all(uiConstants.paddingMedium),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: uiConstants.paddingExtraExtraLarge,
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      product.productName,
+                      textAlign: TextAlign.left,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: uiConstants.paddingLarge,
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Row(
+                      children: [
+                        Text(
+                          product.productUnitQuantity,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        SizedBox(width: uiConstants.paddingExtraSmall),
+                        Text(
+                          product.productUnitOfMeasurement,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const Spacer(),
+                        Text(
+                          '${product.contentValue}',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: uiConstants.paddingMedium,
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    'R\$ ${product.productPrice.toStringAsFixed(2)}',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.tertiary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
