@@ -129,4 +129,19 @@ ThemeData lightTheme = ThemeData(
   progressIndicatorTheme: ProgressIndicatorThemeData(
     color: uiConstants.surfaceLight,
   ),
+  bottomSheetTheme: BottomSheetThemeData(
+    backgroundColor: uiConstants.backgroundLight,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+      ),
+    ),
+    elevation: 2,
+    modalBackgroundColor: uiConstants.backgroundLight,
+    modalElevation: 2,
+    surfaceTintColor: uiConstants.backgroundLight,
+    dragHandleColor: uiConstants.primaryLight,
+    dragHandleSize: const Size(64, 4),
+  ),
 );
