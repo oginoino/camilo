@@ -3,18 +3,18 @@ import 'package:camilo/common_libs.dart';
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(
-    seedColor: uiConstants.seedColors['primaryLight']!,
-    primary: uiConstants.seedColors['primaryLight'],
-    primaryContainer: uiConstants.seedColors['primaryContainerLight'],
-    onPrimary: uiConstants.seedColors['onPrimaryLight'],
-    secondary: uiConstants.seedColors['secondaryLight'],
-    secondaryContainer: uiConstants.seedColors['secondaryContainerLight'],
-    onSecondary: uiConstants.seedColors['onSecondaryLight'],
-    tertiary: uiConstants.seedColors['tertiaryLight'],
-    background: uiConstants.seedColors['backgroundLight'],
-    onBackground: uiConstants.seedColors['onBackgroundLight'],
-    error: uiConstants.seedColors['errorLight'],
-    surface: uiConstants.seedColors['surfaceLight'],
+    seedColor: uiConstants.primaryLight,
+    primary: uiConstants.primaryLight,
+    primaryContainer: uiConstants.primaryContainerLight,
+    onPrimary: uiConstants.onPrimaryLight,
+    secondary: uiConstants.secondaryLight,
+    secondaryContainer: uiConstants.secondaryContainerLight,
+    onSecondary: uiConstants.onSecondaryLight,
+    tertiary: uiConstants.tertiaryLight,
+    background: uiConstants.backgroundLight,
+    onBackground: uiConstants.onBackgroundLight,
+    error: uiConstants.errorLight,
+    surface: uiConstants.surfaceLight,
   ),
   textTheme: TextTheme(
     displayLarge: TextStyle(
@@ -94,27 +94,27 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
   appBarTheme: AppBarTheme(
-    color: uiConstants.seedColors['backgroundLight'],
+    color: uiConstants.backgroundLight,
     centerTitle: true,
     elevation: 2,
     titleTextStyle: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.bold,
       fontFamily: GoogleFonts.nunito().fontFamily,
-      color: uiConstants.seedColors['tertiaryLight'],
+      color: uiConstants.tertiaryLight,
     ),
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: uiConstants.seedColors['secondaryLight']!,
-    foregroundColor: uiConstants.seedColors['onSecondaryLight']!,
+    backgroundColor: uiConstants.secondaryLight,
+    foregroundColor: uiConstants.onSecondaryLight,
   ),
   snackBarTheme: SnackBarThemeData(
-    backgroundColor: uiConstants.seedColors['secondaryLight']!,
+    backgroundColor: uiConstants.secondaryLight,
     contentTextStyle: TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
       fontFamily: GoogleFonts.nunito().fontFamily,
-      color: uiConstants.seedColors['onSecondaryLight'],
+      color: uiConstants.onSecondaryLight,
     ),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(16),
@@ -127,6 +127,6 @@ ThemeData lightTheme = ThemeData(
     elevation: 2,
   ),
   progressIndicatorTheme: ProgressIndicatorThemeData(
-    color: uiConstants.seedColors['surfaceLight'],
+    color: uiConstants.surfaceLight,
   ),
 );
