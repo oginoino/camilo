@@ -115,8 +115,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                   ),
                   Center(
                     child: Container(
-                      width: 200,
-                      height: 50,
+                      height: 64,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.primary,
                         borderRadius: BorderRadius.circular(50),
@@ -126,15 +125,13 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                         int selectedQuantityByProductId = productCart
                             .getSelectedQuantityByProductId(product.id);
                         return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
                               padding: EdgeInsets.only(
                                   left: UiConstants().paddingSmall),
                               child: IconButton(
-                                  visualDensity: VisualDensity.compact,
-                                  padding: EdgeInsets.zero,
                                   tooltip: 'Remover',
                                   onPressed: () {
                                     if (selectedQuantityByProductId > 0) {
@@ -149,55 +146,47 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                         : selectedQuantityByProductId == 1
                                             ? Icons.delete
                                             : Icons.remove_rounded,
-                                    color:
-                                        Theme.of(context).colorScheme.background,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
                                   )),
                             ),
-                            Container(
-                              constraints: const BoxConstraints(
-                                minWidth: 40,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.primary,
-                                borderRadius: BorderRadius.circular(8),
-                                shape: BoxShape.rectangle,
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: UiConstants().paddingSmall,
-                                vertical: UiConstants().paddingExtraSmall,
-                              ),
-                              child: Text(
-                                selectedQuantityByProductId.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge
-                                    ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
-                                textAlign: TextAlign.center,
-                              ),
+                            Text(
+                              selectedQuantityByProductId.toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                              textAlign: TextAlign.center,
                             ),
                             Padding(
                               padding: EdgeInsets.only(
                                   right: UiConstants().paddingSmall),
                               child: IconButton(
-                                visualDensity: VisualDensity.compact,
-                                padding: EdgeInsets.zero,
                                 tooltip: 'Adicionar',
                                 onPressed: () {
-                                  productCart.incrementProduct(context, product);
+                                  productCart.incrementProduct(
+                                      context, product);
                                 },
                                 iconSize: uiConstants.iconSizeMedium,
-                                icon: Icon(
-                                  Icons.add_rounded,
-                                  color: product.availableQuantity <=
-                                          selectedQuantityByProductId
-                                      ? Colors.transparent
-                                      : Theme.of(context).colorScheme.background,
+                                icon: Row(
+                                  children: [
+                                    
+                                    Icon(
+                                      Icons.add_rounded,
+                                      color: product.availableQuantity <=
+                                              selectedQuantityByProductId
+                                          ? Colors.transparent
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .background,
+                                    ),
+                                  ],
                                 ),
                               ),
                             )
