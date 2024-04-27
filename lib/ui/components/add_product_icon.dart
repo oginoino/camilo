@@ -6,7 +6,6 @@ class AddProductIcon extends StatefulWidget {
   const AddProductIcon({
     super.key,
     required this.product,
-    required int productSelectedQuantity,
   });
 
   final Product product;

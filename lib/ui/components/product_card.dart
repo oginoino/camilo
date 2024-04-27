@@ -135,8 +135,6 @@ class _ProductCardState extends State<ProductCard> {
             ),
             AddProductIcon(
               product: widget.product,
-              productSelectedQuantity: Provider.of<ProductCart>(context)
-                  .getSelectedQuantityByProductId(widget.product.id),
             ),
           ],
         ),
@@ -151,7 +149,7 @@ class _ProductCardState extends State<ProductCard> {
       useSafeArea: true,
       useRootNavigator: true,
       showDragHandle: true,
-      isScrollControlled: false,
+      isScrollControlled: true,
       enableDrag: true,
       builder: (context) {
         return CustomProductModalBottomSheet(
