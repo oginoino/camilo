@@ -31,7 +31,7 @@ class _ProductCardState extends State<ProductCard> {
           children: [
             GestureDetector(
               onTap: () {
-                showProductDetails(context);
+                showProductDetails(context, widget.product);
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -144,7 +144,7 @@ class _ProductCardState extends State<ProductCard> {
     );
   }
 
-  Future<dynamic> showProductDetails(BuildContext context) {
+  Future<dynamic> showProductDetails(BuildContext context, Product product) {
     return showModalBottomSheet(
       context: context,
       isDismissible: true,
@@ -154,11 +154,8 @@ class _ProductCardState extends State<ProductCard> {
       isScrollControlled: false,
       enableDrag: true,
       builder: (context) {
-        return Center(
-          child: Text(
-            'Product details',
-            style: Theme.of(context).textTheme.labelLarge,
-          ),
+        return CustomProductModalBottomSheet(
+          product: product,
         );
       },
     );

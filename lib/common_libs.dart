@@ -96,3 +96,6 @@ export 'ui/ui_constants.dart';
 
 // top box adapter
 export 'ui/components/custom_top_box_adapter.dart';
+
+// custom product modal bottom sheet
+export 'ui/components/custom_product_modal_bottom_sheet.dart';
