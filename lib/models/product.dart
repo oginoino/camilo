@@ -6,6 +6,7 @@ class Product extends ChangeNotifier {
   final double productPrice;
   final String productUnitOfMeasurement;
   final String productUnitQuantity;
+  final String? contentValue;
   final String? productImageSrc;
 
   final List<String> productCategories;
@@ -19,6 +20,7 @@ class Product extends ChangeNotifier {
     required this.productPrice,
     required this.productUnitOfMeasurement,
     required this.productUnitQuantity,
+    this.contentValue,
     this.productImageSrc,
     required this.productCategories,
     required this.availableQuantity,
@@ -28,6 +30,6 @@ class Product extends ChangeNotifier {
 
   @override
   String toString() {
-    return 'Product{id: $id, productName: $productName, productPrice: $productPrice, productUnitOfMeasurement: $productUnitOfMeasurement, productUnitQuantity: $productUnitQuantity, productImageSrc: $productImageSrc, productCategories: $productCategories, availableQuantity: $availableQuantity, producKilogramsWeight: $producKilogramsWeight, productCubicMeterVolume: $productCubicMeterVolume}';
+    return 'Product{id: $id, productName: $productName, productPrice: $productPrice, productUnitOfMeasurement: $productUnitOfMeasurement, productUnitQuantity: $productUnitQuantity, contentValue: $contentValue, productImageSrc: $productImageSrc, productCategories: $productCategories, availableQuantity: $availableQuantity, producKilogramsWeight: $producKilogramsWeight, productCubicMeterVolume: $productCubicMeterVolume}';
   }
 }
