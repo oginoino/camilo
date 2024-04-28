@@ -144,7 +144,7 @@ class _AddProductIconState extends State<AddProductIcon> {
                       minWidth: 40,
                     ),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(8),
                       shape: BoxShape.rectangle,
                     ),
