@@ -132,6 +132,10 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                               padding: EdgeInsets.only(
                                   left: UiConstants().paddingSmall),
                               child: IconButton(
+                                padding: EdgeInsets.only(
+                                  right: UiConstants().paddingExtraExtraLarge,
+                                  left: UiConstants().paddingSmall,
+                                ),
                                   tooltip: 'Remover',
                                   onPressed: () {
                                     if (selectedQuantityByProductId > 0) {
@@ -151,32 +155,47 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                         .background,
                                   )),
                             ),
-                            Text(
-                              selectedQuantityByProductId.toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                              textAlign: TextAlign.center,
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.secondary,
+                                borderRadius: BorderRadius.circular(8),
+                                shape: BoxShape.rectangle,
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: UiConstants().paddingSmall,
+                                vertical: UiConstants().paddingExtraSmall,
+                              ),
+                              child: Text(
+                                selectedQuantityByProductId.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
-                                  right: UiConstants().paddingSmall),
+                                right: UiConstants().paddingSmall,
+                              ),
                               child: IconButton(
                                 tooltip: 'Adicionar',
                                 onPressed: () {
                                   productCart.incrementProduct(
                                       context, product);
                                 },
+                                padding: EdgeInsets.only(
+                                  left: UiConstants().paddingExtraExtraLarge,
+                                  right: UiConstants().paddingSmall,
+                                ),
                                 iconSize: uiConstants.iconSizeMedium,
                                 icon: Row(
                                   children: [
-                                    
                                     Icon(
                                       Icons.add_rounded,
                                       color: product.availableQuantity <=
