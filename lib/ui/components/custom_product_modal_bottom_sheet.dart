@@ -77,7 +77,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: uiConstants.paddingLarge,
+                    height: uiConstants.paddingExtraLarge,
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: Row(
