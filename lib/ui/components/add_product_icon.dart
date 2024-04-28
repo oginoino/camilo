@@ -6,9 +6,15 @@ class AddProductIcon extends StatefulWidget {
   const AddProductIcon({
     super.key,
     required this.product,
+    this.iconSize = 32,
+    this.iconRadius = 16,
+    this.iconFontSize = 16,
   });
 
   final Product product;
+  final double iconSize;
+  final double iconRadius;
+  final double iconFontSize;
 
   @override
   State<AddProductIcon> createState() => _AddProductIconState();
@@ -31,21 +37,22 @@ class _AddProductIconState extends State<AddProductIcon> {
           icon: selectedQuantityByProductId == 0
               ? CircleAvatar(
                   backgroundColor: Theme.of(context).colorScheme.background,
-                  radius: uiConstants.iconSizeSmall,
+                  radius: widget.iconRadius,
                   child: Icon(
                     Icons.add_circle_rounded,
                     color: Theme.of(context).colorScheme.secondary,
-                    size: uiConstants.iconSizeLarge,
+                    size: widget.iconSize,
                   ),
                 )
               : CircleAvatar(
                   backgroundColor: Theme.of(context).colorScheme.secondary,
-                  radius: uiConstants.iconSizeSmall,
+                  radius: widget.iconRadius,
                   child: Text(
                     selectedQuantityByProductId.toString(),
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           color: Theme.of(context).colorScheme.background,
                           fontWeight: FontWeight.bold,
+                          fontSize: widget.iconFontSize,
                         ),
                   ),
                 ),
