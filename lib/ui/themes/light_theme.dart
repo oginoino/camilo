@@ -141,7 +141,7 @@ ThemeData lightTheme = ThemeData(
     modalBackgroundColor: uiConstants.backgroundLight,
     modalElevation: 2,
     surfaceTintColor: uiConstants.backgroundLight,
-    dragHandleColor: uiConstants.primaryLight,
+    dragHandleColor: uiConstants.secondaryLight,
     dragHandleSize: const Size(64, 4),
   ),
 );

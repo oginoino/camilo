@@ -111,7 +111,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: uiConstants.paddingMedium,
+                    height: uiConstants.paddingExtraLarge,
                   ),
                   Center(
                     child: Container(
@@ -213,6 +213,9 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                         );
                       }),
                     ),
+                  ),
+                  SizedBox(
+                    height: uiConstants.paddingMedium,
                   ),
                 ],
               ),
