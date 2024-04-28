@@ -80,18 +80,14 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            product.productUnitQuantity,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          SizedBox(width: uiConstants.paddingExtraSmall),
-                          Text(
-                            product.productUnitOfMeasurement,
+                            '${product.productUnitQuantity} ${product.productUnitOfMeasurement}',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           const Spacer(),
                           Text(
                             '${product.contentValue}',
                             style: Theme.of(context).textTheme.bodyMedium,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),
@@ -132,10 +128,10 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                               padding: EdgeInsets.only(
                                   left: UiConstants().paddingSmall),
                               child: IconButton(
-                                padding: EdgeInsets.only(
-                                  right: UiConstants().paddingExtraExtraLarge,
-                                  left: UiConstants().paddingSmall,
-                                ),
+                                  padding: EdgeInsets.only(
+                                    right: UiConstants().paddingExtraExtraLarge,
+                                    left: UiConstants().paddingSmall,
+                                  ),
                                   tooltip: 'Remover',
                                   onPressed: () {
                                     if (selectedQuantityByProductId > 0) {

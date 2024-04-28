@@ -49,7 +49,7 @@ class ProductListData {
                 'https://www.hortifrutinovohorizonte.com.br/image/cache/catalog/frutas/abacaxi-caixa-c-10-unidades-800x800.png',
             productCategories: ['Frutas'],
             availableQuantity: 3,
-            contentValue: '1kg (aproximadamente)',
+            contentValue: '1kg',
           ),
           Product(
             id: '5',
@@ -61,7 +61,7 @@ class ProductListData {
                 'https://tdc01z.vteximg.com.br/arquivos/ids/161989-292-292/melancia-granel-21464.png?v=638067865344730000',
             productCategories: ['Frutas'],
             availableQuantity: 2,
-            contentValue: '5kg a 6kg (aproximadamente)',
+            contentValue: '5kg a 6kg',
           ),
           Product(
             id: '6',
