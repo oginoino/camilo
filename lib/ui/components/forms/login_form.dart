@@ -106,7 +106,12 @@ class LoginForm extends StatelessWidget {
                 height: uiConstants.paddingExtraLarge,
               ),
               FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_loginFormKey.currentState!.validate()) {
+                    section.isAuthenticated = true;
+                    appRouter.go(ScreenPaths.home);
+                  }
+                },
                 focusNode: ctaFocusNode,
                 child: Text(ctaButtonText),
               ),
