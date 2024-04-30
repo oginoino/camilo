@@ -17,7 +17,7 @@ class ForgotPasswordForm extends StatelessWidget {
     const String helperPassword =
         'O link de recuperação será enviado para o email cadastrado';
 
-    const String passwordButtonText = 'Ajuda com a senha?';
+    const String helperPasswordButtonText = 'Ajuda com a senha?';
 
     const String helperLogin = 'Lembrou a senha?';
 
@@ -109,15 +109,34 @@ class ForgotPasswordForm extends StatelessWidget {
                     fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
               ),
+              SizedBox(
+                height: uiConstants.paddingSmall,
+              ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isDismissible: true,
+                    useSafeArea: true,
+                    useRootNavigator: true,
+                    showDragHandle: true,
+                    isScrollControlled: true,
+                    enableDrag: true,
+                    builder: ((BuildContext context) {
+                      return const Center();
+                    }),
+                  );
+                },
                 child: Text(
-                  passwordButtonText,
+                  helperPasswordButtonText,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: Theme.of(context).colorScheme.onBackground,
                       ),
                   textAlign: TextAlign.center,
                 ),
+              ),
+              SizedBox(
+                height: uiConstants.paddingExtraSmall,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
