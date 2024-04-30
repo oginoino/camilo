@@ -105,6 +105,9 @@ export 'ui/components/custom_page_body.dart';
 //login form
 export 'ui/components/forms/login_form.dart';
 
+// register form
+export 'ui/components/forms/register_form.dart';
+
 // validators
 export 'ui/components/forms/validators/input_validators.dart';
 

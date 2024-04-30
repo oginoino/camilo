@@ -17,13 +17,14 @@ class RegisterPage extends StatelessWidget {
           },
         ),
       ),
-      body: const SingleChildScrollView(
-        reverse: false,
+      body: SingleChildScrollView(
+        reverse: true,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              AppLogo(),
+              const AppLogo(),
+              RegisterForm(),
             ],
           ),
         ),
