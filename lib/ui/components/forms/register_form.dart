@@ -1,5 +1,3 @@
-import 'package:camilo/main.dart';
-
 import '../../../common_libs.dart';
 
 class RegisterForm extends StatelessWidget {
