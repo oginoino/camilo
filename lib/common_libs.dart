@@ -69,6 +69,9 @@ export 'ui/pages/category_page.dart';
 // register page
 export 'ui/pages/register_page.dart';
 
+// forgot password page
+export 'ui/pages/forgot_password_page.dart';
+
 // components
 
 // app bar

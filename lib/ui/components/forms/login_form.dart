@@ -96,7 +96,9 @@ class LoginForm extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    appRouter.push(ScreenPaths.forgotPassword);
+                  },
                   child: Text(
                     forgotPasswordButtonText,
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(

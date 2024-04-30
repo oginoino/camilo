@@ -7,6 +7,7 @@ class ScreenPaths {
   static String home = '/home';
   static String login = '/login';
   static String register = '/register';
+  static String forgotPassword = '/forgot-password';
   static String cart = '/cart';
 
   static String categoryPath(String categoryName) => '/category/$categoryName';
@@ -36,6 +37,10 @@ final appRouter = GoRouter(
         AppRoute(
           ScreenPaths.register,
           (state) => const RegisterPage(),
+        ),
+        AppRoute(
+          ScreenPaths.forgotPassword,
+          (state) => const ForgotPasswordPage(),
         ),
         AppRoute(
           ScreenPaths.cart,
@@ -99,4 +104,5 @@ String? _redirectBasedOnState(GoRouterState state, BuildContext context) {
 List<String> get logoutPaths => [
       ScreenPaths.login,
       ScreenPaths.register,
+      ScreenPaths.forgotPassword,
     ];
