@@ -8,19 +8,6 @@ class ForgotPasswordForm extends StatelessWidget {
   final TextEditingController _forgotPasswordEmailController =
       TextEditingController();
 
-  final String title = 'Informe o E-mail cadastrado para recuperar a senha';
-
-  final String ctaButtonText = 'Recuperar senha';
-
-  final String helperPassword =
-      'O link de recuperação será enviado para o email cadastrado';
-
-  final String psswordButtonText = 'Ajuda com a senha?';
-
-  String get helperLogin => 'Lembrou a senha?';
-
-  String get helperLoginText => 'Faça login';
-
   @override
   Widget build(BuildContext context) {
     const String title = 'Informe o E-mail cadastrado para recuperar a senha';
@@ -81,7 +68,8 @@ class ForgotPasswordForm extends StatelessWidget {
                   forgotPasswordEmailFocusNode.unfocus();
                   forgotPasswordCtaFocusNode.requestFocus();
                 },
-                onTapOutside: ((event) => forgotPasswordEmailFocusNode.unfocus()),
+                onTapOutside: ((event) =>
+                    forgotPasswordEmailFocusNode.unfocus()),
                 focusNode: forgotPasswordEmailFocusNode,
               ),
               SizedBox(
