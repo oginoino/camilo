@@ -111,6 +111,9 @@ export 'ui/components/forms/login_form.dart';
 // register form
 export 'ui/components/forms/register_form.dart';
 
+// forgot password form
+export 'ui/components/forms/forgot_password_form.dart';
+
 // validators
 export 'ui/components/forms/validators/input_validators.dart';
 

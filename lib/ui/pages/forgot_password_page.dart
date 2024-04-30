@@ -17,13 +17,14 @@ class ForgotPasswordPage extends StatelessWidget {
           },
         ),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         reverse: true,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              AppLogo(),
+              const AppLogo(),
+              ForgotPasswordForm(),
             ],
           ),
         ),
