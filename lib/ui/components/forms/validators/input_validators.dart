@@ -13,6 +13,8 @@ class InputValidators with ChangeNotifier {
 
   get secondPasswordRegisterValidator => _secondPasswordRegisterValidator;
 
+  get forgotPasswordInputEmailValidator => _forgotPasswordInputEmailValidator;
+
   _emailLoginValidator(String? value) {
     if (value == null || value.isEmpty) {
       return 'Informe um e-mail válido';
@@ -68,6 +70,16 @@ class InputValidators with ChangeNotifier {
       return 'Senha muito curta';
     } else if (value != firstPassword) {
       return 'As senhas não coincidem';
+    } else {
+      return null;
+    }
+  }
+
+  _forgotPasswordInputEmailValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Informe um e-mail válido';
+    } else if (!value.contains('@')) {
+      return 'Informe um e-mail válido';
     } else {
       return null;
     }

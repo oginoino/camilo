@@ -28,6 +28,9 @@ class ForgotPasswordForm extends StatelessWidget {
 
     const String forgotPasswordInputEmailHintText = 'Email cadastrado';
 
+    const String recoveryMessage =
+        'Email de recuperação enviado com sucesso! Verifique sua caixa de entrada.';
+
     FocusNode forgotPasswordEmailFocusNode = FocusNode();
 
     FocusNode forgotPasswordCtaFocusNode = FocusNode(
@@ -62,7 +65,8 @@ class ForgotPasswordForm extends StatelessWidget {
                   hintText: forgotPasswordInputEmailHintText,
                 ),
                 validator: (String? value) {
-                  return null;
+                  return inputValidators
+                      .forgotPasswordInputEmailValidator(value);
                 },
                 onEditingComplete: () {
                   forgotPasswordEmailFocusNode.unfocus();
@@ -76,7 +80,22 @@ class ForgotPasswordForm extends StatelessWidget {
                 height: uiConstants.paddingExtraExtraLarge,
               ),
               FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_forgotPasswordFormKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).clearSnackBars();
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          recoveryMessage,
+                        ),
+                      ),
+                    );
+                    appRouter.canPop()
+                        ? appRouter.pop()
+                        : appRouter.push(ScreenPaths.login);
+                  }
+                },
                 focusNode: forgotPasswordCtaFocusNode,
                 child: const Text(ctaButtonText),
               ),
