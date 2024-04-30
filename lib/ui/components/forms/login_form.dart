@@ -1,3 +1,5 @@
+import 'package:camilo/main.dart';
+
 import '../../../common_libs.dart';
 
 class LoginForm extends StatelessWidget {
@@ -117,7 +119,7 @@ class LoginForm extends StatelessWidget {
               FilledButton(
                 onPressed: () {
                   if (_loginFormKey.currentState!.validate()) {
-                    section.isAuthenticated = true;
+                    session.isAuthenticated = true;
                     appRouter.go(ScreenPaths.home);
                   }
                 },

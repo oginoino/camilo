@@ -95,7 +95,7 @@ String? _handleRedirect(BuildContext context, GoRouterState state) {
 }
 
 String? _redirectBasedOnState(GoRouterState state, BuildContext context) {
-  if (!section.isAuthenticated && !logoutPaths.contains(state.uri.path)) {
+  if (!session.isAuthenticated && !logoutPaths.contains(state.uri.path)) {
     return ScreenPaths.login;
   }
   return null;

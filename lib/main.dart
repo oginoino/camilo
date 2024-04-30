@@ -1,4 +1,3 @@
-
 import 'common_libs.dart';
 
 void main() async {
@@ -12,7 +11,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => products),
         ChangeNotifierProvider(create: (_) => productCart),
         ChangeNotifierProvider(create: (_) => productsService),
-        ChangeNotifierProvider(create: (_) => section),
+        ChangeNotifierProvider(create: (_) => session),
         ChangeNotifierProvider(create: (_) => inputValidators),
       ],
       child: const CamiloApp(),
@@ -42,7 +41,7 @@ void registerSingletons() {
       () => productsService.productListService);
   GetIt.I.registerLazySingleton<ProductCart>(() => ProductCart());
   GetIt.I.registerLazySingleton<ProductsService>(() => ProductsService());
-  GetIt.I.registerLazySingleton<Section>(() => Section());
+  GetIt.I.registerLazySingleton<Session>(() => Session());
   GetIt.I.registerLazySingleton<InputValidators>(() => InputValidators());
 }
 
@@ -50,5 +49,5 @@ UiConstants get uiConstants => GetIt.I<UiConstants>();
 ProductList get products => GetIt.I<ProductList>();
 ProductCart get productCart => GetIt.I<ProductCart>();
 ProductsService get productsService => GetIt.I<ProductsService>();
-Section get section => GetIt.I<Section>();
+Session get session => GetIt.I<Session>();
 InputValidators get inputValidators => GetIt.I<InputValidators>();

@@ -1,6 +1,6 @@
 import '../common_libs.dart';
 
-class Section with ChangeNotifier {
+class Session with ChangeNotifier {
   bool isAuthenticated = false;
 
   void setAuthenticating(bool value) {

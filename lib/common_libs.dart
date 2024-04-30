@@ -33,7 +33,7 @@ export 'models/products_list.dart';
 export 'models/product_cart.dart';
 
 // section
-export 'models/section.dart';
+export 'models/session.dart';
 
 // services
 
