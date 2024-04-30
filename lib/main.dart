@@ -1,5 +1,6 @@
-import 'common_libs.dart';
+import 'package:camilo/models/section.dart';
 
+import 'common_libs.dart';
 
 void main() async {
   registerSingletons();
@@ -12,6 +13,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => products),
         ChangeNotifierProvider(create: (_) => productCart),
         ChangeNotifierProvider(create: (_) => productsService),
+        ChangeNotifierProvider(create: (_) => section),
       ],
       child: const CamiloApp(),
     ),
@@ -40,9 +42,11 @@ void registerSingletons() {
       () => productsService.productListService);
   GetIt.I.registerLazySingleton<ProductCart>(() => ProductCart());
   GetIt.I.registerLazySingleton<ProductsService>(() => ProductsService());
+  GetIt.I.registerLazySingleton<Section>(() => Section());
 }
 
 UiConstants get uiConstants => GetIt.I<UiConstants>();
 ProductList get products => GetIt.I<ProductList>();
 ProductCart get productCart => GetIt.I<ProductCart>();
 ProductsService get productsService => GetIt.I<ProductsService>();
+Section get section => GetIt.I<Section>();

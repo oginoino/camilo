@@ -85,7 +85,7 @@ String? _handleRedirect(BuildContext context, GoRouterState state) {
 }
 
 String? _redirectBasedOnState(GoRouterState state, BuildContext context) {
-  if (state.uri.path == ScreenPaths.splash) {
+  if (!section.isAuthenticated) {
     return ScreenPaths.login;
   }
   return null;
