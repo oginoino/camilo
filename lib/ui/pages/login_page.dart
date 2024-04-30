@@ -5,38 +5,20 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      reverse: false,
+    return SingleChildScrollView(
+      reverse: true,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 80,
             ),
-            AppLogo(),
+            const AppLogo(),
+            LoginForm(),
             // LoginForm(),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class AppLogo extends StatelessWidget {
-  const AppLogo({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 200,
-      height: 200,
-      child: Text(
-        'Camilo',
-        style: Theme.of(context).textTheme.displaySmall?.copyWith(
-              
-            ),
-        textAlign: TextAlign.center,
       ),
     );
   }

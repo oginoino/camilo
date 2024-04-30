@@ -1,4 +1,4 @@
-import 'package:camilo/common_libs.dart';
+import '../../common_libs.dart';
 
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
@@ -29,9 +29,10 @@ ThemeData lightTheme = ThemeData(
     ),
     displaySmall: TextStyle(
       fontSize: 36,
-      fontWeight: FontWeight.w800,
+      fontWeight: FontWeight.bold,
       fontFamily: GoogleFonts.nunito().fontFamily,
       color: uiConstants.primaryLight,
+      letterSpacing: 1.25,
     ),
     headlineLarge: TextStyle(
       fontSize: 32,
@@ -92,6 +93,83 @@ ThemeData lightTheme = ThemeData(
       fontSize: 12,
       fontWeight: FontWeight.w400,
       fontFamily: GoogleFonts.nunito().fontFamily,
+    ),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    floatingLabelBehavior: FloatingLabelBehavior.never,
+    isDense: true,
+    focusColor: uiConstants.primaryLight,
+    fillColor: uiConstants.backgroundLight,
+    hoverColor: uiConstants.secondaryLight,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(
+        color: uiConstants.primaryLight,
+        width: 1,
+      ),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(
+        color: uiConstants.primaryLight,
+        width: 1,
+      ),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(
+        color: uiConstants.primaryLight,
+        width: 2,
+      ),
+    ),
+    labelStyle: TextStyle(
+      color: uiConstants.primaryLight,
+      fontSize: 18,
+      fontWeight: FontWeight.normal,
+      fontFamily: GoogleFonts.nunito().fontFamily,
+    ),
+    hintStyle: TextStyle(
+      color: uiConstants.tertiaryLight,
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      fontFamily: GoogleFonts.nunito().fontFamily,
+    ),
+    errorStyle: TextStyle(
+      color: uiConstants.errorLight,
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
+      fontFamily: GoogleFonts.nunito().fontFamily,
+    ),
+    helperStyle: TextStyle(
+      color: uiConstants.secondaryLight,
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
+      fontFamily: GoogleFonts.nunito().fontFamily,
+    ),
+    prefixStyle: TextStyle(
+      color: uiConstants.primaryLight,
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
+      fontFamily: GoogleFonts.nunito().fontFamily,
+    ),
+  ),
+  filledButtonTheme: FilledButtonThemeData(
+    style: ButtonStyle(
+      elevation: MaterialStateProperty.all<double>(1),
+      fixedSize: MaterialStateProperty.all<Size>(const Size.fromHeight(56)),
+      maximumSize: MaterialStateProperty.all<Size>(const Size.fromHeight(56)),
+      minimumSize: MaterialStateProperty.all<Size>(const Size.fromHeight(56)),
+      backgroundColor:
+          MaterialStateProperty.all<Color>(uiConstants.primaryLight),
+      foregroundColor:
+          MaterialStateProperty.all<Color>(uiConstants.onPrimaryLight),
+      textStyle: MaterialStateProperty.all<TextStyle>(
+        TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            fontFamily: GoogleFonts.poppins().fontFamily,
+            letterSpacing: 1.25),
+      ),
     ),
   ),
   appBarTheme: AppBarTheme(

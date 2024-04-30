@@ -83,6 +83,9 @@ export 'ui/components/cart_icon.dart';
 // add product icon
 export 'ui/components/add_product_icon.dart';
 
+// app logo
+export 'ui/components/app_logo.dart';
+
 // custom bottom navigation bar
 export 'ui/components/custom_bottom_navigation_bar.dart';
 
@@ -91,6 +94,10 @@ export 'ui/components/custom_back_button.dart';
 
 // custom page body
 export 'ui/components/custom_page_body.dart';
+
+// forms
+//login form
+export 'ui/components/forms/login_form.dart';
 
 // constants
 
