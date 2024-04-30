@@ -5,31 +5,35 @@ class LoginForm extends StatelessWidget {
 
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
 
-  final String _emailLoginInputKey = 'email-login-input-key';
-
-  final String _emailPasswordInputKey = 'password-login-input-key';
-
   final TextEditingController _emailLoginController = TextEditingController();
 
   final TextEditingController _passwordLoginController =
       TextEditingController();
 
-  final String title = 'Entre com seu email e senha';
-
-  final String forgotPasswordButtonText = 'Esqueceu a senha?';
-
-  final String ctaButtonText = 'Entrar';
-
-  final String helperRegisterButtonText = 'Ainda não tem cadastro?';
-
-  final String registerButtonText = 'Crie uma conta gratuitamente';
-
   @override
   Widget build(BuildContext context) {
+    const String title = 'Entre com seu email e senha';
+
+    const String forgotPasswordButtonText = 'Esqueceu a senha?';
+
+    const String ctaButtonText = 'Entrar';
+
+    const String helperRegisterButtonText = 'Ainda não tem cadastro?';
+
+    const String registerButtonText = 'Crie uma conta gratuitamente';
+
     const String hintTextEmail = 'Email';
+
     const String hintTextPassword = 'Senha';
+
+    const String emailLoginInputKey = 'email-login-input-key';
+
+    const String emailPasswordInputKey = 'password-login-input-key';
+
     FocusNode emailFocusNode = FocusNode();
+
     FocusNode passwordFocusNode = FocusNode();
+
     FocusNode ctaFocusNode = FocusNode(
       skipTraversal: true,
     );
@@ -53,7 +57,7 @@ class LoginForm extends StatelessWidget {
                 height: uiConstants.paddingExtraExtraLarge,
               ),
               TextFormField(
-                key: Key(_emailLoginInputKey),
+                key: const Key(emailLoginInputKey),
                 controller: _emailLoginController,
                 keyboardType: TextInputType.emailAddress,
                 autofillHints: const [AutofillHints.email],
@@ -74,7 +78,7 @@ class LoginForm extends StatelessWidget {
                 height: uiConstants.paddingExtraLarge,
               ),
               TextFormField(
-                key: Key(_emailPasswordInputKey),
+                key: const Key(emailPasswordInputKey),
                 controller: _passwordLoginController,
                 obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
@@ -118,7 +122,7 @@ class LoginForm extends StatelessWidget {
                   }
                 },
                 focusNode: ctaFocusNode,
-                child: Text(ctaButtonText),
+                child: const Text(ctaButtonText),
               ),
               SizedBox(
                 height: uiConstants.paddingExtraLarge,
