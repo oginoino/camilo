@@ -76,7 +76,7 @@ class RegisterForm extends StatelessWidget {
                   hintText: nameRegisterHintText,
                 ),
                 validator: (String? value) {
-                  return null;
+                  return inputValidators.nameRegisterValidator(value);
                 },
                 onEditingComplete: () {
                   nameRegisterFocusNode.unfocus();
@@ -98,7 +98,7 @@ class RegisterForm extends StatelessWidget {
                   hintText: emailRegisterHintText,
                 ),
                 validator: (String? value) {
-                  return null;
+                  return inputValidators.emailRegisterValidator(value);
                 },
                 onEditingComplete: () {
                   emailRegisterFocusNode.nextFocus();
@@ -121,7 +121,7 @@ class RegisterForm extends StatelessWidget {
                   hintText: firstPasswordRegisterHintText,
                 ),
                 validator: (String? value) {
-                  return null;
+                  return inputValidators.firstPasswordRegisterValidator(value);
                 },
                 onEditingComplete: () {
                   firstPasswordRegisterFocusNode.nextFocus();
@@ -145,7 +145,7 @@ class RegisterForm extends StatelessWidget {
                   hintText: secondPasswordRegisterHintText,
                 ),
                 validator: (String? value) {
-                  return null;
+                  return inputValidators.secondPasswordRegisterValidator(value, _firstPasswordRegisterController.text);
                 },
                 onEditingComplete: () {
                   secondPasswordRegisterFocusNode.unfocus();
@@ -161,9 +161,10 @@ class RegisterForm extends StatelessWidget {
               ),
               FilledButton(
                 onPressed: () {
-                  _registerFormKey.currentState!.validate();
-                  section.isAuthenticated = true;
-                  appRouter.go(ScreenPaths.home);
+                  if (_registerFormKey.currentState!.validate()) {
+                    section.isAuthenticated = true;
+                    appRouter.go(ScreenPaths.home);
+                  }
                 },
                 focusNode: ctaFocusNode,
                 child: const Text(ctaButtonText),
