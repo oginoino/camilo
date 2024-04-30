@@ -32,6 +32,9 @@ export 'models/products_list.dart';
 // product cart
 export 'models/product_cart.dart';
 
+// section
+export 'models/section.dart';
+
 // services
 
 // products service
@@ -98,6 +101,9 @@ export 'ui/components/custom_page_body.dart';
 // forms
 //login form
 export 'ui/components/forms/login_form.dart';
+
+// validators
+export 'ui/components/forms/validators/input_validators.dart';
 
 // constants
 

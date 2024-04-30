@@ -59,7 +59,7 @@ class LoginForm extends StatelessWidget {
                   hintText: hintTextEmail,
                 ),
                 validator: (String? value) {
-                  return null;
+                  return inputValidators.emailLoginValidator(value);
                 },
                 onEditingComplete: () {
                   emailFocusNode.unfocus();
@@ -81,11 +81,12 @@ class LoginForm extends StatelessWidget {
                   hintText: hintTextPassword,
                 ),
                 validator: (String? value) {
-                  return null;
+                  return inputValidators.passwordLoginValidator(value);
                 },
                 onEditingComplete: () {
                   passwordFocusNode.unfocus();
                   ctaFocusNode.requestFocus();
+                  _loginFormKey.currentState!.validate();
                 },
                 onTapOutside: ((event) => passwordFocusNode.unfocus()),
                 focusNode: passwordFocusNode,
