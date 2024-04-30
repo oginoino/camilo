@@ -17,25 +17,26 @@ class RegisterForm extends StatelessWidget {
   final TextEditingController _secondPasswordRegisterController =
       TextEditingController();
 
-  final String title = 'Crie uma conta gratuitamente';
-
-  final String ctaButtonText = 'Cadastrar';
-
-  final String helperTerms = 'Ao se cadastrar, você concorda com nossos';
-
-  final String termsButtonText = 'Termos de uso e política de privacidade';
-
-  final String helperLogin = 'Já possui cadastro?';
-
-  final String helperLoginText = 'Faça login';
-
   @override
   Widget build(BuildContext context) {
+    const String title = 'Crie uma conta gratuitamente';
+
+    const String ctaButtonText = 'Cadastrar';
+
+    const String helperTerms = 'Ao se cadastrar, você concorda com nossos';
+
+    const String termsButtonText = 'Termos de uso e política de privacidade';
+
+    const String helperLogin = 'Já possui cadastro?';
+
+    const String helperLoginText = 'Faça login';
+
     const String nameRegisterFormKey = 'name-register-input-key';
     const String emailRegisterInputKey = 'email-register-input-key';
     const String firstPasswordRegisterInputKey =
         'first-password-register-input-key';
-    const String secondPasswordRegisterInputKey = 'second-password-register-key';
+    const String secondPasswordRegisterInputKey =
+        'second-password-register-key';
     const String nameRegisterHintText = 'Qual o seu nome?';
     const String emailRegisterHintText = 'Seu melhor email';
     const String firstPasswordRegisterHintText = 'Crie uma senha forte';
@@ -140,7 +141,7 @@ class RegisterForm extends StatelessWidget {
             ),
             FilledButton(
               onPressed: () {},
-              child: Text(ctaButtonText),
+              child: const Text(ctaButtonText),
             ),
             SizedBox(
               height: uiConstants.paddingLarge,
