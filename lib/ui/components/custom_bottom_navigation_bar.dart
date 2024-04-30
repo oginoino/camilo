@@ -10,7 +10,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
     return Consumer<ProductCart>(builder: (context, cart, child) {
       const String bottomSheetTitle = 'Total';
       const String bottomSheetCtaButtonText = 'Pedir agora';
-      const String bottomSheetCtaButtonTextDisabled = 'Pedido mínimo 10,00';
+      const String bottomSheetCtaButtonTextDisabled = 'Pedido min. R\$10,00';
 
       return Container(
         padding: EdgeInsets.symmetric(horizontal: uiConstants.paddingMedium),
@@ -45,25 +45,26 @@ class CustomBottomNavigationBar extends StatelessWidget {
             ),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                  visualDensity: VisualDensity.standard,
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: uiConstants.paddingMedium,
-                    vertical: uiConstants.paddingSmall,
-                  ),
-                  elevation: 2),
+                visualDensity: VisualDensity.standard,
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                padding: EdgeInsets.symmetric(
+                  horizontal: uiConstants.paddingMedium,
+                  vertical: uiConstants.paddingSmall,
+                ),
+                elevation: 2,
+              ),
               onPressed: cart.isMinimumOrder ? () {} : null,
               icon: Icon(
                 Icons.payment_rounded,
-                size: uiConstants.iconSizeSmall,
-                color: Theme.of(context).colorScheme.onSecondary,
+                size: uiConstants.iconSizeMedium,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
               label: Text(
                 cart.isMinimumOrder
                     ? bottomSheetCtaButtonText
                     : bottomSheetCtaButtonTextDisabled,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSecondary,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimary,
                     ),
               ),
             ),

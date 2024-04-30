@@ -5,6 +5,9 @@ import 'common_libs.dart';
 class ScreenPaths {
   static String splash = '/';
   static String home = '/home';
+  static String login = '/login';
+  static String register = '/register';
+  static String forgotPassword = '/forgot-password';
   static String cart = '/cart';
 
   static String categoryPath(String categoryName) => '/category/$categoryName';
@@ -26,6 +29,18 @@ final appRouter = GoRouter(
         AppRoute(
           ScreenPaths.home,
           (state) => const HomePage(),
+        ),
+        AppRoute(
+          ScreenPaths.login,
+          (state) => const LoginPage(),
+        ),
+        AppRoute(
+          ScreenPaths.register,
+          (state) => const RegisterPage(),
+        ),
+        AppRoute(
+          ScreenPaths.forgotPassword,
+          (state) => const ForgotPasswordPage(),
         ),
         AppRoute(
           ScreenPaths.cart,
@@ -80,8 +95,14 @@ String? _handleRedirect(BuildContext context, GoRouterState state) {
 }
 
 String? _redirectBasedOnState(GoRouterState state, BuildContext context) {
-  if (state.uri.path == ScreenPaths.splash) {
-    return ScreenPaths.home;
+  if (!session.isAuthenticated && !logoutPaths.contains(state.uri.path)) {
+    return ScreenPaths.login;
   }
   return null;
 }
+
+List<String> get logoutPaths => [
+      ScreenPaths.login,
+      ScreenPaths.register,
+      ScreenPaths.forgotPassword,
+    ];

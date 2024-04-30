@@ -32,6 +32,9 @@ export 'models/products_list.dart';
 // product cart
 export 'models/product_cart.dart';
 
+// section
+export 'models/session.dart';
+
 // services
 
 // products service
@@ -54,11 +57,20 @@ export 'package:camilo/ui/screens/custom_scaffold.dart';
 // home page
 export 'ui/pages/home_page.dart';
 
+// login page
+export 'ui/pages/login_page.dart';
+
 // cart page
 export 'ui/pages/cart_page.dart';
 
 // category page
 export 'ui/pages/category_page.dart';
+
+// register page
+export 'ui/pages/register_page.dart';
+
+// forgot password page
+export 'ui/pages/forgot_password_page.dart';
 
 // components
 
@@ -80,6 +92,9 @@ export 'ui/components/cart_icon.dart';
 // add product icon
 export 'ui/components/add_product_icon.dart';
 
+// app logo
+export 'ui/components/app_logo.dart';
+
 // custom bottom navigation bar
 export 'ui/components/custom_bottom_navigation_bar.dart';
 
@@ -88,6 +103,19 @@ export 'ui/components/custom_back_button.dart';
 
 // custom page body
 export 'ui/components/custom_page_body.dart';
+
+// forms
+//login form
+export 'ui/components/forms/login_form.dart';
+
+// register form
+export 'ui/components/forms/register_form.dart';
+
+// forgot password form
+export 'ui/components/forms/forgot_password_form.dart';
+
+// validators
+export 'ui/components/forms/validators/input_validators.dart';
 
 // constants
 
