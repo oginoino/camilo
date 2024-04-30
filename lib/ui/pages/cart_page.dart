@@ -92,16 +92,22 @@ class CartPage extends StatelessWidget {
                                   color: uiConstants.jeanGrey,
                                 ),
                                 const Text(voidCartMessage),
-                                SizedBox(height: uiConstants.paddingMedium),
-                                FilledButton.icon(
-                                  onPressed: () =>
-                                      appRouter.go(ScreenPaths.home),
-                                  label: const Text(
-                                    voidCartButtonText,
+                                SizedBox(height: uiConstants.paddingExtraLarge),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: uiConstants.paddingLarge,
+                                    vertical: uiConstants.paddingMedium,
                                   ),
-                                  icon: Icon(
-                                    Icons.add_shopping_cart_rounded,
-                                    size: uiConstants.iconSizeSmall,
+                                  child: FilledButton.icon(
+                                    onPressed: () =>
+                                        appRouter.go(ScreenPaths.home),
+                                    label: const Text(
+                                      voidCartButtonText,
+                                    ),
+                                    icon: Icon(
+                                      Icons.add_shopping_cart_rounded,
+                                      size: uiConstants.iconSizeMedium,
+                                    ),
                                   ),
                                 )
                               ],
@@ -298,31 +304,39 @@ class CartPage extends StatelessWidget {
                             SizedBox(
                               height: uiConstants.paddingSmall,
                             ),
-                            FilledButton.icon(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: cart.isMinimumOrder
-                                    ? Theme.of(context).colorScheme.background
-                                    : Theme.of(context).colorScheme.primary,
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: uiConstants.paddingLarge,
+                                vertical: uiConstants.paddingMedium,
                               ),
-                              onPressed: () => appRouter.go(ScreenPaths.home),
-                              label: Text(
-                                cart.isMinimumOrder
-                                    ? endCardButtonText
-                                    : endCardButtonIextNotMinimumOrder,
-                                style: TextStyle(
+                              child: FilledButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: cart.isMinimumOrder
+                                      ? Theme.of(context).colorScheme.background
+                                      : Theme.of(context).colorScheme.primary,
+                                ),
+                                onPressed: () => appRouter.go(ScreenPaths.home),
+                                label: Text(
+                                  cart.isMinimumOrder
+                                      ? endCardButtonText
+                                      : endCardButtonIextNotMinimumOrder,
+                                  style: TextStyle(
+                                    color: cart.isMinimumOrder
+                                        ? Theme.of(context).colorScheme.primary
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .background,
+                                  ),
+                                ),
+                                icon: Icon(
+                                  Icons.add_shopping_cart_rounded,
                                   color: cart.isMinimumOrder
                                       ? Theme.of(context).colorScheme.primary
                                       : Theme.of(context)
                                           .colorScheme
                                           .background,
+                                  size: uiConstants.iconSizeMedium,
                                 ),
-                              ),
-                              icon: Icon(
-                                Icons.add_shopping_cart_rounded,
-                                color: cart.isMinimumOrder
-                                    ? Theme.of(context).colorScheme.primary
-                                    : Theme.of(context).colorScheme.background,
-                                size: uiConstants.iconSizeSmall,
                               ),
                             )
                           ],

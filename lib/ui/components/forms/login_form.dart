@@ -127,11 +127,13 @@ class LoginForm extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {},
-                child: Text(registerButtonText,
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontWeight: FontWeight.w600,
-                        )),
+                child: Text(
+                  registerButtonText,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.tertiary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
               ),
             ],
           ),
