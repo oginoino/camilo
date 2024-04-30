@@ -98,7 +98,7 @@ ThemeData lightTheme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     floatingLabelBehavior: FloatingLabelBehavior.never,
     isDense: true,
-    focusColor: uiConstants.primaryLight,
+    focusColor: uiConstants.secondaryLight,
     fillColor: uiConstants.backgroundLight,
     hoverColor: uiConstants.secondaryLight,
     border: OutlineInputBorder(
@@ -118,7 +118,7 @@ ThemeData lightTheme = ThemeData(
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16),
       borderSide: BorderSide(
-        color: uiConstants.primaryLight,
+        color: uiConstants.secondaryLight,
         width: 2,
       ),
     ),

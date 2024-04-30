@@ -30,6 +30,7 @@ class LoginForm extends StatelessWidget {
     const String hintTextPassword = 'Senha';
     FocusNode emailFocusNode = FocusNode();
     FocusNode passwordFocusNode = FocusNode();
+    FocusNode ctaFocusNode = FocusNode();
     return Padding(
       padding: EdgeInsets.all(uiConstants.paddingExtraLarge),
       child: FocusScope(
@@ -41,7 +42,7 @@ class LoginForm extends StatelessWidget {
               Text(
                 title,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.tertiary,
+                      color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.w600,
                     ),
                 textAlign: TextAlign.center,
@@ -84,6 +85,7 @@ class LoginForm extends StatelessWidget {
                 },
                 onEditingComplete: () {
                   passwordFocusNode.unfocus();
+                  ctaFocusNode.requestFocus();
                 },
                 onTapOutside: ((event) => passwordFocusNode.unfocus()),
                 focusNode: passwordFocusNode,
@@ -105,6 +107,7 @@ class LoginForm extends StatelessWidget {
               ),
               FilledButton(
                 onPressed: () {},
+                focusNode: ctaFocusNode,
                 child: Text(ctaButtonText),
               ),
               SizedBox(
