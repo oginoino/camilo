@@ -29,8 +29,9 @@ ThemeData lightTheme = ThemeData(
     ),
     displaySmall: TextStyle(
       fontSize: 36,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w800,
       fontFamily: GoogleFonts.nunito().fontFamily,
+      color: uiConstants.primaryLight,
     ),
     headlineLarge: TextStyle(
       fontSize: 32,

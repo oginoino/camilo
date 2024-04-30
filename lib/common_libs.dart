@@ -54,6 +54,9 @@ export 'package:camilo/ui/screens/custom_scaffold.dart';
 // home page
 export 'ui/pages/home_page.dart';
 
+// login page
+export 'ui/pages/login_page.dart';
+
 // cart page
 export 'ui/pages/cart_page.dart';
 
