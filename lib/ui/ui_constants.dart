@@ -46,7 +46,7 @@ class UiConstants {
   double get dividerHeightMedium => 1.0;
 
   // heights
-  double get bottomNavigationBarHeight => 80.0;
+  double get bottomNavigationBarHeight => 100.0;
 
   // image sizes
   double get squareImageSizeSmall => 60.0;
