@@ -41,149 +41,171 @@ class RegisterForm extends StatelessWidget {
     const String emailRegisterHintText = 'Seu melhor email';
     const String firstPasswordRegisterHintText = 'Crie uma senha forte';
     const String secondPasswordRegisterHintText = 'Confirme a sua senha';
+    FocusNode nameRegisterFocusNode = FocusNode();
+    FocusNode emailRegisterFocusNode = FocusNode();
+    FocusNode firstPasswordRegisterFocusNode = FocusNode();
+    FocusNode secondPasswordRegisterFocusNode = FocusNode();
+    FocusNode ctaFocusNode = FocusNode(
+      skipTraversal: true,
+    );
     return Padding(
       padding: EdgeInsets.all(uiConstants.paddingExtraLarge),
-      child: Form(
-        key: _registerFormKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.w600,
-                  ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(
-              height: uiConstants.paddingExtraExtraLarge,
-            ),
-            TextFormField(
-              key: const Key(nameRegisterFormKey),
-              controller: _registerNameInputController,
-              keyboardType: TextInputType.name,
-              autofillHints: const [AutofillHints.name],
-              decoration: const InputDecoration(
-                hintText: nameRegisterHintText,
-              ),
-              validator: (String? value) {
-                return null;
-              },
-              onEditingComplete: () {
-                FocusScope.of(context).nextFocus();
-              },
-              // remove focus on click outside
-              onTapOutside: ((event) => FocusScope.of(context).unfocus()),
-            ),
-            SizedBox(
-              height: uiConstants.paddingExtraLarge,
-            ),
-            TextFormField(
-              key: const Key(emailRegisterInputKey),
-              controller: _registerEmailController,
-              keyboardType: TextInputType.emailAddress,
-              autofillHints: const [AutofillHints.email],
-              decoration: const InputDecoration(
-                hintText: emailRegisterHintText,
-              ),
-              validator: (String? value) {
-                return null;
-              },
-              onEditingComplete: () {
-                FocusScope.of(context).nextFocus();
-              },
-              // remove focus on click outside
-              onTapOutside: ((event) => FocusScope.of(context).unfocus()),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            TextFormField(
-              key: const Key(firstPasswordRegisterInputKey),
-              controller: _firstPasswordRegisterController,
-              obscureText: true,
-              keyboardType: TextInputType.visiblePassword,
-              autofillHints: const [AutofillHints.password],
-              decoration: const InputDecoration(
-                hintText: firstPasswordRegisterHintText,
-              ),
-              validator: (String? value) {
-                return null;
-              },
-              onEditingComplete: () {
-                FocusScope.of(context).nextFocus();
-              },
-              // remove focus on click outside
-              onTapOutside: ((event) => FocusScope.of(context).unfocus()),
-            ),
-            SizedBox(
-              height: uiConstants.paddingExtraLarge,
-            ),
-            TextFormField(
-              controller: _secondPasswordRegisterController,
-              key: const Key(secondPasswordRegisterInputKey),
-              obscureText: true,
-              keyboardType: TextInputType.visiblePassword,
-              autofillHints: const [AutofillHints.password],
-              decoration: const InputDecoration(
-                hintText: secondPasswordRegisterHintText,
-              ),
-              validator: (String? value) {
-                return null;
-              },
-              onEditingComplete: () {
-                FocusScope.of(context).unfocus();
-              },
-            ),
-            SizedBox(
-              height: uiConstants.paddingExtraExtraLarge,
-            ),
-            FilledButton(
-              onPressed: () {},
-              child: const Text(ctaButtonText),
-            ),
-            SizedBox(
-              height: uiConstants.paddingLarge,
-            ),
-            Text(
-              helperTerms,
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground,
-                  ),
-              textAlign: TextAlign.center,
-            ),
-            TextButton(
-              onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: ((BuildContext context) {
-                      return const Center();
-                    }));
-              },
-              child: Text(
-                termsButtonText,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.tertiary,
+      child: FocusScope(
+        child: Form(
+          key: _registerFormKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.w600,
                     ),
                 textAlign: TextAlign.center,
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  helperLogin,
+              SizedBox(
+                height: uiConstants.paddingExtraExtraLarge,
+              ),
+              TextFormField(
+                key: const Key(nameRegisterFormKey),
+                controller: _registerNameInputController,
+                keyboardType: TextInputType.name,
+                autofillHints: const [AutofillHints.name],
+                decoration: const InputDecoration(
+                  hintText: nameRegisterHintText,
+                ),
+                validator: (String? value) {
+                  return null;
+                },
+                onEditingComplete: () {
+                  nameRegisterFocusNode.unfocus();
+                  emailRegisterFocusNode.requestFocus();
+                },
+                // remove focus on click outside
+                onTapOutside: ((event) => nameRegisterFocusNode.unfocus()),
+                focusNode: nameRegisterFocusNode,
+              ),
+              SizedBox(
+                height: uiConstants.paddingExtraLarge,
+              ),
+              TextFormField(
+                key: const Key(emailRegisterInputKey),
+                controller: _registerEmailController,
+                keyboardType: TextInputType.emailAddress,
+                autofillHints: const [AutofillHints.email],
+                decoration: const InputDecoration(
+                  hintText: emailRegisterHintText,
+                ),
+                validator: (String? value) {
+                  return null;
+                },
+                onEditingComplete: () {
+                  emailRegisterFocusNode.nextFocus();
+                  firstPasswordRegisterFocusNode.requestFocus();
+                },
+                // remove focus on click outside
+                onTapOutside: ((event) => emailRegisterFocusNode.unfocus()),
+                focusNode: emailRegisterFocusNode,
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              TextFormField(
+                key: const Key(firstPasswordRegisterInputKey),
+                controller: _firstPasswordRegisterController,
+                obscureText: true,
+                keyboardType: TextInputType.visiblePassword,
+                autofillHints: const [AutofillHints.password],
+                decoration: const InputDecoration(
+                  hintText: firstPasswordRegisterHintText,
+                ),
+                validator: (String? value) {
+                  return null;
+                },
+                onEditingComplete: () {
+                  firstPasswordRegisterFocusNode.nextFocus();
+                  secondPasswordRegisterFocusNode.requestFocus();
+                },
+                // remove focus on click outside
+                onTapOutside: ((event) =>
+                    firstPasswordRegisterFocusNode.unfocus()),
+                focusNode: firstPasswordRegisterFocusNode,
+              ),
+              SizedBox(
+                height: uiConstants.paddingExtraLarge,
+              ),
+              TextFormField(
+                controller: _secondPasswordRegisterController,
+                key: const Key(secondPasswordRegisterInputKey),
+                obscureText: true,
+                keyboardType: TextInputType.visiblePassword,
+                autofillHints: const [AutofillHints.password],
+                decoration: const InputDecoration(
+                  hintText: secondPasswordRegisterHintText,
+                ),
+                validator: (String? value) {
+                  return null;
+                },
+                onEditingComplete: () {
+                  secondPasswordRegisterFocusNode.unfocus();
+                  ctaFocusNode.requestFocus();
+                  _registerFormKey.currentState!.validate();
+                },
+                onTapOutside: ((event) =>
+                    secondPasswordRegisterFocusNode.unfocus()),
+                focusNode: secondPasswordRegisterFocusNode,
+              ),
+              SizedBox(
+                height: uiConstants.paddingExtraExtraLarge,
+              ),
+              FilledButton(
+                onPressed: () {},
+                focusNode: ctaFocusNode,
+                child: const Text(ctaButtonText),
+              ),
+              SizedBox(
+                height: uiConstants.paddingLarge,
+              ),
+              Text(
+                helperTerms,
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+              TextButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: ((BuildContext context) {
+                      return const Center();
+                    }),
+                  );
+                },
+                child: Text(
+                  termsButtonText,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Theme.of(context).colorScheme.tertiary,
+                        fontWeight: FontWeight.w600,
                       ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
-                  width: uiConstants.paddingSmall,
-                ),
-                TextButton(
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    helperLogin,
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.onBackground,
+                        ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    width: uiConstants.paddingSmall,
+                  ),
+                  TextButton(
                     onPressed: () {
                       appRouter.canPop()
                           ? appRouter.pop()
@@ -195,10 +217,12 @@ class RegisterForm extends StatelessWidget {
                             color: Theme.of(context).colorScheme.tertiary,
                             fontWeight: FontWeight.w600,
                           ),
-                    )),
-              ],
-            ),
-          ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
