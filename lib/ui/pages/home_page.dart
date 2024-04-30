@@ -5,12 +5,20 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomScrollView(
-      slivers: [
-        CustomAppBar(),
-        CustomTopBoxAdapter(),
-        CustomPageBody(),
-      ],
+    return const Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          CustomAppBar(),
+          CustomTopBoxAdapter(),
+          CustomPageBody(),
+        ],
+      ),
+      floatingActionButton: SizedBox(),
+      extendBody: true,
+      resizeToAvoidBottomInset: false,
+      primary: true,
+      key: Key('home_page'),
+      restorationId: 'home_page',
     );
   }
 }
