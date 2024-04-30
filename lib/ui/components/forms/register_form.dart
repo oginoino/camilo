@@ -108,8 +108,8 @@ class RegisterForm extends StatelessWidget {
                 onTapOutside: ((event) => emailRegisterFocusNode.unfocus()),
                 focusNode: emailRegisterFocusNode,
               ),
-              const SizedBox(
-                height: 32,
+              SizedBox(
+                height: uiConstants.paddingExtraLarge,
               ),
               TextFormField(
                 key: const Key(firstPasswordRegisterInputKey),
@@ -145,7 +145,8 @@ class RegisterForm extends StatelessWidget {
                   hintText: secondPasswordRegisterHintText,
                 ),
                 validator: (String? value) {
-                  return inputValidators.secondPasswordRegisterValidator(value, _firstPasswordRegisterController.text);
+                  return inputValidators.secondPasswordRegisterValidator(
+                      value, _firstPasswordRegisterController.text);
                 },
                 onEditingComplete: () {
                   secondPasswordRegisterFocusNode.unfocus();
