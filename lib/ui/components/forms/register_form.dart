@@ -160,7 +160,11 @@ class RegisterForm extends StatelessWidget {
                 height: uiConstants.paddingExtraExtraLarge,
               ),
               FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  _registerFormKey.currentState!.validate();
+                  section.isAuthenticated = true;
+                  appRouter.go(ScreenPaths.home);
+                },
                 focusNode: ctaFocusNode,
                 child: const Text(ctaButtonText),
               ),
@@ -178,6 +182,12 @@ class RegisterForm extends StatelessWidget {
                 onPressed: () {
                   showModalBottomSheet(
                     context: context,
+                    isDismissible: true,
+                    useSafeArea: true,
+                    useRootNavigator: true,
+                    showDragHandle: true,
+                    isScrollControlled: true,
+                    enableDrag: true,
                     builder: ((BuildContext context) {
                       return const Center();
                     }),
