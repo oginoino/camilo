@@ -5,8 +5,6 @@ class ForgotPasswordForm extends StatelessWidget {
 
   final GlobalKey<FormState> _forgotPasswordFormKey = GlobalKey<FormState>();
 
-  final String _emailForgotPasswordInputKey = 'email-forgot-password-input-key';
-
   final TextEditingController _forgotPasswordEmailController =
       TextEditingController();
 
@@ -25,11 +23,33 @@ class ForgotPasswordForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints:
-          BoxConstraints(maxWidth: MediaQuery.of(context).size.height * 0.8),
-      child: Padding(
-        padding: const EdgeInsets.all(32),
+    const String title = 'Informe o E-mail cadastrado para recuperar a senha';
+
+    const String ctaButtonText = 'Recuperar senha';
+
+    const String helperPassword =
+        'O link de recuperação será enviado para o email cadastrado';
+
+    const String passwordButtonText = 'Ajuda com a senha?';
+
+    const String helperLogin = 'Lembrou a senha?';
+
+    const String helperLoginText = 'Faça login';
+
+    const String emailForgotPasswordInputKey =
+        'email-forgot-password-input-key';
+
+    const String forgotPasswordInputEmailHintText = 'Email cadastrado';
+
+    FocusNode forgotPasswordEmailFocusNode = FocusNode();
+
+    FocusNode forgotPasswordCtaFocusNode = FocusNode(
+      skipTraversal: true,
+    );
+
+    return Padding(
+      padding: EdgeInsets.all(uiConstants.paddingExtraLarge),
+      child: FocusScope(
         child: Form(
           key: _forgotPasswordFormKey,
           child: Column(
@@ -37,74 +57,86 @@ class ForgotPasswordForm extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.w600,
+                    ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(
-                height: 80,
+              SizedBox(
+                height: uiConstants.paddingExtraExtraLarge,
               ),
               TextFormField(
-                key: Key(_emailForgotPasswordInputKey),
+                key: const Key(emailForgotPasswordInputKey),
                 controller: _forgotPasswordEmailController,
                 keyboardType: TextInputType.emailAddress,
                 autofillHints: const [AutofillHints.email],
                 decoration: const InputDecoration(
-                  hintText: 'Informe o email cadastrado',
+                  hintText: forgotPasswordInputEmailHintText,
                 ),
                 validator: (String? value) {
                   return null;
                 },
                 onEditingComplete: () {
-                  FocusScope.of(context).nextFocus();
+                  forgotPasswordEmailFocusNode.unfocus();
+                  forgotPasswordCtaFocusNode.requestFocus();
                 },
-                // remove focus on click outside
-                onTapOutside: ((event) => FocusScope.of(context).unfocus()),
+                onTapOutside: ((event) => forgotPasswordEmailFocusNode.unfocus()),
+                focusNode: forgotPasswordEmailFocusNode,
               ),
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: uiConstants.paddingExtraExtraLarge,
               ),
               FilledButton(
                 onPressed: () {},
-                child: Text(ctaButtonText),
+                focusNode: forgotPasswordCtaFocusNode,
+                child: const Text(ctaButtonText),
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    psswordButtonText,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  )),
-              const SizedBox(
-                height: 16,
+              SizedBox(
+                height: uiConstants.paddingExtraLarge,
               ),
               Text(
                 helperPassword,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground,
+                    fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(
-                height: 16,
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  passwordButtonText,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     helperLogin,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onBackground),
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.onBackground,
+                        ),
                     textAlign: TextAlign.center,
                   ),
+                  SizedBox(width: uiConstants.paddingMedium),
                   TextButton(
-                      onPressed: () {
-                        appRouter.go(ScreenPaths.login);
-                      },
-                      child: Text(
-                        helperLoginText,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      )),
+                    onPressed: () {
+                      appRouter.canPop()
+                          ? appRouter.pop()
+                          : appRouter.push(ScreenPaths.login);
+                    },
+                    child: Text(
+                      helperLoginText,
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ),
                 ],
               ),
             ],
