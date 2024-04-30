@@ -66,6 +66,9 @@ export 'ui/pages/cart_page.dart';
 // category page
 export 'ui/pages/category_page.dart';
 
+// register page
+export 'ui/pages/register_page.dart';
+
 // components
 
 // app bar

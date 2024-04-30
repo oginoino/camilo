@@ -30,7 +30,9 @@ class LoginForm extends StatelessWidget {
     const String hintTextPassword = 'Senha';
     FocusNode emailFocusNode = FocusNode();
     FocusNode passwordFocusNode = FocusNode();
-    FocusNode ctaFocusNode = FocusNode();
+    FocusNode ctaFocusNode = FocusNode(
+      skipTraversal: true,
+    );
     return Padding(
       padding: EdgeInsets.all(uiConstants.paddingExtraLarge),
       child: FocusScope(
@@ -127,7 +129,9 @@ class LoginForm extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  appRouter.push(ScreenPaths.register);
+                },
                 child: Text(
                   registerButtonText,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
