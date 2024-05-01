@@ -10,13 +10,14 @@ class CustomDrawer extends StatelessWidget {
     return Drawer(
       child: Consumer<Session>(builder: (context, session, child) {
         return ListView(
+          padding: EdgeInsets.all(uiConstants.paddingMedium),
           children: [
             DrawerHeader(
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.primary,
