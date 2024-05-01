@@ -5,6 +5,12 @@ class ProductList extends ChangeNotifier {
 
   ProductList({required this.products});
 
+  List<String> get categories => products
+      .map((product) => product.productCategories)
+      .expand((element) => element)
+      .toSet()
+      .toList();
+
   void getProductsByCategory(String category) {
     products.where((product) => product.productCategories.contains(category));
     notifyListeners();

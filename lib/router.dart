@@ -87,10 +87,8 @@ String? get initialDeeplink => _initialDeeplink;
 String? _initialDeeplink;
 
 String? _handleRedirect(BuildContext context, GoRouterState state) {
-  // Armazenar o deeplink inicial apenas uma vez.
   _initialDeeplink ??= state.uri.toString();
 
-  // Redirecionar com base no estado de inicialização e autenticação
   return _redirectBasedOnState(state, context);
 }
 
@@ -107,4 +105,6 @@ List<String> get logoutPaths => [
       ScreenPaths.forgotPassword,
       ScreenPaths.home,
       ScreenPaths.cart,
+      ...products.categories
+          .map((category) => ScreenPaths.categoryPath(category)),
     ];
