@@ -7,4 +7,10 @@ class Session with ChangeNotifier {
     isAuthenticated = value;
     notifyListeners();
   }
+
+  void logout() {
+    isAuthenticated = false;
+    appRouter.go(ScreenPaths.home);
+    notifyListeners();
+  }
 }

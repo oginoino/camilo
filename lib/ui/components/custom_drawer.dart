@@ -8,44 +8,68 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                  radius: 40,
-                  child: Icon(
-                    Icons.person_rounded,
-                    color: Theme.of(context).colorScheme.primary,
-                    size: 40,
+      child: Consumer<Session>(builder: (context, session, child) {
+        return ListView(
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    radius: 40,
+                    child: Icon(
+                      Icons.person_rounded,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      size: 40,
+                    ),
                   ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Olá, ${session.isAuthenticated ? 'usuário' : 'visitante'}',
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+            !session.isAuthenticated ? Column(
+              children: [
+                ListTile(
+                  title: const Text('Entrar'),
+                  onTap: () {},
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  'Olá, visitante',
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
+                ListTile(
+                  title: const Text('Cadastrar'),
+                  onTap: () {},
+                ),
+              ],
+            ) : 
+            Column(
+              children: [
+                ListTile(
+                  title: const Text('Meus pedidos'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  title: const Text('Meus dados'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  title: const Text('Sair'),
+                  onTap: () {
+                    session.logout();
+                  },
                 ),
               ],
             ),
-          ),
-          ListTile(
-            title: const Text('Entrar'),
-            onTap: () {},
-          ),
-          ListTile(
-            title: const Text('Cadastrar'),
-            onTap: () {},
-          ),
-        ],
-      ),
+          ],
+        );
+      }),
     );
   }
 }
