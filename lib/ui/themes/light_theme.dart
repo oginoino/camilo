@@ -223,4 +223,16 @@ ThemeData lightTheme = ThemeData(
     dragHandleColor: uiConstants.secondaryLight,
     dragHandleSize: const Size(64, 4),
   ),
+  drawerTheme: DrawerThemeData(
+    elevation: 2,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(16),
+        bottomRight: Radius.circular(16),
+      ),
+    ),
+    backgroundColor: uiConstants.backgroundLight,
+    surfaceTintColor: uiConstants.backgroundLight,
+    width: 360,
+  ),
 );
