@@ -10,7 +10,6 @@ class CustomBackButton extends StatelessWidget {
         children: [
           TextButton.icon(
             onPressed: () {
-              products.getAllProducts();
               appRouter.canPop()
                   ? appRouter.pop()
                   : appRouter.go(ScreenPaths.home);

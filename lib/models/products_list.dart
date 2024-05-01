@@ -5,7 +5,6 @@ class ProductList extends ChangeNotifier {
 
   List<Product> _products = [];
 
-
   List<String> get categories => _products
       .map((product) => product.productCategories)
       .expand((element) => element)
@@ -27,14 +26,21 @@ class ProductList extends ChangeNotifier {
   }
 
   void searchProducts(String value) {
-    _products = productsService.productListService
-        .where(
-          (product) =>
-              product.productName.toLowerCase().ignoreAccents().contains(
-                    value.toLowerCase().ignoreAccents(),
-                  ),
-        )
-        .toList();
+    if (value.isEmpty) {
+      _products = productsService.productListService;
+      notifyListeners();
+      return;
+    } else {
+      _products = productsService.productListService
+          .where(
+            (product) =>
+                product.productName.toLowerCase().ignoreAccents().contains(
+                      value.toLowerCase().ignoreAccents(),
+                    ),
+          )
+          .toList();
+      notifyListeners();
+    }
     notifyListeners();
   }
 
