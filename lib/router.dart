@@ -93,9 +93,18 @@ String? _handleRedirect(BuildContext context, GoRouterState state) {
 }
 
 String? _redirectBasedOnState(GoRouterState state, BuildContext context) {
-  if (!session.isAuthenticated && !logoutPaths.contains(state.uri.path)) {
+  final currentPath = state.uri.path;
+
+  // Se não estiver autenticado e tentar acessar uma rota que requer autenticação, redirecione para a tela de login.
+  if (!session.isAuthenticated && loggedPaths.contains(currentPath)) {
+    return ScreenPaths.login;
+  }
+
+  // Se não estiver autenticado e tentar acessar uma rota que não requer autenticação, redirecione para a tela inicial.
+  if (!session.isAuthenticated && !logoutPaths.contains(currentPath)) {
     return ScreenPaths.home;
   }
+
   return null;
 }
 
@@ -108,3 +117,5 @@ List<String> get logoutPaths => [
       ...products.categories
           .map((category) => ScreenPaths.categoryPath(category)),
     ];
+
+List<String> get loggedPaths => [];
