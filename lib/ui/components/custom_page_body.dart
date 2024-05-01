@@ -11,11 +11,6 @@ class CustomPageBody extends StatelessWidget {
       children: [
         Consumer<ProductList>(builder: (context, products, child) {
           List<String> productCategories = products.categories;
-          // List<String> productCategories = products.products
-          //     .map((product) => product.productCategories)
-          //     .expand((element) => element)
-          //     .toSet()
-          //     .toList();
           return Padding(
             padding: EdgeInsets.symmetric(
               horizontal: uiConstants.paddingSmall,
