@@ -40,11 +40,6 @@ export 'models/session.dart';
 // products service
 export 'services/products_service.dart';
 
-// mock
-
-// mock product list data
-export 'mock/products_list_data.dart';
-
 // ui
 
 // themes

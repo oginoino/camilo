@@ -1,9 +1,13 @@
+import 'package:camilo/logic/app_logic.dart';
+
 import 'common_libs.dart';
 
 void main() async {
   registerSingletons();
 
   GoRouter.optionURLReflectsImperativeAPIs = true;
+
+  await appLogic.bootstrap();
 
   runApp(
     MultiProvider(
@@ -37,12 +41,12 @@ class CamiloApp extends StatelessWidget {
 
 void registerSingletons() {
   GetIt.I.registerLazySingleton<UiConstants>(() => UiConstants());
-  GetIt.I.registerLazySingleton<ProductList>(
-      () => productsService.productListService);
+  GetIt.I.registerLazySingleton<ProductList>(() => ProductList());
   GetIt.I.registerLazySingleton<ProductCart>(() => ProductCart());
   GetIt.I.registerLazySingleton<ProductsService>(() => ProductsService());
   GetIt.I.registerLazySingleton<Session>(() => Session());
   GetIt.I.registerLazySingleton<InputValidators>(() => InputValidators());
+  GetIt.I.registerLazySingleton<AppLogic>(() => AppLogic());
 }
 
 UiConstants get uiConstants => GetIt.I<UiConstants>();
@@ -51,3 +55,4 @@ ProductCart get productCart => GetIt.I<ProductCart>();
 ProductsService get productsService => GetIt.I<ProductsService>();
 Session get session => GetIt.I<Session>();
 InputValidators get inputValidators => GetIt.I<InputValidators>();
+AppLogic get appLogic => GetIt.I<AppLogic>();
