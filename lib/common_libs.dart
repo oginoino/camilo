@@ -35,6 +35,11 @@ export 'models/product_cart.dart';
 // section
 export 'models/session.dart';
 
+// logic
+
+// app logic
+export 'logic/app_logic.dart';
+
 // services
 
 // products service
