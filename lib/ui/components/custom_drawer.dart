@@ -18,7 +18,7 @@ class CustomDrawer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CircleAvatar(
-                  backgroundColor: Colors.white,
+                  backgroundColor: Theme.of(context).colorScheme.onPrimary,
                   radius: 40,
                   child: Icon(
                     Icons.person_rounded,
@@ -30,7 +30,7 @@ class CustomDrawer extends StatelessWidget {
                 Text(
                   'Olá, visitante',
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                 ),
               ],
