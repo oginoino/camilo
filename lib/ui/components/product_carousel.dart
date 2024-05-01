@@ -41,7 +41,6 @@ class ProductCarossel extends StatelessWidget {
                           horizontal: uiConstants.paddingSmall),
                       child: TextButton(
                         onPressed: () {
-                          
                           appRouter.push(
                             ScreenPaths.categoryPath(category),
                           );
