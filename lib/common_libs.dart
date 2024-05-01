@@ -35,15 +35,15 @@ export 'models/product_cart.dart';
 // section
 export 'models/session.dart';
 
+// logic
+
+// app logic
+export 'logic/app_logic.dart';
+
 // services
 
 // products service
 export 'services/products_service.dart';
-
-// mock
-
-// mock product list data
-export 'mock/products_list_data.dart';
 
 // ui
 

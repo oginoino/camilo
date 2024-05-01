@@ -1,18 +1,18 @@
 import '../common_libs.dart';
 
 class ProductList extends ChangeNotifier {
-  List<Product> products;
+  List<Product> get products => _products;
 
-  ProductList({required this.products});
+  List<Product> _products = [];
 
-  List<String> get categories => products
+  List<String> get categories => _products
       .map((product) => product.productCategories)
       .expand((element) => element)
       .toSet()
       .toList();
 
   void getProductsByCategory(String category) {
-    products.where((product) => product.productCategories.contains(category));
+    _products.where((product) => product.productCategories.contains(category));
     notifyListeners();
   }
 
@@ -22,23 +22,30 @@ class ProductList extends ChangeNotifier {
   }
 
   Product getProductById(String id) {
-    return products.firstWhere((product) => product.id == id);
+    return _products.firstWhere((product) => product.id == id);
   }
 
   void searchProducts(String value) {
-    products = productsService.productListService.products
-        .where(
-          (product) =>
-              product.productName.toLowerCase().ignoreAccents().contains(
-                    value.toLowerCase().ignoreAccents(),
-                  ),
-        )
-        .toList();
+    if (value.isEmpty) {
+      _products = productsService.productListService;
+      notifyListeners();
+      return;
+    } else {
+      _products = productsService.productListService
+          .where(
+            (product) =>
+                product.productName.toLowerCase().ignoreAccents().contains(
+                      value.toLowerCase().ignoreAccents(),
+                    ),
+          )
+          .toList();
+      notifyListeners();
+    }
     notifyListeners();
   }
 
   void getAllProducts() {
-    products = productsService.productListService.products;
+    _products = productsService.productListService;
     notifyListeners();
   }
 }
