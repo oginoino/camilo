@@ -223,4 +223,33 @@ ThemeData lightTheme = ThemeData(
     dragHandleColor: uiConstants.secondaryLight,
     dragHandleSize: const Size(64, 4),
   ),
+  drawerTheme: DrawerThemeData(
+    elevation: 2,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(16),
+        bottomRight: Radius.circular(16),
+      ),
+    ),
+    backgroundColor: uiConstants.backgroundLight,
+    surfaceTintColor: uiConstants.backgroundLight,
+    width: 360,
+  ),
+  listTileTheme: ListTileThemeData(
+    tileColor: uiConstants.backgroundLight,
+    selectedTileColor: uiConstants.primaryLight,
+    iconColor: uiConstants.primaryLight,
+    titleTextStyle: TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      fontFamily: GoogleFonts.nunito().fontFamily,
+      color: uiConstants.tertiaryLight,
+      letterSpacing: 1.25,
+    ),
+    selectedColor: uiConstants.onPrimaryLight,
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
+  ),
 );

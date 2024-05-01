@@ -7,13 +7,22 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        const CustomAppBar(),
-        const CustomBackButton(),
-        _buildBodyTitle(context),
-        _buildPageBody(),
-      ],
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          const CustomAppBar(),
+          const CustomBackButton(),
+          _buildBodyTitle(context),
+          _buildPageBody(),
+        ],
+      ),
+      floatingActionButton: const SizedBox(),
+      extendBody: true,
+      resizeToAvoidBottomInset: false,
+      primary: true,
+      key: const Key('category_page'),
+      restorationId: 'category',
+      drawer: const CustomDrawer(),
     );
   }
 
@@ -49,6 +58,7 @@ class CategoryPage extends StatelessWidget {
   }
 
   SliverToBoxAdapter _buildBodyTitle(BuildContext context) {
+    final String categoryTitle = 'Tudo em $categoryName';
     return SliverToBoxAdapter(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +70,7 @@ class CategoryPage extends StatelessWidget {
               top: uiConstants.paddingMedium,
             ),
             child: Text(
-              categoryName,
+              categoryTitle,
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     fontWeight: FontWeight.bold,

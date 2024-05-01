@@ -19,6 +19,7 @@ class HomePage extends StatelessWidget {
       primary: true,
       key: Key('home_page'),
       restorationId: 'home_page',
+      drawer: CustomDrawer(),
     );
   }
 }

@@ -117,7 +117,10 @@ class LoginForm extends StatelessWidget {
               FilledButton(
                 onPressed: () {
                   if (_loginFormKey.currentState!.validate()) {
-                    session.isAuthenticated = true;
+                    session.login(
+                      email: _emailLoginController.text,
+                      password: _passwordLoginController.text,
+                    );
                     appRouter.go(ScreenPaths.home);
                   }
                 },
