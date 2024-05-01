@@ -104,6 +104,9 @@ export 'ui/components/custom_back_button.dart';
 // custom page body
 export 'ui/components/custom_page_body.dart';
 
+// custom drawer
+export 'ui/components/custom_drawer.dart';
+
 // forms
 //login form
 export 'ui/components/forms/login_form.dart';
