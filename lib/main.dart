@@ -1,5 +1,3 @@
-import 'package:camilo/logic/app_logic.dart';
-
 import 'common_libs.dart';
 
 void main() async {
