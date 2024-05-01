@@ -29,7 +29,7 @@ class CustomDrawer extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Olá, ${session.isAuthenticated ? 'usuário' : 'visitante'}',
+                    'Olá, ${session.isAuthenticated ? 'usuário' : 'visitante'}.',
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           color: Theme.of(context).colorScheme.tertiary,
                         ),
@@ -37,36 +37,44 @@ class CustomDrawer extends StatelessWidget {
                 ],
               ),
             ),
-            !session.isAuthenticated ? Column(
-              children: [
-                ListTile(
-                  title: const Text('Entrar'),
-                  onTap: () {},
-                ),
-                ListTile(
-                  title: const Text('Cadastrar'),
-                  onTap: () {},
-                ),
-              ],
-            ) : 
-            Column(
-              children: [
-                ListTile(
-                  title: const Text('Meus pedidos'),
-                  onTap: () {},
-                ),
-                ListTile(
-                  title: const Text('Meus dados'),
-                  onTap: () {},
-                ),
-                ListTile(
-                  title: const Text('Sair'),
-                  onTap: () {
-                    session.logout();
-                  },
-                ),
-              ],
-            ),
+            !session.isAuthenticated
+                ? Column(
+                    children: [
+                      ListTile(
+                        title: const Text('Entrar'),
+                        onTap: () {
+                          Scaffold.of(context).closeDrawer();
+                          appRouter.push(ScreenPaths.login);
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Cadastrar'),
+                        onTap: () {
+                          Scaffold.of(context).closeDrawer();
+                          appRouter.push(ScreenPaths.register);
+                        },
+                      ),
+                    ],
+                  )
+                : Column(
+                    children: [
+                      ListTile(
+                        title: const Text('Meus pedidos'),
+                        onTap: () {},
+                      ),
+                      ListTile(
+                        title: const Text('Meus dados'),
+                        onTap: () {},
+                      ),
+                      ListTile(
+                        title: const Text('Sair'),
+                        onTap: () {
+                          Scaffold.of(context).closeDrawer();
+                          session.logout();
+                        },
+                      ),
+                    ],
+                  ),
           ],
         );
       }),

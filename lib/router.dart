@@ -96,7 +96,7 @@ String? _handleRedirect(BuildContext context, GoRouterState state) {
 
 String? _redirectBasedOnState(GoRouterState state, BuildContext context) {
   if (!session.isAuthenticated && !logoutPaths.contains(state.uri.path)) {
-    return ScreenPaths.login;
+    return ScreenPaths.home;
   }
   return null;
 }
@@ -105,4 +105,6 @@ List<String> get logoutPaths => [
       ScreenPaths.login,
       ScreenPaths.register,
       ScreenPaths.forgotPassword,
+      ScreenPaths.home,
+      ScreenPaths.cart,
     ];
