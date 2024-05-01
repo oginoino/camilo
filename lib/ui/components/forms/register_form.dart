@@ -163,7 +163,11 @@ class RegisterForm extends StatelessWidget {
               FilledButton(
                 onPressed: () {
                   if (_registerFormKey.currentState!.validate()) {
-                    session.isAuthenticated = true;
+                    session.register(
+                      name: _registerNameInputController.text,
+                      email: _registerEmailController.text,
+                      password: _firstPasswordRegisterController.text,
+                    );
                     appRouter.go(ScreenPaths.home);
                   }
                 },

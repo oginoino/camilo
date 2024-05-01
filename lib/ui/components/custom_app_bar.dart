@@ -20,7 +20,9 @@ class CustomAppBar extends StatelessWidget {
             color: Theme.of(context).colorScheme.onPrimary,
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
       ),
       actions: const [
         CartIcon(),
