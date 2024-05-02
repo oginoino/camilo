@@ -15,7 +15,26 @@ class SearchAddressBottomSheet extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(uiConstants.paddingMedium),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.location_on_rounded,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              SizedBox(width: uiConstants.paddingSmall),
+              Text(
+                'Endereço de entrega',
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: uiConstants.paddingMedium),
           SearchBar(
             leading: IconButton(
               icon: Icon(
