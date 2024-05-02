@@ -19,7 +19,7 @@ class CartPage extends StatelessWidget {
         const String endCardButtonIextNotMinimumOrder =
             'Adicionar mais produtos';
         var notMinimumOrderMessage =
-            'Apenas R\$ ${(cart.minimumOrder - cart.totalPrice).toStringAsFixed(2)} para completar o pedido mínimo';
+            'Adicione mais R\$ ${(cart.minimumOrder - cart.totalPrice).toStringAsFixed(2)} para atingir o valor mínimo.';
         return Scaffold(
           body: CustomScrollView(
             slivers: [
@@ -116,31 +116,6 @@ class CartPage extends StatelessWidget {
                         )
                       : Column(
                           children: [
-                            cart.isMinimumOrder
-                                ? const SizedBox()
-                                : Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.warning_rounded,
-                                        size: uiConstants.iconSizeMedium,
-                                        color: uiConstants.yellowSubmarine,
-                                      ),
-                                      SizedBox(width: uiConstants.paddingSmall),
-                                      SizedBox(
-                                        height: 48,
-                                        child: Center(
-                                          child: Text(
-                                            notMinimumOrderMessage,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelMedium,
-                                            maxLines: 2,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                             ListView.builder(
                               key: const PageStorageKey<String>('cart-items'),
                               addSemanticIndexes: true,
@@ -304,6 +279,33 @@ class CartPage extends StatelessWidget {
                             SizedBox(
                               height: uiConstants.paddingSmall,
                             ),
+                            cart.isMinimumOrder
+                                ? const SizedBox()
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.warning_rounded,
+                                        size: uiConstants.iconSizeMedium,
+                                        color: uiConstants.yellowSubmarine,
+                                      ),
+                                      SizedBox(width: uiConstants.paddingSmall),
+                                      SizedBox(
+                                        height: 56,
+                                        width: 200,
+                                        child: Center(
+                                          child: Text(
+                                            notMinimumOrderMessage,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelMedium,
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                             Padding(
                               padding: EdgeInsets.symmetric(
                                 horizontal: uiConstants.paddingLarge,
