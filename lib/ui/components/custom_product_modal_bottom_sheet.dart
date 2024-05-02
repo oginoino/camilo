@@ -126,7 +126,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                             .getSelectedQuantityByProductId(product.id);
                         const double bottomSheetButtonWidth = 132;
                         return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
