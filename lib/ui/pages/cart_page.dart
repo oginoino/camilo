@@ -103,6 +103,7 @@ class CartPage extends StatelessWidget {
                                         appRouter.go(ScreenPaths.home),
                                     label: const Text(
                                       voidCartButtonText,
+                                      textAlign: TextAlign.center,
                                     ),
                                     icon: Icon(
                                       Icons.add_shopping_cart_rounded,
@@ -329,6 +330,7 @@ class CartPage extends StatelessWidget {
                                             .colorScheme
                                             .background,
                                   ),
+                                  textAlign: TextAlign.center,
                                 ),
                                 icon: Icon(
                                   Icons.add_shopping_cart_rounded,
