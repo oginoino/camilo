@@ -129,7 +129,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                           children: [
                             Container(
                               constraints: const BoxConstraints(
-                                maxWidth: 160,
+                                maxWidth: 132,
                               ),
                               child: IconButton(
                                   tooltip: 'Remover',
@@ -207,7 +207,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                             ),
                             Container(
                               constraints: const BoxConstraints(
-                                maxWidth: 160,
+                                maxWidth: 132,
                               ),
                               child: IconButton(
                                 tooltip: 'Adicionar',
