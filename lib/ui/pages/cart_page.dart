@@ -185,7 +185,7 @@ class CartPage extends StatelessWidget {
                                         productGroup.first.productName,
                                   ),
                                   subtitle: SizedBox(
-                                    width: 180,
+                                    width: 192,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -219,10 +219,10 @@ class CartPage extends StatelessWidget {
                                       ),
                                       borderRadius: BorderRadius.circular(50),
                                     ),
-                                    width: 116,
+                                    width: 100,
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                          MainAxisAlignment.spaceEvenly,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
