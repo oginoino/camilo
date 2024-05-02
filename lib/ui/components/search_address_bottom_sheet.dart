@@ -1,12 +1,17 @@
 import '../../common_libs.dart';
 
 class SearchAddressBottomSheet extends StatelessWidget {
-  const SearchAddressBottomSheet({
+  SearchAddressBottomSheet({
     super.key,
   });
 
+  final TextEditingController searchAddressTextEditingControllerValue =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final FocusNode focusNodeValue = FocusNode();
+    const String hintTextValue = 'Digite o endereço de entrega';
     return Padding(
       padding: EdgeInsets.all(uiConstants.paddingMedium),
       child: Column(
@@ -25,10 +30,19 @@ class SearchAddressBottomSheet extends StatelessWidget {
                   Icons.close,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  searchAddressTextEditingControllerValue.clear();
+                },
               ),
             ],
-            hintText: 'Buscar endereço',
+            keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.search,
+            focusNode: focusNodeValue,
+            controller: searchAddressTextEditingControllerValue,
+            hintText: hintTextValue,
+            onSubmitted: (value) {
+              focusNodeValue.unfocus();
+            },
             onChanged: (value) {},
           ),
           SizedBox(height: uiConstants.paddingMedium),

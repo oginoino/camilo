@@ -24,7 +24,7 @@ class AddressBar extends StatelessWidget {
               isScrollControlled: true,
               enableDrag: true,
               builder: (context) {
-                return const SearchAddressBottomSheet();
+                return SearchAddressBottomSheet();
               },
             );
           },
