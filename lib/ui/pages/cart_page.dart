@@ -19,7 +19,7 @@ class CartPage extends StatelessWidget {
         const String endCardButtonIextNotMinimumOrder =
             'Adicionar mais produtos';
         var notMinimumOrderMessage =
-            'Apenas R\$ ${(cart.minimumOrder - cart.totalPrice).toStringAsFixed(2)} para completar o pedido mínimo';
+            'Adicione mais R\$ ${(cart.minimumOrder - cart.totalPrice).toStringAsFixed(2)} para atingir o valor mínimo.';
         return Scaffold(
           body: CustomScrollView(
             slivers: [
@@ -103,6 +103,7 @@ class CartPage extends StatelessWidget {
                                         appRouter.go(ScreenPaths.home),
                                     label: const Text(
                                       voidCartButtonText,
+                                      textAlign: TextAlign.center,
                                     ),
                                     icon: Icon(
                                       Icons.add_shopping_cart_rounded,
@@ -116,31 +117,6 @@ class CartPage extends StatelessWidget {
                         )
                       : Column(
                           children: [
-                            cart.isMinimumOrder
-                                ? const SizedBox()
-                                : Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.warning_rounded,
-                                        size: uiConstants.iconSizeMedium,
-                                        color: uiConstants.yellowSubmarine,
-                                      ),
-                                      SizedBox(width: uiConstants.paddingSmall),
-                                      SizedBox(
-                                        height: 48,
-                                        child: Center(
-                                          child: Text(
-                                            notMinimumOrderMessage,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelMedium,
-                                            maxLines: 2,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                             ListView.builder(
                               key: const PageStorageKey<String>('cart-items'),
                               addSemanticIndexes: true,
@@ -209,7 +185,7 @@ class CartPage extends StatelessWidget {
                                         productGroup.first.productName,
                                   ),
                                   subtitle: SizedBox(
-                                    width: 180,
+                                    width: 192,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -243,10 +219,10 @@ class CartPage extends StatelessWidget {
                                       ),
                                       borderRadius: BorderRadius.circular(50),
                                     ),
-                                    width: 116,
+                                    width: 100,
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                          MainAxisAlignment.spaceEvenly,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
@@ -304,6 +280,33 @@ class CartPage extends StatelessWidget {
                             SizedBox(
                               height: uiConstants.paddingSmall,
                             ),
+                            cart.isMinimumOrder
+                                ? const SizedBox()
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.warning_rounded,
+                                        size: uiConstants.iconSizeMedium,
+                                        color: uiConstants.yellowSubmarine,
+                                      ),
+                                      SizedBox(width: uiConstants.paddingSmall),
+                                      SizedBox(
+                                        height: 56,
+                                        width: 200,
+                                        child: Center(
+                                          child: Text(
+                                            notMinimumOrderMessage,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelMedium,
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                             Padding(
                               padding: EdgeInsets.symmetric(
                                 horizontal: uiConstants.paddingLarge,
@@ -327,6 +330,7 @@ class CartPage extends StatelessWidget {
                                             .colorScheme
                                             .background,
                                   ),
+                                  textAlign: TextAlign.center,
                                 ),
                                 icon: Icon(
                                   Icons.add_shopping_cart_rounded,
