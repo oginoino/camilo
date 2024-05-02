@@ -149,6 +149,22 @@ class LoginForm extends StatelessWidget {
                       ),
                 ),
               ),
+              SizedBox(
+                height: uiConstants.paddingMedium,
+              ),
+              TextButton.icon(
+                onPressed: () {
+                  appRouter.go(ScreenPaths.home);
+                },
+                label: Text(
+                  'Ir para a loja',
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        
+                      ),
+                ),
+                icon: const Icon(Icons.shopping_basket_sharp),
+              )
             ],
           ),
         ),
