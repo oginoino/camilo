@@ -123,13 +123,14 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                           builder: (context, productCart, child) {
                         int selectedQuantityByProductId = productCart
                             .getSelectedQuantityByProductId(product.id);
+                        const double bottomSheetButtonWidth = 132;
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
                               constraints: const BoxConstraints(
-                                maxWidth: 132,
+                                maxWidth: bottomSheetButtonWidth,
                               ),
                               child: IconButton(
                                   tooltip: 'Remover',
@@ -141,8 +142,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                   },
                                   iconSize: uiConstants.iconSizeMedium,
                                   icon: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
                                         selectedQuantityByProductId < 1
@@ -155,8 +155,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                             .background,
                                       ),
                                       SizedBox(
-                                          width:
-                                              uiConstants.paddingExtraSmall),
+                                          width: uiConstants.paddingExtraSmall),
                                       Text(
                                         selectedQuantityByProductId < 1
                                             ? ''
@@ -207,7 +206,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                             ),
                             Container(
                               constraints: const BoxConstraints(
-                                maxWidth: 132,
+                                maxWidth: bottomSheetButtonWidth,
                               ),
                               child: IconButton(
                                 tooltip: 'Adicionar',
