@@ -5,7 +5,7 @@ class CustomSearchBar extends StatelessWidget {
     super.key,
   });
 
-  final TextEditingController textEditingControllerValue =
+  final TextEditingController searchProductsTextEditingControllerValue =
       TextEditingController();
 
   @override
@@ -23,7 +23,7 @@ class CustomSearchBar extends StatelessWidget {
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.search,
         focusNode: focusNodeValue,
-        controller: textEditingControllerValue,
+        controller: searchProductsTextEditingControllerValue,
         hintText: hintTextValue,
         trailing: [
           IconButton(
@@ -32,7 +32,7 @@ class CustomSearchBar extends StatelessWidget {
               color: Theme.of(context).colorScheme.secondary,
             ),
             onPressed: () {
-              textEditingControllerValue.clear();
+              searchProductsTextEditingControllerValue.clear();
               products.getAllProducts();
             },
           ),

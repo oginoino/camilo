@@ -27,35 +27,7 @@ class CustomAppBar extends StatelessWidget {
       actions: const [
         CartIcon(),
       ],
-      title: FittedBox(
-        child: TextButton.icon(
-          style: TextButton.styleFrom(
-            backgroundColor: Colors.white,
-          ),
-          onPressed: () {},
-          icon: Icon(
-            Icons.location_on_rounded,
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-          label: Hero(
-            tag: 'search-address',
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Adicionar endereço',
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.secondary),
-                ),
-                Icon(
-                  Icons.arrow_drop_down_rounded,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+      title: const AddressBar(),
       floating: true,
       snap: true,
       pinned: false,
@@ -72,3 +44,5 @@ class CustomAppBar extends StatelessWidget {
     );
   }
 }
+
+

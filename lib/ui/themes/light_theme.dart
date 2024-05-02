@@ -252,4 +252,21 @@ ThemeData lightTheme = ThemeData(
       borderRadius: BorderRadius.circular(16),
     ),
   ),
+  searchBarTheme: SearchBarThemeData(
+    elevation: MaterialStateProperty.all(2.0),
+    backgroundColor: MaterialStateProperty.all(Colors.white),
+    constraints: const BoxConstraints(
+      minHeight: 48,
+      maxHeight: 48,
+      maxWidth: double.infinity,
+      minWidth: double.infinity,
+    ),
+    textStyle: MaterialStateProperty.all(
+      TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.normal,
+        fontFamily: GoogleFonts.nunito().fontFamily,
+      ),
+    ),
+  ),
 );
