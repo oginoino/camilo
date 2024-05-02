@@ -1,3 +1,5 @@
+import 'package:camilo/services/maps_service.dart';
+
 import 'common_libs.dart';
 
 void main() async {
@@ -45,6 +47,7 @@ void registerSingletons() {
   GetIt.I.registerLazySingleton<Session>(() => Session());
   GetIt.I.registerLazySingleton<InputValidators>(() => InputValidators());
   GetIt.I.registerLazySingleton<AppLogic>(() => AppLogic());
+  GetIt.I.registerLazySingleton<ApiService>(() => ApiService());
 }
 
 UiConstants get uiConstants => GetIt.I<UiConstants>();
@@ -54,3 +57,4 @@ ProductsService get productsService => GetIt.I<ProductsService>();
 Session get session => GetIt.I<Session>();
 InputValidators get inputValidators => GetIt.I<InputValidators>();
 AppLogic get appLogic => GetIt.I<AppLogic>();
+ApiService get apiService => GetIt.I<ApiService>();
