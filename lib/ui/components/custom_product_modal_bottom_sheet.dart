@@ -163,7 +163,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                           selectedQuantityByProductId < 1
                                               ? ''
                                               : selectedQuantityByProductId == 1
-                                                  ? 'Remover'
+                                                  ? 'Excluir'
                                                   : 'Remover',
                                           style: Theme.of(context)
                                               .textTheme
@@ -175,6 +175,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                           textAlign: TextAlign.center,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ],
                                     )),
@@ -235,6 +236,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                               fontWeight: FontWeight.bold,
                                             ),
                                         textAlign: TextAlign.center,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                       SizedBox(
                                           width: uiConstants.paddingExtraSmall),
