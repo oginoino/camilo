@@ -9,7 +9,8 @@ import '../models/predictions.dart';
 class MapsService with ChangeNotifier {
   String language = 'pt';
   String key = dotenv.env['M_API_KEY'] ?? '';
-  String path = 'https://maps.googleapis.com/maps/api/place/queryautocomplete/json';
+  String path =
+      'https://maps.googleapis.com/maps/api/place/queryautocomplete/json';
 
   Predictions get predictions => _predictions;
   Predictions _predictions = Predictions([], '');
@@ -42,17 +43,19 @@ class MapsService with ChangeNotifier {
 
   Predictions _handleSuccess(http.Response response) {
     Map<String, dynamic> json = jsonDecode(response.body);
+    debugPrint(json.toString());
     return Predictions.fromJson(json);
   }
 
   void _handleErrors(http.Response response) {
-    if (response.statusCode == 404) {
-      errorMessage = 'Not found: ${response.body}';
-    } else if (response.statusCode >= 500) {
-      errorMessage = 'Server error: ${response.body}';
+    Map<String, dynamic> json = jsonDecode(response.body);
+    Predictions predictions = Predictions.fromJson(json);
+    if (predictions.hasError) {
+      _predictions = Predictions([], predictions.status,
+          errorMessage: predictions.errorMessage);
     } else {
-      errorMessage = 'Unexpected response: ${response.body}';
+      _predictions = Predictions([], 'ERROR');
     }
-    _predictions = Predictions([], '');
+    notifyListeners();
   }
 }

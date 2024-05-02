@@ -1,15 +1,19 @@
 class Predictions {
   final List<Prediction> predictions;
   final String status;
+  final String? errorMessage; // Novo campo para mensagens de erro
 
-  Predictions(this.predictions, this.status);
+  Predictions(this.predictions, this.status, {this.errorMessage});
 
   Predictions.fromJson(Map<String, dynamic> json)
       : predictions = (json['predictions'] as List<dynamic>?)
                 ?.map((e) => Prediction.fromJson(e as Map<String, dynamic>))
                 .toList() ??
             [],
-        status = json['status'] ?? '';
+        status = json['status'] ?? 'UNKNOWN',
+        errorMessage = json['error_message'];
+
+  bool get hasError => errorMessage != null && predictions.isEmpty;
 }
 
 class Prediction {
