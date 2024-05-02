@@ -8,8 +8,9 @@ class AddressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
-      child: Expanded(
+      width: double.infinity,
+      height: 36,
+      child: FittedBox(
         child: TextButton.icon(
           style: TextButton.styleFrom(
             backgroundColor: Colors.white,
@@ -39,8 +40,11 @@ class AddressBar extends StatelessWidget {
               children: [
                 Text(
                   'Adicionar endereço',
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.secondary),
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge
+                      ?.copyWith(color: Theme.of(context).colorScheme.secondary),
+                  overflow: TextOverflow.ellipsis,
                 ),
                 Icon(
                   Icons.arrow_drop_down_rounded,
