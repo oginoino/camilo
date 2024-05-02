@@ -7,8 +7,33 @@ class SearchAddressBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      
+    return Padding(
+      padding: EdgeInsets.all(uiConstants.paddingMedium),
+      child: Column(
+        children: [
+          SearchBar(
+            leading: IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              onPressed: () {},
+            ),
+            trailing: [
+              IconButton(
+                icon: Icon(
+                  Icons.close,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                onPressed: () {},
+              ),
+            ],
+            hintText: 'Buscar endereço',
+            onChanged: (value) {},
+          ),
+          SizedBox(height: uiConstants.paddingMedium),
+        ],
+      ),
     );
   }
 }
