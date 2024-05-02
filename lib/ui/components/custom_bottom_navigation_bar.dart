@@ -49,7 +49,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 padding: EdgeInsets.symmetric(
                   horizontal: uiConstants.paddingMedium,
-                  vertical: uiConstants.paddingSmall,
+                  vertical: uiConstants.paddingMedium,
                 ),
                 elevation: 2,
               ),
