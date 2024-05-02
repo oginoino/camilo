@@ -219,7 +219,7 @@ class CartPage extends StatelessWidget {
                                       ),
                                       borderRadius: BorderRadius.circular(50),
                                     ),
-                                    width: 100,
+                                    width: 104,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
