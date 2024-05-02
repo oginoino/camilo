@@ -9,23 +9,34 @@ import '../models/predictions.dart';
 class MapsService with ChangeNotifier {
   String language = 'pt';
   String key = dotenv.env['M_API_KEY'] ?? '';
-  String path =
-      'https://maps.googleapis.com/maps/api/place/queryautocomplete/json';
+  String path = 'https://maps.googleapis.com/maps/api/place/queryautocomplete/json';
 
   Predictions get predictions => _predictions;
   Predictions _predictions = Predictions([], '');
+  bool isLoading = false;
+  String? errorMessage;
 
   Future<void> fetchAddress(String input) async {
+    isLoading = true;
+    notifyListeners();
+
     final uri = Uri.parse(path).replace(
         queryParameters: {'language': language, 'input': input, 'key': key});
 
-    final response = await http.get(uri);
+    try {
+      final response = await http.get(uri);
 
-    if (response.statusCode == 200) {
-      _predictions = _handleSuccess(response);
+      if (response.statusCode == 200) {
+        _predictions = _handleSuccess(response);
+        errorMessage = null;
+      } else {
+        _handleErrors(response);
+      }
+    } catch (e) {
+      errorMessage = "Failed to fetch data: $e";
+    } finally {
+      isLoading = false;
       notifyListeners();
-    } else {
-      _handleErrors(response);
     }
   }
 
@@ -36,11 +47,12 @@ class MapsService with ChangeNotifier {
 
   void _handleErrors(http.Response response) {
     if (response.statusCode == 404) {
-      throw Exception('Not found: ${response.body}');
+      errorMessage = 'Not found: ${response.body}';
     } else if (response.statusCode >= 500) {
-      throw Exception('Server error: ${response.body}');
+      errorMessage = 'Server error: ${response.body}';
     } else {
-      throw Exception('Unexpected response: ${response.body}');
+      errorMessage = 'Unexpected response: ${response.body}';
     }
+    _predictions = Predictions([], '');
   }
 }
