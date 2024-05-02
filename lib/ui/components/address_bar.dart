@@ -22,9 +22,7 @@ class AddressBar extends StatelessWidget {
             isScrollControlled: true,
             enableDrag: true,
             builder: (context) {
-              return const Center(
-                
-              );
+              return SearchAddressBottomSheet();
             },
           );
         },
@@ -55,3 +53,4 @@ class AddressBar extends StatelessWidget {
     );
   }
 }
+
