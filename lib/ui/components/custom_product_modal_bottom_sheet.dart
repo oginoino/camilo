@@ -114,10 +114,10 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                   ),
                   Center(
                     child: Container(
-                      height: 64,
+                      height: uiConstants.paddingExtraExtraLarge,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.primary,
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(uiConstants.borderRadiusLarge),
                       ),
                       child: Consumer<ProductCart>(
                           builder: (context, productCart, child) {
@@ -183,7 +183,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                               ),
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.secondary,
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(uiConstants.borderRadiusSmall),
                                 shape: BoxShape.rectangle,
                               ),
                               padding: EdgeInsets.symmetric(

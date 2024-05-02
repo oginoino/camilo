@@ -51,4 +51,8 @@ class UiConstants {
   // image sizes
   double get squareImageSizeSmall => 60.0;
   double get squareImageSizeMedium => 160.0;
+
+  double get borderRadiusSmall => 8.0;
+
+  double get borderRadiusLarge => 48;
 }
