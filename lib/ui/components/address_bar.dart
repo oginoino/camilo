@@ -12,7 +12,22 @@ class AddressBar extends StatelessWidget {
         style: TextButton.styleFrom(
           backgroundColor: Colors.white,
         ),
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isDismissible: true,
+            useSafeArea: true,
+            useRootNavigator: true,
+            showDragHandle: true,
+            isScrollControlled: true,
+            enableDrag: true,
+            builder: (context) {
+              return const Center(
+                
+              );
+            },
+          );
+        },
         icon: Icon(
           Icons.location_on_rounded,
           color: Theme.of(context).colorScheme.secondary,
@@ -24,8 +39,10 @@ class AddressBar extends StatelessWidget {
             children: [
               Text(
                 'Adicionar endereço',
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.secondary),
+                style: Theme.of(context)
+                    .textTheme
+                    .labelLarge
+                    ?.copyWith(color: Theme.of(context).colorScheme.secondary),
               ),
               Icon(
                 Icons.arrow_drop_down_rounded,
