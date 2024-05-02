@@ -36,8 +36,15 @@ class UiConstants {
   double get iconSizeSmall => 16.0;
   double get iconSizeMedium => 24.0;
   double get iconSizeLarge => 32.0;
+  double get iconSizeXL => 48.0;
   double get iconSizeExtraLarge => 64.0;
   double get iconSizeExtraExtraLarge => 128.0;
+
+  // icon radius
+  double get iconRadiusSmall => 8.0;
+  double get iconRadiusMedium => 16.0;
+  double get iconRadiusLarge => 24.0;
+  
 
   // border side width
   double get borderSideWidthMedium => 0.5;

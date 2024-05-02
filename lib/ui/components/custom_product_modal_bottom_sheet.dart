@@ -47,9 +47,9 @@ class CustomProductModalBottomSheet extends StatelessWidget {
               ),
               AddProductIcon(
                 product: product,
-                iconSize: 48,
-                iconRadius: 24,
-                iconFontSize: 24,
+                iconSize: uiConstants.iconSizeXL,
+                iconRadius: uiConstants.iconRadiusLarge,
+                iconFontSize: uiConstants.iconSizeMedium,
               ),
             ],
           ),
@@ -117,7 +117,8 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                       height: uiConstants.paddingExtraExtraLarge,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.primary,
-                        borderRadius: BorderRadius.circular(uiConstants.borderRadiusLarge),
+                        borderRadius: BorderRadius.circular(
+                            uiConstants.borderRadiusLarge),
                       ),
                       child: Consumer<ProductCart>(
                           builder: (context, productCart, child) {
@@ -183,7 +184,8 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                               ),
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.secondary,
-                                borderRadius: BorderRadius.circular(uiConstants.borderRadiusSmall),
+                                borderRadius: BorderRadius.circular(
+                                    uiConstants.borderRadiusSmall),
                                 shape: BoxShape.rectangle,
                               ),
                               padding: EdgeInsets.symmetric(
