@@ -42,6 +42,7 @@ class CustomDrawer extends StatelessWidget {
                 ? Column(
                     children: [
                       ListTile(
+                        leading: const Icon(Icons.login),
                         title: const Text('Entrar'),
                         onTap: () {
                           Scaffold.of(context).closeDrawer();
@@ -49,6 +50,7 @@ class CustomDrawer extends StatelessWidget {
                         },
                       ),
                       ListTile(
+                        leading: const Icon(Icons.person_add),
                         title: const Text('Cadastrar'),
                         onTap: () {
                           Scaffold.of(context).closeDrawer();
@@ -60,14 +62,17 @@ class CustomDrawer extends StatelessWidget {
                 : Column(
                     children: [
                       ListTile(
+                        leading: const Icon(Icons.shopping_cart),
                         title: const Text('Meus pedidos'),
                         onTap: () {},
                       ),
                       ListTile(
+                        leading: const Icon(Icons.person),
                         title: const Text('Meus dados'),
                         onTap: () {},
                       ),
                       ListTile(
+                        leading: const Icon(Icons.exit_to_app),
                         title: const Text('Sair'),
                         onTap: () {
                           Scaffold.of(context).closeDrawer();
