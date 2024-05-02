@@ -55,7 +55,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
               ),
               onPressed: cart.isMinimumOrder ? () {} : null,
               icon: Icon(
-                Icons.payment_rounded,
+                cart.isMinimumOrder
+                    ? Icons.payment_rounded
+                    : Icons.shopping_bag_rounded,
                 size: uiConstants.iconSizeMedium,
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
