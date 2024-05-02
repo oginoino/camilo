@@ -127,61 +127,61 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(
-                              width: 160,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: UiConstants().paddingSmall,
-                                ),
-                                child: IconButton(
-                                    tooltip: 'Remover',
-                                    onPressed: () {
-                                      if (selectedQuantityByProductId > 0) {
-                                        productCart.decrementProduct(
-                                            context, product);
-                                      }
-                                    },
-                                    iconSize: uiConstants.iconSizeMedium,
-                                    icon: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          selectedQuantityByProductId < 1
-                                              ? null
-                                              : selectedQuantityByProductId == 1
-                                                  ? Icons.delete_rounded
-                                                  : Icons.remove_rounded,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background,
-                                        ),
-                                        SizedBox(
-                                            width:
-                                                uiConstants.paddingExtraSmall),
-                                        Text(
-                                          selectedQuantityByProductId < 1
-                                              ? ''
-                                              : selectedQuantityByProductId == 1
-                                                  ? 'Excluir'
-                                                  : 'Remover',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.copyWith(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .background,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                          textAlign: TextAlign.center,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ],
-                                    )),
+                            Container(
+                              constraints: const BoxConstraints(
+                                maxWidth: 160,
                               ),
+                              child: IconButton(
+                                  tooltip: 'Remover',
+                                  onPressed: () {
+                                    if (selectedQuantityByProductId > 0) {
+                                      productCart.decrementProduct(
+                                          context, product);
+                                    }
+                                  },
+                                  iconSize: uiConstants.iconSizeMedium,
+                                  icon: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        selectedQuantityByProductId < 1
+                                            ? null
+                                            : selectedQuantityByProductId == 1
+                                                ? Icons.delete_rounded
+                                                : Icons.remove_rounded,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .background,
+                                      ),
+                                      SizedBox(
+                                          width:
+                                              uiConstants.paddingExtraSmall),
+                                      Text(
+                                        selectedQuantityByProductId < 1
+                                            ? ''
+                                            : selectedQuantityByProductId == 1
+                                                ? 'Excluir'
+                                                : 'Remover',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                        textAlign: TextAlign.center,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  )),
                             ),
                             Container(
+                              constraints: const BoxConstraints(
+                                minWidth: 40,
+                              ),
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.secondary,
                                 borderRadius: BorderRadius.circular(8),
@@ -205,52 +205,49 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            SizedBox(
-                              width: 160,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: UiConstants().paddingSmall,
-                                ),
-                                child: IconButton(
-                                  tooltip: 'Adicionar',
-                                  onPressed: () {
-                                    productCart.incrementProduct(
-                                        context, product);
-                                  },
-                                  iconSize: uiConstants.iconSizeMedium,
-                                  icon: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        product.availableQuantity <=
-                                                selectedQuantityByProductId
-                                            ? 'Máximo'
-                                            : 'Adicionar',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall
-                                            ?.copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .background,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      SizedBox(
-                                          width: uiConstants.paddingExtraSmall),
+                            Container(
+                              constraints: const BoxConstraints(
+                                maxWidth: 160,
+                              ),
+                              child: IconButton(
+                                tooltip: 'Adicionar',
+                                onPressed: () {
+                                  productCart.incrementProduct(
+                                      context, product);
+                                },
+                                iconSize: uiConstants.iconSizeMedium,
+                                icon: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
                                       product.availableQuantity <=
                                               selectedQuantityByProductId
-                                          ? const SizedBox()
-                                          : Icon(
-                                              Icons.add_rounded,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .background,
-                                            ),
-                                    ],
-                                  ),
+                                          ? 'Máximo'
+                                          : 'Adicionar',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall
+                                          ?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .background,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    SizedBox(
+                                        width: uiConstants.paddingExtraSmall),
+                                    product.availableQuantity <=
+                                            selectedQuantityByProductId
+                                        ? const SizedBox()
+                                        : Icon(
+                                            Icons.add_rounded,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .background,
+                                          ),
+                                  ],
                                 ),
                               ),
                             )
