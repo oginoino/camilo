@@ -107,6 +107,12 @@ export 'ui/components/custom_page_body.dart';
 // custom drawer
 export 'ui/components/custom_drawer.dart';
 
+// address bar
+export 'ui/components/address_bar.dart';
+
+// search address bottom sheet
+export 'ui/components/search_address_bottom_sheet.dart';
+
 // forms
 //login form
 export 'ui/components/forms/login_form.dart';
