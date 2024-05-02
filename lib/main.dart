@@ -17,6 +17,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => productsService),
         ChangeNotifierProvider(create: (_) => session),
         ChangeNotifierProvider(create: (_) => inputValidators),
+        ChangeNotifierProvider(create: (_) => apiService),
       ],
       child: const CamiloApp(),
     ),
@@ -47,7 +48,7 @@ void registerSingletons() {
   GetIt.I.registerLazySingleton<Session>(() => Session());
   GetIt.I.registerLazySingleton<InputValidators>(() => InputValidators());
   GetIt.I.registerLazySingleton<AppLogic>(() => AppLogic());
-  GetIt.I.registerLazySingleton<ApiService>(() => ApiService());
+  GetIt.I.registerLazySingleton<MapsService>(() => MapsService());
 }
 
 UiConstants get uiConstants => GetIt.I<UiConstants>();
@@ -57,4 +58,4 @@ ProductsService get productsService => GetIt.I<ProductsService>();
 Session get session => GetIt.I<Session>();
 InputValidators get inputValidators => GetIt.I<InputValidators>();
 AppLogic get appLogic => GetIt.I<AppLogic>();
-ApiService get apiService => GetIt.I<ApiService>();
+MapsService get apiService => GetIt.I<MapsService>();

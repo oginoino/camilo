@@ -9,7 +9,7 @@ class AddressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 36,
+      height: 50,
       child: FittedBox(
         child: TextButton.icon(
           style: TextButton.styleFrom(

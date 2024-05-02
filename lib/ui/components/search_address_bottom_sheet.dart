@@ -1,4 +1,7 @@
+import 'package:camilo/models/predictions.dart';
+
 import '../../common_libs.dart';
+import '../../services/maps_service.dart';
 
 class SearchAddressBottomSheet extends StatelessWidget {
   SearchAddressBottomSheet({
@@ -28,9 +31,9 @@ class SearchAddressBottomSheet extends StatelessWidget {
               Text(
                 'Endereço de entrega',
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontWeight: FontWeight.bold,
-                ),
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
             ],
           ),
@@ -62,9 +65,35 @@ class SearchAddressBottomSheet extends StatelessWidget {
             onSubmitted: (value) {
               focusNodeValue.unfocus();
             },
-            onChanged: (value) {},
+            onChanged: (value) {
+              if (value.isNotEmpty) {
+                apiService.fetchAddress(value);
+              }
+            },
           ),
           SizedBox(height: uiConstants.paddingMedium),
+          Consumer<MapsService>(
+            builder: (context, apiService, child) {
+              if (apiService.predictions.predictions.isEmpty) {
+                return Container();
+              }
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: apiService.predictions.predictions.length,
+                itemBuilder: (context, index) {
+                  final Prediction prediction =
+                      apiService.predictions.predictions[index];
+                  return ListTile(
+                    title: Text(prediction.description),
+                    onTap: () {
+                      searchAddressTextEditingControllerValue.text =
+                          prediction.description;
+                    },
+                  );
+                },
+              );
+            },
+          ),
         ],
       ),
     );
