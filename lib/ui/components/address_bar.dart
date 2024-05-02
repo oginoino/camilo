@@ -25,7 +25,7 @@ class AddressBar extends StatelessWidget {
               isScrollControlled: true,
               enableDrag: true,
               builder: (context) {
-                return SearchAddressBottomSheet();
+                return const SearchAddressBottomSheet();
               },
             );
           },
@@ -40,10 +40,8 @@ class AddressBar extends StatelessWidget {
               children: [
                 Text(
                   'Adicionar endereço',
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelLarge
-                      ?.copyWith(color: Theme.of(context).colorScheme.secondary),
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.secondary),
                   overflow: TextOverflow.ellipsis,
                 ),
                 Icon(

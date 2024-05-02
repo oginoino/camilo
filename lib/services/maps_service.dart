@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -7,27 +8,24 @@ import '../models/predictions.dart';
 
 class MapsService with ChangeNotifier {
   String language = 'pt';
-  String key = '${dotenv.env['M_API_KEI']}';
+  String key = dotenv.env['M_API_KEY'] ?? '';
   String path =
       'https://maps.googleapis.com/maps/api/place/queryautocomplete/json';
 
   Predictions get predictions => _predictions;
-
   Predictions _predictions = Predictions([], '');
 
-  fetchAddress(String input) async {
-    final response = await http.get(
-      Uri.parse('$path?language=$language&input=$input&key=$key'),
-    );
+  Future<void> fetchAddress(String input) async {
+    final uri = Uri.parse(path).replace(
+        queryParameters: {'language': language, 'input': input, 'key': key});
+
+    final response = await http.get(uri);
 
     if (response.statusCode == 200) {
       _predictions = _handleSuccess(response);
-    } else if (response.statusCode == 404) {
-      _handleNotFound(response);
-    } else if (response.statusCode >= 500) {
-      _handleServerError(response);
+      notifyListeners();
     } else {
-      _handleOtherResponses(response);
+      _handleErrors(response);
     }
   }
 
@@ -36,15 +34,13 @@ class MapsService with ChangeNotifier {
     return Predictions.fromJson(json);
   }
 
-  _handleNotFound(http.Response response) {
-    throw Exception('Not found: ${response.body}');
-  }
-
-  _handleServerError(http.Response response) {
-    throw Exception('Server error: ${response.body}');
-  }
-
-  _handleOtherResponses(http.Response response) {
-    throw Exception('Unexpected response: ${response.body}');
+  void _handleErrors(http.Response response) {
+    if (response.statusCode == 404) {
+      throw Exception('Not found: ${response.body}');
+    } else if (response.statusCode >= 500) {
+      throw Exception('Server error: ${response.body}');
+    } else {
+      throw Exception('Unexpected response: ${response.body}');
+    }
   }
 }
