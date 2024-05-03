@@ -1,3 +1,4 @@
+import 'dart:async'; // Importar para usar o Timer
 import '../../services/maps_service.dart';
 import '../../common_libs.dart';
 
@@ -13,11 +14,13 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
   final TextEditingController searchAddressTextEditingController =
       TextEditingController();
   final FocusNode focusNode = FocusNode();
+  Timer? _debounce; // Variável para o Timer
 
   @override
   void dispose() {
     searchAddressTextEditingController.dispose();
     focusNode.dispose();
+    _debounce?.cancel(); // Cancelar o Timer ao descartar
     super.dispose();
   }
 
@@ -78,9 +81,13 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
       hintText: hintText,
       onSubmitted: (value) => focusNode.unfocus(),
       onChanged: (value) {
-        if (value.isNotEmpty && value.length > 3) {
-          Provider.of<MapsService>(context, listen: false).fetchAddress(value);
-        }
+        _debounce?.cancel(); // Cancela qualquer Timer existente
+        _debounce = Timer(const Duration(milliseconds: 500), () {
+          if (value.isNotEmpty && value.length > 3) {
+            Provider.of<MapsService>(context, listen: false)
+                .fetchAddress(value);
+          }
+        });
       },
     );
   }
