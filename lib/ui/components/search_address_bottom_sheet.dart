@@ -14,13 +14,14 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
   final TextEditingController searchAddressTextEditingController =
       TextEditingController();
   final FocusNode focusNode = FocusNode();
-  Timer? _debounce; // Variável para o Timer
+  Timer? _debounce;
+  bool _isLoading = false;
 
   @override
   void dispose() {
     searchAddressTextEditingController.dispose();
     focusNode.dispose();
-    _debounce?.cancel(); // Cancelar o Timer ao descartar
+    _debounce?.cancel();
     super.dispose();
   }
 
@@ -81,11 +82,19 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
       hintText: hintText,
       onSubmitted: (value) => focusNode.unfocus(),
       onChanged: (value) {
-        _debounce?.cancel(); // Cancela qualquer Timer existente
+        _debounce?.cancel();
         _debounce = Timer(const Duration(milliseconds: 500), () {
-          if (value.isNotEmpty && value.length > 3) {
+          if (value.isNotEmpty && value.length > 5) {
+            setState(() {
+              _isLoading = true;
+            });
             Provider.of<MapsService>(context, listen: false)
-                .fetchAddress(value);
+                .fetchAddress(value)
+                .then((_) {
+              setState(() {
+                _isLoading = false;
+              });
+            });
           }
         });
       },
@@ -95,23 +104,26 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
   Widget _buildPredictionsList() {
     return Consumer<MapsService>(
       builder: (context, apiService, child) {
-        if (apiService.predictions.predictions.isEmpty) {
+        if (_isLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (apiService.predictions.predictions.isEmpty) {
           return const Center(child: Text("Nenhum endereço encontrado."));
+        } else {
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: apiService.predictions.predictions.length,
+            itemBuilder: (context, index) {
+              final prediction = apiService.predictions.predictions[index];
+              return ListTile(
+                title: Text(prediction.description),
+                onTap: () {
+                  searchAddressTextEditingController.text =
+                      prediction.description;
+                },
+              );
+            },
+          );
         }
-        return ListView.builder(
-          shrinkWrap: true,
-          itemCount: apiService.predictions.predictions.length,
-          itemBuilder: (context, index) {
-            final prediction = apiService.predictions.predictions[index];
-            return ListTile(
-              title: Text(prediction.description),
-              onTap: () {
-                searchAddressTextEditingController.text =
-                    prediction.description;
-              },
-            );
-          },
-        );
       },
     );
   }
