@@ -43,7 +43,6 @@ class MapsService with ChangeNotifier {
 
   Predictions _handleSuccess(http.Response response) {
     Map<String, dynamic> json = jsonDecode(response.body);
-    debugPrint(json.toString());
     return Predictions.fromJson(json);
   }
 
@@ -56,6 +55,11 @@ class MapsService with ChangeNotifier {
     } else {
       _predictions = Predictions([], 'ERROR');
     }
+    notifyListeners();
+  }
+
+  void clearPredictions() {
+    _predictions = Predictions([], '');
     notifyListeners();
   }
 }

@@ -72,7 +72,11 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
         IconButton(
           icon:
               Icon(Icons.close, color: Theme.of(context).colorScheme.secondary),
-          onPressed: () => searchAddressTextEditingController.clear(),
+          onPressed: () {
+            searchAddressTextEditingController.clear();
+            Provider.of<MapsService>(context, listen: false)
+                .clearPredictions(); // Adicionar método para limpar as previsões
+          },
         ),
       ],
       keyboardType: TextInputType.text,
@@ -83,7 +87,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
       onSubmitted: (value) => focusNode.unfocus(),
       onChanged: (value) {
         _debounce?.cancel();
-        _debounce = Timer(const Duration(milliseconds: 500), () {
+        _debounce = Timer(const Duration(seconds: 1), () {
           if (value.isNotEmpty && value.length > 5) {
             setState(() {
               _isLoading = true;
