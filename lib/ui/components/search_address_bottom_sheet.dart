@@ -78,7 +78,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
       hintText: hintText,
       onSubmitted: (value) => focusNode.unfocus(),
       onChanged: (value) {
-        if (value.isNotEmpty) {
+        if (value.isNotEmpty && value.length > 3) {
           Provider.of<MapsService>(context, listen: false).fetchAddress(value);
         }
       },
