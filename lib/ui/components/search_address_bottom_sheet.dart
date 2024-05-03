@@ -110,20 +110,23 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
 
   Widget _buildPredictionsList() {
     return Consumer<MapsService>(
-      builder: (context, apiService, child) {
+      builder: (context, mapsApiService, child) {
         if (_isLoading) {
           return const Center(child: CircularProgressIndicator());
-        } else if (apiService.predictions.predictions.isEmpty) {
+        } else if (mapsApiService.predictions.predictions.isEmpty) {
           return const Center(child: Text("Nenhum endereço encontrado."));
         } else {
           return ListView.builder(
             shrinkWrap: true,
-            itemCount: apiService.predictions.predictions.length,
+            itemCount: mapsApiService.predictions.predictions.length,
             itemBuilder: (context, index) {
-              final prediction = apiService.predictions.predictions[index];
+              final prediction = mapsApiService.predictions.predictions[index];
               return ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text(prediction.description, style: Theme.of(context).textTheme.labelLarge,),
+                title: Text(
+                  prediction.description,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
                 leading: Checkbox(
                   value: _selectedAddressIndex == index,
                   shape: RoundedRectangleBorder(

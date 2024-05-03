@@ -17,7 +17,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => productsService),
         ChangeNotifierProvider(create: (_) => session),
         ChangeNotifierProvider(create: (_) => inputValidators),
-        ChangeNotifierProvider(create: (_) => apiService),
+        ChangeNotifierProvider(create: (_) => mapsApiService),
       ],
       child: const CamiloApp(),
     ),
@@ -58,4 +58,4 @@ ProductsService get productsService => GetIt.I<ProductsService>();
 Session get session => GetIt.I<Session>();
 InputValidators get inputValidators => GetIt.I<InputValidators>();
 AppLogic get appLogic => GetIt.I<AppLogic>();
-MapsService get apiService => GetIt.I<MapsService>();
+MapsService get mapsApiService => GetIt.I<MapsService>();
