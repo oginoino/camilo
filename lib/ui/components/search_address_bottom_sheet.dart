@@ -16,6 +16,8 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
   final FocusNode focusNode = FocusNode();
   Timer? _debounce;
   bool _isLoading = false;
+  int?
+      _selectedAddressIndex; // Variável para armazenar o índice do endereço selecionado
 
   @override
   void dispose() {
@@ -74,8 +76,9 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
               Icon(Icons.close, color: Theme.of(context).colorScheme.secondary),
           onPressed: () {
             searchAddressTextEditingController.clear();
-            Provider.of<MapsService>(context, listen: false)
-                .clearPredictions(); // Adicionar método para limpar as previsões
+            Provider.of<MapsService>(context, listen: false).clearPredictions();
+            setState(() => _selectedAddressIndex =
+                null); // Limpa a seleção ao limpar a busca
           },
         ),
       ],
@@ -87,7 +90,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
       onSubmitted: (value) => focusNode.unfocus(),
       onChanged: (value) {
         _debounce?.cancel();
-        _debounce = Timer(const Duration(seconds: 1), () {
+        _debounce = Timer(const Duration(milliseconds: 500), () {
           if (value.isNotEmpty && value.length > 5) {
             setState(() {
               _isLoading = true;
@@ -119,10 +122,29 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
             itemBuilder: (context, index) {
               final prediction = apiService.predictions.predictions[index];
               return ListTile(
-                title: Text(prediction.description),
+                contentPadding: EdgeInsets.zero,
+                title: Text(prediction.description, style: Theme.of(context).textTheme.labelLarge,),
+                leading: Checkbox(
+                  value: _selectedAddressIndex == index,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(48),
+                  ),
+                  onChanged: (bool? selected) {
+                    setState(() {
+                      if (selected != null && selected) {
+                        _selectedAddressIndex =
+                            index; // Atualiza o índice selecionado
+                      }
+                    });
+                  },
+                ),
                 onTap: () {
                   searchAddressTextEditingController.text =
                       prediction.description;
+                  setState(() {
+                    _selectedAddressIndex =
+                        index; // Atualiza o índice selecionado ao tocar
+                  });
                 },
               );
             },
