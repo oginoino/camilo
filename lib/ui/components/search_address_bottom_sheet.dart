@@ -161,6 +161,8 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                     session.user?.addAddress(address);
                     session.selectAddress(address);
                   });
+                  focusNode.unfocus();
+                  
                 },
               );
             },
