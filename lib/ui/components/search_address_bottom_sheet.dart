@@ -1,5 +1,3 @@
-import 'dart:async'; // Importar para usar o Timer
-import '../../services/maps_service.dart';
 import '../../common_libs.dart';
 
 class SearchAddressBottomSheet extends StatefulWidget {
@@ -22,6 +20,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
   @override
   void dispose() {
     searchAddressTextEditingController.dispose();
+    mapsApiService.predictions.predictions.clear();
     focusNode.dispose();
     _debounce?.cancel();
     super.dispose();
