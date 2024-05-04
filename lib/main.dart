@@ -1,5 +1,4 @@
 import 'common_libs.dart';
-import 'models/user.dart';
 
 void main() async {
   registerSingletons();
@@ -17,7 +16,6 @@ void main() async {
         ChangeNotifierProvider(create: (_) => session),
         ChangeNotifierProvider(create: (_) => inputValidators),
         ChangeNotifierProvider(create: (_) => mapsApiService),
-        ChangeNotifierProvider(create: (_) => user),
       ],
       child: const CamiloApp(),
     ),
@@ -49,7 +47,6 @@ void registerSingletons() {
   GetIt.I.registerLazySingleton<InputValidators>(() => InputValidators());
   GetIt.I.registerLazySingleton<AppLogic>(() => AppLogic());
   GetIt.I.registerLazySingleton<MapsService>(() => MapsService());
- GetIt.I.registerLazySingleton<User>(() => User());
 }
 
 UiConstants get uiConstants => GetIt.I<UiConstants>();
@@ -60,4 +57,3 @@ Session get session => GetIt.I<Session>();
 InputValidators get inputValidators => GetIt.I<InputValidators>();
 AppLogic get appLogic => GetIt.I<AppLogic>();
 MapsService get mapsApiService => GetIt.I<MapsService>();
-User get user => GetIt.I<User>();
