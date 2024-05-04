@@ -23,7 +23,6 @@ class Session with ChangeNotifier {
   void login({required String email, required String password}) {
     _user = User(
       uid: Random().nextInt(100).toString(),
-      displayName: 'John Doe',
       userEmail: email,
     );
     _isAuthenticated = true;

@@ -35,21 +35,24 @@ class AddressBar extends StatelessWidget {
           ),
           label: Hero(
             tag: 'search-address',
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Adicionar endereço',
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.secondary),
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Icon(
-                  Icons.arrow_drop_down_rounded,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-              ],
-            ),
+            child: Consumer<Session>(builder: (context, session, child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    session.user?.selectedAddress?.mainText ??
+                        'Adicionar endereço',
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.secondary),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Icon(
+                    Icons.arrow_drop_down_rounded,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ],
+              );
+            }),
           ),
         ),
       ),

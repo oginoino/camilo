@@ -1,4 +1,5 @@
 import '../../common_libs.dart';
+import '../../models/address.dart';
 
 class SearchAddressBottomSheet extends StatefulWidget {
   const SearchAddressBottomSheet({super.key});
@@ -14,8 +15,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
   final FocusNode focusNode = FocusNode();
   Timer? _debounce;
   bool _isLoading = false;
-  int?
-      _selectedAddressIndex; // Variável para armazenar o índice do endereço selecionado
+  int? _selectedAddressIndex;
 
   @override
   void dispose() {
@@ -76,8 +76,9 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
           onPressed: () {
             searchAddressTextEditingController.clear();
             Provider.of<MapsService>(context, listen: false).clearPredictions();
-            setState(() => _selectedAddressIndex =
-                null); // Limpa a seleção ao limpar a busca
+            setState(
+              () => _selectedAddressIndex = null,
+            );
           },
         ),
       ],
@@ -141,11 +142,20 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                   },
                 ),
                 onTap: () {
+                  
                   searchAddressTextEditingController.text =
                       prediction.description;
                   setState(() {
-                    _selectedAddressIndex =
-                        index; // Atualiza o índice selecionado ao tocar
+                    final address = Address(
+                    id: prediction.placeId,
+                    description: prediction.description,
+                    mainText: prediction.structuredFormatting.mainText,
+                    secondaryText:
+                        prediction.structuredFormatting.secondaryText,
+                  );
+                    _selectedAddressIndex = index;
+                    session.user?.addAddress(address);
+                    session.user?.selectAddress(address);
                   });
                 },
               );
