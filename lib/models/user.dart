@@ -10,9 +10,9 @@ class User extends ChangeNotifier {
   Address? selectedAddress;
 
   User({
-    this.uid = '',
-    this.displayName = 'Usuário',
-    this.userEmail = '',
+    required this.uid,
+    required this.displayName,
+    required this.userEmail,
     this.addresses,
     this.selectedAddress,
   });

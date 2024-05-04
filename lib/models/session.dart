@@ -29,6 +29,7 @@ class Session with ChangeNotifier {
     _user = User(
       uid: Random().nextInt(100).toString(),
       userEmail: email,
+      displayName: 'Usuário',
     );
     _isAuthenticated = true;
     notifyListeners();

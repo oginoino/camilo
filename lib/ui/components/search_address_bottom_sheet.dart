@@ -87,23 +87,28 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
       focusNode: focusNode,
       controller: searchAddressTextEditingController,
       hintText: hintText,
-      onSubmitted: (value) => focusNode.unfocus(),
+      onSubmitted: (value) {
+        focusNode.unfocus();
+      },
       onChanged: (value) {
         _debounce?.cancel();
-        _debounce = Timer(const Duration(milliseconds: 500), () {
-          if (value.isNotEmpty && value.length > 5) {
-            setState(() {
-              _isLoading = true;
-            });
-            Provider.of<MapsService>(context, listen: false)
-                .fetchAddress(value)
-                .then((_) {
+        _debounce = Timer(
+          const Duration(milliseconds: 500),
+          () {
+            if (value.isNotEmpty && value.length > 5) {
               setState(() {
-                _isLoading = false;
+                _isLoading = true;
               });
-            });
-          }
-        });
+              Provider.of<MapsService>(context, listen: false)
+                  .fetchAddress(value)
+                  .then((_) {
+                setState(() {
+                  _isLoading = false;
+                });
+              });
+            }
+          },
+        );
       },
     );
   }
