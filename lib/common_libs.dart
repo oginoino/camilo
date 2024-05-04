@@ -6,6 +6,12 @@ export 'package:flutter/material.dart';
 // provider package
 export 'package:provider/provider.dart';
 
+// async package
+export 'dart:async'; // Importar para usar o Timer
+
+// convert package
+export 'dart:convert';
+
 // get_it package
 export 'package:get_it/get_it.dart';
 
@@ -44,6 +50,9 @@ export 'logic/app_logic.dart';
 
 // products service
 export 'services/products_service.dart';
+
+// maps service
+export 'services/maps_service.dart';
 
 // ui
 
