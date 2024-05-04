@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:camilo/models/address.dart';
 import 'package:camilo/models/user.dart';
 
 import '../common_libs.dart';
@@ -12,6 +13,10 @@ class Session with ChangeNotifier {
   bool get isAuthenticated => _isAuthenticated;
 
   User? get user => _user;
+
+  Address? get selectedAddress => _selectedAddress;
+
+  Address? _selectedAddress;
 
   void logout() {
     _isAuthenticated = false;
@@ -37,6 +42,12 @@ class Session with ChangeNotifier {
       userEmail: email,
     );
     _isAuthenticated = true;
+    notifyListeners();
+  }
+
+  void selectAddress(Address address) {
+    _selectedAddress = address;
+    user?.selectAddress(address);
     notifyListeners();
   }
 }

@@ -154,7 +154,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                   setState(() {
                     _selectedAddressIndex = index;
                     session.user?.addAddress(address);
-                    session.user?.selectAddress(address);
+                    session.selectAddress(address);
                   });
                 },
               );

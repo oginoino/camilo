@@ -46,7 +46,7 @@ class _AddressBarState extends State<AddressBar> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  context.read<Session>().user?.selectedAddress?.mainText ??
+                  context.read<Session>().selectedAddress?.mainText ??
                       'Adicionar endereço',
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: Theme.of(context).colorScheme.secondary),
