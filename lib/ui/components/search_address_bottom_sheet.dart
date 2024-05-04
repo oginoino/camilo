@@ -142,17 +142,16 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                   },
                 ),
                 onTap: () {
-                  
                   searchAddressTextEditingController.text =
                       prediction.description;
                   setState(() {
                     final address = Address(
-                    id: prediction.placeId,
-                    description: prediction.description,
-                    mainText: prediction.structuredFormatting.mainText,
-                    secondaryText:
-                        prediction.structuredFormatting.secondaryText,
-                  );
+                      id: prediction.placeId,
+                      description: prediction.description,
+                      mainText: prediction.structuredFormatting.mainText,
+                      secondaryText:
+                          prediction.structuredFormatting.secondaryText,
+                    );
                     _selectedAddressIndex = index;
                     session.user?.addAddress(address);
                     session.user?.selectAddress(address);
