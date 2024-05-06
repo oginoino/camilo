@@ -1,8 +1,3 @@
-import 'dart:math';
-
-import 'package:camilo/models/address.dart';
-import 'package:camilo/models/user.dart';
-
 import '../common_libs.dart';
 
 class Session with ChangeNotifier {

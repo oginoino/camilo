@@ -7,7 +7,10 @@ export 'package:flutter/material.dart';
 export 'package:provider/provider.dart';
 
 // async package
-export 'dart:async'; // Importar para usar o Timer
+export 'dart:async';
+
+// math package
+export 'dart:math';
 
 // convert package
 export 'dart:convert';
@@ -40,6 +43,12 @@ export 'models/product_cart.dart';
 
 // section
 export 'models/session.dart';
+
+// address
+export 'models/address.dart';
+
+// user
+export 'models/user.dart';
 
 // logic
 
