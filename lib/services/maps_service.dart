@@ -48,7 +48,7 @@ class MapsService with ChangeNotifier {
       notifyListeners();
     }
 
-    debugPrint('fetchAddress: $input');
+    debugPrint('fetchAddress done!');
   }
 
   Predictions _handleSuccess(http.Response response) {
