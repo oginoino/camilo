@@ -95,7 +95,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
           onChanged: (value) {
             _debounce?.cancel();
             _debounce = Timer(
-              const Duration(milliseconds: 500),
+              const Duration(milliseconds: 1000),
               () {
                 if (value.isNotEmpty && value.length > 5) {
                   setState(() {
