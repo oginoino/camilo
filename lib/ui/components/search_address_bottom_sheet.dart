@@ -162,7 +162,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                     session.selectAddress(address);
                   });
                   focusNode.unfocus();
-                  
+                  appRouter.routerDelegate.popRoute();
                 },
               );
             },
