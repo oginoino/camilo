@@ -1,8 +1,3 @@
-import 'dart:math';
-
-import 'package:camilo/models/address.dart';
-import 'package:camilo/models/user.dart';
-
 import '../common_libs.dart';
 
 class Session with ChangeNotifier {
@@ -30,7 +25,9 @@ class Session with ChangeNotifier {
       uid: Random().nextInt(100).toString(),
       userEmail: email,
       displayName: 'Usuário',
+      selectedAddress: _selectedAddress,
     );
+
     _isAuthenticated = true;
     notifyListeners();
   }
@@ -41,6 +38,7 @@ class Session with ChangeNotifier {
       uid: Random().nextInt(100).toString(),
       displayName: name,
       userEmail: email,
+      selectedAddress: _selectedAddress,
     );
     _isAuthenticated = true;
     notifyListeners();

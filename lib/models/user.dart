@@ -1,5 +1,3 @@
-import 'package:camilo/models/address.dart';
-
 import '../common_libs.dart';
 
 class User extends ChangeNotifier {
