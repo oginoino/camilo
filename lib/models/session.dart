@@ -27,6 +27,7 @@ class Session with ChangeNotifier {
       displayName: 'Usuário',
       selectedAddress: _selectedAddress,
     );
+
     _isAuthenticated = true;
     notifyListeners();
   }
