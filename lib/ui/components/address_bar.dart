@@ -1,10 +1,15 @@
 import '../../common_libs.dart';
 
-class AddressBar extends StatelessWidget {
+class AddressBar extends StatefulWidget {
   const AddressBar({
     super.key,
   });
 
+  @override
+  State<AddressBar> createState() => _AddressBarState();
+}
+
+class _AddressBarState extends State<AddressBar> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -27,7 +32,9 @@ class AddressBar extends StatelessWidget {
               builder: (context) {
                 return const SearchAddressBottomSheet();
               },
-            );
+            ).whenComplete(() {
+              setState(() {});
+            });
           },
           icon: Icon(
             Icons.location_on_rounded,
@@ -39,7 +46,8 @@ class AddressBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Adicionar endereço',
+                  context.read<Session>().selectedAddress?.mainText ??
+                      'Adicionar endereço',
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: Theme.of(context).colorScheme.secondary),
                   overflow: TextOverflow.ellipsis,
