@@ -25,6 +25,7 @@ class Session with ChangeNotifier {
       uid: Random().nextInt(100).toString(),
       userEmail: email,
       displayName: 'Usuário',
+      selectedAddress: _selectedAddress,
     );
     _isAuthenticated = true;
     notifyListeners();
@@ -36,6 +37,7 @@ class Session with ChangeNotifier {
       uid: Random().nextInt(100).toString(),
       displayName: name,
       userEmail: email,
+      selectedAddress: _selectedAddress,
     );
     _isAuthenticated = true;
     notifyListeners();
