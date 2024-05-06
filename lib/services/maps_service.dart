@@ -7,8 +7,13 @@ import '../models/predictions.dart';
 class MapsService with ChangeNotifier {
   String language = 'pt';
   String key = dotenv.env['M_API_KEY'] ?? '';
-  String path =
-      'https://maps.googleapis.com/maps/api/place/queryautocomplete/json';
+  String location =
+      '-23.7213129,-46.7565639';
+  String radius = '1000'; 
+  bool strictbounds = true;
+
+  String pathPlaceAutoComplete =
+      'https://maps.googleapis.com/maps/api/place/autocomplete/json';
 
   Predictions get predictions => _predictions;
   Predictions _predictions = Predictions([], '');
@@ -19,8 +24,16 @@ class MapsService with ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    final uri = Uri.parse(path).replace(
-        queryParameters: {'language': language, 'input': input, 'key': key});
+    final uri = Uri.parse(pathPlaceAutoComplete).replace(queryParameters: {
+      'language': language,
+      'input': input,
+      'key': key,
+      'location': location,
+      'radius': radius,
+      'strictbounds': strictbounds
+          ? 'true'
+          : 'false',
+    });
 
     try {
       final response = await http.get(uri);
