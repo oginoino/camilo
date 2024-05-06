@@ -7,9 +7,8 @@ import '../models/predictions.dart';
 class MapsService with ChangeNotifier {
   String language = 'pt';
   String key = dotenv.env['M_API_KEY'] ?? '';
-  String location =
-      '-23.7213129,-46.7565639';
-  String radius = '1000'; 
+  String location = '-23.7213129,-46.7565639';
+  String radius = '1000';
   bool strictbounds = true;
 
   String pathPlaceAutoComplete =
@@ -30,9 +29,7 @@ class MapsService with ChangeNotifier {
       'key': key,
       'location': location,
       'radius': radius,
-      'strictbounds': strictbounds
-          ? 'true'
-          : 'false',
+      'strictbounds': strictbounds ? 'true' : 'false',
     });
 
     try {
@@ -50,6 +47,8 @@ class MapsService with ChangeNotifier {
       isLoading = false;
       notifyListeners();
     }
+
+    debugPrint('fetchAddress: $input');
   }
 
   Predictions _handleSuccess(http.Response response) {
