@@ -134,58 +134,77 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
             ),
           );
         } else {
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: mapsApiService.predictions.predictions.length,
-            itemBuilder: (context, index) {
-              final prediction = mapsApiService.predictions.predictions[index];
-              return ListTile(
-                minVerticalPadding: 0,
-                contentPadding: EdgeInsets.zero,
-                title: Text(
-                  prediction.description,
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-                subtitle: const GoogleAtribuition(),
-                leading: Padding(
-                  padding: EdgeInsets.only(bottom: uiConstants.paddingMedium),
-                  child: Checkbox(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    visualDensity: VisualDensity.compact,
-                    value: _selectedAddressIndex == index,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(48),
-                    ),
-                    onChanged: (bool? selected) {
-                      setState(() {
-                        if (selected != null && selected) {
-                          _selectedAddressIndex =
-                              index; // Atualiza o índice selecionado
-                        }
-                      });
-                    },
+          return Column(
+            children: [
+              if (mapsApiService.predictions.predictions.isNotEmpty)
+                Padding(
+                  padding: EdgeInsets.only(
+                    bottom: uiConstants.paddingMedium,
+                  ),
+                  child: Text(
+                    'Selecione o endereço de entrega',
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontWeight: FontWeight.bold,),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-                onTap: () {
-                  final address = Address(
-                    id: prediction.placeId,
-                    description: prediction.description,
-                    mainText: prediction.structuredFormatting.mainText,
-                    secondaryText:
-                        prediction.structuredFormatting.secondaryText,
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: mapsApiService.predictions.predictions.length,
+                itemBuilder: (context, index) {
+                  final prediction =
+                      mapsApiService.predictions.predictions[index];
+                  return ListTile(
+                    minVerticalPadding: 0,
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(
+                      prediction.description,
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    subtitle: const GoogleAtribuition(),
+                    leading: Padding(
+                      padding:
+                          EdgeInsets.only(bottom: uiConstants.paddingMedium),
+                      child: Checkbox(
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        visualDensity: VisualDensity.compact,
+                        value: _selectedAddressIndex == index,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(48),
+                        ),
+                        onChanged: (bool? selected) {
+                          setState(() {
+                            if (selected != null && selected) {
+                              _selectedAddressIndex =
+                                  index; // Atualiza o índice selecionado
+                            }
+                          });
+                        },
+                      ),
+                    ),
+                    onTap: () {
+                      final address = Address(
+                        id: prediction.placeId,
+                        description: prediction.description,
+                        mainText: prediction.structuredFormatting.mainText,
+                        secondaryText:
+                            prediction.structuredFormatting.secondaryText,
+                      );
+                      searchAddressTextEditingController.text =
+                          prediction.description;
+                      setState(() {
+                        _selectedAddressIndex = index;
+                        session.user?.addAddress(address);
+                        session.selectAddress(address);
+                      });
+                      focusNode.unfocus();
+                      appRouter.routerDelegate.popRoute();
+                    },
                   );
-                  searchAddressTextEditingController.text =
-                      prediction.description;
-                  setState(() {
-                    _selectedAddressIndex = index;
-                    session.user?.addAddress(address);
-                    session.selectAddress(address);
-                  });
-                  focusNode.unfocus();
-                  appRouter.routerDelegate.popRoute();
                 },
-              );
-            },
+              ),
+            ],
           );
         }
       },
