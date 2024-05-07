@@ -52,6 +52,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   vertical: uiConstants.paddingMedium,
                 ),
                 elevation: 2,
+                maximumSize: const Size(
+                  180, 72,
+                ),
               ),
               onPressed: cart.isMinimumOrder ? () {} : null,
               icon: Icon(
@@ -61,13 +64,16 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 size: uiConstants.iconSizeMedium,
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
-              label: Text(
-                cart.isMinimumOrder
-                    ? bottomSheetCtaButtonText
-                    : bottomSheetCtaButtonTextDisabled,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
+              label: FittedBox(
+                child: Text(
+                  cart.isMinimumOrder
+                      ? bottomSheetCtaButtonText
+                      : bottomSheetCtaButtonTextDisabled,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ],
