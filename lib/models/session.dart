@@ -42,9 +42,9 @@ class Session with ChangeNotifier {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       _isAuthenticated = true;
       notifyListeners();
-      _syncUserData();
+      await _syncUserData();
       if (_selectedAddress != null) {
-        _syncUserAddress(_selectedAddress!);
+        await _syncUserAddress(_selectedAddress!);
       }
       notifyListeners();
       return null;
@@ -66,13 +66,12 @@ class Session with ChangeNotifier {
         email: email,
         password: password,
       );
+      user!.updateDisplayName(name);
       _isAuthenticated = true;
       notifyListeners();
-      user!.updateDisplayName(name);
-      notifyListeners();
-      _syncUserData();
+      await _syncUserData();
       if (_selectedAddress != null) {
-        _syncUserAddress(_selectedAddress!);
+        await _syncUserAddress(_selectedAddress!);
       }
       notifyListeners();
       return null;
@@ -84,18 +83,18 @@ class Session with ChangeNotifier {
     }
   }
 
-  void selectAddress(Address address) {
+  Future<void> selectAddress(Address address) async {
     _selectedAddress = address;
-    _syncUserAddress(address);
+    await _syncUserAddress(address);
     notifyListeners();
   }
 
-  void _syncUserAddress(Address address) {
+  Future<void> _syncUserAddress(Address address) async {
     _userData?.addAddress(address);
     _userData?.selectAddress(address);
   }
 
-  void _syncUserData() {
+  Future<void> _syncUserData() async {
     _userData = UserData(
       uid: user!.uid,
       displayName: user!.displayName,
