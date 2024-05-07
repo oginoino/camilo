@@ -290,7 +290,7 @@ class CartPage extends StatelessWidget {
                                         size: uiConstants.iconSizeMedium,
                                         color: uiConstants.yellowSubmarine,
                                       ),
-                                      SizedBox(width: uiConstants.paddingSmall),
+                                      SizedBox(width: uiConstants.paddingExtraSmall),
                                       SizedBox(
                                         height: 56,
                                         width: MediaQuery.sizeOf(context).width - 64,
