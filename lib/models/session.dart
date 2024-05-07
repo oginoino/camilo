@@ -25,10 +25,13 @@ class Session with ChangeNotifier {
       uid: Random().nextInt(100).toString(),
       userEmail: email,
       displayName: 'Usuário',
-      selectedAddress: _selectedAddress,
     );
-    _user?.addAddress(_selectedAddress!);
     _isAuthenticated = true;
+    notifyListeners();
+    if (_selectedAddress != null) {
+      _user?.addAddress(_selectedAddress!);
+      _user?.selectAddress(_selectedAddress!);
+    }
     notifyListeners();
   }
 
@@ -38,9 +41,13 @@ class Session with ChangeNotifier {
       uid: Random().nextInt(100).toString(),
       displayName: name,
       userEmail: email,
-      selectedAddress: _selectedAddress,
     );
     _isAuthenticated = true;
+    notifyListeners();
+    if (_selectedAddress != null) {
+      _user?.addAddress(_selectedAddress!);
+      _user?.selectAddress(_selectedAddress!);
+    }
     notifyListeners();
   }
 
