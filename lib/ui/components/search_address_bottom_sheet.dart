@@ -27,7 +27,6 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    const String hintText = 'Digite o endereço de entrega';
     return Padding(
       padding: EdgeInsets.all(uiConstants.paddingMedium),
       child: Column(
@@ -35,9 +34,10 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
         children: [
           _buildHeader(context),
           SizedBox(height: uiConstants.paddingMedium),
-          _buildSearchBar(context, hintText),
+          _buildSearchBar(context),
+          _buildPredictionsList(),
           SizedBox(height: uiConstants.paddingMedium),
-          Expanded(child: _buildPredictionsList()),
+          _buildAdressesList(context),
         ],
       ),
     );
@@ -61,7 +61,8 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
     );
   }
 
-  Widget _buildSearchBar(BuildContext context, String hintText) {
+  Widget _buildSearchBar(BuildContext context) {
+    const String hintText = 'Digite o endereço de entrega';
     return Column(
       children: [
         SearchBar(
@@ -141,12 +142,20 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                   padding: EdgeInsets.only(
                     bottom: uiConstants.paddingMedium,
                   ),
-                  child: Text(
-                    'Selecione o endereço de entrega',
-                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontWeight: FontWeight.bold,),
-                    textAlign: TextAlign.center,
+                  child: TextButton.icon(
+                    onPressed: null,
+                    icon: Icon(
+                      Icons.add_location_alt_rounded,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                    label: Text(
+                      'Adicione um novo endereço',
+                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ListView.builder(
@@ -199,6 +208,89 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                         session.selectAddress(address);
                       });
                       focusNode.unfocus();
+                      appRouter.routerDelegate.popRoute();
+                    },
+                  );
+                },
+              ),
+            ],
+          );
+        }
+      },
+    );
+  }
+
+  _buildAdressesList(BuildContext context) {
+    return Consumer<Session>(
+      builder: (context, session, child) {
+        if (session.user?.addresses == null ||
+            session.user!.addresses!.isEmpty) {
+          return const SizedBox.shrink();
+        } else {
+          final String? selectedAddressId = session.selectedAddress?.id;
+
+          return Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom: uiConstants.paddingMedium,
+                ),
+                child: TextButton.icon(
+                  icon: Icon(
+                    Icons.bookmark_rounded,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  onPressed: null,
+                  label: Text(
+                    'Selecione um endereço salvo',
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: session.user!.addresses!.length,
+                itemBuilder: (context, index) {
+                  final address = session.user!.addresses![index];
+                  // Verifique se este endereço deve estar selecionado
+                  bool isSelected = address.id == selectedAddressId;
+                  if (isSelected) {
+                    _selectedAddressIndex =
+                        index; // Atualize o índice selecionado
+                  }
+
+                  return ListTile(
+                    minVerticalPadding: 0,
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(
+                      address.description,
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    leading: Padding(
+                      padding:
+                          EdgeInsets.only(bottom: uiConstants.paddingMedium),
+                      child: Radio(
+                        value: index,
+                        groupValue: _selectedAddressIndex,
+                        onChanged: (int? selected) {
+                          setState(() {
+                            if (selected != null) {
+                              _selectedAddressIndex = selected;
+                              session.selectAddress(address);
+                            }
+                          });
+                        },
+                      ),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        _selectedAddressIndex = index;
+                        session.selectAddress(address);
+                      });
                       appRouter.routerDelegate.popRoute();
                     },
                   );

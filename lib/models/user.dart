@@ -16,17 +16,26 @@ class User extends ChangeNotifier {
   });
 
   void addAddress(Address address) {
-    addresses?.add(address);
+    addresses ??= []; 
+      addresses!.map((a) => a.id).contains(address.id)
+          ? null
+          : addresses!.add(address);
     notifyListeners();
   }
 
   void removeAddress(Address address) {
-    addresses?.remove(address);
+    addresses ??= [];
+    addresses!.map((a) => a.id).contains(address.id)
+        ? addresses?.remove(address)
+        : null;
     notifyListeners();
   }
 
   void selectAddress(Address address) {
-    selectedAddress = address;
+    addresses ??= [];
+    addresses!.map((a) => a.id).contains(address.id)
+        ? selectedAddress = address
+        : null;
     notifyListeners();
   }
 }
