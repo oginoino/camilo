@@ -29,8 +29,7 @@ class Session with ChangeNotifier {
     _isAuthenticated = true;
     notifyListeners();
     if (_selectedAddress != null) {
-      _user?.addAddress(_selectedAddress!);
-      _user?.selectAddress(_selectedAddress!);
+      syncUserAddress(_selectedAddress!);
     }
     notifyListeners();
   }
@@ -45,17 +44,19 @@ class Session with ChangeNotifier {
     _isAuthenticated = true;
     notifyListeners();
     if (_selectedAddress != null) {
-      _user?.addAddress(_selectedAddress!);
-      _user?.selectAddress(_selectedAddress!);
+      syncUserAddress(_selectedAddress!);
     }
     notifyListeners();
   }
 
   void selectAddress(Address address) {
     _selectedAddress = address;
+    syncUserAddress(address);
+    notifyListeners();
+  }
+
+  void syncUserAddress(Address address) {
     _user?.addAddress(address);
     _user?.selectAddress(address);
-    notifyListeners();
-    debugPrint(user?.addresses.toString());
   }
 }
