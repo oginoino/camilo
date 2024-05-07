@@ -35,7 +35,6 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
           _buildHeader(context),
           SizedBox(height: uiConstants.paddingMedium),
           _buildSearchBar(context),
-          SizedBox(height: uiConstants.paddingMedium),
           _buildPredictionsList(),
           SizedBox(height: uiConstants.paddingMedium),
           _buildAdressesList(context),
