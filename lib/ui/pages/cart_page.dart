@@ -18,7 +18,7 @@ class CartPage extends StatelessWidget {
         const String endCardButtonText = 'Adicionar outros produtos';
         const String endCardButtonIextNotMinimumOrder =
             'Adicionar mais produtos';
-        var notMinimumOrderMessage =
+        String notMinimumOrderMessage =
             'Adicione mais R\$ ${(cart.minimumOrder - cart.totalPrice).toStringAsFixed(2)} para atingir o valor mínimo.';
         return Scaffold(
           body: CustomScrollView(
@@ -293,7 +293,7 @@ class CartPage extends StatelessWidget {
                                       SizedBox(width: uiConstants.paddingSmall),
                                       SizedBox(
                                         height: 56,
-                                        width: 200,
+                                        width: MediaQuery.sizeOf(context).width - 64,
                                         child: Center(
                                           child: Text(
                                             notMinimumOrderMessage,
