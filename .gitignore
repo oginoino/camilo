@@ -45,7 +45,7 @@ analysis_options.yaml
 .metadata
 pubspec.lock
 
-lib/firebase_options.dart
+
 
 /ios
 /android
@@ -58,6 +58,7 @@ android/
 
 
 .env
+lib/firebase_options.dart
 .firebaserc
 firebase.json
 firestore.indexes.json
