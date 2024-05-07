@@ -66,7 +66,7 @@ class Session with ChangeNotifier {
         email: email,
         password: password,
       );
-      user!.updateDisplayName(name);
+
       _isAuthenticated = true;
       notifyListeners();
       await _syncUserData();
@@ -81,6 +81,10 @@ class Session with ChangeNotifier {
       notifyListeners();
       return AuthErrorMessages.getErrorMessage(e.code);
     }
+  }
+
+  Future<void> requestPasswordReset({required String email}) async {
+    await _auth.sendPasswordResetEmail(email: email);
   }
 
   Future<void> selectAddress(Address address) async {

@@ -51,194 +51,198 @@ class RegisterForm extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(uiConstants.paddingExtraLarge),
       child: FocusScope(
-        child: Form(
-          key: _registerFormKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: uiConstants.paddingExtraExtraLarge,
-              ),
-              TextFormField(
-                key: const Key(nameRegisterFormKey),
-                controller: _registerNameInputController,
-                keyboardType: TextInputType.name,
-                autofillHints: const [AutofillHints.name],
-                decoration: const InputDecoration(
-                  hintText: nameRegisterHintText,
-                ),
-                validator: (String? value) {
-                  return inputValidators.nameRegisterValidator(value);
-                },
-                onEditingComplete: () {
-                  nameRegisterFocusNode.unfocus();
-                  emailRegisterFocusNode.requestFocus();
-                },
-                // remove focus on click outside
-                onTapOutside: ((event) => nameRegisterFocusNode.unfocus()),
-                focusNode: nameRegisterFocusNode,
-              ),
-              SizedBox(
-                height: uiConstants.paddingExtraLarge,
-              ),
-              TextFormField(
-                key: const Key(emailRegisterInputKey),
-                controller: _registerEmailController,
-                keyboardType: TextInputType.emailAddress,
-                autofillHints: const [AutofillHints.email],
-                decoration: const InputDecoration(
-                  hintText: emailRegisterHintText,
-                ),
-                validator: (String? value) {
-                  return inputValidators.emailRegisterValidator(value);
-                },
-                onEditingComplete: () {
-                  emailRegisterFocusNode.nextFocus();
-                  firstPasswordRegisterFocusNode.requestFocus();
-                },
-                // remove focus on click outside
-                onTapOutside: ((event) => emailRegisterFocusNode.unfocus()),
-                focusNode: emailRegisterFocusNode,
-              ),
-              SizedBox(
-                height: uiConstants.paddingExtraLarge,
-              ),
-              TextFormField(
-                key: const Key(firstPasswordRegisterInputKey),
-                controller: _firstPasswordRegisterController,
-                obscureText: true,
-                keyboardType: TextInputType.visiblePassword,
-                autofillHints: const [AutofillHints.password],
-                decoration: const InputDecoration(
-                  hintText: firstPasswordRegisterHintText,
-                ),
-                validator: (String? value) {
-                  return inputValidators.firstPasswordRegisterValidator(value);
-                },
-                onEditingComplete: () {
-                  firstPasswordRegisterFocusNode.nextFocus();
-                  secondPasswordRegisterFocusNode.requestFocus();
-                },
-                // remove focus on click outside
-                onTapOutside: ((event) =>
-                    firstPasswordRegisterFocusNode.unfocus()),
-                focusNode: firstPasswordRegisterFocusNode,
-              ),
-              SizedBox(
-                height: uiConstants.paddingExtraLarge,
-              ),
-              TextFormField(
-                controller: _secondPasswordRegisterController,
-                key: const Key(secondPasswordRegisterInputKey),
-                obscureText: true,
-                keyboardType: TextInputType.visiblePassword,
-                autofillHints: const [AutofillHints.password],
-                decoration: const InputDecoration(
-                  hintText: secondPasswordRegisterHintText,
-                ),
-                validator: (String? value) {
-                  return inputValidators.secondPasswordRegisterValidator(
-                      value, _firstPasswordRegisterController.text);
-                },
-                onEditingComplete: () {
-                  secondPasswordRegisterFocusNode.unfocus();
-                  ctaFocusNode.requestFocus();
-                  _registerFormKey.currentState!.validate();
-                },
-                onTapOutside: ((event) =>
-                    secondPasswordRegisterFocusNode.unfocus()),
-                focusNode: secondPasswordRegisterFocusNode,
-              ),
-              SizedBox(
-                height: uiConstants.paddingExtraExtraLarge,
-              ),
-              FilledButton(
-                onPressed: () {
-                  if (_registerFormKey.currentState!.validate()) {
-                    session.register(
-                      name: _registerNameInputController.text,
-                      email: _registerEmailController.text,
-                      password: _firstPasswordRegisterController.text,
-                    );
-                    appRouter.go(ScreenPaths.home);
-                  }
-                },
-                focusNode: ctaFocusNode,
-                child: const Text(ctaButtonText),
-              ),
-              SizedBox(
-                height: uiConstants.paddingLarge,
-              ),
-              Text(
-                helperTerms,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.onBackground,
-                    ),
-                textAlign: TextAlign.center,
-              ),
-              TextButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isDismissible: true,
-                    useSafeArea: true,
-                    useRootNavigator: true,
-                    showDragHandle: true,
-                    isScrollControlled: true,
-                    enableDrag: true,
-                    builder: ((BuildContext context) {
-                      return const Center();
-                    }),
-                  );
-                },
-                child: Text(
-                  termsButtonText,
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        fontWeight: FontWeight.w600,
-                      ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+        child: Consumer<Session>(
+          builder: (context, session, child) {
+            return Form(
+              key: _registerFormKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    helperLogin,
+                    title,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: uiConstants.paddingExtraExtraLarge,
+                  ),
+                  TextFormField(
+                    key: const Key(nameRegisterFormKey),
+                    controller: _registerNameInputController,
+                    keyboardType: TextInputType.name,
+                    autofillHints: const [AutofillHints.name],
+                    decoration: const InputDecoration(
+                      hintText: nameRegisterHintText,
+                    ),
+                    validator: (String? value) {
+                      return inputValidators.nameRegisterValidator(value);
+                    },
+                    onEditingComplete: () {
+                      nameRegisterFocusNode.unfocus();
+                      emailRegisterFocusNode.requestFocus();
+                    },
+                    // remove focus on click outside
+                    onTapOutside: ((event) => nameRegisterFocusNode.unfocus()),
+                    focusNode: nameRegisterFocusNode,
+                  ),
+                  SizedBox(
+                    height: uiConstants.paddingExtraLarge,
+                  ),
+                  TextFormField(
+                    key: const Key(emailRegisterInputKey),
+                    controller: _registerEmailController,
+                    keyboardType: TextInputType.emailAddress,
+                    autofillHints: const [AutofillHints.email],
+                    decoration: const InputDecoration(
+                      hintText: emailRegisterHintText,
+                    ),
+                    validator: (String? value) {
+                      return inputValidators.emailRegisterValidator(value);
+                    },
+                    onEditingComplete: () {
+                      emailRegisterFocusNode.nextFocus();
+                      firstPasswordRegisterFocusNode.requestFocus();
+                    },
+                    // remove focus on click outside
+                    onTapOutside: ((event) => emailRegisterFocusNode.unfocus()),
+                    focusNode: emailRegisterFocusNode,
+                  ),
+                  SizedBox(
+                    height: uiConstants.paddingExtraLarge,
+                  ),
+                  TextFormField(
+                    key: const Key(firstPasswordRegisterInputKey),
+                    controller: _firstPasswordRegisterController,
+                    obscureText: true,
+                    keyboardType: TextInputType.visiblePassword,
+                    autofillHints: const [AutofillHints.password],
+                    decoration: const InputDecoration(
+                      hintText: firstPasswordRegisterHintText,
+                    ),
+                    validator: (String? value) {
+                      return inputValidators.firstPasswordRegisterValidator(value);
+                    },
+                    onEditingComplete: () {
+                      firstPasswordRegisterFocusNode.nextFocus();
+                      secondPasswordRegisterFocusNode.requestFocus();
+                    },
+                    // remove focus on click outside
+                    onTapOutside: ((event) =>
+                        firstPasswordRegisterFocusNode.unfocus()),
+                    focusNode: firstPasswordRegisterFocusNode,
+                  ),
+                  SizedBox(
+                    height: uiConstants.paddingExtraLarge,
+                  ),
+                  TextFormField(
+                    controller: _secondPasswordRegisterController,
+                    key: const Key(secondPasswordRegisterInputKey),
+                    obscureText: true,
+                    keyboardType: TextInputType.visiblePassword,
+                    autofillHints: const [AutofillHints.password],
+                    decoration: const InputDecoration(
+                      hintText: secondPasswordRegisterHintText,
+                    ),
+                    validator: (String? value) {
+                      return inputValidators.secondPasswordRegisterValidator(
+                          value, _firstPasswordRegisterController.text);
+                    },
+                    onEditingComplete: () {
+                      secondPasswordRegisterFocusNode.unfocus();
+                      ctaFocusNode.requestFocus();
+                      _registerFormKey.currentState!.validate();
+                    },
+                    onTapOutside: ((event) =>
+                        secondPasswordRegisterFocusNode.unfocus()),
+                    focusNode: secondPasswordRegisterFocusNode,
+                  ),
+                  SizedBox(
+                    height: uiConstants.paddingExtraExtraLarge,
+                  ),
+                  FilledButton(
+                    onPressed: () {
+                      if (_registerFormKey.currentState!.validate()) {
+                        session.register(
+                          name: _registerNameInputController.text,
+                          email: _registerEmailController.text,
+                          password: _firstPasswordRegisterController.text,
+                        );
+                        appRouter.go(ScreenPaths.home);
+                      }
+                    },
+                    focusNode: ctaFocusNode,
+                    child: const Text(ctaButtonText),
+                  ),
+                  SizedBox(
+                    height: uiConstants.paddingLarge,
+                  ),
+                  Text(
+                    helperTerms,
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           color: Theme.of(context).colorScheme.onBackground,
                         ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(
-                    width: uiConstants.paddingSmall,
-                  ),
                   TextButton(
                     onPressed: () {
-                      appRouter.canPop()
-                          ? appRouter.pop()
-                          : appRouter.go(ScreenPaths.login);
+                      showModalBottomSheet(
+                        context: context,
+                        isDismissible: true,
+                        useSafeArea: true,
+                        useRootNavigator: true,
+                        showDragHandle: true,
+                        isScrollControlled: true,
+                        enableDrag: true,
+                        builder: ((BuildContext context) {
+                          return const Center();
+                        }),
+                      );
                     },
                     child: Text(
-                      helperLoginText,
+                      termsButtonText,
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             color: Theme.of(context).colorScheme.tertiary,
                             fontWeight: FontWeight.w600,
                           ),
+                      textAlign: TextAlign.center,
                     ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        helperLogin,
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                              color: Theme.of(context).colorScheme.onBackground,
+                            ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        width: uiConstants.paddingSmall,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          appRouter.canPop()
+                              ? appRouter.pop()
+                              : appRouter.go(ScreenPaths.login);
+                        },
+                        child: Text(
+                          helperLoginText,
+                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                color: Theme.of(context).colorScheme.tertiary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
+            );
+          }
         ),
       ),
     );

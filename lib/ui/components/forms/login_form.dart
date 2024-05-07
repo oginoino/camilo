@@ -40,134 +40,135 @@ class LoginForm extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(uiConstants.paddingExtraLarge),
       child: FocusScope(
-        child: Form(
-          key: _loginFormKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: uiConstants.paddingExtraExtraLarge,
-              ),
-              TextFormField(
-                key: const Key(emailLoginInputKey),
-                controller: _emailLoginController,
-                keyboardType: TextInputType.emailAddress,
-                autofillHints: const [AutofillHints.email],
-                decoration: const InputDecoration(
-                  hintText: hintTextEmail,
-                ),
-                validator: (String? value) {
-                  return inputValidators.emailLoginValidator(value);
-                },
-                onEditingComplete: () {
-                  emailFocusNode.unfocus();
-                  passwordFocusNode.requestFocus();
-                },
-                onTapOutside: ((event) => emailFocusNode.unfocus()),
-                focusNode: emailFocusNode,
-              ),
-              SizedBox(
-                height: uiConstants.paddingExtraLarge,
-              ),
-              TextFormField(
-                key: const Key(emailPasswordInputKey),
-                controller: _passwordLoginController,
-                obscureText: true,
-                keyboardType: TextInputType.visiblePassword,
-                autofillHints: const [AutofillHints.password],
-                decoration: const InputDecoration(
-                  hintText: hintTextPassword,
-                ),
-                validator: (String? value) {
-                  return inputValidators.passwordLoginValidator(value);
-                },
-                onEditingComplete: () {
-                  passwordFocusNode.unfocus();
-                  ctaFocusNode.requestFocus();
-                  _loginFormKey.currentState!.validate();
-                },
-                onTapOutside: ((event) => passwordFocusNode.unfocus()),
-                focusNode: passwordFocusNode,
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    appRouter.push(ScreenPaths.forgotPassword);
-                  },
-                  child: Text(
-                    forgotPasswordButtonText,
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: uiConstants.paddingExtraLarge,
-              ),
-              FilledButton(
-                onPressed: () {
-                  if (_loginFormKey.currentState!.validate()) {
-                    session.login(
-                      email: _emailLoginController.text,
-                      password: _passwordLoginController.text,
-                    );
-                    appRouter.go(ScreenPaths.home);
-                  }
-                },
-                focusNode: ctaFocusNode,
-                child: const Text(ctaButtonText),
-              ),
-              SizedBox(
-                height: uiConstants.paddingExtraLarge,
-              ),
-              Text(
-                helperRegisterButtonText,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.onBackground,
-                    ),
-                textAlign: TextAlign.center,
-              ),
-              TextButton(
-                onPressed: () {
-                  appRouter.push(ScreenPaths.register);
-                },
-                child: Text(
-                  registerButtonText,
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.tertiary,
+        child: Consumer<Session>(builder: (context, session, child) {
+          return Form(
+            key: _loginFormKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w600,
                       ),
+                  textAlign: TextAlign.center,
                 ),
-              ),
-              SizedBox(
-                height: uiConstants.paddingMedium,
-              ),
-              TextButton.icon(
-                onPressed: () {
-                  appRouter.go(ScreenPaths.home);
-                },
-                label: Text(
-                  'Ir para a loja',
+                SizedBox(
+                  height: uiConstants.paddingExtraExtraLarge,
+                ),
+                TextFormField(
+                  key: const Key(emailLoginInputKey),
+                  controller: _emailLoginController,
+                  keyboardType: TextInputType.emailAddress,
+                  autofillHints: const [AutofillHints.email],
+                  decoration: const InputDecoration(
+                    hintText: hintTextEmail,
+                  ),
+                  validator: (String? value) {
+                    return inputValidators.emailLoginValidator(value);
+                  },
+                  onEditingComplete: () {
+                    emailFocusNode.unfocus();
+                    passwordFocusNode.requestFocus();
+                  },
+                  onTapOutside: ((event) => emailFocusNode.unfocus()),
+                  focusNode: emailFocusNode,
+                ),
+                SizedBox(
+                  height: uiConstants.paddingExtraLarge,
+                ),
+                TextFormField(
+                  key: const Key(emailPasswordInputKey),
+                  controller: _passwordLoginController,
+                  obscureText: true,
+                  keyboardType: TextInputType.visiblePassword,
+                  autofillHints: const [AutofillHints.password],
+                  decoration: const InputDecoration(
+                    hintText: hintTextPassword,
+                  ),
+                  validator: (String? value) {
+                    return inputValidators.passwordLoginValidator(value);
+                  },
+                  onEditingComplete: () {
+                    passwordFocusNode.unfocus();
+                    ctaFocusNode.requestFocus();
+                    _loginFormKey.currentState!.validate();
+                  },
+                  onTapOutside: ((event) => passwordFocusNode.unfocus()),
+                  focusNode: passwordFocusNode,
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      appRouter.push(ScreenPaths.forgotPassword);
+                    },
+                    child: Text(
+                      forgotPasswordButtonText,
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.tertiary,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: uiConstants.paddingExtraLarge,
+                ),
+                FilledButton(
+                  onPressed: () {
+                    if (_loginFormKey.currentState!.validate()) {
+                      session.login(
+                        email: _emailLoginController.text,
+                        password: _passwordLoginController.text,
+                      );
+                      appRouter.go(ScreenPaths.home);
+                    }
+                  },
+                  focusNode: ctaFocusNode,
+                  child: const Text(ctaButtonText),
+                ),
+                SizedBox(
+                  height: uiConstants.paddingExtraLarge,
+                ),
+                Text(
+                  helperRegisterButtonText,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
-                        
+                        color: Theme.of(context).colorScheme.onBackground,
                       ),
+                  textAlign: TextAlign.center,
                 ),
-                icon: const Icon(Icons.shopping_basket_sharp),
-              )
-            ],
-          ),
-        ),
+                TextButton(
+                  onPressed: () {
+                    appRouter.push(ScreenPaths.register);
+                  },
+                  child: Text(
+                    registerButtonText,
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.tertiary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ),
+                SizedBox(
+                  height: uiConstants.paddingMedium,
+                ),
+                TextButton.icon(
+                  onPressed: () {
+                    appRouter.go(ScreenPaths.home);
+                  },
+                  label: Text(
+                    'Ir para a loja',
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                  ),
+                  icon: const Icon(Icons.shopping_basket_sharp),
+                )
+              ],
+            ),
+          );
+        }),
       ),
     );
   }
