@@ -143,13 +143,20 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                   padding: EdgeInsets.only(
                     bottom: uiConstants.paddingMedium,
                   ),
-                  child: Text(
-                    'Selecione o endereço de entrega',
-                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                    textAlign: TextAlign.center,
+                  child: TextButton.icon(
+                    onPressed: null,
+                    icon: Icon(
+                      Icons.add_location_alt_rounded,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                    label: Text(
+                      'Adicione um novo endereço',
+                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ListView.builder(
@@ -226,13 +233,20 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                 padding: EdgeInsets.only(
                   bottom: uiConstants.paddingMedium,
                 ),
-                child: Text(
-                  'Endereços salvos',
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                  textAlign: TextAlign.center,
+                child: TextButton.icon(
+                  icon: Icon(
+                    Icons.bookmark_rounded,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  onPressed: null,
+                  label: Text(
+                    'Selecione um endereço salvo',
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
               ListView.builder(
@@ -247,7 +261,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                       address.description,
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
-                    subtitle: const GoogleAtribuition(),
+                    
                     leading: Padding(
                       padding:
                           EdgeInsets.only(bottom: uiConstants.paddingMedium),
