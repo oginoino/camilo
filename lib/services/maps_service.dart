@@ -7,6 +7,7 @@ import '../models/predictions.dart';
 class MapsService with ChangeNotifier {
   String language = 'pt';
   String key = dotenv.env['M_API_KEY'] ?? '';
+  String signature = dotenv.env['M_API_SIGNATURE'] ?? '';
   String location = '-23.7213129,-46.7565639';
   String radius = '1000';
   bool strictbounds = true;
@@ -30,6 +31,7 @@ class MapsService with ChangeNotifier {
       'location': location,
       'radius': radius,
       'strictbounds': strictbounds ? 'true' : 'false',
+      'signature': signature,
     });
 
     try {

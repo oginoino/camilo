@@ -30,7 +30,7 @@ class CustomDrawer extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Olá, ${session.isAuthenticated ? session.user?.displayName : 'visitante'}.',
+                    'Olá, ${session.isAuthenticated ? session.userData?.displayName : 'visitante'}.',
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           color: Theme.of(context).colorScheme.tertiary,
                         ),

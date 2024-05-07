@@ -1,25 +1,25 @@
 import '../common_libs.dart';
 
-class User extends ChangeNotifier {
+class UserData extends ChangeNotifier {
   String uid;
-  String displayName;
+  String? displayName;
   String userEmail;
   List<Address>? addresses;
   Address? selectedAddress;
 
-  User({
+  UserData({
     required this.uid,
-    required this.displayName,
     required this.userEmail,
+    this.displayName,
     this.addresses,
     this.selectedAddress,
   });
 
   void addAddress(Address address) {
-    addresses ??= []; 
-      addresses!.map((a) => a.id).contains(address.id)
-          ? null
-          : addresses!.add(address);
+    addresses ??= [];
+    addresses!.map((a) => a.id).contains(address.id)
+        ? null
+        : addresses!.add(address);
     notifyListeners();
   }
 
