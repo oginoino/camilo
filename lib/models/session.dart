@@ -46,7 +46,9 @@ class Session with ChangeNotifier {
 
   void selectAddress(Address address) {
     _selectedAddress = address;
-    user?.selectAddress(address);
+    _user?.addAddress(address);
+    _user?.selectAddress(address);
     notifyListeners();
+    debugPrint(user?.addresses.toString());
   }
 }

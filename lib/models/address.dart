@@ -13,17 +13,8 @@ class Address with ChangeNotifier {
     this.secondaryText = '',
   });
 
-  Address copyWith({
-    String? id,
-    String? description,
-    String? mainText,
-    String? secondaryText,
-  }) {
-    return Address(
-      id: id ?? this.id,
-      description: description ?? this.description,
-      mainText: mainText ?? this.mainText,
-      secondaryText: secondaryText ?? this.secondaryText,
-    );
+  @override
+  String toString() {
+    return 'Address{id: $id, description: $description, mainText: $mainText, secondaryText: $secondaryText}';
   }
 }
