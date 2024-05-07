@@ -14,6 +14,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
   final FocusNode focusNode = FocusNode();
   Timer? _debounce;
   bool _isLoading = false;
+  int? _selectedPredictionAddressIndex;
   int? _selectedAddressIndex;
 
   @override
@@ -80,7 +81,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                 Provider.of<MapsService>(context, listen: false)
                     .clearPredictions();
                 setState(
-                  () => _selectedAddressIndex = null,
+                  () => _selectedPredictionAddressIndex = null,
                 );
               },
             ),
@@ -178,15 +179,14 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                       child: Checkbox(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         visualDensity: VisualDensity.compact,
-                        value: _selectedAddressIndex == index,
+                        value: _selectedPredictionAddressIndex == index,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(48),
                         ),
                         onChanged: (bool? selected) {
                           setState(() {
                             if (selected != null && selected) {
-                              _selectedAddressIndex =
-                                  index; // Atualiza o índice selecionado
+                              _selectedPredictionAddressIndex = index;
                             }
                           });
                         },
@@ -203,7 +203,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                       searchAddressTextEditingController.text =
                           prediction.description;
                       setState(() {
-                        _selectedAddressIndex = index;
+                        _selectedPredictionAddressIndex = index;
                         session.user?.addAddress(address);
                         session.selectAddress(address);
                       });
