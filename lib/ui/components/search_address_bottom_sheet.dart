@@ -220,13 +220,16 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
       },
     );
   }
-  
+
   _buildAdressesList(BuildContext context) {
     return Consumer<Session>(
       builder: (context, session, child) {
-        if (session.user?.addresses == null || session.user!.addresses!.isEmpty) {
+        if (session.user?.addresses == null ||
+            session.user!.addresses!.isEmpty) {
           return const SizedBox.shrink();
         } else {
+          final String? selectedAddressId = session.selectedAddress?.id;
+
           return Column(
             children: [
               Padding(
@@ -254,6 +257,13 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                 itemCount: session.user!.addresses!.length,
                 itemBuilder: (context, index) {
                   final address = session.user!.addresses![index];
+                  // Verifique se este endereço deve estar selecionado
+                  bool isSelected = address.id == selectedAddressId;
+                  if (isSelected) {
+                    _selectedAddressIndex =
+                        index; // Atualize o índice selecionado
+                  }
+
                   return ListTile(
                     minVerticalPadding: 0,
                     contentPadding: EdgeInsets.zero,
@@ -261,7 +271,6 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                       address.description,
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
-                    
                     leading: Padding(
                       padding:
                           EdgeInsets.only(bottom: uiConstants.paddingMedium),
