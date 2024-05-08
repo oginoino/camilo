@@ -62,11 +62,14 @@ class Session with ChangeNotifier {
     required String password,
   }) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
+      await _auth
+          .createUserWithEmailAndPassword(
+            email: email,
+            password: password,
+          )
+          .then(
+            (value) async => await user!.updateDisplayName(name),
+          );
       _isAuthenticated = true;
       notifyListeners();
       await _syncUserData();
