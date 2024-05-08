@@ -108,7 +108,10 @@ class Terms {
   final int offset;
   final String value;
 
-  Terms(this.offset, this.value);
+  Terms(
+    this.offset,
+    this.value,
+  );
 
   Terms.fromJson(Map<String, dynamic> json)
       : offset = json['offset'] ?? 0,
