@@ -1,20 +1,15 @@
 import '../common_libs.dart';
 
 class ProductList extends ChangeNotifier {
-  List<Product> get products => _products;
-
   List<Product> _products = [];
+
+  List<Product> get products => _products;
 
   List<String> get categories => _products
       .map((product) => product.productCategories)
       .expand((element) => element)
       .toSet()
       .toList();
-
-  void getProductsByCategory(String category) {
-    _products.where((product) => product.productCategories.contains(category));
-    notifyListeners();
-  }
 
   @override
   String toString() {
@@ -23,6 +18,11 @@ class ProductList extends ChangeNotifier {
 
   Product getProductById(String id) {
     return _products.firstWhere((product) => product.id == id);
+  }
+
+  void getProductsByCategory(String category) {
+    _products.where((product) => product.productCategories.contains(category));
+    notifyListeners();
   }
 
   void searchProducts(String value) {
