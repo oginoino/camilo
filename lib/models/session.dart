@@ -131,7 +131,7 @@ class AuthErrorMessages {
   static const String emailChangeNeedsVerification =
       'O e-mail foi alterado, mas a verificação é necessária.';
   static const String emailAlreadyInUse =
-      'O endereço de e-mail já está sendo usado por outra conta.';
+      'O endereço de e-mail já está em uso. Faça login eu tente redefinir a sua senha';
   static const String emulatorConfigFailed =
       'Falha na configuração do emulador.';
   static const String expiredActionCode = 'Código de ação expirado.';
