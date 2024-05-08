@@ -7,10 +7,10 @@ class Address with ChangeNotifier {
   final String secondaryText;
 
   Address({
-    this.id = '',
-    this.description = '',
-    this.mainText = '',
-    this.secondaryText = '',
+    required this.id,
+    required this.description,
+    required this.mainText,
+    required this.secondaryText,
   });
 
   @override
