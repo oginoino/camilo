@@ -164,26 +164,7 @@ class RegisterForm extends StatelessWidget {
                 ),
                 FilledButton(
                   onPressed: () {
-                    if (_registerFormKey.currentState!.validate()) {
-                      session
-                          .register(
-                        name: _registerNameInputController.text,
-                        email: _registerEmailController.text,
-                        password: _firstPasswordRegisterController.text,
-                      )
-                          .then((value) {
-                        if (value == null) {
-                          appRouter.go(ScreenPaths.home);
-                        } else {
-                          ScaffoldMessenger.of(context).clearSnackBars();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(value),
-                            ),
-                          );
-                        }
-                      });
-                    }
+                    userRegister(session, context);
                   },
                   focusNode: ctaFocusNode,
                   child: const Text(ctaButtonText),
@@ -257,5 +238,28 @@ class RegisterForm extends StatelessWidget {
         }),
       ),
     );
+  }
+
+  void userRegister(Session session, BuildContext context) {
+    if (_registerFormKey.currentState!.validate()) {
+      session
+          .register(
+        name: _registerNameInputController.text,
+        email: _registerEmailController.text,
+        password: _firstPasswordRegisterController.text,
+      )
+          .then((value) {
+        if (value == null) {
+          appRouter.go(ScreenPaths.home);
+        } else {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(value),
+            ),
+          );
+        }
+      });
+    }
   }
 }
