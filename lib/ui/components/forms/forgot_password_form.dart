@@ -28,9 +28,6 @@ class ForgotPasswordForm extends StatelessWidget {
 
     const String forgotPasswordInputEmailHintText = 'Email cadastrado';
 
-    const String recoveryMessage =
-        'Email de recuperação enviado! Verifique sua caixa de entrada.';
-
     FocusNode forgotPasswordEmailFocusNode = FocusNode();
 
     FocusNode forgotPasswordCtaFocusNode = FocusNode(
@@ -82,30 +79,7 @@ class ForgotPasswordForm extends StatelessWidget {
                 ),
                 FilledButton(
                   onPressed: () {
-                    if (_forgotPasswordFormKey.currentState!.validate()) {
-                      session
-                          .requestPasswordReset(
-                              email: _forgotPasswordEmailController.text)
-                          .then(
-                        (value) {
-                          if (value == null) {
-                            ScaffoldMessenger.of(context).clearSnackBars();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(recoveryMessage),
-                              ),
-                            );
-                          } else {
-                            ScaffoldMessenger.of(context).clearSnackBars();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(value),
-                              ),
-                            );
-                          }
-                        },
-                      );
-                    }
+                    userResquestPassword(session, context);
                   },
                   focusNode: forgotPasswordCtaFocusNode,
                   child: const Text(ctaButtonText),
@@ -182,5 +156,33 @@ class ForgotPasswordForm extends StatelessWidget {
         }),
       ),
     );
+  }
+
+  void userResquestPassword(Session session, BuildContext context) {
+    const String recoveryMessage =
+        'Email de recuperação enviado! Verifique sua caixa de entrada.';
+    if (_forgotPasswordFormKey.currentState!.validate()) {
+      session
+          .requestPasswordReset(email: _forgotPasswordEmailController.text)
+          .then(
+        (value) {
+          if (value == null) {
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(recoveryMessage),
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(value),
+              ),
+            );
+          }
+        },
+      );
+    }
   }
 }
