@@ -117,13 +117,7 @@ class LoginForm extends StatelessWidget {
                 ),
                 FilledButton(
                   onPressed: () {
-                    if (_loginFormKey.currentState!.validate()) {
-                      session.login(
-                        email: _emailLoginController.text,
-                        password: _passwordLoginController.text,
-                      );
-                      appRouter.go(ScreenPaths.home);
-                    }
+                    userLogin(session, context);
                   },
                   focusNode: ctaFocusNode,
                   child: const Text(ctaButtonText),
@@ -171,5 +165,27 @@ class LoginForm extends StatelessWidget {
         }),
       ),
     );
+  }
+
+  void userLogin(Session session, BuildContext context) {
+    if (_loginFormKey.currentState!.validate()) {
+      session
+          .login(
+        email: _emailLoginController.text,
+        password: _passwordLoginController.text,
+      )
+          .then(
+        (value) {
+          if (value == null) {
+            appRouter.go(ScreenPaths.home);
+          } else {
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(value)),
+            );
+          }
+        },
+      );
+    }
   }
 }
