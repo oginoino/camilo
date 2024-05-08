@@ -111,6 +111,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                     });
                   });
                 }
+                debugPrint('Debounced: $value');
               },
             );
           },
@@ -204,7 +205,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                           prediction.description;
                       setState(() {
                         _selectedPredictionAddressIndex = index;
-                        session.user?.addAddress(address);
+                        session.userData?.addAddress(address);
                         session.selectAddress(address);
                       });
                       focusNode.unfocus();
@@ -223,8 +224,8 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
   _buildAdressesList(BuildContext context) {
     return Consumer<Session>(
       builder: (context, session, child) {
-        if (session.user?.addresses == null ||
-            session.user!.addresses!.isEmpty) {
+        if (session.userData?.addresses == null ||
+            session.userData!.addresses!.isEmpty) {
           return const SizedBox.shrink();
         } else {
           final String? selectedAddressId = session.selectedAddress?.id;
@@ -253,9 +254,9 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
               ),
               ListView.builder(
                 shrinkWrap: true,
-                itemCount: session.user!.addresses!.length,
+                itemCount: session.userData!.addresses!.length,
                 itemBuilder: (context, index) {
-                  final address = session.user!.addresses![index];
+                  final address = session.userData!.addresses![index];
                   // Verifique se este endereço deve estar selecionado
                   bool isSelected = address.id == selectedAddressId;
                   if (isSelected) {
