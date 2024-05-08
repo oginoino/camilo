@@ -181,7 +181,10 @@ class LoginForm extends StatelessWidget {
           } else {
             ScaffoldMessenger.of(context).clearSnackBars();
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(value)),
+              SnackBar(
+                content: Text(value),
+                backgroundColor: uiConstants.errorLight,
+              ),
             );
           }
         },
