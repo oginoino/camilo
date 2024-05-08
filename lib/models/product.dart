@@ -6,10 +6,10 @@ class Product extends ChangeNotifier {
   final double productPrice;
   final String productUnitOfMeasurement;
   final String productUnitQuantity;
-  final String? contentValue;
-  final String? productImageSrc;
   final List<String> productCategories;
   final int availableQuantity;
+  final String? contentValue;
+  final String? productImageSrc;
   final double? producKilogramsWeight;
   final double? productCubicMeterVolume;
 
