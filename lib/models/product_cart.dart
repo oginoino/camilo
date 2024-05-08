@@ -1,12 +1,12 @@
 import '../common_libs.dart';
 
 class ProductCart with ChangeNotifier {
-  List<Product> cartProducts = [];
+  final List<Product> _cartProducts = [];
 
   List<List<Product>> get productsGruppedByProductId {
     List<List<Product>> productsGruppedByProductId = [];
-    cartProducts.sort((a, b) => a.id.compareTo(b.id));
-    for (Product product in cartProducts) {
+    _cartProducts.sort((a, b) => a.id.compareTo(b.id));
+    for (Product product in _cartProducts) {
       if (productsGruppedByProductId
           .any((element) => element.first.id == product.id)) {
         productsGruppedByProductId
@@ -19,7 +19,9 @@ class ProductCart with ChangeNotifier {
     return productsGruppedByProductId;
   }
 
-  double get totalPrice => cartProducts.fold(
+  List<Product> get cartProducts => _cartProducts;
+
+  double get totalPrice => _cartProducts.fold(
       0.0, (previousValue, element) => previousValue + element.productPrice);
 
   bool get isMinimumOrder => totalPrice >= minimumOrder;
@@ -29,7 +31,7 @@ class ProductCart with ChangeNotifier {
   void incrementProduct(BuildContext context, Product product) {
     int selectedQuantity = getSelectedQuantityByProductId(product.id);
     if (product.availableQuantity > selectedQuantity) {
-      cartProducts.add(product);
+      _cartProducts.add(product);
       notifyListeners();
     } else {
       ScaffoldMessenger.of(context).clearSnackBars();
@@ -44,21 +46,21 @@ class ProductCart with ChangeNotifier {
 
   void decrementProduct(BuildContext context, Product product) {
     // where the product is in the cart
-    int index = cartProducts.indexWhere((element) => element.id == product.id);
+    int index = _cartProducts.indexWhere((element) => element.id == product.id);
     if (index != -1) {
-      cartProducts.removeAt(index);
+      _cartProducts.removeAt(index);
       notifyListeners();
     }
     notifyListeners();
   }
 
   void clearCart() {
-    cartProducts.clear();
+    _cartProducts.clear();
     notifyListeners();
   }
 
   int getSelectedQuantityByProductId(String productId) {
-    return cartProducts
+    return _cartProducts
         .where((product) => product.id == productId)
         .fold(0, (previousValue, element) => previousValue + 1);
   }
