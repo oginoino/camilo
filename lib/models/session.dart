@@ -83,8 +83,13 @@ class Session with ChangeNotifier {
     }
   }
 
-  Future<void> requestPasswordReset({required String email}) async {
-    await _auth.sendPasswordResetEmail(email: email);
+  Future<String?> requestPasswordReset({required String email}) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return null;
+    } on FirebaseAuthException catch (e) {
+      return AuthErrorMessages.getErrorMessage(e.code);
+    }
   }
 
   Future<void> selectAddress(Address address) async {
