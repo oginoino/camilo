@@ -55,6 +55,8 @@ class CustomSearchBar extends StatelessWidget {
         onChanged: (value) {
           if (value.isNotEmpty) {
             products.searchProducts(value);
+          } else {
+            products.getAllProducts();
           }
         },
         onSubmitted: (value) {
