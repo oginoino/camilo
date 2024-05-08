@@ -48,7 +48,7 @@ export 'models/session.dart';
 export 'models/address.dart';
 
 // user
-export 'models/user.dart';
+export 'models/user_data.dart';
 
 // logic
 
