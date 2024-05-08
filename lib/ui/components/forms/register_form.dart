@@ -256,6 +256,7 @@ class RegisterForm extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(value),
+              backgroundColor: uiConstants.errorLight,
             ),
           );
         }
