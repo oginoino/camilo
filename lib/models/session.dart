@@ -7,17 +7,17 @@ class Session with ChangeNotifier {
 
   bool _isAuthenticated = false;
 
+  UserData? _userData;
+
+  Address? _selectedAddress;
+
   bool get isAuthenticated => _isAuthenticated;
 
   User? get user => _auth.currentUser;
 
-  UserData? _userData;
-
   UserData? get userData => _userData;
 
   Address? get selectedAddress => _selectedAddress;
-
-  Address? _selectedAddress;
 
   Future<String?> logout() async {
     try {
