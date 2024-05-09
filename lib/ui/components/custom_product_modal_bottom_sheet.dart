@@ -1,3 +1,5 @@
+import 'package:flutter_animate/flutter_animate.dart';
+
 import '../../common_libs.dart';
 
 class CustomProductModalBottomSheet extends StatelessWidget {
@@ -45,11 +47,23 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                   }
                 }),
               ),
-              AddProductIcon(
-                product: product,
-                iconSize: uiConstants.iconSizeXL,
-                iconRadius: uiConstants.iconRadiusLarge,
-                iconFontSize: uiConstants.iconSizeMedium,
+              Positioned(
+                top: 0,
+                right: 0,
+                child: AddProductIcon(
+                  product: product,
+                  iconSize: uiConstants.iconSizeXL,
+                  iconRadius: uiConstants.iconRadiusLarge,
+                  iconFontSize: uiConstants.iconSizeMedium,
+                )
+                    .animate()
+                    .scaleXY(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOut,
+                      begin: 0.0,
+                      end: 1.0,
+                    )
+                    .then(),
               ),
             ],
           ),
@@ -110,7 +124,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: uiConstants.paddingExtraLarge,
+                    height: uiConstants.paddingExtraExtraLarge,
                   ),
                   Center(
                     child: Container(
@@ -258,7 +272,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: uiConstants.paddingMedium,
+                    height: uiConstants.paddingLarge,
                   ),
                 ],
               ),

@@ -7,9 +7,9 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double expandedHeight = 140.0;
-    double collapsedHeight = 108.0;
-    double expandedTitleScale = 1.1;
+    double expandedHeight = 160.0;
+    double collapsedHeight = 116.0;
+    double expandedTitleScale = 1.05;
 
     return SliverAppBar(
       leading: IconButton(
@@ -34,12 +34,19 @@ class CustomAppBar extends StatelessWidget {
       forceElevated: false,
       expandedHeight: expandedHeight,
       collapsedHeight: collapsedHeight,
+      shadowColor: Theme.of(context).colorScheme.tertiary.withOpacity(0.5),
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: false,
         collapseMode: CollapseMode.parallax,
         expandedTitleScale: expandedTitleScale,
         titlePadding: EdgeInsets.zero,
-        title: const CustomSearchProductsBar(),
+        title: const Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            CustomTopBoxAdapter(),
+            CustomSearchProductsBar(),
+          ],
+        ),
       ),
     );
   }
