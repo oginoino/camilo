@@ -44,7 +44,6 @@ class UiConstants {
   double get iconRadiusSmall => 8.0;
   double get iconRadiusMedium => 16.0;
   double get iconRadiusLarge => 24.0;
-  
 
   // border side width
   double get borderSideWidthMedium => 0.5;
@@ -62,4 +61,6 @@ class UiConstants {
   double get borderRadiusSmall => 8.0;
 
   double get borderRadiusLarge => 48;
+
+  double get smallCircularProgressIndicatorSize => 20;
 }
