@@ -33,7 +33,7 @@ class CustomPageBody extends StatelessWidget {
                     Icon(Icons.search_off_rounded,
                         size: 100, color: uiConstants.primaryLight),
                     const Text(
-                      'Nenhum produto foi encontrado para o termo buscado.',
+                      'Nenhum produto foi encontrado para o termo digitado.',
                       textAlign: TextAlign.center,
                     ),
                     TextButton(
