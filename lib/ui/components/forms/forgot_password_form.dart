@@ -25,6 +25,7 @@ class ForgotPasswordFormState extends State<ForgotPasswordForm> {
     const String emailForgotPasswordInputKey =
         'email-forgot-password-input-key';
     const String forgotPasswordInputEmailHintText = 'Email cadastrado';
+    const String sendingText = 'Enviando';
 
     FocusNode forgotPasswordEmailFocusNode = FocusNode();
     FocusNode forgotPasswordCtaFocusNode = FocusNode(skipTraversal: true);
@@ -77,8 +78,10 @@ class ForgotPasswordFormState extends State<ForgotPasswordForm> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: 20,
-                              width: 20,
+                              height: uiConstants
+                                  .smallCircularProgressIndicatorSize,
+                              width: uiConstants
+                                  .smallCircularProgressIndicatorSize,
                               child: Center(
                                 child: CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation<Color>(
@@ -88,7 +91,7 @@ class ForgotPasswordFormState extends State<ForgotPasswordForm> {
                               ),
                             ),
                             SizedBox(width: uiConstants.paddingMedium),
-                            const Text('Enviando'),
+                            const Text(sendingText),
                           ],
                         )
                       : const Text(ctaButtonText),
