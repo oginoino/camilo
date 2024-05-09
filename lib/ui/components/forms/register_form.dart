@@ -1,36 +1,32 @@
 import '../../../common_libs.dart';
 
-class RegisterForm extends StatelessWidget {
-  RegisterForm({super.key});
+class RegisterForm extends StatefulWidget {
+  const RegisterForm({super.key});
 
+  @override
+  RegisterFormState createState() => RegisterFormState();
+}
+
+class RegisterFormState extends State<RegisterForm> {
   final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
-
   final TextEditingController _registerEmailController =
       TextEditingController();
-
   final TextEditingController _registerNameInputController =
       TextEditingController();
-
   final TextEditingController _firstPasswordRegisterController =
       TextEditingController();
-
   final TextEditingController _secondPasswordRegisterController =
       TextEditingController();
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     const String title = 'Crie uma conta gratuitamente';
-
     const String ctaButtonText = 'Cadastrar';
-
     const String helperTerms = 'Ao se cadastrar, você concorda com nossos';
-
     const String termsButtonText = 'Termos de uso e política de privacidade';
-
     const String helperLogin = 'Já possui cadastro?';
-
     const String helperLoginText = 'Faça login';
-
     const String nameRegisterFormKey = 'name-register-input-key';
     const String emailRegisterInputKey = 'email-register-input-key';
     const String firstPasswordRegisterInputKey =
@@ -41,13 +37,13 @@ class RegisterForm extends StatelessWidget {
     const String emailRegisterHintText = 'Seu melhor email';
     const String firstPasswordRegisterHintText = 'Crie uma senha forte';
     const String secondPasswordRegisterHintText = 'Confirme a sua senha';
+
     FocusNode nameRegisterFocusNode = FocusNode();
     FocusNode emailRegisterFocusNode = FocusNode();
     FocusNode firstPasswordRegisterFocusNode = FocusNode();
     FocusNode secondPasswordRegisterFocusNode = FocusNode();
-    FocusNode ctaFocusNode = FocusNode(
-      skipTraversal: true,
-    );
+    FocusNode ctaFocusNode = FocusNode(skipTraversal: true);
+
     return Padding(
       padding: EdgeInsets.all(uiConstants.paddingExtraLarge),
       child: FocusScope(
@@ -65,17 +61,14 @@ class RegisterForm extends StatelessWidget {
                       ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
-                  height: uiConstants.paddingExtraExtraLarge,
-                ),
+                SizedBox(height: uiConstants.paddingExtraExtraLarge),
                 TextFormField(
                   key: const Key(nameRegisterFormKey),
                   controller: _registerNameInputController,
                   keyboardType: TextInputType.name,
                   autofillHints: const [AutofillHints.name],
-                  decoration: const InputDecoration(
-                    hintText: nameRegisterHintText,
-                  ),
+                  decoration:
+                      const InputDecoration(hintText: nameRegisterHintText),
                   validator: (String? value) {
                     return inputValidators.nameRegisterValidator(value);
                   },
@@ -83,35 +76,28 @@ class RegisterForm extends StatelessWidget {
                     nameRegisterFocusNode.unfocus();
                     emailRegisterFocusNode.requestFocus();
                   },
-                  // remove focus on click outside
-                  onTapOutside: ((event) => nameRegisterFocusNode.unfocus()),
+                  onTapOutside: (event) => nameRegisterFocusNode.unfocus(),
                   focusNode: nameRegisterFocusNode,
                 ),
-                SizedBox(
-                  height: uiConstants.paddingExtraLarge,
-                ),
+                SizedBox(height: uiConstants.paddingExtraLarge),
                 TextFormField(
                   key: const Key(emailRegisterInputKey),
                   controller: _registerEmailController,
                   keyboardType: TextInputType.emailAddress,
                   autofillHints: const [AutofillHints.email],
-                  decoration: const InputDecoration(
-                    hintText: emailRegisterHintText,
-                  ),
+                  decoration:
+                      const InputDecoration(hintText: emailRegisterHintText),
                   validator: (String? value) {
                     return inputValidators.emailRegisterValidator(value);
                   },
                   onEditingComplete: () {
-                    emailRegisterFocusNode.nextFocus();
+                    emailRegisterFocusNode.unfocus();
                     firstPasswordRegisterFocusNode.requestFocus();
                   },
-                  // remove focus on click outside
-                  onTapOutside: ((event) => emailRegisterFocusNode.unfocus()),
+                  onTapOutside: (event) => emailRegisterFocusNode.unfocus(),
                   focusNode: emailRegisterFocusNode,
                 ),
-                SizedBox(
-                  height: uiConstants.paddingExtraLarge,
-                ),
+                SizedBox(height: uiConstants.paddingExtraLarge),
                 TextFormField(
                   key: const Key(firstPasswordRegisterInputKey),
                   controller: _firstPasswordRegisterController,
@@ -119,33 +105,28 @@ class RegisterForm extends StatelessWidget {
                   keyboardType: TextInputType.visiblePassword,
                   autofillHints: const [AutofillHints.password],
                   decoration: const InputDecoration(
-                    hintText: firstPasswordRegisterHintText,
-                  ),
+                      hintText: firstPasswordRegisterHintText),
                   validator: (String? value) {
                     return inputValidators
                         .firstPasswordRegisterValidator(value);
                   },
                   onEditingComplete: () {
-                    firstPasswordRegisterFocusNode.nextFocus();
+                    firstPasswordRegisterFocusNode.unfocus();
                     secondPasswordRegisterFocusNode.requestFocus();
                   },
-                  // remove focus on click outside
-                  onTapOutside: ((event) =>
-                      firstPasswordRegisterFocusNode.unfocus()),
+                  onTapOutside: (event) =>
+                      firstPasswordRegisterFocusNode.unfocus(),
                   focusNode: firstPasswordRegisterFocusNode,
                 ),
-                SizedBox(
-                  height: uiConstants.paddingExtraLarge,
-                ),
+                SizedBox(height: uiConstants.paddingExtraLarge),
                 TextFormField(
-                  controller: _secondPasswordRegisterController,
                   key: const Key(secondPasswordRegisterInputKey),
+                  controller: _secondPasswordRegisterController,
                   obscureText: true,
                   keyboardType: TextInputType.visiblePassword,
                   autofillHints: const [AutofillHints.password],
                   decoration: const InputDecoration(
-                    hintText: secondPasswordRegisterHintText,
-                  ),
+                      hintText: secondPasswordRegisterHintText),
                   validator: (String? value) {
                     return inputValidators.secondPasswordRegisterValidator(
                         value, _firstPasswordRegisterController.text);
@@ -155,23 +136,37 @@ class RegisterForm extends StatelessWidget {
                     ctaFocusNode.requestFocus();
                     _registerFormKey.currentState!.validate();
                   },
-                  onTapOutside: ((event) =>
-                      secondPasswordRegisterFocusNode.unfocus()),
+                  onTapOutside: (event) =>
+                      secondPasswordRegisterFocusNode.unfocus(),
                   focusNode: secondPasswordRegisterFocusNode,
                 ),
-                SizedBox(
-                  height: uiConstants.paddingExtraExtraLarge,
-                ),
+                SizedBox(height: uiConstants.paddingExtraExtraLarge),
                 FilledButton(
-                  onPressed: () {
-                    userRegister(session, context);
-                  },
+                  onPressed:
+                      _isLoading ? null : () => _userRegister(session, context),
                   focusNode: ctaFocusNode,
-                  child: const Text(ctaButtonText),
+                  child: _isLoading
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    uiConstants.backgroundLight,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: uiConstants.paddingMedium),
+                            const Text('Cadastrando'),
+                          ],
+                        )
+                      : const Text(ctaButtonText),
                 ),
-                SizedBox(
-                  height: uiConstants.paddingLarge,
-                ),
+                SizedBox(height: uiConstants.paddingLarge),
                 Text(
                   helperTerms,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -189,9 +184,9 @@ class RegisterForm extends StatelessWidget {
                       showDragHandle: true,
                       isScrollControlled: true,
                       enableDrag: true,
-                      builder: ((BuildContext context) {
+                      builder: (BuildContext context) {
                         return const Center();
-                      }),
+                      },
                     );
                   },
                   child: Text(
@@ -213,9 +208,7 @@ class RegisterForm extends StatelessWidget {
                           ),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(
-                      width: uiConstants.paddingSmall,
-                    ),
+                    SizedBox(width: uiConstants.paddingSmall),
                     TextButton(
                       onPressed: () {
                         appRouter.canPop()
@@ -240,8 +233,12 @@ class RegisterForm extends StatelessWidget {
     );
   }
 
-  void userRegister(Session session, BuildContext context) {
+  void _userRegister(Session session, BuildContext context) {
     if (_registerFormKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
       session
           .register(
         name: _registerNameInputController.text,
@@ -260,6 +257,10 @@ class RegisterForm extends StatelessWidget {
             ),
           );
         }
+      }).whenComplete(() {
+        setState(() {
+          _isLoading = false;
+        });
       });
     }
   }
