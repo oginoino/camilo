@@ -33,7 +33,7 @@ class CustomSearchProductsBarState extends State<CustomSearchProductsBar> {
 
   @override
   Widget build(BuildContext context) {
-    const String hintTextValue = 'O que você precisa?';
+    const String hintTextValue = 'O que você está buscando hoje?';
 
     FocusNode focusNodeValue = FocusNode();
 
