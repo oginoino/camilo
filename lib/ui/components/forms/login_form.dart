@@ -194,7 +194,9 @@ class LoginFormState extends State<LoginForm> {
         }
       }).whenComplete(() {
         setState(() {
-          _isLoading = false;
+          Future.delayed(const Duration(seconds: 1), () {
+            _isLoading = false;
+          });
         });
       });
     }
