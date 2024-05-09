@@ -62,5 +62,5 @@ class UiConstants {
 
   double get borderRadiusLarge => 48;
 
-  double get circularProgressIndicatorSize => 20;
+  double get smallCircularProgressIndicatorSize => 20;
 }
