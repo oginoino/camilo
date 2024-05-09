@@ -55,31 +55,10 @@ class CategoryPage extends StatelessWidget {
             ),
           );
         } else {
-          return SliverFillRemaining(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.5,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.search_off_rounded,
-                      size: 100,
-                      color: uiConstants.primaryLight,
-                    ),
-                    const Text(
-                      'Nenhum produto foi encontrado para o termo digitado na categoria selecionada.',
-                      textAlign: TextAlign.center,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        products.getAllProducts();
-                      },
-                      child: const Text('Ver tudo'),
-                    ),
-                  ],
-                ),
-              ),
+          return const SliverFillRemaining(
+            child: CustomVoidSearch(
+              message:
+                  'Nenhum produto foi encontrado para o termo digitado na categoria selecionada.',
             ),
           );
         }
