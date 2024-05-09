@@ -18,13 +18,18 @@ class ProductCarossel extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          category,
-          textAlign: TextAlign.left,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: uiConstants.cyanGreen,
-              ),
+        Padding(
+          padding: EdgeInsets.only(
+            left: uiConstants.paddingSmall,
+          ),
+          child: Text(
+            category,
+            textAlign: TextAlign.left,
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: uiConstants.cyanGreen,
+                ),
+          ),
         ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
