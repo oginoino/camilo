@@ -77,6 +77,12 @@ class CustomDrawer extends StatelessWidget {
                         onTap: () {
                           Scaffold.of(context).closeDrawer();
                           session.logout();
+                          ScaffoldMessenger.of(context).clearSnackBars();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Você saiu. Continue navegando.'),
+                            ),
+                          );
                         },
                       ),
                     ],
