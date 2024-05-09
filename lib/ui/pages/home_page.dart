@@ -9,7 +9,6 @@ class HomePage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           CustomAppBar(),
-          CustomTopBoxAdapter(),
           CustomPageBody(),
         ],
       ),
