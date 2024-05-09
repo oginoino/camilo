@@ -28,7 +28,7 @@ class CustomTopBoxAdapter extends StatelessWidget {
                       ),
                   SizedBox(width: uiConstants.paddingExtraSmall),
                   Text(
-                    'Entrega em até 30 minutos',
+                    'Entrega em até 30 minutos!',
                     style: Theme.of(context).textTheme.labelMedium?.copyWith(
                         color: Theme.of(context).colorScheme.secondary,
                         fontWeight: FontWeight.bold),
