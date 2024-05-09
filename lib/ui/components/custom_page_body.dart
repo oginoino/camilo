@@ -24,27 +24,8 @@ class CustomPageBody extends StatelessWidget {
               },
             );
           } else {
-            return SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.5,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.search_off_rounded,
-                        size: 100, color: uiConstants.primaryLight),
-                    const Text(
-                      'Nenhum produto foi encontrado para o termo digitado.',
-                      textAlign: TextAlign.center,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        products.getAllProducts();
-                      },
-                      child: const Text('Ver tudo'),
-                    ),
-                  ],
-                ),
-              ),
+            return const CustomVoidSearch(
+              message: 'Nenhum produto foi encontrado para o termo digitado.',
             );
           }
         })
