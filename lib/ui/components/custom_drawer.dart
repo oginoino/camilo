@@ -15,7 +15,8 @@ class CustomDrawer extends StatelessWidget {
         const String userOrdersLinkText = 'Meus pedidos';
         const String userDataLinkText = 'Meus dados';
         const String logoutLinkText = 'Sair';
-        const String logoutMessage = 'Você saiu. Continue navegando.';
+        const String logoutMessage =
+            'Você saiu. Agora navegando como $visitorName.';
 
         return ListView(
           padding: EdgeInsets.all(uiConstants.paddingMedium),
@@ -86,10 +87,10 @@ class CustomDrawer extends StatelessWidget {
                           Scaffold.of(context).closeDrawer();
                           session.logout();
                           ScaffoldMessenger.of(context).clearSnackBars();
-
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(logoutMessage),
+                            SnackBar(
+                              content: const Text(logoutMessage),
+                              backgroundColor: uiConstants.yellowSubmarine,
                             ),
                           );
                         },
