@@ -43,6 +43,7 @@ class RegisterFormState extends State<RegisterForm> {
     FocusNode firstPasswordRegisterFocusNode = FocusNode();
     FocusNode secondPasswordRegisterFocusNode = FocusNode();
     FocusNode ctaFocusNode = FocusNode(skipTraversal: true);
+    const String logoingText = 'Cadastrando';
 
     return Padding(
       padding: EdgeInsets.all(uiConstants.paddingExtraLarge),
@@ -150,8 +151,10 @@ class RegisterFormState extends State<RegisterForm> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: 20,
-                              width: 20,
+                              height: uiConstants
+                                  .smallCircularProgressIndicatorSize,
+                              width: uiConstants
+                                  .smallCircularProgressIndicatorSize,
                               child: Center(
                                 child: CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation<Color>(
@@ -161,7 +164,7 @@ class RegisterFormState extends State<RegisterForm> {
                               ),
                             ),
                             SizedBox(width: uiConstants.paddingMedium),
-                            const Text('Cadastrando'),
+                            const Text(logoingText),
                           ],
                         )
                       : const Text(ctaButtonText),
