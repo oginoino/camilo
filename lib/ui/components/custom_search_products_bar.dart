@@ -28,7 +28,7 @@ class CustomSearchProductsBar extends StatelessWidget {
         trailing: [
           IconButton(
             icon: Icon(
-              Icons.clear_all_rounded,
+              Icons.close_rounded,
               color: Theme.of(context).colorScheme.secondary,
             ),
             onPressed: () {
