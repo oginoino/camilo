@@ -3,6 +3,9 @@
 // material package
 export 'package:flutter/material.dart';
 
+// flutter animate
+export 'package:flutter_animate/flutter_animate.dart';
+
 // provider package
 export 'package:provider/provider.dart';
 

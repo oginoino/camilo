@@ -53,7 +53,15 @@ class _AddProductIconState extends State<AddProductIcon> {
                           fontSize: widget.iconFontSize,
                         ),
                   ),
-                ),
+                )
+                  .animate()
+                  .scaleXY(
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                    begin: 0.0,
+                    end: 1.0,
+                  )
+                  .then(),
           onPressed: () {
             if (selectedQuantityByProductId == 0) {
               productCart.incrementProduct(context, widget.product);
