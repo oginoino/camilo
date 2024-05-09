@@ -71,6 +71,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
             icon: Icon(Icons.search,
                 color: Theme.of(context).colorScheme.secondary),
             onPressed: () {},
+            visualDensity: VisualDensity.compact,
           ),
           trailing: [
             IconButton(
@@ -84,6 +85,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                   () => _selectedPredictionAddressIndex = null,
                 );
               },
+              visualDensity: VisualDensity.compact,
             ),
           ],
           keyboardType: TextInputType.text,

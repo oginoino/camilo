@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-
 import '../../common_libs.dart';
 
 class CustomSearchProductsBar extends StatefulWidget {
