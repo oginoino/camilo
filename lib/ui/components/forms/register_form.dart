@@ -37,13 +37,13 @@ class RegisterFormState extends State<RegisterForm> {
     const String emailRegisterHintText = 'Seu melhor email';
     const String firstPasswordRegisterHintText = 'Crie uma senha forte';
     const String secondPasswordRegisterHintText = 'Confirme a sua senha';
+    const String registeringText = 'Cadastrando';
 
     FocusNode nameRegisterFocusNode = FocusNode();
     FocusNode emailRegisterFocusNode = FocusNode();
     FocusNode firstPasswordRegisterFocusNode = FocusNode();
     FocusNode secondPasswordRegisterFocusNode = FocusNode();
     FocusNode ctaFocusNode = FocusNode(skipTraversal: true);
-    const String logoingText = 'Cadastrando';
 
     return Padding(
       padding: EdgeInsets.all(uiConstants.paddingExtraLarge),
@@ -164,7 +164,7 @@ class RegisterFormState extends State<RegisterForm> {
                               ),
                             ),
                             SizedBox(width: uiConstants.paddingMedium),
-                            const Text(logoingText),
+                            const Text(registeringText),
                           ],
                         )
                       : const Text(ctaButtonText),
