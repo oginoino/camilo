@@ -48,6 +48,7 @@ class CartIcon extends StatelessWidget {
                   textStyle: Theme.of(context).textTheme.labelMedium?.copyWith(
                         color: Theme.of(context).colorScheme.onPrimary,
                         leadingDistribution: TextLeadingDistribution.even,
+                        fontWeight: FontWeight.bold,
                       ),
                   label: Center(
                     child: Text(
@@ -59,6 +60,11 @@ class CartIcon extends StatelessWidget {
                     .animate(
                       autoPlay: true,
                     )
+                    .scaleXY(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOut,
+                    )
+                    .then()
                     .shake(
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInOut,
