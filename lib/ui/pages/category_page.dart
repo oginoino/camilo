@@ -33,26 +33,56 @@ class CategoryPage extends StatelessWidget {
             .where(
                 (product) => product.productCategories.contains(categoryName))
             .toList();
-        return SliverPadding(
-          padding: EdgeInsets.symmetric(
-            horizontal: uiConstants.paddingSmall,
-          ),
-          sliver: SliverGrid(
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-              mainAxisSpacing: 0,
-              crossAxisSpacing: uiConstants.paddingSmall,
-              childAspectRatio: 0.5,
-              mainAxisExtent: 300,
+        if (products.products.isNotEmpty) {
+          return SliverPadding(
+            padding: EdgeInsets.symmetric(
+              horizontal: uiConstants.paddingSmall,
             ),
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return ProductCard(product: productsFromCategory[index]);
-              },
-              childCount: productsFromCategory.length,
+            sliver: SliverGrid(
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
+                mainAxisSpacing: 0,
+                crossAxisSpacing: uiConstants.paddingSmall,
+                childAspectRatio: 0.5,
+                mainAxisExtent: 300,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return ProductCard(product: productsFromCategory[index]);
+                },
+                childCount: productsFromCategory.length,
+              ),
             ),
-          ),
-        );
+          );
+        } else {
+          return SliverFillRemaining(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.search_off_rounded,
+                      size: 100,
+                      color: uiConstants.primaryLight,
+                    ),
+                    const Text(
+                      'Nenhum produto foi encontrado para o termo digitado na categoria selecionada.',
+                      textAlign: TextAlign.center,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        products.getAllProducts();
+                      },
+                      child: const Text('Ver tudo'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
       },
     );
   }
