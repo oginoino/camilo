@@ -25,6 +25,8 @@ class LoginFormState extends State<LoginForm> {
     const String hintTextPassword = 'Senha';
     const String emailLoginInputKey = 'email-login-input-key';
     const String emailPasswordInputKey = 'password-login-input-key';
+    const String goToStoreText = 'Ir para a loja';
+    const String loggingText = 'Entrando';
 
     FocusNode emailFocusNode = FocusNode();
     FocusNode passwordFocusNode = FocusNode();
@@ -108,8 +110,10 @@ class LoginFormState extends State<LoginForm> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: 20,
-                              width: 20,
+                              height: uiConstants
+                                  .smallCircularProgressIndicatorSize,
+                              width: uiConstants
+                                  .smallCircularProgressIndicatorSize,
                               child: Center(
                                 child: CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation<Color>(
@@ -119,7 +123,7 @@ class LoginFormState extends State<LoginForm> {
                               ),
                             ),
                             SizedBox(width: uiConstants.paddingMedium),
-                            const Text('Entrando'),
+                            const Text(loggingText),
                           ],
                         )
                       : const Text(ctaButtonText),
@@ -150,7 +154,7 @@ class LoginFormState extends State<LoginForm> {
                     appRouter.go(ScreenPaths.home);
                   },
                   label: Text(
-                    'Ir para a loja',
+                    goToStoreText,
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                         ),
