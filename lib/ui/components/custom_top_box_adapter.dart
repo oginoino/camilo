@@ -10,7 +10,7 @@ class CustomTopBoxAdapter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 36.0,
+        height: 30.0,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -22,10 +22,7 @@ class CustomTopBoxAdapter extends StatelessWidget {
                     Icons.schedule_rounded,
                     size: uiConstants.iconSizeSmall,
                     color: Theme.of(context).colorScheme.secondary,
-                  ).animate().scaleXY(
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut,
-                      ),
+                  ),
                   SizedBox(width: uiConstants.paddingExtraSmall),
                   Text(
                     'Entrega em até 30 minutos!',
@@ -34,7 +31,15 @@ class CustomTopBoxAdapter extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                 ],
-              ),
+              )
+                  .animate()
+                  .scaleXY(
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                    begin: 0.9,
+                    end: 1.0,
+                  )
+                  .then()
             ],
           ),
         ));

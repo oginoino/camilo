@@ -7,9 +7,9 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double expandedHeight = 180.0;
-    double collapsedHeight = 108.0;
-    double expandedTitleScale = 1.1;
+    double expandedHeight = 160.0;
+    double collapsedHeight = 116.0;
+    double expandedTitleScale = 1.05;
 
     return SliverAppBar(
       leading: IconButton(
