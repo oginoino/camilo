@@ -34,6 +34,7 @@ class CustomAppBar extends StatelessWidget {
       forceElevated: false,
       expandedHeight: expandedHeight,
       collapsedHeight: collapsedHeight,
+      shadowColor: Theme.of(context).colorScheme.tertiary.withOpacity(0.5),
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: false,
         collapseMode: CollapseMode.parallax,
