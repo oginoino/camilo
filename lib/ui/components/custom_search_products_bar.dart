@@ -34,8 +34,6 @@ class CustomSearchProductsBarState extends State<CustomSearchProductsBar> {
   @override
   Widget build(BuildContext context) {
     const String hintTextValue = 'O que você precisa?';
-    const String searchIconText = 'Buscar produtos';
-    const String clearSearchIconText = 'Apagar busca';
 
     FocusNode focusNodeValue = FocusNode();
 
@@ -51,6 +49,16 @@ class CustomSearchProductsBarState extends State<CustomSearchProductsBar> {
         focusNode: focusNodeValue,
         controller: searchProductsTextEditingControllerValue,
         hintText: hintTextValue,
+        leading: IconButton(
+          onPressed: () {
+            focusNodeValue.requestFocus();
+          },
+          icon: Icon(
+            Icons.search_rounded,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          visualDensity: VisualDensity.compact,
+        ),
         trailing: _showClearIcon
             ? [
                 GestureDetector(
@@ -62,45 +70,17 @@ class CustomSearchProductsBarState extends State<CustomSearchProductsBar> {
                     padding: EdgeInsets.all(uiConstants.paddingSmall),
                     child: Row(
                       children: [
-                        Text(
-                          clearSearchIconText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
                         SizedBox(width: uiConstants.paddingSmall),
                         Icon(
                           Icons.close_rounded,
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: uiConstants.tertiaryLight,
                         ),
                       ],
                     ),
                   ),
                 ),
               ]
-            : [
-                Text(
-                  searchIconText,
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    focusNodeValue.requestFocus();
-                  },
-                  icon: Icon(
-                    Icons.search_rounded,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  visualDensity: VisualDensity.compact,
-                ),
-              ],
+            : null,
         elevation: MaterialStateProperty.all(value),
         backgroundColor: MaterialStateProperty.all(Colors.white),
         constraints: const BoxConstraints(

@@ -90,8 +90,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
           trailing: _showClearIcon
               ? [
                   IconButton(
-                    icon: Icon(Icons.close,
-                        color: Theme.of(context).colorScheme.secondary),
+                    icon: Icon(Icons.close, color: uiConstants.tertiaryLight),
                     onPressed: () {
                       searchAddressTextEditingController.clear();
                       Provider.of<MapsService>(context, listen: false)
