@@ -1,5 +1,3 @@
-import 'package:flutter_animate/flutter_animate.dart';
-
 import '../../common_libs.dart';
 
 class CustomTopBoxAdapter extends StatelessWidget {
