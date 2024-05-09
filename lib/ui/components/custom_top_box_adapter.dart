@@ -1,3 +1,5 @@
+import 'package:flutter_animate/flutter_animate.dart';
+
 import '../../common_libs.dart';
 
 class CustomTopBoxAdapter extends StatelessWidget {
@@ -7,43 +9,34 @@ class CustomTopBoxAdapter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Container(
-          height: 60,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.background,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  'Entrega em até 30 minutos',
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.tertiary,
+    return SizedBox(
+        height: 36.0,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.schedule_rounded,
+                    size: uiConstants.iconSizeSmall,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ).animate().scaleXY(
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
                       ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.shopping_basket_rounded,
-                      size: uiConstants.iconSizeSmall,
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                    SizedBox(width: uiConstants.paddingExtraSmall),
-                    Text(
-                      'Mercado aberto agora!',
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          )),
-    );
+                  SizedBox(width: uiConstants.paddingExtraSmall),
+                  Text(
+                    'Entrega em até 30 minutos',
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ));
   }
 }

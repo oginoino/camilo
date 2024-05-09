@@ -7,7 +7,7 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double expandedHeight = 140.0;
+    double expandedHeight = 180.0;
     double collapsedHeight = 108.0;
     double expandedTitleScale = 1.1;
 
@@ -39,7 +39,13 @@ class CustomAppBar extends StatelessWidget {
         collapseMode: CollapseMode.parallax,
         expandedTitleScale: expandedTitleScale,
         titlePadding: EdgeInsets.zero,
-        title: const CustomSearchProductsBar(),
+        title: const Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            CustomTopBoxAdapter(),
+            CustomSearchProductsBar(),
+          ],
+        ),
       ),
     );
   }
