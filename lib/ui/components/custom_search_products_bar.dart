@@ -1,7 +1,7 @@
 import '../../common_libs.dart';
 
-class CustomSearchBar extends StatelessWidget {
-  CustomSearchBar({
+class CustomSearchProductsBar extends StatelessWidget {
+  CustomSearchProductsBar({
     super.key,
   });
 
