@@ -1,42 +1,35 @@
 import '../../../common_libs.dart';
 
-class LoginForm extends StatelessWidget {
-  LoginForm({super.key});
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
 
+  @override
+  LoginFormState createState() => LoginFormState();
+}
+
+class LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
-
   final TextEditingController _emailLoginController = TextEditingController();
-
   final TextEditingController _passwordLoginController =
       TextEditingController();
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     const String title = 'Entre com seu email e senha';
-
     const String forgotPasswordButtonText = 'Esqueceu a senha?';
-
     const String ctaButtonText = 'Entrar';
-
     const String helperRegisterButtonText = 'Ainda não tem cadastro?';
-
     const String registerButtonText = 'Crie uma conta gratuitamente';
-
     const String hintTextEmail = 'Email';
-
     const String hintTextPassword = 'Senha';
-
     const String emailLoginInputKey = 'email-login-input-key';
-
     const String emailPasswordInputKey = 'password-login-input-key';
 
     FocusNode emailFocusNode = FocusNode();
-
     FocusNode passwordFocusNode = FocusNode();
+    FocusNode ctaFocusNode = FocusNode(skipTraversal: true);
 
-    FocusNode ctaFocusNode = FocusNode(
-      skipTraversal: true,
-    );
     return Padding(
       padding: EdgeInsets.all(uiConstants.paddingExtraLarge),
       child: FocusScope(
@@ -54,17 +47,13 @@ class LoginForm extends StatelessWidget {
                       ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
-                  height: uiConstants.paddingExtraExtraLarge,
-                ),
+                SizedBox(height: uiConstants.paddingExtraExtraLarge),
                 TextFormField(
                   key: const Key(emailLoginInputKey),
                   controller: _emailLoginController,
                   keyboardType: TextInputType.emailAddress,
                   autofillHints: const [AutofillHints.email],
-                  decoration: const InputDecoration(
-                    hintText: hintTextEmail,
-                  ),
+                  decoration: const InputDecoration(hintText: hintTextEmail),
                   validator: (String? value) {
                     return inputValidators.emailLoginValidator(value);
                   },
@@ -72,21 +61,17 @@ class LoginForm extends StatelessWidget {
                     emailFocusNode.unfocus();
                     passwordFocusNode.requestFocus();
                   },
-                  onTapOutside: ((event) => emailFocusNode.unfocus()),
+                  onTapOutside: (event) => emailFocusNode.unfocus(),
                   focusNode: emailFocusNode,
                 ),
-                SizedBox(
-                  height: uiConstants.paddingExtraLarge,
-                ),
+                SizedBox(height: uiConstants.paddingExtraLarge),
                 TextFormField(
                   key: const Key(emailPasswordInputKey),
                   controller: _passwordLoginController,
                   obscureText: true,
                   keyboardType: TextInputType.visiblePassword,
                   autofillHints: const [AutofillHints.password],
-                  decoration: const InputDecoration(
-                    hintText: hintTextPassword,
-                  ),
+                  decoration: const InputDecoration(hintText: hintTextPassword),
                   validator: (String? value) {
                     return inputValidators.passwordLoginValidator(value);
                   },
@@ -95,7 +80,7 @@ class LoginForm extends StatelessWidget {
                     ctaFocusNode.requestFocus();
                     _loginFormKey.currentState!.validate();
                   },
-                  onTapOutside: ((event) => passwordFocusNode.unfocus()),
+                  onTapOutside: (event) => passwordFocusNode.unfocus(),
                   focusNode: passwordFocusNode,
                 ),
                 Align(
@@ -107,24 +92,39 @@ class LoginForm extends StatelessWidget {
                     child: Text(
                       forgotPasswordButtonText,
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontWeight: FontWeight.w600),
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: uiConstants.paddingExtraLarge,
-                ),
+                SizedBox(height: uiConstants.paddingExtraLarge),
                 FilledButton(
-                  onPressed: () {
-                    userLogin(session, context);
-                  },
+                  onPressed:
+                      _isLoading ? null : () => _userLogin(session, context),
                   focusNode: ctaFocusNode,
-                  child: const Text(ctaButtonText),
+                  child: _isLoading
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    uiConstants.backgroundLight,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: uiConstants.paddingMedium),
+                            const Text('Entrando'),
+                          ],
+                        )
+                      : const Text(ctaButtonText),
                 ),
-                SizedBox(
-                  height: uiConstants.paddingExtraLarge,
-                ),
+                SizedBox(height: uiConstants.paddingExtraLarge),
                 Text(
                   helperRegisterButtonText,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -144,9 +144,7 @@ class LoginForm extends StatelessWidget {
                         ),
                   ),
                 ),
-                SizedBox(
-                  height: uiConstants.paddingMedium,
-                ),
+                SizedBox(height: uiConstants.paddingMedium),
                 TextButton.icon(
                   onPressed: () {
                     appRouter.go(ScreenPaths.home);
@@ -158,7 +156,7 @@ class LoginForm extends StatelessWidget {
                         ),
                   ),
                   icon: const Icon(Icons.shopping_basket_sharp),
-                )
+                ),
               ],
             ),
           );
@@ -167,28 +165,34 @@ class LoginForm extends StatelessWidget {
     );
   }
 
-  void userLogin(Session session, BuildContext context) {
+  void _userLogin(Session session, BuildContext context) {
     if (_loginFormKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
       session
           .login(
         email: _emailLoginController.text,
         password: _passwordLoginController.text,
       )
-          .then(
-        (value) {
-          if (value == null) {
-            appRouter.go(ScreenPaths.home);
-          } else {
-            ScaffoldMessenger.of(context).clearSnackBars();
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(value),
-                backgroundColor: uiConstants.errorLight,
-              ),
-            );
-          }
-        },
-      );
+          .then((value) {
+        if (value == null) {
+          appRouter.go(ScreenPaths.home);
+        } else {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(value),
+              backgroundColor: uiConstants.errorLight,
+            ),
+          );
+        }
+      }).whenComplete(() {
+        setState(() {
+          _isLoading = false;
+        });
+      });
     }
   }
 }

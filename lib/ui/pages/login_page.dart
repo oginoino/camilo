@@ -5,16 +5,16 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       reverse: true,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(
+            SizedBox(
               height: 80,
             ),
-            const AppLogo(),
+            AppLogo(),
             LoginForm(),
             // LoginForm(),
           ],
