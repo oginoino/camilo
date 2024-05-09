@@ -96,7 +96,7 @@ export 'ui/pages/forgot_password_page.dart';
 export 'ui/components/custom_app_bar.dart';
 
 // search bar
-export 'ui/components/custom_search_bar.dart';
+export 'ui/components/custom_search_products_bar.dart';
 
 // product carousel
 export 'ui/components/product_carousel.dart';

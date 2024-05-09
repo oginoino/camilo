@@ -14,16 +14,30 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
   final FocusNode focusNode = FocusNode();
   Timer? _debounce;
   bool _isLoading = false;
+  bool _showClearIcon = false;
   int? _selectedPredictionAddressIndex;
   int? _selectedAddressIndex;
 
   @override
+  void initState() {
+    super.initState();
+    searchAddressTextEditingController.addListener(_updateClearIcon);
+  }
+
+  @override
   void dispose() {
+    searchAddressTextEditingController.removeListener(_updateClearIcon);
     searchAddressTextEditingController.dispose();
     mapsApiService.predictions.predictions.clear();
     focusNode.dispose();
     _debounce?.cancel();
     super.dispose();
+  }
+
+  void _updateClearIcon() {
+    setState(() {
+      _showClearIcon = searchAddressTextEditingController.text.isNotEmpty;
+    });
   }
 
   @override
@@ -71,21 +85,22 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
             icon: Icon(Icons.search,
                 color: Theme.of(context).colorScheme.secondary),
             onPressed: () {},
+            visualDensity: VisualDensity.compact,
           ),
-          trailing: [
-            IconButton(
-              icon: Icon(Icons.close,
-                  color: Theme.of(context).colorScheme.secondary),
-              onPressed: () {
-                searchAddressTextEditingController.clear();
-                Provider.of<MapsService>(context, listen: false)
-                    .clearPredictions();
-                setState(
-                  () => _selectedPredictionAddressIndex = null,
-                );
-              },
-            ),
-          ],
+          trailing: _showClearIcon
+              ? [
+                  IconButton(
+                    icon: Icon(Icons.close, color: uiConstants.tertiaryLight),
+                    onPressed: () {
+                      searchAddressTextEditingController.clear();
+                      Provider.of<MapsService>(context, listen: false)
+                          .clearPredictions();
+                      setState(() => _selectedPredictionAddressIndex = null);
+                    },
+                    visualDensity: VisualDensity.compact,
+                  ),
+                ]
+              : null,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.search,
           focusNode: focusNode,
@@ -141,9 +156,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
             children: [
               if (mapsApiService.predictions.predictions.isNotEmpty)
                 Padding(
-                  padding: EdgeInsets.only(
-                    bottom: uiConstants.paddingMedium,
-                  ),
+                  padding: EdgeInsets.only(bottom: uiConstants.paddingMedium),
                   child: TextButton.icon(
                     onPressed: null,
                     icon: Icon(
@@ -221,7 +234,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
     );
   }
 
-  _buildAdressesList(BuildContext context) {
+  Widget _buildAdressesList(BuildContext context) {
     return Consumer<Session>(
       builder: (context, session, child) {
         if (session.userData?.addresses == null ||
@@ -233,9 +246,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
           return Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(
-                  bottom: uiConstants.paddingMedium,
-                ),
+                padding: EdgeInsets.only(bottom: uiConstants.paddingMedium),
                 child: TextButton.icon(
                   icon: Icon(
                     Icons.bookmark_rounded,
@@ -257,11 +268,9 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                 itemCount: session.userData!.addresses!.length,
                 itemBuilder: (context, index) {
                   final address = session.userData!.addresses![index];
-                  // Verifique se este endereço deve estar selecionado
                   bool isSelected = address.id == selectedAddressId;
                   if (isSelected) {
-                    _selectedAddressIndex =
-                        index; // Atualize o índice selecionado
+                    _selectedAddressIndex = index;
                   }
 
                   return ListTile(
@@ -306,16 +315,12 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
 }
 
 class GoogleAtribuition extends StatelessWidget {
-  const GoogleAtribuition({
-    super.key,
-  });
+  const GoogleAtribuition({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: uiConstants.paddingLarge,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: uiConstants.paddingLarge),
       child: Align(
         alignment: Alignment.centerRight,
         child: Image.asset(
