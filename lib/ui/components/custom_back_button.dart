@@ -14,6 +14,7 @@ class CustomBackButton extends StatelessWidget {
               appRouter.canPop()
                   ? appRouter.pop()
                   : appRouter.go(ScreenPaths.home);
+              categorySelection.selectCategory('Tudo');
             },
             icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 16),
             label: Text('Voltar',

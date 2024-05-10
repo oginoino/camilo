@@ -59,7 +59,7 @@ class UiConstants {
   double get squareImageSizeMedium => 160.0;
 
   double get borderRadiusSmall => 8.0;
-
+  double get borderRadiusMedium => 12.0;
   double get borderRadiusLarge => 48;
 
   double get smallCircularProgressIndicatorSize => 20;
