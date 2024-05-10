@@ -1,60 +1,53 @@
 import '../../common_libs.dart';
 
-class CategoriesMenu extends StatefulWidget {
+class CategoriesMenu extends StatelessWidget {
   const CategoriesMenu({
     super.key,
   });
 
   @override
-  CategoriesMenuState createState() => CategoriesMenuState();
-}
-
-class CategoriesMenuState extends State<CategoriesMenu> {
-  String _selectedCategory = 'Tudo';
-
-  @override
   Widget build(BuildContext context) {
-    return Consumer<ProductList>(builder: (context, products, child) {
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: uiConstants.paddingSmall),
-          child: Row(
-            children: [
-              CategoryNavItemMobile(
-                categoryTitle: 'Tudo',
-                isSelected: _selectedCategory == 'Tudo',
-                onTap: () {
-                  setState(() {
-                    _selectedCategory = 'Tudo';
+    return Consumer2<ProductList, CategorySelection>(
+      builder: (context, products, categorySelection, child) {
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: uiConstants.paddingSmall),
+            child: Row(
+              children: [
+                CategoryNavItemMobile(
+                  categoryTitle: 'Tudo',
+                  isSelected: categorySelection.selectedCategory == 'Tudo',
+                  onTap: () {
+                    categorySelection.selectCategory('Tudo');
                     products.getAllProducts();
-                  });
-                },
-              ),
-              ...products.categories.map(
-                (category) => Padding(
-                  padding: EdgeInsets.only(
-                    left: uiConstants.paddingExtraSmall,
-                  ),
-                  child: CategoryNavItemMobile(
-                    categoryTitle: category,
-                    isSelected: _selectedCategory == category,
-                    onTap: () {
-                      setState(() {
-                        _selectedCategory = category;
-                      });
-                    },
+                  },
+                ),
+                ...products.categories.map(
+                  (category) => Padding(
+                    padding: EdgeInsets.only(
+                      left: uiConstants.paddingExtraSmall,
+                    ),
+                    child: CategoryNavItemMobile(
+                      categoryTitle: category,
+                      isSelected:
+                          categorySelection.selectedCategory == category,
+                      onTap: () {
+                        categorySelection.selectCategory(category);
+                      },
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
 
+// The individual category item widget
 class CategoryNavItemMobile extends StatelessWidget {
   const CategoryNavItemMobile({
     super.key,

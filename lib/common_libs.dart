@@ -53,6 +53,9 @@ export 'models/address.dart';
 // user
 export 'models/user_data.dart';
 
+// category selection
+export 'models/category_selection.dart';
+
 // logic
 
 // app logic
