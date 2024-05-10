@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import 'common_libs.dart';
 
 class ScreenPaths {
@@ -88,12 +87,12 @@ String? _initialDeeplink;
 
 String? _handleRedirect(BuildContext context, GoRouterState state) {
   _initialDeeplink ??= state.uri.toString();
-
   return _redirectBasedOnState(state, context);
 }
 
 String? _redirectBasedOnState(GoRouterState state, BuildContext context) {
-  final currentPath = state.uri.path;
+  // Decodificar o path
+  final currentPath = Uri.decodeComponent(state.uri.path);
 
   // Se não estiver autenticado e tentar acessar uma rota que requer autenticação, redirecione para a tela de login.
   if (!session.isAuthenticated && loggedPaths.contains(currentPath)) {
