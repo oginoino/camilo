@@ -13,40 +13,52 @@ class CategoriesMenu extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: uiConstants.paddingSmall),
           child: SizedBox(
             height: 50.0,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: false,
-              itemCount: products.categories.length + 1,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return Padding(
-                    padding:
-                        EdgeInsets.only(right: uiConstants.paddingExtraSmall),
-                    child: CategoryNavItemMobile(
-                      categoryTitle: 'Tudo',
-                      isSelected: categorySelection.selectedCategory == 'Tudo',
-                      onTap: () {
-                        categorySelection.selectCategory('Tudo');
-                        products.getAllProducts();
-                      },
-                    ),
-                  );
-                } else {
-                  String category = products.categories[index - 1];
-                  return Padding(
-                    padding:
-                        EdgeInsets.only(left: uiConstants.paddingExtraSmall),
-                    child: CategoryNavItemMobile(
-                      categoryTitle: category,
-                      isSelected:
-                          categorySelection.selectedCategory == category,
-                      onTap: () {
-                        categorySelection.selectCategory(category);
-                      },
-                    ),
-                  );
+            child: NotificationListener<ScrollNotification>(
+              onNotification: (ScrollNotification notification) {
+                if (notification is ScrollUpdateNotification) {
+                  categorySelection
+                      .setScrollPosition(notification.metrics.pixels);
                 }
+                return true;
               },
+              child: ListView.builder(
+                controller: ScrollController(
+                    initialScrollOffset: categorySelection.scrollPosition),
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: false,
+                itemCount: products.categories.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return Padding(
+                      padding:
+                          EdgeInsets.only(right: uiConstants.paddingExtraSmall),
+                      child: CategoryNavItemMobile(
+                        categoryTitle: 'Tudo',
+                        isSelected:
+                            categorySelection.selectedCategory == 'Tudo',
+                        onTap: () {
+                          categorySelection.selectCategory('Tudo');
+                          products.getAllProducts();
+                        },
+                      ),
+                    );
+                  } else {
+                    String category = products.categories[index - 1];
+                    return Padding(
+                      padding:
+                          EdgeInsets.only(left: uiConstants.paddingExtraSmall),
+                      child: CategoryNavItemMobile(
+                        categoryTitle: category,
+                        isSelected:
+                            categorySelection.selectedCategory == category,
+                        onTap: () {
+                          categorySelection.selectCategory(category);
+                        },
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
           ),
         );
