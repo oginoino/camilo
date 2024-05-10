@@ -1,9 +1,16 @@
 import '../../common_libs.dart';
 
-class CategoriesMenu extends StatelessWidget {
+class CategoriesMenu extends StatefulWidget {
   const CategoriesMenu({
     super.key,
   });
+
+  @override
+  CategoriesMenuState createState() => CategoriesMenuState();
+}
+
+class CategoriesMenuState extends State<CategoriesMenu> {
+  String _selectedCategory = 'Tudo';
 
   @override
   Widget build(BuildContext context) {
@@ -12,21 +19,35 @@ class CategoriesMenu extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: uiConstants.paddingSmall),
-          child: Row(children: [
-            const CategoryNavItemMobile(
-              categoryTitle: 'Tudo',
-            ),
-            ...products.categories.map(
-              (category) => Padding(
-                padding: EdgeInsets.only(
-                  left: uiConstants.paddingExtraSmall,
-                ),
-                child: CategoryNavItemMobile(
-                  categoryTitle: category,
+          child: Row(
+            children: [
+              CategoryNavItemMobile(
+                categoryTitle: 'Tudo',
+                isSelected: _selectedCategory == 'Tudo',
+                onTap: () {
+                  setState(() {
+                    _selectedCategory = 'Tudo';
+                  });
+                },
+              ),
+              ...products.categories.map(
+                (category) => Padding(
+                  padding: EdgeInsets.only(
+                    left: uiConstants.paddingExtraSmall,
+                  ),
+                  child: CategoryNavItemMobile(
+                    categoryTitle: category,
+                    isSelected: _selectedCategory == category,
+                    onTap: () {
+                      setState(() {
+                        _selectedCategory = category;
+                      });
+                    },
+                  ),
                 ),
               ),
-            ),
-          ]),
+            ],
+          ),
         ),
       );
     });
@@ -37,9 +58,13 @@ class CategoryNavItemMobile extends StatelessWidget {
   const CategoryNavItemMobile({
     super.key,
     required this.categoryTitle,
+    required this.isSelected,
+    required this.onTap,
   });
 
   final String categoryTitle;
+  final bool isSelected;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +72,7 @@ class CategoryNavItemMobile extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: uiConstants.paddingSmall),
       child: Center(
         child: TextButton(
-          onPressed: () {},
+          onPressed: onTap,
           style: ButtonStyle(
             padding: MaterialStateProperty.all(
               EdgeInsets.symmetric(
@@ -59,8 +84,8 @@ class CategoryNavItemMobile extends StatelessWidget {
             ),
             foregroundColor: MaterialStateProperty.resolveWith<Color>(
               (Set<MaterialState> states) {
-                if (states.contains(MaterialState.hovered) ||
-                    states.contains(MaterialState.selected) ||
+                if (isSelected ||
+                    states.contains(MaterialState.hovered) ||
                     states.contains(MaterialState.focused) ||
                     states.contains(MaterialState.pressed)) {
                   return uiConstants.backgroundLight;
@@ -81,8 +106,8 @@ class CategoryNavItemMobile extends StatelessWidget {
             ),
             backgroundColor: MaterialStateProperty.resolveWith<Color>(
               (Set<MaterialState> states) {
-                if (states.contains(MaterialState.hovered) ||
-                    states.contains(MaterialState.selected) ||
+                if (isSelected ||
+                    states.contains(MaterialState.hovered) ||
                     states.contains(MaterialState.focused) ||
                     states.contains(MaterialState.pressed)) {
                   return uiConstants.primaryLight;
