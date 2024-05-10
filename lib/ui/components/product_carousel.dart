@@ -50,6 +50,7 @@ class ProductCarossel extends StatelessWidget {
                           appRouter.push(
                             ScreenPaths.categoryPath(category),
                           );
+                          categorySelection.selectCategory(category);
                         },
                         child: Row(
                           children: [

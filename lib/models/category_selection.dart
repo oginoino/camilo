@@ -7,6 +7,11 @@ class CategorySelection extends ChangeNotifier {
 
   void selectCategory(String category) {
     _selectedCategory = category;
+    if (category == 'Tudo') {
+      appRouter.go(ScreenPaths.home);
+    } else {
+      appRouter.go(ScreenPaths.categoryPath(category));
+    }
     notifyListeners();
   }
 }
