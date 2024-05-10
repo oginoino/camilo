@@ -137,6 +137,9 @@ export 'ui/components/search_address_bottom_sheet.dart';
 // custom void search
 export 'ui/components/custom_void_search.dart';
 
+// categories menu
+export 'ui/components/categories_menu.dart';
+
 // forms
 //login form
 export 'ui/components/forms/login_form.dart';
