@@ -93,7 +93,7 @@ class CategoryNavItemMobile extends StatelessWidget {
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
-                  uiConstants.borderRadiusSmall,
+                  uiConstants.borderRadiusMedium,
                 ),
               ),
             ),
