@@ -27,6 +27,7 @@ class CategoriesMenuState extends State<CategoriesMenu> {
                 onTap: () {
                   setState(() {
                     _selectedCategory = 'Tudo';
+                    products.getAllProducts();
                   });
                 },
               ),
