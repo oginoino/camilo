@@ -5,18 +5,14 @@ class CheckoutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            title: Text('Checkout'),
-            floating: true,
-            snap: true,
-          ),
+          _buildSliverAppBar(context),
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
+              padding: EdgeInsets.all(uiConstants.paddingMedium),
+              child: const Column(
                 children: [
                   Text('Checkout page'),
                 ],
@@ -24,6 +20,30 @@ class CheckoutPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  SliverAppBar _buildSliverAppBar(BuildContext context) {
+    const double expandedTitleScale = 1.1;
+    const double collapsedHeight = 108.0;
+    const double expandedHeight = 100.0;
+    return SliverAppBar(
+      title: const Text('Seu carrinho'),
+      leading: BackButton(
+        onPressed: () {
+          appRouter.go(ScreenPaths.cart);
+        },
+      ),
+      floating: true,
+      snap: true,
+      expandedHeight: expandedHeight,
+      collapsedHeight: collapsedHeight,
+      flexibleSpace: const FlexibleSpaceBar(
+        centerTitle: false,
+        collapseMode: CollapseMode.parallax,
+        expandedTitleScale: expandedTitleScale,
+        titlePadding: EdgeInsets.zero,
       ),
     );
   }

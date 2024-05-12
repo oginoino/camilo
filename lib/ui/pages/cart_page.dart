@@ -26,8 +26,10 @@ class CartPage extends StatelessWidget {
     const double expandedHeight = 100.0;
     return SliverAppBar(
       title: const Text('Seu carrinho'),
-      leading: const BackButton(
-        style: ButtonStyle(),
+      leading: BackButton(
+        onPressed: () {
+          appRouter.go(ScreenPaths.home);
+        },
       ),
       floating: true,
       snap: true,
