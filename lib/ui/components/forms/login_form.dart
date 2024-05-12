@@ -182,7 +182,8 @@ class LoginFormState extends State<LoginForm> {
       )
           .then((value) {
         if (value == null) {
-          appRouter.go(ScreenPaths.home);
+          final redirectUrl = initialDeeplink ?? ScreenPaths.home;
+          appRouter.go(redirectUrl);
         } else {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
@@ -191,12 +192,21 @@ class LoginFormState extends State<LoginForm> {
               backgroundColor: uiConstants.errorLight,
             ),
           );
-        }
-      }).whenComplete(() {
-        setState(() {
-          Future.delayed(const Duration(seconds: 1), () {
+          setState(() {
             _isLoading = false;
           });
+        }
+      }).catchError((error) {
+        // Tratamento de erros adicionais
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erro ao fazer login: $error'),
+            backgroundColor: uiConstants.errorLight,
+          ),
+        );
+        setState(() {
+          _isLoading = false;
         });
       });
     }
