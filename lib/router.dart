@@ -91,21 +91,27 @@ String? get initialDeeplink => _initialDeeplink;
 String? _initialDeeplink;
 
 String? _handleRedirect(BuildContext context, GoRouterState state) {
-  _initialDeeplink ??= state.uri.toString();
-  return _redirectBasedOnState(state, context);
-}
-
-String? _redirectBasedOnState(GoRouterState state, BuildContext context) {
-  // Decodificar o path
-  final currentPath = Uri.decodeComponent(state.uri.path);
-
-  // Se não estiver autenticado e tentar acessar uma rota que requer autenticação, redirecione para a tela de login.
-  if (!session.isAuthenticated && loggedPaths.contains(currentPath)) {
+  // Se o usuário não estiver autenticado e tentar acessar uma página autenticada
+  if (!session.isAuthenticated && loggedPaths.contains(state.uri.path)) {
+    // Salvar a URL original para redirecionar após o login
+    _initialDeeplink = state.uri.toString();
     return ScreenPaths.login;
   }
 
-  // Se não estiver autenticado e tentar acessar uma rota que não requer autenticação, redirecione para a tela inicial.
-  if (!session.isAuthenticated && !logoutPaths.contains(currentPath)) {
+  // Se o usuário estiver autenticado e a URL inicial estiver definida, redirecionar para a URL inicial
+  if (session.isAuthenticated && _initialDeeplink != null) {
+    final tempDeeplink = _initialDeeplink;
+    _initialDeeplink = null; // Limpar a URL inicial para futuras navegações
+    return tempDeeplink;
+  }
+
+  // Se o usuário estiver autenticado e estiver na tela de splash, redirecionar para a tela inicial
+  if (session.isAuthenticated && state.uri.path == ScreenPaths.splash) {
+    return ScreenPaths.home;
+  }
+
+  // Se o usuário não estiver autenticado e estiver na tela de splash, redirecionar para a tela inicial
+  if (!session.isAuthenticated && state.uri.path == ScreenPaths.splash) {
     return ScreenPaths.home;
   }
 
