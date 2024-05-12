@@ -53,10 +53,15 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 ),
                 elevation: 2,
                 maximumSize: const Size(
-                  180, 72,
+                  180,
+                  72,
                 ),
               ),
-              onPressed: cart.isMinimumOrder ? () {} : null,
+              onPressed: cart.isMinimumOrder
+                  ? () {
+                      appRouter.push(ScreenPaths.checkout);
+                    }
+                  : null,
               icon: Icon(
                 cart.isMinimumOrder
                     ? Icons.payment_rounded

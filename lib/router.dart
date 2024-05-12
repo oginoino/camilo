@@ -8,6 +8,7 @@ class ScreenPaths {
   static String register = '/register';
   static String forgotPassword = '/forgot-password';
   static String cart = '/cart';
+  static String checkout = '/checkout';
 
   static String categoryPath(String categoryName) => '/category/$categoryName';
 }
@@ -44,6 +45,10 @@ final appRouter = GoRouter(
         AppRoute(
           ScreenPaths.cart,
           (state) => const CartPage(),
+        ),
+        AppRoute(
+          ScreenPaths.checkout,
+          (state) => const CheckoutPage(),
         ),
         AppRoute(
           ScreenPaths.categoryPath(':categoryName'),
@@ -117,4 +122,6 @@ List<String> get logoutPaths => [
           .map((category) => ScreenPaths.categoryPath(category)),
     ];
 
-List<String> get loggedPaths => [];
+List<String> get loggedPaths => [
+      ScreenPaths.checkout,
+    ];
