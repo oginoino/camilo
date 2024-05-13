@@ -41,15 +41,20 @@ class CartSummaryState extends State<CartSummary> {
                 _isExpanded = !_isExpanded;
               });
             },
-            expandIconColor: Theme.of(context).colorScheme.secondary,
+            expandIconColor: uiConstants.tertiaryLight,
             materialGapSize: 0.0,
             expandedHeaderPadding: EdgeInsets.zero,
             children: [
               ExpansionPanel(
                 backgroundColor: Theme.of(context).colorScheme.background,
+                canTapOnHeader: false,
                 headerBuilder: (BuildContext context, bool isExpanded) {
                   return ListTile(
                     contentPadding: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(uiConstants.paddingMedium),
+                    ),
                     title: Text(
                       'Sua sacola',
                       style: Theme.of(context).textTheme.labelMedium?.copyWith(
@@ -58,6 +63,27 @@ class CartSummaryState extends State<CartSummary> {
                             color: Theme.of(context).colorScheme.tertiary,
                           ),
                     ),
+                    trailing: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _isExpanded = !_isExpanded;
+                        });
+                      },
+                      child: Text(
+                        isExpanded ? 'Ocultar detalhes' : 'Ver detalhes',
+                        style:
+                            Theme.of(context).textTheme.labelMedium?.copyWith(
+                                  fontFamily: 'Nunito',
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .tertiary
+                                      .withOpacity(0.5),
+                                ),
+                      ),
+                    ),
+                    enableFeedback: false,
+                    style: ListTileStyle.drawer,
+                    splashColor: Theme.of(context).colorScheme.background,
                   );
                 },
                 body: ListView.builder(
