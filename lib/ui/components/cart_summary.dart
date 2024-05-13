@@ -34,25 +34,6 @@ class CartSummaryState extends State<CartSummary> {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: uiConstants.paddingLarge),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Valor dos produtos',
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.tertiary,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              Text(
-                'R\$ ${productCart.totalPrice.toStringAsFixed(2)}',
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.tertiary,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-            ],
-          ),
           ExpansionPanelList(
             elevation: 0,
             expansionCallback: (int index, bool isExpanded) {
@@ -69,11 +50,6 @@ class CartSummaryState extends State<CartSummary> {
                 headerBuilder: (BuildContext context, bool isExpanded) {
                   return ListTile(
                     contentPadding: EdgeInsets.zero,
-                    leading: Icon(
-                      Icons.shopping_basket_rounded,
-                      size: uiConstants.iconRadiusLarge,
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
                     title: Text(
                       'Sua sacola',
                       style: Theme.of(context).textTheme.labelMedium?.copyWith(
@@ -85,7 +61,7 @@ class CartSummaryState extends State<CartSummary> {
                   );
                 },
                 body: ListView.builder(
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.only(bottom: uiConstants.paddingMedium),
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: productCart.productsGruppedByProductId.length,
@@ -167,8 +143,59 @@ class CartSummaryState extends State<CartSummary> {
               ),
             ],
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                Icons.shopping_basket_rounded,
+                size: uiConstants.iconRadiusLarge,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+              SizedBox(width: uiConstants.paddingMedium),
+              Text(
+                'Valor dos produtos',
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.tertiary,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const Spacer(),
+              Text(
+                'R\$ ${productCart.totalPrice.toStringAsFixed(2)}',
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.tertiary,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
+          ),
+          _buildDeliveryFeeComponent(context),
         ],
       );
     });
+  }
+
+  Widget _buildDeliveryFeeComponent(BuildContext context) {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      leading: Icon(
+        Icons.delivery_dining_rounded,
+        size: uiConstants.iconRadiusLarge,
+      ),
+      title: Text(
+        'Taxa do entregador',
+        style: Theme.of(context).listTileTheme.titleTextStyle?.copyWith(
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold,
+            ),
+      ),
+      trailing: Text(
+        'R\$ 5,00',
+        style: Theme.of(context).textTheme.labelMedium?.copyWith(
+              color: Theme.of(context).colorScheme.tertiary,
+              fontWeight: FontWeight.bold,
+            ),
+      ),
+    );
   }
 }
