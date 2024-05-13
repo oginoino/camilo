@@ -1,4 +1,5 @@
 import '../../common_libs.dart';
+import '../components/cart_summary.dart';
 
 class CheckoutPage extends StatelessWidget {
   const CheckoutPage({super.key});
@@ -44,13 +45,14 @@ class CheckoutPage extends StatelessWidget {
       padding: EdgeInsets.all(uiConstants.paddingMedium),
       sliver: SliverList.list(
         children: [
-          buildAddressComponent(context),
+          _buildAddressComponent(context),
+          const CartSummary(),
         ],
       ),
     );
   }
 
-  Widget buildAddressComponent(BuildContext context) {
+  Widget _buildAddressComponent(BuildContext context) {
     return Consumer<Session>(builder: (context, session, child) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,12 +68,7 @@ class CheckoutPage extends StatelessWidget {
           ),
           SizedBox(height: uiConstants.paddingSmall),
           if (session.selectedAddress == null)
-            ElevatedButton(
-              onPressed: () {
-                _updateAddress(context);
-              },
-              child: const Text('Adicionar endereço'),
-            )
+            const AddressBar()
           else
             ListTile(
               contentPadding: EdgeInsets.zero,
@@ -89,7 +86,7 @@ class CheckoutPage extends StatelessWidget {
               trailing: IconButton(
                 visualDensity: VisualDensity.compact,
                 icon: Icon(
-                  Icons.keyboard_arrow_down_rounded,
+                  Icons.arrow_drop_down_rounded,
                   size: uiConstants.iconRadiusLarge,
                 ),
                 onPressed: () {
