@@ -46,7 +46,9 @@ class CheckoutPage extends StatelessWidget {
       sliver: SliverList.list(
         children: [
           _buildAddressComponent(context),
+          const Divider(),
           const CartSummary(),
+          const Divider(),
         ],
       ),
     );
