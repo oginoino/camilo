@@ -122,7 +122,8 @@ class CheckoutPage extends StatelessWidget {
 
   Widget _buildDeliveryTimeComponent(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: uiConstants.paddingMedium),
+      padding: EdgeInsets.only(
+          bottom: uiConstants.paddingSmall, top: uiConstants.paddingLarge),
       child: const CustomTopBoxAdapter(),
     );
   }
