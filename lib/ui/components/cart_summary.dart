@@ -8,7 +8,7 @@ class CartSummary extends StatefulWidget {
 }
 
 class CartSummaryState extends State<CartSummary> {
-  bool _isExpanded = true;
+  bool _isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class CartSummaryState extends State<CartSummary> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Valor do carrinho',
+                'Valor dos produtos',
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,

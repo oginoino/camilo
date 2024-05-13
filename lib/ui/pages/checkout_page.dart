@@ -51,6 +51,8 @@ class CheckoutPage extends StatelessWidget {
           const Divider(),
           const CartSummary(),
           const Divider(),
+          _buildTotalPriceComponent(context),
+          const Divider(),
         ],
       ),
     );
@@ -149,5 +151,44 @@ class CheckoutPage extends StatelessWidget {
             ),
       ),
     );
+  }
+
+  Widget _buildTotalPriceComponent(BuildContext context) {
+    return Consumer<ProductCart>(builder: (context, productCart, child) {
+      return Column(
+        children: [
+          SizedBox(height: uiConstants.paddingSmall),
+          Text(
+            'Valor total do pedido',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.only(top: uiConstants.paddingMedium),
+            leading: Icon(
+              Icons.receipt_rounded,
+              size: uiConstants.iconRadiusLarge,
+            ),
+            title: Text(
+              'Total do pedido',
+              style: Theme.of(context).listTileTheme.titleTextStyle?.copyWith(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            trailing: Text(
+              'R\$ ${(productCart.totalPrice + 5).toStringAsFixed(2)}',
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }
