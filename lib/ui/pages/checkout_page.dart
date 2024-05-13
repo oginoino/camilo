@@ -146,7 +146,7 @@ class CheckoutPage extends StatelessWidget {
       trailing: Text(
         'R\$ 5,00',
         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).colorScheme.tertiary,
               fontWeight: FontWeight.bold,
             ),
       ),
@@ -157,7 +157,7 @@ class CheckoutPage extends StatelessWidget {
     return Consumer<ProductCart>(builder: (context, productCart, child) {
       return Column(
         children: [
-          SizedBox(height: uiConstants.paddingSmall),
+          SizedBox(height: uiConstants.paddingLarge),
           Text(
             'Valor total do pedido',
             textAlign: TextAlign.center,
@@ -175,13 +175,13 @@ class CheckoutPage extends StatelessWidget {
             title: Text(
               'Total do pedido',
               style: Theme.of(context).listTileTheme.titleTextStyle?.copyWith(
-                    fontSize: 14.0,
+                    fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
             ),
             trailing: Text(
               'R\$ ${(productCart.totalPrice + 5).toStringAsFixed(2)}',
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context).colorScheme.secondary,
                     fontWeight: FontWeight.bold,
                   ),
