@@ -1,27 +1,27 @@
 import '../common_libs.dart';
 
 class Checkout with ChangeNotifier {
-  ProductCart? _productCart;
-  Address? _address;
-  double? _deliveryTime;
-  double? _deliveryFee;
-  String? _promotionCode;
-  double? _promotionDiscount;
-  double? _discountPrice;
-  double? _checkoutPrice;
-  Payment? _payment;
+  ProductCart? productCart;
+  Address? address;
+  double? deliveryTime;
+  double? deliveryFee;
+  String? promotionCode;
+  double? promotionDiscount;
+  double? discountPrice;
+  double? checkoutPrice;
+  Payment? payment;
 
-  ProductCart get productCart => _productCart!;
-  Address get address => _address!;
-  double get deliveryTime => _deliveryTime!;
-  double get deliveryFee => _deliveryFee!;
-  String get promotionCode => _promotionCode!;
-  double get promotionDiscount => _promotionDiscount!;
-  double get discountPrice => _discountPrice!;
-  double get checkoutPrice => _checkoutPrice!;
-  Payment get payment => _payment!;
-
-  Checkout get checkout => this;
+  Checkout({
+    this.address,
+    this.deliveryTime,
+    this.deliveryFee,
+    this.promotionCode,
+    this.promotionDiscount,
+    this.discountPrice,
+    this.checkoutPrice,
+    this.payment,
+    this.productCart,
+  });
 
   @override
   String toString() {
@@ -29,12 +29,12 @@ class Checkout with ChangeNotifier {
   }
 
   void setPromotionCode(String promotionCode) {
-    _promotionCode = promotionCode;
+    promotionCode = promotionCode;
     notifyListeners();
   }
 
   void setPromotionDiscount(double promotionDiscount) {
-    _promotionDiscount = promotionDiscount;
+    promotionDiscount = promotionDiscount;
     notifyListeners();
   }
 }
