@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'common_libs.dart';
 import 'firebase_options.dart';
+import 'models/checkout.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => inputValidators),
         ChangeNotifierProvider(create: (_) => mapsApiService),
         ChangeNotifierProvider(create: (_) => categorySelection),
+        ChangeNotifierProvider(create: (_) => checkout),
       ],
       child: const CamiloApp(),
     ),
@@ -57,6 +59,7 @@ void registerSingletons() {
   GetIt.I.registerLazySingleton<AppLogic>(() => AppLogic());
   GetIt.I.registerLazySingleton<MapsService>(() => MapsService());
   GetIt.I.registerLazySingleton<CategorySelection>(() => CategorySelection());
+  GetIt.I.registerLazySingleton<Checkout>(() => Checkout());
 }
 
 UiConstants get uiConstants => GetIt.I<UiConstants>();
@@ -68,3 +71,4 @@ InputValidators get inputValidators => GetIt.I<InputValidators>();
 AppLogic get appLogic => GetIt.I<AppLogic>();
 MapsService get mapsApiService => GetIt.I<MapsService>();
 CategorySelection get categorySelection => GetIt.I<CategorySelection>();
+Checkout get checkout => GetIt.I<Checkout>();
