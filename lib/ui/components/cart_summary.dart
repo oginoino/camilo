@@ -33,7 +33,7 @@ class CartSummaryState extends State<CartSummary> {
                 ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: uiConstants.paddingLarge),
+          SizedBox(height: uiConstants.paddingMedium),
           ExpansionPanelList(
             elevation: 0,
             expansionCallback: (int index, bool isExpanded) {

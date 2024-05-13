@@ -269,4 +269,14 @@ ThemeData lightTheme = ThemeData(
       ),
     ),
   ),
+  expansionTileTheme: ExpansionTileThemeData(
+    iconColor: uiConstants.primaryLight,
+    backgroundColor: uiConstants.backgroundLight,
+    collapsedBackgroundColor: uiConstants.backgroundLight,
+    textColor: uiConstants.tertiaryLight,
+    collapsedTextColor: uiConstants.tertiaryLight,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
+  ),
 );
