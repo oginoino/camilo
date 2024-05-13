@@ -9,16 +9,7 @@ class CheckoutPage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           _buildSliverAppBar(context),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.all(uiConstants.paddingMedium),
-              child: const Column(
-                children: [
-                  Text('Checkout page'),
-                ],
-              ),
-            ),
-          ),
+          _buildCheckoutBody(context),
         ],
       ),
     );
@@ -26,10 +17,10 @@ class CheckoutPage extends StatelessWidget {
 
   SliverAppBar _buildSliverAppBar(BuildContext context) {
     const double expandedTitleScale = 1.1;
-    const double collapsedHeight = 108.0;
-    const double expandedHeight = 100.0;
+    const double collapsedHeight = 60.0;
+    const double expandedHeight = 60.0;
     return SliverAppBar(
-      title: const Text('Seu carrinho'),
+      title: const Text('Checkout do pedido'),
       leading: BackButton(
         onPressed: () {
           appRouter.go(ScreenPaths.cart);
@@ -46,5 +37,85 @@ class CheckoutPage extends StatelessWidget {
         titlePadding: EdgeInsets.zero,
       ),
     );
+  }
+
+  SliverPadding _buildCheckoutBody(BuildContext context) {
+    return SliverPadding(
+      padding: EdgeInsets.all(uiConstants.paddingMedium),
+      sliver: SliverList.list(
+        children: [
+          buildAddressComponent(context),
+        ],
+      ),
+    );
+  }
+
+  Widget buildAddressComponent(BuildContext context) {
+    return Consumer<Session>(builder: (context, session, child) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(
+            'Endereço de entrega',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          SizedBox(height: uiConstants.paddingSmall),
+          if (session.selectedAddress == null)
+            ElevatedButton(
+              onPressed: () {
+                _updateAddress(context);
+              },
+              child: const Text('Adicionar endereço'),
+            )
+          else
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: Icon(
+                Icons.location_on,
+                size: uiConstants.iconRadiusLarge,
+              ),
+              title: Text(
+                session.selectedAddress!.description,
+                style: Theme.of(context).listTileTheme.titleTextStyle?.copyWith(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              trailing: IconButton(
+                visualDensity: VisualDensity.compact,
+                icon: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  size: uiConstants.iconRadiusLarge,
+                ),
+                onPressed: () {
+                  _updateAddress(context);
+                },
+              ),
+            ),
+        ],
+      );
+    });
+  }
+
+  void _updateAddress(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isDismissible: true,
+      useSafeArea: true,
+      useRootNavigator: true,
+      showDragHandle: true,
+      isScrollControlled: true,
+      enableDrag: true,
+      builder: (context) {
+        return const SearchAddressBottomSheet();
+      },
+    ).whenComplete(() {
+      appRouter.go(ScreenPaths.checkout);
+    });
   }
 }
