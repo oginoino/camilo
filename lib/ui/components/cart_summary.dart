@@ -26,7 +26,7 @@ class CartSummaryState extends State<CartSummary> {
         children: [
           SizedBox(height: uiConstants.paddingLarge),
           Text(
-            'Resumo do pedido',
+            'Resumo do carrinho',
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: Theme.of(context).colorScheme.secondary,
                   fontWeight: FontWeight.bold,
