@@ -8,7 +8,7 @@ class CartSummary extends StatefulWidget {
 }
 
 class CartSummaryState extends State<CartSummary> {
-  bool _isExpanded = false;
+  bool _isExpanded = true;
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +48,13 @@ class CartSummaryState extends State<CartSummary> {
                 headerBuilder: (BuildContext context, bool isExpanded) {
                   return ListTile(
                     contentPadding: EdgeInsets.zero,
+                    leading: Icon(
+                      Icons.shopping_basket_rounded,
+                      size: uiConstants.iconRadiusLarge,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
                     title: Text(
-                      'Itens do pedido',
+                      'Sua sacola',
                       style: Theme.of(context).textTheme.labelMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Nunito',

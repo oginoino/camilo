@@ -46,6 +46,8 @@ class CheckoutPage extends StatelessWidget {
       sliver: SliverList.list(
         children: [
           _buildAddressComponent(context),
+          _buildDeliveryTimeComponent(context),
+          _buildDeliveryFeeComponent(context),
           const Divider(),
           const CartSummary(),
           const Divider(),
@@ -116,5 +118,36 @@ class CheckoutPage extends StatelessWidget {
     ).whenComplete(() {
       appRouter.go(ScreenPaths.checkout);
     });
+  }
+
+  Widget _buildDeliveryTimeComponent(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: uiConstants.paddingMedium),
+      child: const CustomTopBoxAdapter(),
+    );
+  }
+
+  Widget _buildDeliveryFeeComponent(BuildContext context) {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      leading: Icon(
+        Icons.delivery_dining_rounded,
+        size: uiConstants.iconRadiusLarge,
+      ),
+      title: Text(
+        'Taxa de entrega',
+        style: Theme.of(context).listTileTheme.titleTextStyle?.copyWith(
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold,
+            ),
+      ),
+      trailing: Text(
+        'R\$ 5,00',
+        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: Theme.of(context).colorScheme.secondary,
+              fontWeight: FontWeight.bold,
+            ),
+      ),
+    );
   }
 }
