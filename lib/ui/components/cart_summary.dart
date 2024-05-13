@@ -22,7 +22,7 @@ class CartSummaryState extends State<CartSummary> {
       child,
     ) {
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: uiConstants.paddingLarge),
           Text(
@@ -31,6 +31,27 @@ class CartSummaryState extends State<CartSummary> {
                   color: Theme.of(context).colorScheme.secondary,
                   fontWeight: FontWeight.bold,
                 ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: uiConstants.paddingLarge),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Valor do carrinho',
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              Text(
+                'R\$ ${productCart.totalPrice.toStringAsFixed(2)}',
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
           ),
           ExpansionPanelList(
             elevation: 0,
@@ -143,25 +164,6 @@ class CartSummaryState extends State<CartSummary> {
                   },
                 ),
                 isExpanded: _isExpanded,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Total',
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              Text(
-                'R\$ ${productCart.totalPrice.toStringAsFixed(2)}',
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontWeight: FontWeight.bold,
-                    ),
               ),
             ],
           ),

@@ -63,7 +63,7 @@ class CheckoutPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            'Endereço de entrega',
+            'Confirme o endereço de entrega',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: Theme.of(context).colorScheme.secondary,
@@ -135,7 +135,7 @@ class CheckoutPage extends StatelessWidget {
         size: uiConstants.iconRadiusLarge,
       ),
       title: Text(
-        'Taxa de entrega',
+        'Taxa do entregador',
         style: Theme.of(context).listTileTheme.titleTextStyle?.copyWith(
               fontSize: 14.0,
               fontWeight: FontWeight.bold,
