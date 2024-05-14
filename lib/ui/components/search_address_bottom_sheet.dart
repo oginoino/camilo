@@ -280,21 +280,17 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                       address.description,
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
-                    leading: Padding(
-                      padding:
-                          EdgeInsets.only(bottom: uiConstants.paddingMedium),
-                      child: Radio(
-                        value: index,
-                        groupValue: _selectedAddressIndex,
-                        onChanged: (int? selected) {
-                          setState(() {
-                            if (selected != null) {
-                              _selectedAddressIndex = selected;
-                              session.selectAddress(address);
-                            }
-                          });
-                        },
-                      ),
+                    leading: Radio(
+                      value: index,
+                      groupValue: _selectedAddressIndex,
+                      onChanged: (int? selected) {
+                        setState(() {
+                          if (selected != null) {
+                            _selectedAddressIndex = selected;
+                            session.selectAddress(address);
+                          }
+                        });
+                      },
                     ),
                     onTap: () {
                       setState(() {
