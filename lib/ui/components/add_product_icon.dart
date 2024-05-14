@@ -34,7 +34,7 @@ class _AddProductIconState extends State<AddProductIcon> {
           tooltip: 'Adicionar ou remover',
           icon: selectedQuantityByProductId == 0
               ? CircleAvatar(
-                  backgroundColor: Theme.of(context).colorScheme.background,
+                  backgroundColor: Theme.of(context).colorScheme.surface,
                   radius: widget.iconRadius,
                   child: Icon(
                     Icons.add_circle_rounded,
@@ -48,7 +48,7 @@ class _AddProductIconState extends State<AddProductIcon> {
                   child: Text(
                     selectedQuantityByProductId.toString(),
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.background,
+                          color: Theme.of(context).colorScheme.surface,
                           fontWeight: FontWeight.bold,
                           fontSize: widget.iconFontSize,
                         ),
@@ -149,7 +149,7 @@ class _AddProductIconState extends State<AddProductIcon> {
                               : selectedQuantityByProductId == 1
                                   ? Icons.delete
                                   : Icons.remove_rounded,
-                          color: Theme.of(context).colorScheme.background,
+                          color: Theme.of(context).colorScheme.surface,
                         )),
                   ),
                   Container(
@@ -168,7 +168,7 @@ class _AddProductIconState extends State<AddProductIcon> {
                     child: Text(
                       selectedQuantityByProductId.toString(),
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.background,
+                            color: Theme.of(context).colorScheme.surface,
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
@@ -191,7 +191,7 @@ class _AddProductIconState extends State<AddProductIcon> {
                         color: widget.product.availableQuantity <=
                                 selectedQuantityByProductId
                             ? Colors.transparent
-                            : Theme.of(context).colorScheme.background,
+                            : Theme.of(context).colorScheme.surface,
                       ),
                     ),
                   )

@@ -88,48 +88,49 @@ class CategoryNavItemMobile extends StatelessWidget {
         child: TextButton(
           onPressed: onTap,
           style: ButtonStyle(
-            padding: MaterialStateProperty.all(
+            padding: WidgetStateProperty.all(
               EdgeInsets.symmetric(
                 horizontal: uiConstants.paddingMedium,
+                vertical: uiConstants.paddingExtraSmall,
               ),
             ),
-            overlayColor: MaterialStateProperty.all(
+            overlayColor: WidgetStateProperty.all(
               uiConstants.cyanGreen,
             ),
-            foregroundColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
+            foregroundColor: WidgetStateProperty.resolveWith<Color>(
+              (Set<WidgetState> states) {
                 if (isSelected ||
-                    states.contains(MaterialState.hovered) ||
-                    states.contains(MaterialState.focused) ||
-                    states.contains(MaterialState.pressed)) {
+                    states.contains(WidgetState.hovered) ||
+                    states.contains(WidgetState.focused) ||
+                    states.contains(WidgetState.pressed)) {
                   return uiConstants.backgroundLight;
                 }
                 return uiConstants.primaryLight;
               },
             ),
-            side: MaterialStateProperty.all(
+            side: WidgetStateProperty.all(
               BorderSide(
                 color: uiConstants.primaryLight,
                 width: 1.0,
               ),
             ),
-            textStyle: MaterialStateProperty.all(
+            textStyle: WidgetStateProperty.all(
               Theme.of(context).textTheme.labelMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
             ),
-            backgroundColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
+            backgroundColor: WidgetStateProperty.resolveWith<Color>(
+              (Set<WidgetState> states) {
                 if (isSelected ||
-                    states.contains(MaterialState.hovered) ||
-                    states.contains(MaterialState.focused) ||
-                    states.contains(MaterialState.pressed)) {
+                    states.contains(WidgetState.hovered) ||
+                    states.contains(WidgetState.focused) ||
+                    states.contains(WidgetState.pressed)) {
                   return uiConstants.primaryLight;
                 }
                 return uiConstants.backgroundLight;
               },
             ),
-            shape: MaterialStateProperty.all(
+            shape: WidgetStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
                   uiConstants.borderRadiusMedium,

@@ -81,15 +81,15 @@ class CustomSearchProductsBarState extends State<CustomSearchProductsBar> {
                 ),
               ]
             : null,
-        elevation: MaterialStateProperty.all(value),
-        backgroundColor: MaterialStateProperty.all(Colors.white),
+        elevation: WidgetStateProperty.all(value),
+        backgroundColor: WidgetStateProperty.all(Colors.white),
         constraints: const BoxConstraints(
           minHeight: minHeight,
           maxHeight: maxHeight,
           maxWidth: double.infinity,
           minWidth: double.infinity,
         ),
-        textStyle: MaterialStateProperty.all(
+        textStyle: WidgetStateProperty.all(
           Theme.of(context).textTheme.labelMedium,
         ),
         onChanged: (value) {

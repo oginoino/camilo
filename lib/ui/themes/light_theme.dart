@@ -11,10 +11,9 @@ ThemeData lightTheme = ThemeData(
     secondaryContainer: uiConstants.secondaryContainerLight,
     onSecondary: uiConstants.onSecondaryLight,
     tertiary: uiConstants.tertiaryLight,
-    background: uiConstants.backgroundLight,
-    onBackground: uiConstants.onBackgroundLight,
+    surface: uiConstants.backgroundLight,
+    onSurface: uiConstants.onBackgroundLight,
     error: uiConstants.errorLight,
-    surface: uiConstants.surfaceLight,
   ),
   textTheme: TextTheme(
     displayLarge: TextStyle(
@@ -155,15 +154,14 @@ ThemeData lightTheme = ThemeData(
   ),
   filledButtonTheme: FilledButtonThemeData(
     style: ButtonStyle(
-      elevation: MaterialStateProperty.all<double>(1),
-      fixedSize: MaterialStateProperty.all<Size>(const Size.fromHeight(56)),
-      maximumSize: MaterialStateProperty.all<Size>(const Size.fromHeight(56)),
-      minimumSize: MaterialStateProperty.all<Size>(const Size.fromHeight(56)),
-      backgroundColor:
-          MaterialStateProperty.all<Color>(uiConstants.primaryLight),
+      elevation: WidgetStateProperty.all<double>(1),
+      fixedSize: WidgetStateProperty.all<Size>(const Size.fromHeight(56)),
+      maximumSize: WidgetStateProperty.all<Size>(const Size.fromHeight(56)),
+      minimumSize: WidgetStateProperty.all<Size>(const Size.fromHeight(56)),
+      backgroundColor: WidgetStateProperty.all<Color>(uiConstants.primaryLight),
       foregroundColor:
-          MaterialStateProperty.all<Color>(uiConstants.onPrimaryLight),
-      textStyle: MaterialStateProperty.all<TextStyle>(
+          WidgetStateProperty.all<Color>(uiConstants.onPrimaryLight),
+      textStyle: WidgetStateProperty.all<TextStyle>(
         TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -172,6 +170,7 @@ ThemeData lightTheme = ThemeData(
       ),
     ),
   ),
+  scaffoldBackgroundColor: uiConstants.backgroundLight,
   appBarTheme: AppBarTheme(
     color: uiConstants.backgroundLight,
     centerTitle: true,
@@ -253,15 +252,15 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
   searchBarTheme: SearchBarThemeData(
-    elevation: MaterialStateProperty.all(2.0),
-    backgroundColor: MaterialStateProperty.all(Colors.white),
+    elevation: WidgetStateProperty.all(2.0),
+    backgroundColor: WidgetStateProperty.all(Colors.white),
     constraints: const BoxConstraints(
       minHeight: 48,
       maxHeight: 48,
       maxWidth: double.infinity,
       minWidth: double.infinity,
     ),
-    textStyle: MaterialStateProperty.all(
+    textStyle: WidgetStateProperty.all(
       TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.normal,

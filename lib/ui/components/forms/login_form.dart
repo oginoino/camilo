@@ -132,7 +132,7 @@ class LoginFormState extends State<LoginForm> {
                 Text(
                   helperRegisterButtonText,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                   textAlign: TextAlign.center,
                 ),
