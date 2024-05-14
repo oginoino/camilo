@@ -173,7 +173,7 @@ class RegisterFormState extends State<RegisterForm> {
                 Text(
                   helperTerms,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                   textAlign: TextAlign.center,
                 ),
@@ -207,7 +207,7 @@ class RegisterFormState extends State<RegisterForm> {
                     Text(
                       helperLogin,
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.onBackground,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                       textAlign: TextAlign.center,
                     ),

@@ -100,7 +100,7 @@ class ForgotPasswordFormState extends State<ForgotPasswordForm> {
                 Text(
                   helperPassword,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.onBackground,
+                        color: Theme.of(context).colorScheme.onSurface,
                         fontWeight: FontWeight.w600,
                       ),
                   textAlign: TextAlign.center,
@@ -124,7 +124,7 @@ class ForgotPasswordFormState extends State<ForgotPasswordForm> {
                   child: Text(
                     helperPasswordButtonText,
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.onBackground,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                     textAlign: TextAlign.center,
                   ),
@@ -136,7 +136,7 @@ class ForgotPasswordFormState extends State<ForgotPasswordForm> {
                     Text(
                       helperLogin,
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.onBackground,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                       textAlign: TextAlign.center,
                     ),

@@ -19,7 +19,7 @@ class _ProductCardState extends State<ProductCard> {
     const double cardTextBoxHeight = 100;
 
     return Card(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
       elevation: cardElevation,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(uiConstants.paddingMedium),

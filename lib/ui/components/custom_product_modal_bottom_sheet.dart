@@ -19,7 +19,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
               Container(
                 height: 200,
                 width: 360,
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.surface,
                 child:
                     Image.network(product.productImageSrc!, fit: BoxFit.contain,
                         errorBuilder: (context, error, stackTrace) {
@@ -153,7 +153,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                                 : Icons.remove_rounded,
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .background,
+                                            .surface,
                                       ),
                                       SizedBox(
                                           width: uiConstants.paddingExtraSmall),
@@ -169,7 +169,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                             ?.copyWith(
                                               color: Theme.of(context)
                                                   .colorScheme
-                                                  .background,
+                                                  .surface,
                                               fontWeight: FontWeight.bold,
                                             ),
                                         textAlign: TextAlign.center,
@@ -198,9 +198,8 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                     .textTheme
                                     .bodyMedium
                                     ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background,
+                                      color:
+                                          Theme.of(context).colorScheme.surface,
                                       fontWeight: FontWeight.bold,
                                     ),
                                 textAlign: TextAlign.center,
@@ -231,7 +230,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                           ?.copyWith(
                                             color: Theme.of(context)
                                                 .colorScheme
-                                                .background,
+                                                .surface,
                                             fontWeight: FontWeight.bold,
                                           ),
                                       textAlign: TextAlign.center,
@@ -246,7 +245,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                             Icons.add_rounded,
                                             color: Theme.of(context)
                                                 .colorScheme
-                                                .background,
+                                                .surface,
                                           ),
                                   ],
                                 ),
