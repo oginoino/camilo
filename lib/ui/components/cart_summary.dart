@@ -46,7 +46,7 @@ class CartSummaryState extends State<CartSummary> {
             expandedHeaderPadding: EdgeInsets.zero,
             children: [
               ExpansionPanel(
-                backgroundColor: Theme.of(context).colorScheme.background,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 canTapOnHeader: false,
                 headerBuilder: (BuildContext context, bool isExpanded) {
                   return ListTile(
@@ -83,7 +83,7 @@ class CartSummaryState extends State<CartSummary> {
                     ),
                     enableFeedback: false,
                     style: ListTileStyle.drawer,
-                    splashColor: Theme.of(context).colorScheme.background,
+                    splashColor: Theme.of(context).colorScheme.surface,
                   );
                 },
                 body: ListView.builder(

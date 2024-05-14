@@ -55,7 +55,7 @@ class CartPage extends StatelessWidget {
         child: ElevatedButton.icon(
           style: ElevatedButton.styleFrom(
             visualDensity: VisualDensity.comfortable,
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             elevation: 0.0,
           ),
           onPressed: () {
@@ -242,8 +242,8 @@ class CartPage extends StatelessWidget {
         children: [
           IconButton(
             style: ButtonStyle(
-              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                  EdgeInsets.zero),
+              padding:
+                  WidgetStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero),
               visualDensity: VisualDensity.compact,
             ),
             icon: Icon(
@@ -262,8 +262,8 @@ class CartPage extends StatelessWidget {
           ),
           IconButton(
             style: ButtonStyle(
-              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                  EdgeInsets.zero),
+              padding:
+                  WidgetStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero),
               visualDensity: VisualDensity.compact,
             ),
             icon: const Icon(Icons.add_rounded),
@@ -313,7 +313,7 @@ class CartPage extends StatelessWidget {
       child: FilledButton.icon(
         style: ElevatedButton.styleFrom(
           backgroundColor: cart.isMinimumOrder
-              ? Theme.of(context).colorScheme.background
+              ? Theme.of(context).colorScheme.surface
               : Theme.of(context).colorScheme.primary,
         ),
         onPressed: () => appRouter.go(ScreenPaths.home),
@@ -324,7 +324,7 @@ class CartPage extends StatelessWidget {
           style: TextStyle(
             color: cart.isMinimumOrder
                 ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.background,
+                : Theme.of(context).colorScheme.surface,
           ),
           textAlign: TextAlign.center,
         ),
@@ -332,7 +332,7 @@ class CartPage extends StatelessWidget {
           Icons.add_shopping_cart_rounded,
           color: cart.isMinimumOrder
               ? Theme.of(context).colorScheme.primary
-              : Theme.of(context).colorScheme.background,
+              : Theme.of(context).colorScheme.surface,
           size: uiConstants.iconSizeMedium,
         ),
       ),
