@@ -14,7 +14,7 @@ class Checkout with ChangeNotifier {
   Payment? get payment => _payment;
   UserData get payer => _payer;
 
-  String? get checkoutPrice =>
+  String get checkoutPrice =>
       (_productCart!.totalPrice + _deliveryFee).toStringAsFixed(2);
 
   @override

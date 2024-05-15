@@ -1,5 +1,4 @@
 import 'package:camilo/models/checkout.dart';
-
 import '../../common_libs.dart';
 
 enum PaymentMethods {
@@ -35,29 +34,43 @@ class CheckoutPage extends StatefulWidget {
 }
 
 class _CheckoutPageState extends State<CheckoutPage> {
+  late ProductCart _productCart;
+  bool _isInitialized = false;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<Checkout>().setPayer(context.read<Session>().userData);
-      context.read<Checkout>().setProductCart(context.read<ProductCart>());
+      final userData = context.read<Session>().userData;
+      _productCart = context.read<ProductCart>();
+
+      context.read<Checkout>()
+        ..setPayer(userData)
+        ..setProductCart(_productCart);
+
+      setState(() {
+        _isInitialized = true;
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer3<Session, Checkout, ProductCart>(
-        builder: (context, session, checkout, productCart, child) {
-      return Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            _buildSliverAppBar(context),
-            _buildCheckoutBody(context),
-          ],
-        ),
-        bottomNavigationBar: _buildCheckoutBottomNavigationBar(context),
+    if (!_isInitialized) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
       );
-    });
+    }
+
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          _buildSliverAppBar(context),
+          _buildCheckoutBody(context),
+        ],
+      ),
+      bottomNavigationBar: _buildCheckoutBottomNavigationBar(context),
+    );
   }
 
   SliverAppBar _buildSliverAppBar(BuildContext context) {
@@ -167,7 +180,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   Widget _buildTotalPriceComponent(BuildContext context) {
-    return Consumer<ProductCart>(builder: (context, productCart, child) {
+    return Consumer<Checkout>(builder: (context, checkout, child) {
       return ListTile(
         contentPadding: EdgeInsets.zero,
         leading: Icon(
@@ -182,7 +195,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               ),
         ),
         trailing: Text(
-          'R\$ ${(productCart.totalPrice + 5).toStringAsFixed(2)}',
+          'R\$ ${(checkout.checkoutPrice).toString()}',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.secondary,
                 fontWeight: FontWeight.bold,
