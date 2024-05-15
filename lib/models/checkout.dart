@@ -5,24 +5,21 @@ class Checkout with ChangeNotifier {
   late UserData _payer;
   final double _deliveryTime = 15;
   final double _deliveryFee = 5;
-  double? _checkoutPrice;
   Payment? _payment;
 
   ProductCart? get productCart => _productCart;
-  Address? get address => _payer.selectedAddress;
+  Address? get deliveryAddress => _payer.selectedAddress;
   double get deliveryTime => _deliveryTime;
   double get deliveryFee => _deliveryFee;
   Payment? get payment => _payment;
   UserData get payer => _payer;
 
-  String? get checkoutPrice {
-    _checkoutPrice = _productCart!.totalPrice + _deliveryFee;
-    return _checkoutPrice?.toStringAsFixed(2);
-  }
+  String? get checkoutPrice =>
+      (_productCart!.totalPrice + _deliveryFee).toStringAsFixed(2);
 
   @override
   String toString() {
-    return 'Checkout{productCart: $productCart, address: $address, deliveryTime: $deliveryTime, deliveryFee: $deliveryFee, checkoutPrice: $checkoutPrice, payment: $payment}';
+    return 'Checkout{productCart: $productCart, deliveryAddress: $deliveryAddress, deliveryTime: $deliveryTime, deliveryFee: $deliveryFee, checkoutPrice: $checkoutPrice, payment: $payment}';
   }
 
   void setPayer(UserData? user) {
@@ -32,11 +29,6 @@ class Checkout with ChangeNotifier {
 
   void setProductCart(ProductCart productCart) {
     _productCart = productCart;
-    notifyListeners();
-  }
-
-  void setAddress(Address? selectedAddress) {
-    _payer.selectedAddress = selectedAddress;
     notifyListeners();
   }
 }

@@ -40,9 +40,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<Checkout>().setPayer(context.read<Session>().userData);
-      context
-          .read<Checkout>()
-          .setAddress(context.read<Session>().selectedAddress);
       context.read<Checkout>().setProductCart(context.read<ProductCart>());
     });
   }
@@ -51,9 +48,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
   Widget build(BuildContext context) {
     return Consumer3<Session, Checkout, ProductCart>(
         builder: (context, session, checkout, productCart, child) {
-      checkout.setPayer(session.userData);
-      checkout.setProductCart(productCart);
-      checkout.setAddress(session.selectedAddress);
       return Scaffold(
         body: CustomScrollView(
           slivers: [
@@ -167,6 +161,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         return const SearchAddressBottomSheet();
       },
     ).whenComplete(() {
+      context.read<Checkout>().setPayer(context.read<Session>().userData);
       appRouter.go(ScreenPaths.checkout);
     });
   }
