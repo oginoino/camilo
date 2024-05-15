@@ -146,6 +146,12 @@ export 'ui/components/custom_void_search.dart';
 // categories menu
 export 'ui/components/categories_menu.dart';
 
+// cart summary
+export 'ui/components/cart_summary.dart';
+
+// payment method selector
+export 'ui/components/payment_method_selector.dart';
+
 // forms
 //login form
 export 'ui/components/forms/login_form.dart';
