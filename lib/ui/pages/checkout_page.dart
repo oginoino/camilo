@@ -1,35 +1,67 @@
+import 'package:camilo/models/checkout.dart';
 import '../../common_libs.dart';
 
-enum PaymentMethod {
+enum PaymentMethods {
   pix,
   creditCard,
 }
 
-extension PaymentMethodExtension on PaymentMethod {
+extension PaymentMethodExtension on PaymentMethods {
   String get name {
     switch (this) {
-      case PaymentMethod.pix:
+      case PaymentMethods.pix:
         return 'Pague com PIX';
-      case PaymentMethod.creditCard:
+      case PaymentMethods.creditCard:
         return 'Escolha o cartão de crédito';
     }
   }
 
   IconData get icon {
     switch (this) {
-      case PaymentMethod.pix:
+      case PaymentMethods.pix:
         return Icons.pix_rounded;
-      case PaymentMethod.creditCard:
+      case PaymentMethods.creditCard:
         return Icons.credit_card_rounded;
     }
   }
 }
 
-class CheckoutPage extends StatelessWidget {
+class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});
 
   @override
+  State<CheckoutPage> createState() => _CheckoutPageState();
+}
+
+class _CheckoutPageState extends State<CheckoutPage> {
+  late ProductCart _productCart;
+  bool _isInitialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final userData = context.read<Session>().userData;
+      _productCart = context.read<ProductCart>();
+
+      context.read<Checkout>()
+        ..setPayer(userData)
+        ..setProductCart(_productCart);
+
+      setState(() {
+        _isInitialized = true;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (!_isInitialized) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -134,7 +166,7 @@ class CheckoutPage extends StatelessWidget {
       context: context,
       isDismissible: true,
       useSafeArea: true,
-      useRootNavigator: true,
+      useRootNavigator: false,
       showDragHandle: true,
       isScrollControlled: true,
       enableDrag: true,
@@ -142,12 +174,12 @@ class CheckoutPage extends StatelessWidget {
         return const SearchAddressBottomSheet();
       },
     ).whenComplete(() {
-      appRouter.go(ScreenPaths.checkout);
+      context.read<Checkout>().setPayer(context.read<Session>().userData);
     });
   }
 
   Widget _buildTotalPriceComponent(BuildContext context) {
-    return Consumer<ProductCart>(builder: (context, productCart, child) {
+    return Consumer<Checkout>(builder: (context, checkout, child) {
       return ListTile(
         contentPadding: EdgeInsets.zero,
         leading: Icon(
@@ -162,7 +194,7 @@ class CheckoutPage extends StatelessWidget {
               ),
         ),
         trailing: Text(
-          'R\$ ${(productCart.totalPrice + 5).toStringAsFixed(2)}',
+          'R\$ ${(checkout.checkoutPrice).toString()}',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.secondary,
                 fontWeight: FontWeight.bold,
@@ -173,7 +205,7 @@ class CheckoutPage extends StatelessWidget {
   }
 
   Widget _buildSelectPaymentMethodComponent(BuildContext context) {
-    const paymentMethods = PaymentMethod.values;
+    const paymentMethods = PaymentMethods.values;
     debugPrint('Payment methods: $paymentMethods');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

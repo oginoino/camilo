@@ -1,7 +1,7 @@
 import '../../common_libs.dart';
 
 class PaymentMethodSelector extends StatefulWidget {
-  final List<PaymentMethod> paymentMethods;
+  final List<PaymentMethods> paymentMethods;
   final ValueChanged<int> onSelected;
   final int selectedMethod;
 
