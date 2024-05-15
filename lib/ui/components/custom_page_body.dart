@@ -13,6 +13,7 @@ class CustomPageBody extends StatelessWidget {
           List<String> productCategories = products.categories;
           if (products.products.isNotEmpty) {
             return ListView.builder(
+              padding: EdgeInsets.only(top: uiConstants.paddingMedium),
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: productCategories.length,
