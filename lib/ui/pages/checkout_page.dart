@@ -163,9 +163,9 @@ class CheckoutPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(height: uiConstants.paddingMedium),
+        SizedBox(height: uiConstants.paddingLarge),
         Text(
-          'Método de pagamento',
+          'Selecione a forma de pagamento',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
                 color: Theme.of(context).colorScheme.secondary,
@@ -194,9 +194,9 @@ extension PaymentMethodExtension on PaymentMethod {
   String get name {
     switch (this) {
       case PaymentMethod.pix:
-        return 'Pix';
+        return 'Pague com PIX';
       case PaymentMethod.creditCard:
-        return 'Cartão de crédito';
+        return 'Escolha o cartão de crédito';
     }
   }
 
