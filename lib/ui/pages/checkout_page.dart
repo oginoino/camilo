@@ -76,7 +76,6 @@ class CheckoutPage extends StatelessWidget {
           const Divider(),
           _buildTotalPriceComponent(context),
           _buildSelectPaymentMethodComponent(context),
-          const Divider(),
         ],
       ),
     );
