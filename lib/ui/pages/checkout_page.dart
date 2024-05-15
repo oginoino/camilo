@@ -1,25 +1,25 @@
 import '../../common_libs.dart';
 
-enum PaymentMethod {
+enum PaymentMethods {
   pix,
   creditCard,
 }
 
-extension PaymentMethodExtension on PaymentMethod {
+extension PaymentMethodExtension on PaymentMethods {
   String get name {
     switch (this) {
-      case PaymentMethod.pix:
+      case PaymentMethods.pix:
         return 'Pague com PIX';
-      case PaymentMethod.creditCard:
+      case PaymentMethods.creditCard:
         return 'Escolha o cartão de crédito';
     }
   }
 
   IconData get icon {
     switch (this) {
-      case PaymentMethod.pix:
+      case PaymentMethods.pix:
         return Icons.pix_rounded;
-      case PaymentMethod.creditCard:
+      case PaymentMethods.creditCard:
         return Icons.credit_card_rounded;
     }
   }
@@ -173,7 +173,7 @@ class CheckoutPage extends StatelessWidget {
   }
 
   Widget _buildSelectPaymentMethodComponent(BuildContext context) {
-    const paymentMethods = PaymentMethod.values;
+    const paymentMethods = PaymentMethods.values;
     debugPrint('Payment methods: $paymentMethods');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
