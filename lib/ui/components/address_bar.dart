@@ -21,7 +21,7 @@ class _AddressBarState extends State<AddressBar> {
             context: context,
             isDismissible: true,
             useSafeArea: true,
-            useRootNavigator: true,
+            useRootNavigator: false,
             showDragHandle: true,
             isScrollControlled: true,
             enableDrag: true,
