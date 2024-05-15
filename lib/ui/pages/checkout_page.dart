@@ -166,7 +166,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
       context: context,
       isDismissible: true,
       useSafeArea: true,
-      useRootNavigator: true,
+      useRootNavigator: false,
       showDragHandle: true,
       isScrollControlled: true,
       enableDrag: true,
@@ -175,7 +175,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
       },
     ).whenComplete(() {
       context.read<Checkout>().setPayer(context.read<Session>().userData);
-      appRouter.go(ScreenPaths.checkout);
     });
   }
 
