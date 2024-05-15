@@ -165,7 +165,7 @@ class CheckoutPage extends StatelessWidget {
       children: [
         SizedBox(height: uiConstants.paddingLarge),
         Text(
-          'Selecione a forma de pagamento',
+          'Escolha como pagar',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
                 color: Theme.of(context).colorScheme.secondary,
