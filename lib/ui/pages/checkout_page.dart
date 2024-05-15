@@ -71,13 +71,11 @@ class CheckoutPage extends StatelessWidget {
       sliver: SliverList.list(
         children: [
           _buildAddressComponent(context),
-          _buildDeliveryTimeComponent(context),
           const Divider(),
           const CartSummary(),
           const Divider(),
           _buildTotalPriceComponent(context),
           _buildSelectPaymentMethodComponent(context),
-          const Divider(),
         ],
       ),
     );
@@ -125,6 +123,7 @@ class CheckoutPage extends StatelessWidget {
                 },
               ),
             ),
+          SizedBox(height: uiConstants.paddingSmall),
         ],
       );
     });
@@ -145,14 +144,6 @@ class CheckoutPage extends StatelessWidget {
     ).whenComplete(() {
       appRouter.go(ScreenPaths.checkout);
     });
-  }
-
-  Widget _buildDeliveryTimeComponent(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-          bottom: uiConstants.paddingSmall, top: uiConstants.paddingLarge),
-      child: const CustomTopBoxAdapter(),
-    );
   }
 
   Widget _buildTotalPriceComponent(BuildContext context) {
