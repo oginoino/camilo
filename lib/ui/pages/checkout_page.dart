@@ -13,6 +13,7 @@ class CheckoutPage extends StatelessWidget {
           _buildCheckoutBody(context),
         ],
       ),
+      bottomNavigationBar: _buildCheckoutBottomNavigationBar(context),
     );
   }
 
@@ -181,6 +182,57 @@ class CheckoutPage extends StatelessWidget {
               );
             }),
       ],
+    );
+  }
+
+  Widget _buildCheckoutBottomNavigationBar(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: uiConstants.paddingMedium),
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: Theme.of(context).colorScheme.tertiary.withOpacity(0.3),
+            width: uiConstants.borderSideWidthMedium,
+          ),
+        ),
+      ),
+      height: uiConstants.bottomNavigationBarHeight,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              visualDensity: VisualDensity.standard,
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              padding: EdgeInsets.symmetric(
+                horizontal: uiConstants.paddingMedium,
+                vertical: uiConstants.paddingMedium,
+              ),
+              elevation: 2,
+              maximumSize: const Size(
+                180,
+                72,
+              ),
+            ),
+            onPressed: () {},
+            icon: Icon(
+              Icons.done_rounded,
+              size: uiConstants.iconSizeMedium,
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
+            label: FittedBox(
+              child: Text(
+                'Finalizar pedido',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
