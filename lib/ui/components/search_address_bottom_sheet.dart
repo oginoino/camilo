@@ -174,6 +174,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                   ),
                 ),
               ListView.builder(
+                padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 itemCount: mapsApiService.predictions.predictions.length,
                 itemBuilder: (context, index) {
@@ -264,6 +265,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                 ),
               ),
               ListView.builder(
+                padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 itemCount: session.userData!.addresses!.length,
                 itemBuilder: (context, index) {
