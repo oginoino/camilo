@@ -175,7 +175,7 @@ class CartSummaryState extends State<CartSummary> {
               Icon(
                 Icons.shopping_basket_rounded,
                 size: uiConstants.iconRadiusLarge,
-                color: Theme.of(context).colorScheme.secondary,
+                color: Theme.of(context).colorScheme.primary,
               ),
               SizedBox(width: uiConstants.paddingMedium),
               Text(
