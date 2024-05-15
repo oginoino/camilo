@@ -1,40 +1,29 @@
 import '../common_libs.dart';
 
 class Checkout with ChangeNotifier {
-  ProductCart? productCart;
-  Address? address;
-  double? deliveryTime;
-  double? deliveryFee;
-  String? promotionCode;
-  double? promotionDiscount;
-  double? discountPrice;
-  double? checkoutPrice;
-  Payment? payment;
+  late ProductCart _productCart;
+  late Address _address;
+  late UserData _payer;
+  final double _deliveryTime = 15;
+  final double _deliveryFee = 5;
+  late double _checkoutPrice;
+  Payment? _payment;
 
-  Checkout({
-    this.address,
-    this.deliveryTime,
-    this.deliveryFee,
-    this.promotionCode,
-    this.promotionDiscount,
-    this.discountPrice,
-    this.checkoutPrice,
-    this.payment,
-    this.productCart,
-  });
+  ProductCart get productCart => _productCart;
+  Address? get address => _address;
+  double get deliveryTime => _deliveryTime;
+  double get deliveryFee => _deliveryFee;
+  double get checkoutPrice => _checkoutPrice;
+  Payment? get payment => _payment;
+  UserData get payer => _payer;
 
   @override
   String toString() {
-    return 'Checkout{productCart: $productCart, address: $address, deliveryTime: $deliveryTime, deliveryFee: $deliveryFee, promotionCode: $promotionCode, promotionDiscount: $promotionDiscount, discountPrice: $discountPrice, checkoutPrice: $checkoutPrice, payment: $payment}';
+    return 'Checkout{productCart: $productCart, address: $address, deliveryTime: $deliveryTime, deliveryFee: $deliveryFee, checkoutPrice: $checkoutPrice, payment: $payment}';
   }
 
-  void setPromotionCode(String promotionCode) {
-    promotionCode = promotionCode;
-    notifyListeners();
-  }
-
-  void setPromotionDiscount(double promotionDiscount) {
-    promotionDiscount = promotionDiscount;
+  void setAddress(Address address) {
+    _address = address;
     notifyListeners();
   }
 }
