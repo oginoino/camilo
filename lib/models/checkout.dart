@@ -2,7 +2,6 @@ import '../common_libs.dart';
 
 class Checkout with ChangeNotifier {
   late ProductCart _productCart;
-  late Address _address;
   late UserData _payer;
   final double _deliveryTime = 15;
   final double _deliveryFee = 5;
@@ -10,7 +9,7 @@ class Checkout with ChangeNotifier {
   Payment? _payment;
 
   ProductCart get productCart => _productCart;
-  Address? get address => _address;
+  Address? get address => _payer.selectedAddress;
   double get deliveryTime => _deliveryTime;
   double get deliveryFee => _deliveryFee;
   double get checkoutPrice => _checkoutPrice;
@@ -20,11 +19,6 @@ class Checkout with ChangeNotifier {
   @override
   String toString() {
     return 'Checkout{productCart: $productCart, address: $address, deliveryTime: $deliveryTime, deliveryFee: $deliveryFee, checkoutPrice: $checkoutPrice, payment: $payment}';
-  }
-
-  void setAddress(Address address) {
-    _address = address;
-    notifyListeners();
   }
 }
 
