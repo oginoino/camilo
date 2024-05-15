@@ -51,6 +51,8 @@ class CheckoutPage extends StatelessWidget {
           const CartSummary(),
           const Divider(),
           _buildTotalPriceComponent(context),
+          _buildSelectPaymentMethodComponent(context),
+          const Divider(),
         ],
       ),
     );
@@ -152,5 +154,122 @@ class CheckoutPage extends StatelessWidget {
         ),
       );
     });
+  }
+
+  Widget _buildSelectPaymentMethodComponent(BuildContext context) {
+    const paymentMethods = PaymentMethod.values;
+    debugPrint('Payment methods: $paymentMethods');
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        SizedBox(height: uiConstants.paddingMedium),
+        Text(
+          'Método de pagamento',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: Theme.of(context).colorScheme.secondary,
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        SizedBox(height: uiConstants.paddingMedium),
+        PaymentMethodSelector(
+            paymentMethods: paymentMethods,
+            onSelected: (index) {
+              debugPrint(
+                'Selected payment method: ${paymentMethods[index].name}',
+              );
+            }),
+      ],
+    );
+  }
+}
+
+enum PaymentMethod {
+  pix,
+  creditCard,
+}
+
+extension PaymentMethodExtension on PaymentMethod {
+  String get name {
+    switch (this) {
+      case PaymentMethod.pix:
+        return 'Pix';
+      case PaymentMethod.creditCard:
+        return 'Cartão de crédito';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case PaymentMethod.pix:
+        return Icons.pix_rounded;
+      case PaymentMethod.creditCard:
+        return Icons.credit_card_rounded;
+    }
+  }
+}
+
+class PaymentMethodSelector extends StatefulWidget {
+  final List<PaymentMethod> paymentMethods;
+  final ValueChanged<int> onSelected;
+  final int selectedMethod;
+
+  const PaymentMethodSelector({
+    super.key,
+    required this.paymentMethods,
+    required this.onSelected,
+    this.selectedMethod = 0,
+  });
+
+  @override
+  State<PaymentMethodSelector> createState() => _PaymentMethodSelectorState();
+}
+
+class _PaymentMethodSelectorState extends State<PaymentMethodSelector> {
+  late int _selectedMethod;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedMethod = widget.selectedMethod;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    debugPrint('Selected method: $_selectedMethod');
+    return ListView.builder(
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: widget.paymentMethods.length,
+      itemBuilder: (context, index) {
+        final method = widget.paymentMethods[index];
+        return ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: Icon(
+            method.icon,
+            size: uiConstants.iconRadiusLarge,
+          ),
+          title: Text(
+            method.name,
+            style: Theme.of(context).listTileTheme.titleTextStyle?.copyWith(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          trailing: Radio<int>(
+            value: index,
+            groupValue: _selectedMethod,
+            onChanged: (value) {
+              setState(() {
+                _selectedMethod = value!;
+              });
+              widget.onSelected(_selectedMethod);
+            },
+          ),
+        );
+      },
+    );
   }
 }
