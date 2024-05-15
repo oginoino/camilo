@@ -1,3 +1,5 @@
+import 'package:camilo/models/checkout.dart';
+
 import '../../common_libs.dart';
 
 enum PaymentMethods {
@@ -25,20 +27,43 @@ extension PaymentMethodExtension on PaymentMethods {
   }
 }
 
-class CheckoutPage extends StatelessWidget {
+class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});
 
   @override
+  State<CheckoutPage> createState() => _CheckoutPageState();
+}
+
+class _CheckoutPageState extends State<CheckoutPage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<Checkout>().setPayer(context.read<Session>().userData);
+      context
+          .read<Checkout>()
+          .setAddress(context.read<Session>().selectedAddress);
+      context.read<Checkout>().setProductCart(context.read<ProductCart>());
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          _buildSliverAppBar(context),
-          _buildCheckoutBody(context),
-        ],
-      ),
-      bottomNavigationBar: _buildCheckoutBottomNavigationBar(context),
-    );
+    return Consumer3<Session, Checkout, ProductCart>(
+        builder: (context, session, checkout, productCart, child) {
+      checkout.setPayer(session.userData);
+      checkout.setProductCart(productCart);
+      checkout.setAddress(session.selectedAddress);
+      return Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            _buildSliverAppBar(context),
+            _buildCheckoutBody(context),
+          ],
+        ),
+        bottomNavigationBar: _buildCheckoutBottomNavigationBar(context),
+      );
+    });
   }
 
   SliverAppBar _buildSliverAppBar(BuildContext context) {

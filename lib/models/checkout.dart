@@ -1,24 +1,39 @@
 import '../common_libs.dart';
 
 class Checkout with ChangeNotifier {
-  late ProductCart _productCart;
+  ProductCart? _productCart;
   late UserData _payer;
   final double _deliveryTime = 15;
   final double _deliveryFee = 5;
-  late double _checkoutPrice;
+  double? _checkoutPrice;
   Payment? _payment;
 
-  ProductCart get productCart => _productCart;
+  ProductCart? get productCart => _productCart;
   Address? get address => _payer.selectedAddress;
   double get deliveryTime => _deliveryTime;
   double get deliveryFee => _deliveryFee;
-  double get checkoutPrice => _checkoutPrice;
+  double? get checkoutPrice => _checkoutPrice;
   Payment? get payment => _payment;
   UserData get payer => _payer;
 
   @override
   String toString() {
     return 'Checkout{productCart: $productCart, address: $address, deliveryTime: $deliveryTime, deliveryFee: $deliveryFee, checkoutPrice: $checkoutPrice, payment: $payment}';
+  }
+
+  void setPayer(UserData? user) {
+    _payer = user!;
+    notifyListeners();
+  }
+
+  void setProductCart(ProductCart productCart) {
+    _productCart = productCart;
+    notifyListeners();
+  }
+
+  void setAddress(Address? selectedAddress) {
+    _payer.selectedAddress = selectedAddress;
+    notifyListeners();
   }
 }
 
