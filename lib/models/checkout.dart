@@ -12,9 +12,13 @@ class Checkout with ChangeNotifier {
   Address? get address => _payer.selectedAddress;
   double get deliveryTime => _deliveryTime;
   double get deliveryFee => _deliveryFee;
-  double? get checkoutPrice => _checkoutPrice;
   Payment? get payment => _payment;
   UserData get payer => _payer;
+
+  String? get checkoutPrice {
+    _checkoutPrice = _productCart!.totalPrice + _deliveryFee;
+    return _checkoutPrice?.toStringAsFixed(2);
+  }
 
   @override
   String toString() {
