@@ -179,7 +179,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   Widget _buildSelectPaymentMethodComponent(BuildContext context) {
-    const paymentMethods = PaymentMethods.values;
+    const paymentMethods = PaymentType.values;
     debugPrint('Payment methods: $paymentMethods');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,32 +1,50 @@
 import '../../common_libs.dart';
 
-enum PaymentMethods {
+enum PaymentType {
   pix,
   creditCard,
 }
 
-extension PaymentMethodExtension on PaymentMethods {
+extension PaymentMethodExtension on PaymentType {
   String get name {
     switch (this) {
-      case PaymentMethods.pix:
+      case PaymentType.pix:
         return 'Pague com PIX';
-      case PaymentMethods.creditCard:
+      case PaymentType.creditCard:
         return 'Escolha o cartão de crédito';
+    }
+  }
+
+  String get description {
+    switch (this) {
+      case PaymentType.pix:
+        return 'Pague com PIX';
+      case PaymentType.creditCard:
+        return 'Escolha o cartão de crédito';
+    }
+  }
+
+  String get type {
+    switch (this) {
+      case PaymentType.pix:
+        return 'pix';
+      case PaymentType.creditCard:
+        return 'credit_card';
     }
   }
 
   IconData get icon {
     switch (this) {
-      case PaymentMethods.pix:
+      case PaymentType.pix:
         return Icons.pix_rounded;
-      case PaymentMethods.creditCard:
+      case PaymentType.creditCard:
         return Icons.credit_card_rounded;
     }
   }
 }
 
 class PaymentMethodSelector extends StatefulWidget {
-  final List<PaymentMethods> paymentMethods;
+  final List<PaymentType> paymentMethods;
   final ValueChanged<int> onSelected;
   final int selectedMethod;
 
@@ -48,6 +66,9 @@ class _PaymentMethodSelectorState extends State<PaymentMethodSelector> {
   void initState() {
     super.initState();
     _selectedMethod = widget.selectedMethod;
+    context.read<Checkout>().payment?.paymentMethod.selectMethod(
+          widget.paymentMethods[_selectedMethod],
+        );
   }
 
   @override
@@ -79,6 +100,9 @@ class _PaymentMethodSelectorState extends State<PaymentMethodSelector> {
             onChanged: (value) {
               setState(() {
                 _selectedMethod = value!;
+                context.read<Checkout>().payment?.paymentMethod.selectMethod(
+                      widget.paymentMethods[_selectedMethod],
+                    );
               });
               widget.onSelected(_selectedMethod);
             },
