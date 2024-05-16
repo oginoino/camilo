@@ -56,6 +56,9 @@ export 'models/user_data.dart';
 // category selection
 export 'models/category_selection.dart';
 
+// checkout
+export 'models/checkout.dart';
+
 // logic
 
 // app logic
