@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'common_libs.dart';
 import 'firebase_options.dart';
-import 'models/checkout.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
