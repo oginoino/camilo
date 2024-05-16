@@ -132,8 +132,9 @@ class PaymentMethod with ChangeNotifier {
     notifyListeners();
   }
 
-  void setMethodData(Map<String, dynamic> methodData) {
-    _methodData?.addAll(methodData);
+  void selectMethod(PaymentType paymentType) {
+    _methodType = paymentType.type;
+    _methodDescription = paymentType.description;
     notifyListeners();
   }
 }
