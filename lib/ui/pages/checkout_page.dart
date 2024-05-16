@@ -262,7 +262,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 72,
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              if (checkout.deliveryAddress == null) {
+                _updateAddress(context);
+              } else {}
+            },
             icon: Icon(
               Icons.done_rounded,
               size: uiConstants.iconSizeMedium,
