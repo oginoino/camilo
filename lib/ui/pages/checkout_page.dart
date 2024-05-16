@@ -240,7 +240,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               if (checkout.deliveryAddress == null) {
                 _updateAddress(context);
               } else {
-                appRouter.go(ScreenPaths.paymentPage(context
+                appRouter.push(ScreenPaths.paymentPage(context
                     .read<Checkout>()
                     .payment!
                     .paymentMethod
