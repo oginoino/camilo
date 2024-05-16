@@ -1,5 +1,10 @@
 import '../../common_libs.dart';
 
+enum PaymentMethods {
+  pix,
+  creditCard,
+}
+
 extension PaymentMethodExtension on PaymentMethods {
   String get name {
     switch (this) {
