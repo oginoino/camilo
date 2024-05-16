@@ -11,7 +11,7 @@ class PaymentPage extends StatelessWidget {
           slivers: [
             SliverAppBar(
               title: Text(
-                checkout.payment!.paymentMethod.methodType,
+                checkout.payment!.paymentMethod.methodDescription,
               ),
               floating: true,
               snap: true,
