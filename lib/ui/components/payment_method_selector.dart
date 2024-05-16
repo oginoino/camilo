@@ -1,5 +1,30 @@
 import '../../common_libs.dart';
 
+enum PaymentMethods {
+  pix,
+  creditCard,
+}
+
+extension PaymentMethodExtension on PaymentMethods {
+  String get name {
+    switch (this) {
+      case PaymentMethods.pix:
+        return 'Pague com PIX';
+      case PaymentMethods.creditCard:
+        return 'Escolha o cartão de crédito';
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case PaymentMethods.pix:
+        return Icons.pix_rounded;
+      case PaymentMethods.creditCard:
+        return Icons.credit_card_rounded;
+    }
+  }
+}
+
 class PaymentMethodSelector extends StatefulWidget {
   final List<PaymentMethods> paymentMethods;
   final ValueChanged<int> onSelected;
