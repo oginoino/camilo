@@ -1,11 +1,6 @@
 import 'package:camilo/models/checkout.dart';
 import '../../common_libs.dart';
 
-enum PaymentMethods {
-  pix,
-  creditCard,
-}
-
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});
 
