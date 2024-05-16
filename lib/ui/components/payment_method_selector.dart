@@ -29,7 +29,7 @@ extension PaymentMethodExtension on PaymentType {
       case PaymentType.pix:
         return 'pix';
       case PaymentType.creditCard:
-        return 'credit_card';
+        return 'credit-card';
     }
   }
 
