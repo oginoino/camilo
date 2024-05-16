@@ -7,6 +7,12 @@ class Checkout with ChangeNotifier {
   final double _deliveryFee = 5;
   Payment? _payment;
 
+  Checkout() {
+    _payment = Payment(
+      paymentId: UniqueKey().toString(),
+    );
+  }
+
   ProductCart? get productCart => _productCart;
   Address? get deliveryAddress => _payer.selectedAddress;
   double get deliveryTime => _deliveryTime;
@@ -24,11 +30,20 @@ class Checkout with ChangeNotifier {
 
   void setPayer(UserData? user) {
     _payer = user!;
+    _payment?.setPayer(user); // Atualiza o pagador no Payment
     notifyListeners();
   }
 
   void setProductCart(ProductCart productCart) {
     _productCart = productCart;
+    _payment?.setItems(productCart); // Atualiza os itens no Payment
+    _payment?.setTotal(
+        productCart.totalPrice + _deliveryFee); // Atualiza o total no Payment
+    notifyListeners();
+  }
+
+  void setPaymentMethod(PaymentMethod paymentMethod) {
+    _payment?.setPaymentMethod(paymentMethod);
     notifyListeners();
   }
 }
@@ -50,6 +65,10 @@ class Payment with ChangeNotifier {
 
   Payment get payment => this;
 
+  Payment({
+    required String paymentId,
+  });
+
   @override
   String toString() {
     return 'Payment{paymentId: $paymentId, paymentMethod: $paymentMethod, status: $status, items: $items, payer: $payer, total: $total}';
@@ -62,6 +81,21 @@ class Payment with ChangeNotifier {
 
   void setPaymentMethod(PaymentMethod paymentMethod) {
     _paymentMethod = paymentMethod;
+    notifyListeners();
+  }
+
+  void setItems(ProductCart items) {
+    _items = items;
+    notifyListeners();
+  }
+
+  void setPayer(UserData payer) {
+    _payer = payer;
+    notifyListeners();
+  }
+
+  void setTotal(double total) {
+    _total = total;
     notifyListeners();
   }
 }
