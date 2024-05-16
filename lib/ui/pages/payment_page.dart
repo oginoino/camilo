@@ -16,6 +16,12 @@ class PaymentPage extends StatelessWidget {
               floating: true,
               snap: true,
               centerTitle: true,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  appRouter.pop();
+                },
+              ),
             ),
           ],
         );
