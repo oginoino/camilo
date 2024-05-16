@@ -239,7 +239,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
             onPressed: () {
               if (checkout.deliveryAddress == null) {
                 _updateAddress(context);
-              } else {}
+              } else {
+                appRouter.push(ScreenPaths.paymentPage(context
+                    .read<Checkout>()
+                    .payment!
+                    .paymentMethod
+                    .methodType
+                    .toLowerCase()
+                    .replaceAll(' ', '-')));
+              }
             },
             icon: Icon(
               Icons.done_rounded,

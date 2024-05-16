@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'common_libs.dart';
+import 'ui/pages/payment_page.dart';
 
 class ScreenPaths {
   static String splash = '/';
@@ -11,6 +12,8 @@ class ScreenPaths {
   static String checkout = '/checkout';
 
   static String categoryPath(String categoryName) => '/category/$categoryName';
+
+  static String paymentPage(String paymentMethod) => '/payment/$paymentMethod';
 }
 
 final appRouter = GoRouter(
@@ -54,6 +57,10 @@ final appRouter = GoRouter(
           ScreenPaths.categoryPath(':categoryName'),
           (state) =>
               CategoryPage(categoryName: state.pathParameters['categoryName']!),
+        ),
+        AppRoute(
+          ScreenPaths.paymentPage(':paymentMethod'),
+          (state) => const PaymentPage(),
         ),
       ],
     ),
@@ -130,4 +137,9 @@ List<String> get logoutPaths => [
 
 List<String> get loggedPaths => [
       ScreenPaths.checkout,
+      ...PaymentType.values.map(
+        (paymentType) => ScreenPaths.paymentPage(
+          paymentType.type,
+        ),
+      ),
     ];
