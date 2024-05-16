@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 import '../common_libs.dart';
 
 class Checkout with ChangeNotifier {
@@ -8,9 +10,8 @@ class Checkout with ChangeNotifier {
   Payment? _payment;
 
   Checkout() {
-    _payment = Payment(
-      paymentId: UniqueKey().toString(),
-    );
+    _payment = Payment();
+    _payment?.setPaymentUniqueId();
   }
 
   ProductCart? get productCart => _productCart;
@@ -51,23 +52,19 @@ class Checkout with ChangeNotifier {
 class Payment with ChangeNotifier {
   String? _paymentId;
   PaymentMethod? _paymentMethod;
-  String? _status;
+  String _status = 'pending';
   ProductCart? _items;
   UserData? _payer;
   double? _total;
 
   String get paymentId => _paymentId!;
   PaymentMethod get paymentMethod => _paymentMethod!;
-  String get status => _status!;
+  String get status => _status;
   ProductCart get items => _items!;
   UserData get payer => _payer!;
   double get total => _total!;
 
   Payment get payment => this;
-
-  Payment({
-    required String paymentId,
-  });
 
   @override
   String toString() {
@@ -96,6 +93,11 @@ class Payment with ChangeNotifier {
 
   void setTotal(double total) {
     _total = total;
+    notifyListeners();
+  }
+
+  void setPaymentUniqueId() {
+    _paymentId = const Uuid().v4();
     notifyListeners();
   }
 }
