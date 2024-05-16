@@ -1,4 +1,3 @@
-import 'package:camilo/models/checkout.dart';
 import '../../common_libs.dart';
 
 class CheckoutPage extends StatefulWidget {
