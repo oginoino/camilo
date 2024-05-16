@@ -45,13 +45,11 @@ extension PaymentMethodExtension on PaymentType {
 
 class PaymentMethodSelector extends StatefulWidget {
   final List<PaymentType> paymentMethods;
-  final ValueChanged<int> onSelected;
   final int selectedMethod;
 
   const PaymentMethodSelector({
     super.key,
     required this.paymentMethods,
-    required this.onSelected,
     this.selectedMethod = 0,
   });
 
@@ -73,7 +71,6 @@ class _PaymentMethodSelectorState extends State<PaymentMethodSelector> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('Selected method: $_selectedMethod');
     return ListView.builder(
       padding: EdgeInsets.zero,
       shrinkWrap: true,
@@ -104,7 +101,6 @@ class _PaymentMethodSelectorState extends State<PaymentMethodSelector> {
                       widget.paymentMethods[_selectedMethod],
                     );
               });
-              widget.onSelected(_selectedMethod);
             },
           ),
         );

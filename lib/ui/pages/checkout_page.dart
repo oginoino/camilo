@@ -180,7 +180,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
   Widget _buildSelectPaymentMethodComponent(BuildContext context) {
     const paymentMethods = PaymentType.values;
-    debugPrint('Payment methods: $paymentMethods');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -195,13 +194,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
               ),
         ),
         SizedBox(height: uiConstants.paddingMedium),
-        PaymentMethodSelector(
-            paymentMethods: paymentMethods,
-            onSelected: (index) {
-              debugPrint(
-                'Selected payment method: ${paymentMethods[index].name}',
-              );
-            }),
+        const PaymentMethodSelector(
+          paymentMethods: paymentMethods,
+        ),
       ],
     );
   }
