@@ -66,6 +66,10 @@ class Payment with ChangeNotifier {
 
   Payment get payment => this;
 
+  Payment() {
+    _paymentMethod = PaymentMethod();
+  }
+
   @override
   String toString() {
     return 'Payment{paymentId: $paymentId, paymentMethod: $paymentMethod, status: $status, items: $items, payer: $payer, total: $total}';
