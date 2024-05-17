@@ -155,6 +155,9 @@ export 'ui/components/cart_summary.dart';
 // payment method selector
 export 'ui/components/payment_method_selector.dart';
 
+// FAB cart
+export 'ui/components/fab_cart.dart';
+
 // forms
 //login form
 export 'ui/components/forms/login_form.dart';

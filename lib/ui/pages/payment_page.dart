@@ -72,7 +72,7 @@ class PaymentPage extends StatelessWidget {
               height: uiConstants.paddingMedium,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
                   child: Container(
