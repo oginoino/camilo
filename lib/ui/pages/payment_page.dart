@@ -130,6 +130,7 @@ class PaymentPage extends StatelessWidget {
             if (checkout.payment?.status == 'pending')
               TimerWidget(checkout: checkout),
             if (checkout.payment?.status == 'expired') const ExpiredTimer(),
+            if (checkout.payment?.status == 'paid') const PaidStatus(),
           ],
         ),
       ),
@@ -260,6 +261,45 @@ class _ExpiredTimerState extends State<ExpiredTimer> {
             label: const Text('Gerar novo código PIX'),
             icon: const Icon(Icons.refresh),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class PaidStatus extends StatelessWidget {
+  const PaidStatus({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          SizedBox(height: uiConstants.paddingExtraExtraLarge),
+          Text(
+            'Pagamento confirmado',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: uiConstants.paddingLarge),
+          Icon(
+            Icons.check_circle,
+            color: Theme.of(context).colorScheme.primary,
+            size: 48.0,
+          ).animate().scaleXY(
+                begin: 0.5,
+                end: 1.5,
+                curve: Curves.easeInOutCubic,
+                duration: const Duration(
+                  milliseconds: 500,
+                ),
+              ),
+          SizedBox(height: uiConstants.paddingLarge),
         ],
       ),
     );
