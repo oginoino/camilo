@@ -227,10 +227,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   vertical: uiConstants.paddingMedium,
                 ),
                 elevation: 2,
-                maximumSize: const Size(
-                  180,
-                  72,
-                ),
               ),
               onPressed: () {
                 if (checkout.deliveryAddress == null) {
@@ -253,11 +249,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
               label: Text(
                 'Finalizar pedido',
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: 16,
-                  fontFamily: 'Popins',
-                ),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
               ),
             ),
           ],
