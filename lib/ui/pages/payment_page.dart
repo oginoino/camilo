@@ -172,6 +172,7 @@ class TimerWidgetState extends State<TimerWidget> {
   void _expirePayment() {
     setState(() {
       widget.checkout.payment?.setStatus('expired');
+      appRouter.pop();
     });
   }
 
