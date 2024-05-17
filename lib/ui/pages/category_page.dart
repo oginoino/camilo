@@ -7,23 +7,30 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          const CustomAppBar(),
-          const CustomBackButton(),
-          _buildBodyTitle(context),
-          _buildPageBody(),
-        ],
-      ),
-      floatingActionButton: const SizedBox(),
-      extendBody: true,
-      resizeToAvoidBottomInset: false,
-      primary: true,
-      key: const Key('category_page'),
-      restorationId: 'category',
-      drawer: const CustomDrawer(),
-    );
+    return Consumer<ProductCart>(builder: (
+      context,
+      productCart,
+      child,
+    ) {
+      return Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            const CustomAppBar(),
+            const CustomBackButton(),
+            _buildBodyTitle(context),
+            _buildPageBody(),
+          ],
+        ),
+        floatingActionButton:
+            productCart.isMinimumOrder ? const FABCart() : null,
+        extendBody: true,
+        resizeToAvoidBottomInset: false,
+        primary: true,
+        key: const Key('category_page'),
+        restorationId: 'category',
+        drawer: const CustomDrawer(),
+      );
+    });
   }
 
   Consumer<ProductList> _buildPageBody() {
