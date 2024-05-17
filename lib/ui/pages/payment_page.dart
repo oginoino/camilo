@@ -85,12 +85,17 @@ class PaymentPage extends StatelessWidget {
                       borderRadius:
                           BorderRadius.circular(uiConstants.borderRadiusMedium),
                       border: Border.all(
-                        color: Theme.of(context).colorScheme.onSurface,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withOpacity(0.5),
+                        style: BorderStyle.solid,
+                        width: 1.5,
                       ),
                     ),
                     child: SelectableText(
                       'a1f4102e-a446-4a57-bcce-6fa48899c1d1',
-                      style: Theme.of(context).textTheme.labelLarge,
+                      style: Theme.of(context).textTheme.bodySmall,
                       textAlign: TextAlign.center,
                       maxLines: 1,
                       autofocus: true,
@@ -98,7 +103,13 @@ class PaymentPage extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.copy),
+                  icon: Icon(
+                    Icons.copy,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.5),
+                  ),
                   visualDensity: VisualDensity.compact,
                   onPressed: () {
                     Clipboard.setData(
@@ -144,7 +155,7 @@ class _ExpiredTimerState extends State<ExpiredTimer> {
           SizedBox(height: uiConstants.paddingExtraExtraLarge),
           Text(
             'Código PIX expirado',
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: uiConstants.yellowSubmarine,
                 ),
@@ -227,7 +238,7 @@ class TimerWidgetState extends State<TimerWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: uiConstants.paddingLarge),
+        SizedBox(height: uiConstants.paddingExtraExtraLarge),
         Text(
           'Esse código expira em ${_formatDuration(_remainingSeconds)}',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
