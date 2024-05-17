@@ -227,6 +227,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   vertical: uiConstants.paddingMedium,
                 ),
                 elevation: 2,
+                maximumSize: const Size(
+                  300,
+                  72,
+                ),
               ),
               onPressed: () {
                 if (checkout.deliveryAddress == null) {

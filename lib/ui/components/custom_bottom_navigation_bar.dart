@@ -25,7 +25,6 @@ class CustomBottomNavigationBar extends StatelessWidget {
         height: uiConstants.bottomNavigationBarHeight,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
