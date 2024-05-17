@@ -137,53 +137,6 @@ class PaymentPage extends StatelessWidget {
   }
 }
 
-class ExpiredTimer extends StatefulWidget {
-  const ExpiredTimer({
-    super.key,
-  });
-
-  @override
-  State<ExpiredTimer> createState() => _ExpiredTimerState();
-}
-
-class _ExpiredTimerState extends State<ExpiredTimer> {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          SizedBox(height: uiConstants.paddingExtraExtraLarge),
-          Text(
-            'Código PIX expirado',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: uiConstants.yellowSubmarine,
-                ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: uiConstants.paddingLarge),
-          Icon(
-            Icons.error,
-            color: uiConstants.yellowSubmarine,
-            size: 48.0,
-          ),
-          SizedBox(height: uiConstants.paddingLarge),
-          ElevatedButton.icon(
-            onPressed: () {
-              setState(() {
-                checkout.payment?.setStatus('pending');
-                appRouter.pop();
-              });
-            },
-            label: const Text('Gerar novo código PIX'),
-            icon: const Icon(Icons.refresh),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class TimerWidget extends StatefulWidget {
   final Checkout checkout;
 
@@ -261,6 +214,53 @@ class TimerWidgetState extends State<TimerWidget> {
           child: LinearProgressIndicator(),
         ),
       ],
+    );
+  }
+}
+
+class ExpiredTimer extends StatefulWidget {
+  const ExpiredTimer({
+    super.key,
+  });
+
+  @override
+  State<ExpiredTimer> createState() => _ExpiredTimerState();
+}
+
+class _ExpiredTimerState extends State<ExpiredTimer> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          SizedBox(height: uiConstants.paddingExtraExtraLarge),
+          Text(
+            'Código PIX expirado',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: uiConstants.yellowSubmarine,
+                ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: uiConstants.paddingLarge),
+          Icon(
+            Icons.error,
+            color: uiConstants.yellowSubmarine,
+            size: 48.0,
+          ),
+          SizedBox(height: uiConstants.paddingLarge),
+          ElevatedButton.icon(
+            onPressed: () {
+              setState(() {
+                checkout.payment?.setStatus('pending');
+                appRouter.pop();
+              });
+            },
+            label: const Text('Gerar novo código PIX'),
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
+      ),
     );
   }
 }
