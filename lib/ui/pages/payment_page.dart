@@ -279,7 +279,7 @@ class PaidStatus extends StatelessWidget {
         children: [
           SizedBox(height: uiConstants.paddingExtraExtraLarge),
           Text(
-            'Pagamento confirmado',
+            'Pagamento confirmado!',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.primary,
