@@ -64,8 +64,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   : null,
               icon: Icon(
                 cart.isMinimumOrder
-                    ? Icons.payment_rounded
-                    : Icons.shopping_bag_rounded,
+                    ? Icons.shopping_basket_rounded
+                    : Icons.shopping_basket_outlined,
                 size: uiConstants.iconSizeMedium,
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
@@ -74,7 +74,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   cart.isMinimumOrder
                       ? bottomSheetCtaButtonText
                       : bottomSheetCtaButtonTextDisabled,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: Theme.of(context).colorScheme.onPrimary,
                       ),
                   overflow: TextOverflow.ellipsis,
