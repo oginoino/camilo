@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../common_libs.dart';
@@ -153,66 +154,32 @@ class PaymentPageState extends State<PaymentPage> {
   }
 }
 
-class TimerWidget extends StatefulWidget {
+class TimerWidget extends StatelessWidget {
   final Checkout checkout;
 
   const TimerWidget({super.key, required this.checkout});
-
-  @override
-  TimerWidgetState createState() => TimerWidgetState();
-}
-
-class TimerWidgetState extends State<TimerWidget> {
-  late Timer _timer;
-  int _remainingSeconds = 300; // 5 minutos em segundos
-
-  @override
-  void initState() {
-    super.initState();
-    _startTimer();
-  }
-
-  void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_remainingSeconds > 0) {
-        setState(() {
-          _remainingSeconds--;
-        });
-      } else {
-        timer.cancel();
-        _expirePayment();
-      }
-    });
-  }
-
-  void _expirePayment() {
-    widget.checkout.payment?.setStatus('expired');
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
-  String _formatDuration(int totalSeconds) {
-    final minutes = totalSeconds ~/ 60;
-    final seconds = totalSeconds % 60;
-    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(height: uiConstants.paddingExtraExtraLarge),
-        Text(
-          'Esse código expira em ${_formatDuration(_remainingSeconds)}',
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-          textAlign: TextAlign.center,
+        ValueListenableBuilder<int>(
+          valueListenable: ValueNotifier<int>(checkout.remainingSeconds),
+          builder: (context, remainingSeconds, child) {
+            final minutes = remainingSeconds ~/ 60;
+            final seconds = remainingSeconds % 60;
+            final formattedTime =
+                '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+            return Text(
+              'Esse código expira em $formattedTime',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+              textAlign: TextAlign.center,
+            );
+          },
         ),
         SizedBox(height: uiConstants.paddingExtraExtraLarge),
         Text(
@@ -261,7 +228,8 @@ class ExpiredTimer extends StatelessWidget {
               backgroundColor: uiConstants.primaryLight,
             ),
             onPressed: () {
-              context.read<Checkout>().payment?.setStatus('pending');
+              checkout.resetTimer();
+              checkout.setPaymentStatus('pending');
             },
             label: Text(
               'Gerar novo código PIX',

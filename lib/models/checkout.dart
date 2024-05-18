@@ -8,10 +8,13 @@ class Checkout with ChangeNotifier {
   final double _deliveryTime = 15;
   final double _deliveryFee = 5;
   Payment? _payment;
+  int _remainingSeconds = 300; // 5 minutos em segundos
+  Timer? _timer;
 
   Checkout() {
     _payment = Payment();
     _payment?.setPaymentUniqueId();
+    _startTimer();
   }
 
   ProductCart? get productCart => _productCart;
@@ -20,13 +23,14 @@ class Checkout with ChangeNotifier {
   double get deliveryFee => _deliveryFee;
   Payment? get payment => _payment;
   UserData get payer => _payer;
+  int get remainingSeconds => _remainingSeconds;
 
   String get checkoutPrice =>
       (_productCart!.totalPrice + _deliveryFee).toStringAsFixed(2);
 
   @override
   String toString() {
-    return 'Checkout{productCart: $productCart, deliveryAddress: $deliveryAddress, deliveryTime: $deliveryTime, deliveryFee: $deliveryFee, checkoutPrice: $checkoutPrice, payment: $payment}';
+    return 'Checkout{productCart: $productCart, deliveryAddress: $deliveryAddress, deliveryTime: $deliveryTime, deliveryFee: $deliveryFee, checkoutPrice: $checkoutPrice, payment: $payment, remainingSeconds: $remainingSeconds}';
   }
 
   void setPayer(UserData? user) {
@@ -45,6 +49,30 @@ class Checkout with ChangeNotifier {
 
   void setPaymentMethod(PaymentMethod paymentMethod) {
     _payment?.setPaymentMethod(paymentMethod);
+    notifyListeners();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_remainingSeconds > 0) {
+        _remainingSeconds--;
+        notifyListeners();
+      } else {
+        timer.cancel();
+        setPaymentStatus('expired');
+      }
+    });
+  }
+
+  void setPaymentStatus(String status) {
+    _payment?.setStatus(status);
+    notifyListeners();
+  }
+
+  void resetTimer() {
+    _timer?.cancel();
+    _remainingSeconds = 300;
+    _startTimer();
     notifyListeners();
   }
 }
