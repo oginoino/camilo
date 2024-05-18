@@ -10,6 +10,7 @@ class Checkout with ChangeNotifier {
   Payment? _payment;
   int _remainingSeconds = 300; // 5 minutos em segundos
   Timer? _timer;
+  bool _isTimerStarted = false;
 
   Checkout() {
     _payment = Payment();
@@ -52,18 +53,20 @@ class Checkout with ChangeNotifier {
   }
 
   void startTimer() {
-    _timer?.cancel();
-    _remainingSeconds = 300;
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_remainingSeconds > 0) {
-        _remainingSeconds--;
-        notifyListeners();
-      } else {
-        timer.cancel();
-        setPaymentStatus('expired');
-      }
-    });
-    notifyListeners();
+    if (!_isTimerStarted) {
+      _isTimerStarted = true;
+      _remainingSeconds = 300;
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        if (_remainingSeconds > 0) {
+          _remainingSeconds--;
+          notifyListeners();
+        } else {
+          timer.cancel();
+          setPaymentStatus('expired');
+        }
+      });
+      notifyListeners();
+    }
   }
 
   void setPaymentStatus(String status) {
@@ -74,6 +77,7 @@ class Checkout with ChangeNotifier {
   void resetTimer() {
     _timer?.cancel();
     _remainingSeconds = 300;
+    _isTimerStarted = false;
     startTimer();
     notifyListeners();
   }
