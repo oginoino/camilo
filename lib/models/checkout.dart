@@ -14,7 +14,6 @@ class Checkout with ChangeNotifier {
   Checkout() {
     _payment = Payment();
     _payment?.setPaymentUniqueId();
-    _startTimer();
   }
 
   ProductCart? get productCart => _productCart;
@@ -52,7 +51,9 @@ class Checkout with ChangeNotifier {
     notifyListeners();
   }
 
-  void _startTimer() {
+  void startTimer() {
+    _timer?.cancel();
+    _remainingSeconds = 300;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_remainingSeconds > 0) {
         _remainingSeconds--;
@@ -62,6 +63,7 @@ class Checkout with ChangeNotifier {
         setPaymentStatus('expired');
       }
     });
+    notifyListeners();
   }
 
   void setPaymentStatus(String status) {
@@ -72,7 +74,7 @@ class Checkout with ChangeNotifier {
   void resetTimer() {
     _timer?.cancel();
     _remainingSeconds = 300;
-    _startTimer();
+    startTimer();
     notifyListeners();
   }
 }

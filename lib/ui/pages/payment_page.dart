@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../common_libs.dart';
@@ -12,6 +11,15 @@ class PaymentPage extends StatefulWidget {
 }
 
 class PaymentPageState extends State<PaymentPage> {
+  @override
+  void initState() {
+    super.initState();
+    final checkout = Provider.of<Checkout>(context, listen: false);
+    if (checkout.payment?.paymentMethod.methodType == 'pix') {
+      checkout.startTimer();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -137,7 +145,7 @@ class PaymentPageState extends State<PaymentPage> {
               valueListenable: checkout.payment!.statusNotifier,
               builder: (context, status, child) {
                 if (status == 'pending') {
-                  return TimerWidget(checkout: checkout);
+                  return const TimerWidget();
                 } else if (status == 'expired') {
                   return const ExpiredTimer();
                 } else if (status == 'paid') {
@@ -155,47 +163,47 @@ class PaymentPageState extends State<PaymentPage> {
 }
 
 class TimerWidget extends StatelessWidget {
-  final Checkout checkout;
-
-  const TimerWidget({super.key, required this.checkout});
+  const TimerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: uiConstants.paddingExtraExtraLarge),
-        ValueListenableBuilder<int>(
-          valueListenable: ValueNotifier<int>(checkout.remainingSeconds),
-          builder: (context, remainingSeconds, child) {
-            final minutes = remainingSeconds ~/ 60;
-            final seconds = remainingSeconds % 60;
-            final formattedTime =
-                '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-            return Text(
-              'Esse código expira em $formattedTime',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-              textAlign: TextAlign.center,
-            );
-          },
-        ),
-        SizedBox(height: uiConstants.paddingExtraExtraLarge),
-        Text(
-          'Aguardando pagamento',
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(height: uiConstants.paddingLarge),
-        const Center(
-          child: LinearProgressIndicator(),
-        ),
-      ],
-    );
+    return Consumer<Checkout>(builder: (context, checkout, child) {
+      return Column(
+        children: [
+          SizedBox(height: uiConstants.paddingExtraExtraLarge),
+          ValueListenableBuilder<int>(
+            valueListenable: ValueNotifier<int>(checkout.remainingSeconds),
+            builder: (context, remainingSeconds, child) {
+              final minutes = remainingSeconds ~/ 60;
+              final seconds = remainingSeconds % 60;
+              final formattedTime =
+                  '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+              return Text(
+                'Esse código expira em $formattedTime',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                textAlign: TextAlign.center,
+              );
+            },
+          ),
+          SizedBox(height: uiConstants.paddingExtraExtraLarge),
+          Text(
+            'Aguardando pagamento',
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: uiConstants.paddingLarge),
+          const Center(
+            child: LinearProgressIndicator(),
+          ),
+        ],
+      );
+    });
   }
 }
 
@@ -204,47 +212,49 @@ class ExpiredTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          SizedBox(height: uiConstants.paddingExtraExtraLarge),
-          Text(
-            'Código PIX expirado',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: uiConstants.yellowSubmarine,
-                ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: uiConstants.paddingLarge),
-          Icon(
-            Icons.error,
-            color: uiConstants.yellowSubmarine,
-            size: 48.0,
-          ),
-          SizedBox(height: uiConstants.paddingLarge),
-          ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: uiConstants.primaryLight,
-            ),
-            onPressed: () {
-              checkout.resetTimer();
-              checkout.setPaymentStatus('pending');
-            },
-            label: Text(
-              'Gerar novo código PIX',
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimary,
+    return Consumer<Checkout>(builder: (context, checkout, child) {
+      return Center(
+        child: Column(
+          children: [
+            SizedBox(height: uiConstants.paddingExtraExtraLarge),
+            Text(
+              'Código PIX expirado',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: uiConstants.yellowSubmarine,
                   ),
+              textAlign: TextAlign.center,
             ),
-            icon: Icon(
-              Icons.refresh,
-              color: uiConstants.backgroundLight,
+            SizedBox(height: uiConstants.paddingLarge),
+            Icon(
+              Icons.error,
+              color: uiConstants.yellowSubmarine,
+              size: 48.0,
             ),
-          ),
-        ],
-      ),
-    );
+            SizedBox(height: uiConstants.paddingLarge),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: uiConstants.primaryLight,
+              ),
+              onPressed: () {
+                checkout.resetTimer();
+                checkout.setPaymentStatus('pending');
+              },
+              label: Text(
+                'Gerar novo código PIX',
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+              ),
+              icon: Icon(
+                Icons.refresh,
+                color: uiConstants.backgroundLight,
+              ),
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
 
