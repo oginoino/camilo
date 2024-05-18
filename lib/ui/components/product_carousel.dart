@@ -72,6 +72,6 @@ class ProductCarossel extends StatelessWidget {
           ),
         ),
       ],
-    );
+    ).animate().moveY().fade();
   }
 }
