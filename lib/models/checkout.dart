@@ -8,6 +8,9 @@ class Checkout with ChangeNotifier {
   final double _deliveryTime = 15;
   final double _deliveryFee = 5;
   Payment? _payment;
+  int _remainingSeconds = 300; // 5 minutos em segundos
+  Timer? _timer;
+  bool _isTimerStarted = false;
 
   Checkout() {
     _payment = Payment();
@@ -20,13 +23,14 @@ class Checkout with ChangeNotifier {
   double get deliveryFee => _deliveryFee;
   Payment? get payment => _payment;
   UserData get payer => _payer;
+  int get remainingSeconds => _remainingSeconds;
 
   String get checkoutPrice =>
       (_productCart!.totalPrice + _deliveryFee).toStringAsFixed(2);
 
   @override
   String toString() {
-    return 'Checkout{productCart: $productCart, deliveryAddress: $deliveryAddress, deliveryTime: $deliveryTime, deliveryFee: $deliveryFee, checkoutPrice: $checkoutPrice, payment: $payment}';
+    return 'Checkout{productCart: $productCart, deliveryAddress: $deliveryAddress, deliveryTime: $deliveryTime, deliveryFee: $deliveryFee, checkoutPrice: $checkoutPrice, payment: $payment, remainingSeconds: $remainingSeconds}';
   }
 
   void setPayer(UserData? user) {
@@ -47,22 +51,54 @@ class Checkout with ChangeNotifier {
     _payment?.setPaymentMethod(paymentMethod);
     notifyListeners();
   }
+
+  void startTimer() {
+    if (!_isTimerStarted) {
+      _isTimerStarted = true;
+      _remainingSeconds = 300;
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        if (_remainingSeconds > 0) {
+          _remainingSeconds--;
+          notifyListeners();
+        } else {
+          timer.cancel();
+          setPaymentStatus('expired');
+        }
+      });
+      notifyListeners();
+    }
+  }
+
+  void setPaymentStatus(String status) {
+    _payment?.setStatus(status);
+    notifyListeners();
+  }
+
+  void resetTimer() {
+    _timer?.cancel();
+    _remainingSeconds = 300;
+    _isTimerStarted = false;
+    startTimer();
+    notifyListeners();
+  }
 }
 
 class Payment with ChangeNotifier {
   String? _paymentId;
   PaymentMethod? _paymentMethod;
-  String _status = 'pending';
+  final ValueNotifier<String> _status = ValueNotifier<String>('pending');
   ProductCart? _items;
   UserData? _payer;
   double? _total;
 
   String get paymentId => _paymentId!;
   PaymentMethod get paymentMethod => _paymentMethod!;
-  String get status => _status;
+  String get status => _status.value;
   ProductCart get items => _items!;
   UserData get payer => _payer!;
   double get total => _total!;
+
+  ValueNotifier<String> get statusNotifier => _status;
 
   Payment get payment => this;
 
@@ -76,7 +112,7 @@ class Payment with ChangeNotifier {
   }
 
   void setStatus(String status) {
-    _status = status;
+    _status.value = status;
     notifyListeners();
   }
 
