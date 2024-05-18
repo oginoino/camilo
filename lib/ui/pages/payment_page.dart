@@ -126,7 +126,7 @@ class PaymentPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: uiConstants.paddingLarge),
+
             if (checkout.payment?.status == 'pending')
               TimerWidget(checkout: checkout),
             if (checkout.payment?.status == 'expired') const ExpiredTimer(),
@@ -252,14 +252,24 @@ class _ExpiredTimerState extends State<ExpiredTimer> {
           ),
           SizedBox(height: uiConstants.paddingLarge),
           ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: uiConstants.primaryLight),
             onPressed: () {
               setState(() {
                 checkout.payment?.setStatus('pending');
                 appRouter.pop();
               });
             },
-            label: const Text('Gerar novo código PIX'),
-            icon: const Icon(Icons.refresh),
+            label: Text(
+              'Gerar novo código PIX',
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+            ),
+            icon: Icon(
+              Icons.refresh,
+              color: uiConstants.backgroundLight,
+            ),
           ),
         ],
       ),
@@ -288,17 +298,28 @@ class PaidStatus extends StatelessWidget {
           ),
           SizedBox(height: uiConstants.paddingLarge),
           Icon(
-            Icons.check_circle,
+            Icons.check_circle_rounded,
             color: Theme.of(context).colorScheme.primary,
             size: 48.0,
-          ).animate().scaleXY(
+          )
+              .animate()
+              .scaleXY(
                 begin: 0.5,
                 end: 1.5,
                 curve: Curves.easeInOutCubic,
                 duration: const Duration(
                   milliseconds: 500,
                 ),
+              )
+              .then()
+            ..scaleXY(
+              begin: 1.5,
+              end: 1.0,
+              curve: Curves.easeInOutCubic,
+              duration: const Duration(
+                milliseconds: 500,
               ),
+            ),
           SizedBox(height: uiConstants.paddingLarge),
         ],
       ),
