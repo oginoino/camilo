@@ -145,7 +145,7 @@ class CartPage extends StatelessWidget {
     ];
   }
 
-  ListTile _buildCartItem(
+  Widget _buildCartItem(
       BuildContext context, ProductCart cart, List<Product> productGroup) {
     return ListTile(
       contentPadding:
@@ -163,7 +163,7 @@ class CartPage extends StatelessWidget {
       ),
       subtitle: _buildProductDetails(context, productGroup),
       trailing: _buildProductQuantityControl(context, cart, productGroup),
-    );
+    ).animate().moveX().fade();
   }
 
   Widget _buildProductImage(BuildContext context, Product product) {
