@@ -1,10 +1,16 @@
 import 'package:flutter/services.dart';
-import '../../common_libs.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class PaymentPage extends StatelessWidget {
+import '../../common_libs.dart';
+
+class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
 
+  @override
+  PaymentPageState createState() => PaymentPageState();
+}
+
+class PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +55,7 @@ class PaymentPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             SizedBox(height: uiConstants.paddingLarge),
-            // Pix PQ Code
+            // Pix QR Code
             Center(
               child: QrImageView(
                 data: 'pix.example.com/qr/v2/9d36b84fc70b478fb95c12729b90ca25',
@@ -126,11 +132,20 @@ class PaymentPage extends StatelessWidget {
                 ),
               ],
             ),
-
-            if (checkout.payment?.status == 'pending')
-              TimerWidget(checkout: checkout),
-            if (checkout.payment?.status == 'expired') const ExpiredTimer(),
-            if (checkout.payment?.status == 'paid') const PaidStatus(),
+            ValueListenableBuilder<String?>(
+              valueListenable: checkout.payment!.statusNotifier,
+              builder: (context, status, child) {
+                if (status == 'pending') {
+                  return TimerWidget(checkout: checkout);
+                } else if (status == 'expired') {
+                  return const ExpiredTimer();
+                } else if (status == 'paid') {
+                  return const PaidStatus();
+                } else {
+                  return Container(); // Placeholder
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -171,10 +186,7 @@ class TimerWidgetState extends State<TimerWidget> {
   }
 
   void _expirePayment() {
-    setState(() {
-      widget.checkout.payment?.setStatus('expired');
-      appRouter.pop();
-    });
+    widget.checkout.payment?.setStatus('expired');
   }
 
   @override
@@ -220,16 +232,9 @@ class TimerWidgetState extends State<TimerWidget> {
   }
 }
 
-class ExpiredTimer extends StatefulWidget {
-  const ExpiredTimer({
-    super.key,
-  });
+class ExpiredTimer extends StatelessWidget {
+  const ExpiredTimer({super.key});
 
-  @override
-  State<ExpiredTimer> createState() => _ExpiredTimerState();
-}
-
-class _ExpiredTimerState extends State<ExpiredTimer> {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -253,12 +258,10 @@ class _ExpiredTimerState extends State<ExpiredTimer> {
           SizedBox(height: uiConstants.paddingLarge),
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
-                backgroundColor: uiConstants.primaryLight),
+              backgroundColor: uiConstants.primaryLight,
+            ),
             onPressed: () {
-              setState(() {
-                checkout.payment?.setStatus('pending');
-                appRouter.pop();
-              });
+              context.read<Checkout>().payment?.setStatus('pending');
             },
             label: Text(
               'Gerar novo código PIX',
@@ -278,9 +281,7 @@ class _ExpiredTimerState extends State<ExpiredTimer> {
 }
 
 class PaidStatus extends StatelessWidget {
-  const PaidStatus({
-    super.key,
-  });
+  const PaidStatus({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -307,18 +308,14 @@ class PaidStatus extends StatelessWidget {
                 begin: 0.5,
                 end: 1.5,
                 curve: Curves.easeInOutCubic,
-                duration: const Duration(
-                  milliseconds: 500,
-                ),
+                duration: const Duration(milliseconds: 500),
               )
               .then()
             ..scaleXY(
               begin: 1.5,
               end: 1.0,
               curve: Curves.easeInOutCubic,
-              duration: const Duration(
-                milliseconds: 500,
-              ),
+              duration: const Duration(milliseconds: 500),
             ),
           SizedBox(height: uiConstants.paddingLarge),
         ],

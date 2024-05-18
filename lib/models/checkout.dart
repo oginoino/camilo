@@ -52,17 +52,19 @@ class Checkout with ChangeNotifier {
 class Payment with ChangeNotifier {
   String? _paymentId;
   PaymentMethod? _paymentMethod;
-  String _status = 'pending';
+  final ValueNotifier<String> _status = ValueNotifier<String>('pending');
   ProductCart? _items;
   UserData? _payer;
   double? _total;
 
   String get paymentId => _paymentId!;
   PaymentMethod get paymentMethod => _paymentMethod!;
-  String get status => _status;
+  String get status => _status.value;
   ProductCart get items => _items!;
   UserData get payer => _payer!;
   double get total => _total!;
+
+  ValueNotifier<String> get statusNotifier => _status;
 
   Payment get payment => this;
 
@@ -76,7 +78,7 @@ class Payment with ChangeNotifier {
   }
 
   void setStatus(String status) {
-    _status = status;
+    _status.value = status;
     notifyListeners();
   }
 
