@@ -67,7 +67,6 @@ class CategoriesMenu extends StatelessWidget {
   }
 }
 
-// The individual category item widget
 class CategoryNavItemMobile extends StatelessWidget {
   const CategoryNavItemMobile({
     super.key,
@@ -82,66 +81,87 @@ class CategoryNavItemMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget textButton = TextButton(
+      onPressed: onTap,
+      style: ButtonStyle(
+        padding: WidgetStateProperty.all(
+          EdgeInsets.symmetric(
+            horizontal: uiConstants.paddingMedium,
+            vertical: uiConstants.paddingExtraSmall,
+          ),
+        ),
+        overlayColor: WidgetStateProperty.all(
+          uiConstants.cyanGreen,
+        ),
+        foregroundColor: WidgetStateProperty.resolveWith<Color>(
+          (Set<WidgetState> states) {
+            if (isSelected ||
+                states.contains(WidgetState.hovered) ||
+                states.contains(WidgetState.focused) ||
+                states.contains(WidgetState.pressed)) {
+              return uiConstants.backgroundLight;
+            }
+            return uiConstants.primaryLight;
+          },
+        ),
+        side: WidgetStateProperty.all(
+          isSelected
+              ? BorderSide.none
+              : BorderSide(
+                  color: uiConstants.primaryLight,
+                  width: 1.0,
+                ),
+        ),
+        textStyle: WidgetStateProperty.all(
+          Theme.of(context).textTheme.labelMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+        backgroundColor: WidgetStateProperty.resolveWith<Color>(
+          (Set<WidgetState> states) {
+            if (isSelected) {
+              return Colors
+                  .transparent; // Usamos Colors.transparent aqui para usar o Container com gradiente
+            } else if (states.contains(WidgetState.hovered) ||
+                states.contains(WidgetState.focused) ||
+                states.contains(WidgetState.pressed)) {
+              return uiConstants.primaryLight;
+            }
+            return uiConstants.backgroundLight;
+          },
+        ),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              uiConstants.borderRadiusMedium,
+            ),
+          ),
+        ),
+      ),
+      child: Text(
+        categoryTitle,
+      ),
+    );
+
+    if (isSelected) {
+      textButton = Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [uiConstants.secondaryLight, uiConstants.primaryLight],
+            stops: const [0, 1],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(uiConstants.borderRadiusMedium),
+        ),
+        child: textButton,
+      );
+    }
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: uiConstants.paddingSmall),
       child: Center(
-        child: TextButton(
-          onPressed: onTap,
-          style: ButtonStyle(
-            padding: WidgetStateProperty.all(
-              EdgeInsets.symmetric(
-                horizontal: uiConstants.paddingMedium,
-                vertical: uiConstants.paddingExtraSmall,
-              ),
-            ),
-            overlayColor: WidgetStateProperty.all(
-              uiConstants.cyanGreen,
-            ),
-            foregroundColor: WidgetStateProperty.resolveWith<Color>(
-              (Set<WidgetState> states) {
-                if (isSelected ||
-                    states.contains(WidgetState.hovered) ||
-                    states.contains(WidgetState.focused) ||
-                    states.contains(WidgetState.pressed)) {
-                  return uiConstants.backgroundLight;
-                }
-                return uiConstants.primaryLight;
-              },
-            ),
-            side: WidgetStateProperty.all(
-              BorderSide(
-                color: uiConstants.primaryLight,
-                width: 1.0,
-              ),
-            ),
-            textStyle: WidgetStateProperty.all(
-              Theme.of(context).textTheme.labelMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-            backgroundColor: WidgetStateProperty.resolveWith<Color>(
-              (Set<WidgetState> states) {
-                if (isSelected ||
-                    states.contains(WidgetState.hovered) ||
-                    states.contains(WidgetState.focused) ||
-                    states.contains(WidgetState.pressed)) {
-                  return uiConstants.primaryLight;
-                }
-                return uiConstants.backgroundLight;
-              },
-            ),
-            shape: WidgetStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                  uiConstants.borderRadiusMedium,
-                ),
-              ),
-            ),
-          ),
-          child: Text(
-            categoryTitle,
-          ),
-        ),
+        child: isSelected ? textButton.animate().shimmer() : textButton,
       ),
     );
   }
