@@ -139,7 +139,7 @@ class _ProductCardState extends State<ProductCard> {
           ],
         ),
       ),
-    );
+    ).animate().moveY().fade();
   }
 
   Future<dynamic> showProductDetails(BuildContext context, Product product) {
