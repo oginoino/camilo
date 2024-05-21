@@ -46,6 +46,9 @@ class Session with ChangeNotifier {
       if (_selectedAddress != null) {
         await _syncUserAddress(_selectedAddress!);
       }
+
+      String? token = await _auth.currentUser!.getIdToken();
+      debugPrint('Token: $token');
       notifyListeners();
       return null;
     } on FirebaseAuthException catch (e) {
