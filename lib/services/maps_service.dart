@@ -5,15 +5,6 @@ import '../common_libs.dart';
 import '../models/predictions.dart';
 
 class MapsService with ChangeNotifier {
-  String language = 'pt';
-  String key = dotenv.env['M_API_KEY'] ?? '';
-  String location = '-23.7213129,-46.7565639';
-  String radius = '1000';
-  bool strictbounds = true;
-
-  String pathPlaceAutoComplete =
-      'https://maps.googleapis.com/maps/api/place/autocomplete/json';
-
   Predictions get predictions => _predictions;
   Predictions _predictions = Predictions([], '');
   bool isLoading = false;
@@ -22,18 +13,12 @@ class MapsService with ChangeNotifier {
   Future<void> fetchAddress(String input) async {
     isLoading = true;
     notifyListeners();
+    final String baseUrl = dotenv.env['API_URL']!;
 
-    final uri = Uri.parse(pathPlaceAutoComplete).replace(queryParameters: {
-      'language': language,
-      'input': input,
-      'key': key,
-      'location': location,
-      'radius': radius,
-      'strictbounds': strictbounds ? 'true' : 'false',
-    });
+    final Uri uri = Uri.parse('$baseUrl?input=$input');
 
     try {
-      final response = await http.get(uri);
+      final http.Response response = await http.get(uri);
 
       if (response.statusCode == 200) {
         _predictions = _handleSuccess(response);
@@ -50,8 +35,8 @@ class MapsService with ChangeNotifier {
   }
 
   Predictions _handleSuccess(http.Response response) {
-    Map<String, dynamic> json = jsonDecode(response.body);
-    return Predictions.fromJson(json);
+    final Map<String, dynamic> data = jsonDecode(response.body);
+    return Predictions.fromJson(data);
   }
 
   void _handleErrors(http.Response response) {
@@ -67,7 +52,7 @@ class MapsService with ChangeNotifier {
   }
 
   void clearPredictions() {
-    _predictions = Predictions([], '');
+    _predictions.predictions.clear();
     notifyListeners();
   }
 }
