@@ -101,7 +101,7 @@ class _ProductCardState extends State<ProductCard> {
                               ),
                               SizedBox(width: uiConstants.paddingExtraSmall),
                               Text(
-                                widget.product.productUnitOfMeasurement,
+                                widget.product.productUnitOfMeasure,
                                 style: Theme.of(context).textTheme.labelSmall,
                               ),
                             ],

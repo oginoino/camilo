@@ -211,7 +211,7 @@ class CartPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${productGroup.length} ${productGroup.first.productUnitOfMeasurement} por R\$ ${productGroup.first.productPrice.toStringAsFixed(2)}',
+            '${productGroup.length} ${productGroup.first.productUnitOfMeasure} por R\$ ${productGroup.first.productPrice.toStringAsFixed(2)}',
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.labelMedium,
           ),
