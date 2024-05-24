@@ -15,7 +15,9 @@ class MapsService with ChangeNotifier {
     notifyListeners();
     final String baseUrl = dotenv.env['API_URL']!;
 
-    final Uri uri = Uri.parse('$baseUrl?input=$input');
+    const String path = '/predictions';
+
+    final Uri uri = Uri.parse('$baseUrl$path?input=$input');
 
     try {
       final http.Response response = await http.get(uri);
