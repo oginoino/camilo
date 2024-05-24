@@ -70,4 +70,8 @@ extension StringExtension on String {
         .replaceAll('\'', '')
         .replaceAll('-', '');
   }
+
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1)}";
+  }
 }

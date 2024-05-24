@@ -23,7 +23,7 @@ class ProductCarossel extends StatelessWidget {
             left: uiConstants.paddingSmall,
           ),
           child: Text(
-            category,
+            category.capitalize(),
             textAlign: TextAlign.left,
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   fontWeight: FontWeight.bold,
