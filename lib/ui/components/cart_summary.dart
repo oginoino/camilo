@@ -142,7 +142,7 @@ class CartSummaryState extends State<CartSummary> {
                             ),
                       ),
                       subtitle: Text(
-                        '${productCart.productsGruppedByProductId[index].length} ${productCart.productsGruppedByProductId[index].first.productUnitOfMeasurement} por R\$ ${productCart.productsGruppedByProductId[index].first.productPrice.toStringAsFixed(2)}',
+                        '${productCart.productsGruppedByProductId[index].length} ${productCart.productsGruppedByProductId[index].first.productUnitOfMeasure} por R\$ ${productCart.productsGruppedByProductId[index].first.productPrice.toStringAsFixed(2)}',
                         overflow: TextOverflow.ellipsis,
                         style:
                             Theme.of(context).textTheme.labelMedium?.copyWith(),

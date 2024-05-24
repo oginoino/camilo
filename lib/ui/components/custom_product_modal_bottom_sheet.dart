@@ -83,7 +83,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            '${product.productUnitQuantity} ${product.productUnitOfMeasurement}',
+                            '${product.productUnitQuantity} ${product.productUnitOfMeasure}',
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           const Spacer(),
