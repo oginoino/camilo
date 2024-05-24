@@ -44,7 +44,8 @@ class ProductList extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getAllProducts() {
+  Future<void> getAllProducts() async {
+    await productsService.fetchProducts();
     _products = productsService.productListService;
     notifyListeners();
   }
