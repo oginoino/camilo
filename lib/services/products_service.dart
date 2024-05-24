@@ -29,7 +29,6 @@ class ProductsService with ChangeNotifier {
       loadedProducts.add(Product.fromJson(productData));
     }
     _productList = loadedProducts;
-    debugPrint('$_productList');
     isLoading = false;
     notifyListeners();
   }
