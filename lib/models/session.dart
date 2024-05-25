@@ -24,11 +24,13 @@ class Session with ChangeNotifier {
       await _auth.signOut();
       _isAuthenticated = false;
       _userData = null;
+      _selectedAddress = null;
       notifyListeners();
       return null;
     } on FirebaseAuthException catch (e) {
       _isAuthenticated = false;
       _userData = null;
+      _selectedAddress = null;
       notifyListeners();
       return AuthErrorMessages.getErrorMessage(e.code);
     }
@@ -46,9 +48,6 @@ class Session with ChangeNotifier {
       if (_selectedAddress != null) {
         await _syncUserAddress(_selectedAddress!);
       }
-
-      String? token = await _auth.currentUser!.getIdToken();
-      debugPrint('Token: $token');
       notifyListeners();
       return null;
     } on FirebaseAuthException catch (e) {
@@ -75,7 +74,7 @@ class Session with ChangeNotifier {
           );
       _isAuthenticated = true;
       notifyListeners();
-      await _syncUserData();
+      await saveUserData();
       if (_selectedAddress != null) {
         await _syncUserAddress(_selectedAddress!);
       }
@@ -110,11 +109,13 @@ class Session with ChangeNotifier {
   }
 
   Future<void> _syncUserData() async {
-    _userData = UserData(
-      uid: user!.uid,
-      displayName: user!.displayName,
-      userEmail: user!.email!,
-    );
+    _userData = await userDataService.fetchUserData();
+    notifyListeners();
+  }
+
+  Future<void> saveUserData() async {
+    _userData = await userDataService.createUserData();
+    notifyListeners();
   }
 }
 
