@@ -48,7 +48,7 @@ class CategoriesMenu extends StatelessWidget {
                       padding:
                           EdgeInsets.only(left: uiConstants.paddingExtraSmall),
                       child: CategoryNavItemMobile(
-                        categoryTitle: category,
+                        categoryTitle: category.capitalize(),
                         isSelected:
                             categorySelection.selectedCategory == category,
                         onTap: () {

@@ -44,7 +44,8 @@ class ProductList extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getAllProducts() {
+  Future<void> getAllProducts() async {
+    await productsService.fetchProducts();
     _products = productsService.productListService;
     notifyListeners();
   }
@@ -68,5 +69,9 @@ extension StringExtension on String {
         .replaceAll('ç', 'c')
         .replaceAll('\'', '')
         .replaceAll('-', '');
+  }
+
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1)}";
   }
 }

@@ -31,4 +31,39 @@ class Product extends ChangeNotifier {
   String toString() {
     return 'Product{id: $id, productName: $productName, productPrice: $productPrice, productUnitOfMeasurement: $productUnitOfMeasure, productUnitQuantity: $productUnitQuantity, contentValue: $contentValue, productImageSrc: $productImageSrc, productCategories: $productCategories, availableQuantity: $availableQuantity, producKilogramsWeight: $producKilogramsWeight, productCubicMeterVolume: $productCubicMeterVolume}';
   }
+
+  // from json
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['id'],
+      productName: json['productName'],
+      productPrice: (json['productPrice'] as num).toDouble(),
+      productUnitOfMeasure: json['productUnitOfMeasure'],
+      productUnitQuantity: json['productUnitQuantity'],
+      productCategories: List<String>.from(json['productCategories']),
+      availableQuantity: (json['availableQuantity'] as num).toInt(),
+      contentValue: json['contentValue'],
+      productImageSrc: json['productImageSrc'],
+      producKilogramsWeight: (json['producKilogramsWeight'] as num).toDouble(),
+      productCubicMeterVolume:
+          (json['productCubicMeterVolume'] as num).toDouble(),
+    );
+  }
+
+  // to json
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'productName': productName,
+      'productPrice': productPrice,
+      'productUnitOfMeasure': productUnitOfMeasure,
+      'productUnitQuantity': productUnitQuantity,
+      'productCategories': productCategories,
+      'availableQuantity': availableQuantity,
+      'contentValue': contentValue,
+      'productImageSrc': productImageSrc,
+      'producKilogramsWeight': producKilogramsWeight,
+      'productCubicMeterVolume': productCubicMeterVolume,
+    };
+  }
 }

@@ -24,6 +24,14 @@ class CustomPageBody extends StatelessWidget {
                 );
               },
             );
+          } else if (productsService.isLoading) {
+            return Center(
+              child: Padding(
+                padding:
+                    EdgeInsets.only(top: uiConstants.paddingExtraExtraLarge),
+                child: const CircularProgressIndicator(),
+              ),
+            );
           } else {
             return const CustomVoidSearch(
               message: 'Nenhum produto foi encontrado para o termo digitado.',
