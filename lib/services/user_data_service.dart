@@ -9,14 +9,6 @@ class UserDataService with ChangeNotifier {
   UserData? get userData => _userData;
   bool isLoading = false;
 
-  static final UserDataService _singleton = UserDataService._internal();
-
-  factory UserDataService() {
-    return _singleton;
-  }
-
-  UserDataService._internal();
-
   Future<UserData?> fetchUserData() async {
     isLoading = true;
     final String baseUrl = dotenv.env['API_URL']!;
