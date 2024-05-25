@@ -278,7 +278,7 @@ class SearchAddressBottomSheetState extends State<SearchAddressBottomSheet> {
                     minVerticalPadding: 0,
                     contentPadding: EdgeInsets.zero,
                     title: Text(
-                      address.description,
+                      address.description ?? 'Endereço não definido',
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     leading: Radio(

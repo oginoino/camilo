@@ -27,6 +27,12 @@ class UserData extends ChangeNotifier {
     this.selectedAddress,
   });
 
+  // string representation
+  @override
+  String toString() {
+    return 'UserData{id: $id, uid: $uid, userEmail: $userEmail, displayName: $displayName, photoUrl: $photoUrl, userName: $userName, createdAt: $createdAt, updatedAt: $updatedAt, isActivated: $isActivated, addresses: $addresses, selectedAddress: $selectedAddress}';
+  }
+
   // from json
   UserData.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -35,14 +41,19 @@ class UserData extends ChangeNotifier {
         displayName = json['userDisplayName'],
         photoUrl = json['userPhotoUrl'],
         userName = json['userName'],
-        createdAt = DateTime.parse(json['createdAt']),
-        updatedAt = DateTime.parse(json['updatedAt']),
+        createdAt = json['createdAt'] != null
+            ? DateTime.tryParse(json['createdAt'])
+            : null,
+        updatedAt = json['updatedAt'] != null
+            ? DateTime.tryParse(json['updatedAt'])
+            : null,
         isActivated = json['isActivated'],
         addresses = json['addresses'] != null
             ? List<Address>.from(
                 json['addresses'].map((address) => Address.fromJson(address)))
             : null,
-        selectedAddress = json['selectedAddress'] != null
+        selectedAddress = json['selectedAddress'] != null &&
+                json['selectedAddress']['id'].isNotEmpty
             ? Address.fromJson(json['selectedAddress'])
             : null;
 
@@ -65,25 +76,25 @@ class UserData extends ChangeNotifier {
 
   void addAddress(Address address) {
     addresses ??= [];
-    addresses!.map((a) => a.id).contains(address.id)
-        ? null
-        : addresses!.add(address);
-    notifyListeners();
+    if (!addresses!.map((a) => a.id).contains(address.id)) {
+      addresses!.add(address);
+      notifyListeners();
+    }
   }
 
   void removeAddress(Address address) {
     addresses ??= [];
-    addresses!.map((a) => a.id).contains(address.id)
-        ? addresses?.remove(address)
-        : null;
-    notifyListeners();
+    if (addresses!.map((a) => a.id).contains(address.id)) {
+      addresses?.remove(address);
+      notifyListeners();
+    }
   }
 
   void selectAddress(Address address) {
     addresses ??= [];
-    addresses!.map((a) => a.id).contains(address.id)
-        ? selectedAddress = address
-        : null;
-    notifyListeners();
+    if (addresses!.map((a) => a.id).contains(address.id)) {
+      selectedAddress = address;
+      notifyListeners();
+    }
   }
 }

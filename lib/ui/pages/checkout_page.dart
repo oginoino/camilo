@@ -112,7 +112,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 size: uiConstants.iconRadiusLarge,
               ),
               title: Text(
-                session.selectedAddress!.description,
+                session.selectedAddress?.description ?? 'Endereço não definido',
                 style: Theme.of(context).listTileTheme.titleTextStyle?.copyWith(
                       fontSize: 14.0,
                       fontWeight: FontWeight.bold,
