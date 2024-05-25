@@ -7,6 +7,7 @@ class AppLogic {
 
   Future<void> bootstrap() async {
     await dotenv.load(fileName: ".env");
+
     products.getAllProducts();
     // Flag bootStrap as complete
     isBootstrapComplete = true;
