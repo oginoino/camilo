@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,13 +11,13 @@ class UserDataService with ChangeNotifier {
   Future<UserData?> fetchUserData() async {
     isLoading = true;
     final String baseUrl = dotenv.env['API_URL']!;
-    final String uid = FirebaseAuth.instance.currentUser!.uid;
+    final String uid = session.user!.uid;
 
     const String path = '/users';
 
     final Uri uri = Uri.parse('$baseUrl$path/$uid');
 
-    String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
+    String? token = await session.user?.getIdToken();
 
     final response = await http.get(
       uri,
@@ -50,7 +49,7 @@ class UserDataService with ChangeNotifier {
 
     final Uri uri = Uri.parse('$baseUrl$path');
 
-    String? token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+    String? token = await session.user?.getIdToken(true);
 
     final response = await http.post(
       uri,
@@ -77,13 +76,13 @@ class UserDataService with ChangeNotifier {
   Future<UserData?> updateUserAddressData(UserData? userData) async {
     isLoading = true;
     final String baseUrl = dotenv.env['API_URL']!;
-    final String uid = FirebaseAuth.instance.currentUser!.uid;
+    final String uid = session.user!.uid;
 
     const String path = '/users';
 
     final Uri uri = Uri.parse('$baseUrl$path/$uid');
 
-    String? token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+    String? token = await session.user?.getIdToken(true);
 
     if (userData != null) {
       final response = await http.put(
