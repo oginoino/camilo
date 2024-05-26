@@ -43,15 +43,16 @@ class _AddressBarState extends State<AddressBar> {
             children: [
               Flexible(
                 child: FittedBox(
-                  child: Text(
-                    context.read<Session>().selectedAddress?.mainText ??
-                        'Adicionar endereço',
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
+                  child: Consumer<Session>(builder: (context, session, child) {
+                    return Text(
+                      session.selectedAddress?.mainText ?? 'Adicionar endereço',
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    );
+                  }),
                 ),
               ),
               Icon(

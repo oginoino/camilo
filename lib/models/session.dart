@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../common_libs.dart';
 
 class Session with ChangeNotifier {
@@ -47,12 +46,15 @@ class Session with ChangeNotifier {
       await _syncUserData();
       if (_selectedAddress != null) {
         await _syncUserAddress(_selectedAddress!);
+      } else {
+        _selectedAddress = _userData?.selectedAddress;
       }
       notifyListeners();
       return null;
     } on FirebaseAuthException catch (e) {
       _isAuthenticated = false;
       _userData = null;
+      _selectedAddress = null;
       notifyListeners();
       return AuthErrorMessages.getErrorMessage(e.code);
     }
@@ -77,12 +79,15 @@ class Session with ChangeNotifier {
       await saveUserData();
       if (_selectedAddress != null) {
         await _syncUserAddress(_selectedAddress!);
+      } else {
+        _selectedAddress = _userData?.selectedAddress;
       }
       notifyListeners();
       return null;
     } on FirebaseAuthException catch (e) {
       _isAuthenticated = false;
       _userData = null;
+      _selectedAddress = null;
       notifyListeners();
       return AuthErrorMessages.getErrorMessage(e.code);
     }
@@ -99,13 +104,20 @@ class Session with ChangeNotifier {
 
   Future<void> selectAddress(Address address) async {
     _selectedAddress = address;
-    await _syncUserAddress(address);
+    if (_isAuthenticated) {
+      await _syncUserAddress(address);
+    }
     notifyListeners();
   }
 
   Future<void> _syncUserAddress(Address address) async {
     _userData?.addAddress(address);
     _userData?.selectAddress(address);
+    notifyListeners();
+    debugPrint('User address updated. $_userData');
+    _userData = await userDataService.updateUserAddressData(_userData);
+    notifyListeners();
+    debugPrint('User data updated. $_userData');
   }
 
   Future<void> _syncUserData() async {
