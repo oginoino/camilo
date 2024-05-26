@@ -17,10 +17,10 @@ class Address {
   }
 
   Address.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        description = json['description'],
-        mainText = json['mainText'],
-        secondaryText = json['secondaryText'];
+      : id = json['id'] ?? '',
+        description = json['description'] ?? '',
+        mainText = json['mainText'] ?? '',
+        secondaryText = json['secondaryText'] ?? '';
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
