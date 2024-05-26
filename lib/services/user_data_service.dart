@@ -74,7 +74,7 @@ class UserDataService with ChangeNotifier {
     }
   }
 
-  Future<UserData?> updateUserData(UserData? userData) async {
+  Future<UserData?> updateUserAddressData(UserData? userData) async {
     isLoading = true;
     final String baseUrl = dotenv.env['API_URL']!;
     final String uid = FirebaseAuth.instance.currentUser!.uid;

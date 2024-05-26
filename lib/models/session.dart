@@ -115,7 +115,7 @@ class Session with ChangeNotifier {
     _userData?.selectAddress(address);
     notifyListeners();
     debugPrint('User address updated. $_userData');
-    _userData = await userDataService.updateUserData(_userData);
+    _userData = await userDataService.updateUserAddressData(_userData);
     notifyListeners();
     debugPrint('User data updated. $_userData');
   }
