@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
 
 import '../common_libs.dart';
-import 'package:http/http.dart' as http;
 
 class UserDataService with ChangeNotifier {
   UserData? _userData;
@@ -18,7 +18,7 @@ class UserDataService with ChangeNotifier {
 
     final Uri uri = Uri.parse('$baseUrl$path/$uid');
 
-    String? token = await session.user?.getIdToken();
+    String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
 
     final response = await http.get(
       uri,
@@ -29,7 +29,7 @@ class UserDataService with ChangeNotifier {
     );
 
     try {
-      final extractedData = json.decode(response.body);
+      final extractedData = json.decode(utf8.decode(response.bodyBytes));
       _userData = UserData.fromJson(extractedData);
       isLoading = false;
       notifyListeners();
@@ -50,7 +50,7 @@ class UserDataService with ChangeNotifier {
 
     final Uri uri = Uri.parse('$baseUrl$path');
 
-    String? token = await session.user?.getIdToken(true);
+    String? token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
 
     final response = await http.post(
       uri,
@@ -61,7 +61,7 @@ class UserDataService with ChangeNotifier {
     );
 
     try {
-      final extractedData = json.decode(response.body);
+      final extractedData = json.decode(utf8.decode(response.bodyBytes));
       _userData = UserData.fromJson(extractedData['data']);
       isLoading = false;
       notifyListeners();
@@ -72,5 +72,46 @@ class UserDataService with ChangeNotifier {
       notifyListeners();
       return null;
     }
+  }
+
+  Future<UserData?> updateUserData(UserData? userData) async {
+    isLoading = true;
+    final String baseUrl = dotenv.env['API_URL']!;
+    final String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    const String path = '/users';
+
+    final Uri uri = Uri.parse('$baseUrl$path/$uid');
+
+    String? token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+
+    if (userData != null) {
+      final response = await http.put(
+        uri,
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': '$token'
+        },
+        body: json.encode({
+          'addresses':
+              userData.addresses?.map((address) => address.toJson()).toList(),
+          'selectedAddress': userData.selectedAddress?.toJson(),
+        }, toEncodable: (dynamic item) => item.toJson()),
+      );
+
+      try {
+        final extractedData = json.decode(utf8.decode(response.bodyBytes));
+        _userData = UserData.fromJson(extractedData['data']);
+        isLoading = false;
+        notifyListeners();
+        return _userData;
+      } on Exception {
+        _userData = null;
+        isLoading = false;
+        notifyListeners();
+        return null;
+      }
+    }
+    return null;
   }
 }

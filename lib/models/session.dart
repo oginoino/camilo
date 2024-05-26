@@ -106,6 +106,11 @@ class Session with ChangeNotifier {
   Future<void> _syncUserAddress(Address address) async {
     _userData?.addAddress(address);
     _userData?.selectAddress(address);
+    notifyListeners();
+    debugPrint('User address updated. $_userData');
+    _userData = await userDataService.updateUserData(_userData);
+    notifyListeners();
+    debugPrint('User data updated. $_userData');
   }
 
   Future<void> _syncUserData() async {
