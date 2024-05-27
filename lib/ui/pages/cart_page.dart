@@ -146,20 +146,20 @@ class CartPage extends StatelessWidget {
   }
 
   Widget _buildCartItem(
-      BuildContext context, ProductCart cart, List<Product> productGroup) {
+      BuildContext context, ProductCart cart, List<ProductItem> productGroup) {
     return ListTile(
       contentPadding:
           EdgeInsets.symmetric(horizontal: uiConstants.paddingSmall),
       minVerticalPadding: uiConstants.paddingSmall,
-      leading: _buildProductImage(context, productGroup.first),
+      leading: _buildProductImage(context, productGroup.first.product),
       visualDensity: VisualDensity.compact,
       isThreeLine: true,
       title: Text(
-        productGroup.first.productName,
+        productGroup.first.product.productName,
         style: Theme.of(context).textTheme.labelLarge,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        semanticsLabel: productGroup.first.productName,
+        semanticsLabel: productGroup.first.product.productName,
       ),
       subtitle: _buildProductDetails(context, productGroup),
       trailing: _buildProductQuantityControl(context, cart, productGroup),
@@ -203,7 +203,7 @@ class CartPage extends StatelessWidget {
   }
 
   Widget _buildProductDetails(
-      BuildContext context, List<Product> productGroup) {
+      BuildContext context, List<ProductItem> productGroup) {
     return SizedBox(
       width: 192,
       child: Column(
@@ -211,12 +211,12 @@ class CartPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${productGroup.length} ${productGroup.first.productUnitOfMeasure} por R\$ ${productGroup.first.productPrice.toStringAsFixed(2)}',
+            '${productGroup.length} ${productGroup.first.product.productUnitOfMeasure} por R\$ ${productGroup.first.product.productPrice.toStringAsFixed(2)}',
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.labelMedium,
           ),
           Text(
-            'R\$ ${(productGroup.first.productPrice * productGroup.length).toStringAsFixed(2)}',
+            'R\$ ${(productGroup.first.product.productPrice * productGroup.length).toStringAsFixed(2)}',
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.labelMedium,
           ),
@@ -226,7 +226,7 @@ class CartPage extends StatelessWidget {
   }
 
   Widget _buildProductQuantityControl(
-      BuildContext context, ProductCart cart, List<Product> productGroup) {
+      BuildContext context, ProductCart cart, List<ProductItem> productGroup) {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
@@ -253,7 +253,7 @@ class CartPage extends StatelessWidget {
             ),
             onPressed: () {
               Provider.of<ProductCart>(context, listen: false)
-                  .decrementProduct(context, productGroup.last);
+                  .decrementProduct(context, productGroup.first.product);
             },
           ),
           Text(
@@ -269,7 +269,7 @@ class CartPage extends StatelessWidget {
             icon: const Icon(Icons.add_rounded),
             onPressed: () {
               Provider.of<ProductCart>(context, listen: false)
-                  .incrementProduct(context, productGroup.first);
+                  .incrementProduct(context, productGroup.first.product);
             },
           ),
         ],
