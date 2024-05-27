@@ -4,9 +4,9 @@ import '../common_libs.dart';
 
 class CartService with ChangeNotifier {
   bool isLoading = false;
-  late List<ProductItem> _productItems = [];
+  late List<List<ProductItem>> _productItems = [];
 
-  List<ProductItem> get productItems => _productItems;
+  List<List<ProductItem>> get productItems => _productItems;
 
   Future<void> createOrUpdateCart(ProductCart productCart) async {
     isLoading = true;
@@ -46,22 +46,25 @@ class CartService with ChangeNotifier {
       body: json.encode(newCart),
     );
 
-    try {
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final extractedData = json.decode(utf8.decode(response.bodyBytes));
-        _productItems = (extractedData['productItems'] as List)
-            .map((item) => ProductItem.fromJson(item))
-            .toList();
-      } else {
-        throw Exception('Falha ao atualizar o carrinho');
+    if (session.user != null) {
+      try {
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          final extractedData = json.decode(utf8.decode(response.bodyBytes));
+          final List<List<ProductItem>> loadedProductItems = extractedData
+              .map<List<ProductItem>>(
+                  (item) => List<ProductItem>.from(item['productItems']))
+              .toList();
+          _productItems = loadedProductItems;
+        } else {
+          throw Exception('Falha ao atualizar o carrinho');
+        }
+      } catch (error) {
+        _productItems = [];
+        rethrow;
+      } finally {
+        isLoading = false;
+        notifyListeners();
       }
-    } catch (error) {
-      // Adicione qualquer tratamento de erro necessário aqui
-      _productItems = [];
-      rethrow;
-    } finally {
-      isLoading = false;
-      notifyListeners();
     }
   }
 }
