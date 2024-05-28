@@ -104,6 +104,7 @@ class CartService with ChangeNotifier {
   Future<void> syncCartAfterLogin() async {
     if (session.user != null) {
       await fetchProductCart();
+
       notifyListeners();
     }
   }
