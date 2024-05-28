@@ -1,5 +1,5 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http; // Import the dart:convert package
 import '../common_libs.dart';
 
 class CartService with ChangeNotifier {
@@ -88,7 +88,9 @@ class CartService with ChangeNotifier {
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': token,
         },
-        body: jsonEncode(productCart.toJson()),
+        body: jsonEncode(
+          productCart.toJson(),
+        ), // Use jsonEncode to encode the data
       );
       _handleResponse(response);
     } catch (e) {
