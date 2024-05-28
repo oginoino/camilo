@@ -13,8 +13,7 @@ class CartService with ChangeNotifier {
   ProductCart get productCart => _productCart;
 
   Future<String?> _getToken() async {
-    // Retorna o token JWT atual do usuário
-    return await session.user?.getIdToken();
+    return await session.user?.getIdToken(true);
   }
 
   Uri _buildUri(String path) {
@@ -27,8 +26,8 @@ class CartService with ChangeNotifier {
     debugPrint('Response body: ${response.body}');
     if (response.statusCode == 200) {
       try {
-        final Map<String, dynamic> data = jsonDecode(response.body);
-        _productCart = ProductCart.fromJson(data['data']);
+        final extractedData = json.decode(utf8.decode(response.bodyBytes));
+        _productCart = ProductCart.fromJson(extractedData['data']);
         notifyListeners();
       } catch (e) {
         debugPrint('Error parsing product cart: $e');
