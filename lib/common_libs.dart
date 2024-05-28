@@ -41,6 +41,9 @@ export 'models/product.dart';
 // products list
 export 'models/products_list.dart';
 
+// product cart item
+export 'models/product_cart_item.dart';
+
 // product cart
 export 'models/product_cart.dart';
 
@@ -71,6 +74,9 @@ export 'services/products_service.dart';
 
 // maps service
 export 'services/maps_service.dart';
+
+// cart service
+export 'services/cart_service.dart';
 
 // ui
 
