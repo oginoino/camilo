@@ -23,7 +23,8 @@ class CartService with ChangeNotifier {
 
   void _handleResponse(http.Response response) {
     debugPrint('Response status code: ${response.statusCode}');
-    debugPrint('Response body: ${response.body}');
+    debugPrint(
+        'Response body: ${json.decode(utf8.decode(response.bodyBytes))}');
     if (response.statusCode == 200) {
       try {
         final extractedData = json.decode(utf8.decode(response.bodyBytes));
