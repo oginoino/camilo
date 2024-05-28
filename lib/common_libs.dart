@@ -78,6 +78,9 @@ export 'services/maps_service.dart';
 // cart service
 export 'services/cart_service.dart';
 
+// user data service
+export 'services/user_data_service.dart';
+
 // ui
 
 // themes
