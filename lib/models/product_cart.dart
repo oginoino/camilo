@@ -3,7 +3,7 @@ import '../common_libs.dart';
 class ProductCart with ChangeNotifier {
   ProductCart();
 
-  final List<ProductItem> _cartProducts = [];
+  List<ProductItem> _cartProducts = [];
 
   List<List<ProductItem>> get productsGruppedByProductId {
     List<List<ProductItem>> productsGruppedByProductId = [];
@@ -37,11 +37,13 @@ class ProductCart with ChangeNotifier {
   void incrementProduct(BuildContext context, Product product) {
     int selectedQuantity = getSelectedQuantityByProductId(product.id);
     if (product.availableQuantity > selectedQuantity) {
-      _cartProducts.add(ProductItem(
-        productId: product.id,
-        product: product,
-        selectedQuantity: 1,
-      ));
+      _cartProducts.add(
+        ProductItem(
+          productId: product.id,
+          product: product,
+          selectedQuantity: 1,
+        ),
+      );
       notifyListeners();
     } else {
       ScaffoldMessenger.of(context).clearSnackBars();
@@ -107,6 +109,7 @@ class ProductCart with ChangeNotifier {
   void syncCartWithBackend(CartService cartService) async {
     if (session.user != null) {
       await cartService.syncCart(this);
+      _cartProducts = cartService.productCart.cartProducts;
       notifyListeners();
     }
   }
@@ -115,17 +118,23 @@ class ProductCart with ChangeNotifier {
       BuildContext context, CartService cartService, Product product) {
     incrementProduct(context, product);
     syncCartWithBackend(cartService);
+    _cartProducts = cartService.productCart.cartProducts;
+    notifyListeners();
   }
 
   void removeProductAndSync(
       BuildContext context, CartService cartService, Product product) {
     decrementProduct(context, product);
     syncCartWithBackend(cartService);
+    _cartProducts = cartService.productCart.cartProducts;
+    notifyListeners();
   }
 
   void clearCartAndSync(CartService cartService) {
     clearCart();
     syncCartWithBackend(cartService);
+    _cartProducts = cartService.productCart.cartProducts;
+    notifyListeners();
   }
 
   void updateQuantityAndSync(BuildContext context, CartService cartService,
@@ -136,6 +145,8 @@ class ProductCart with ChangeNotifier {
       _cartProducts[index].selectedQuantity = quantity;
       notifyListeners();
       syncCartWithBackend(cartService);
+      _cartProducts = cartService.productCart.cartProducts;
+      notifyListeners();
     }
   }
 }
