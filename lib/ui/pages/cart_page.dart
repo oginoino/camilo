@@ -173,7 +173,7 @@ class CartPage extends StatelessWidget {
       child: Image.network(
         cacheWidth: 126,
         cacheHeight: 126,
-        product.productImageSrc ?? '',
+        product.productImageSrc,
         fit: BoxFit.cover,
         errorBuilder: (context, error, stackTrace) {
           return Center(
