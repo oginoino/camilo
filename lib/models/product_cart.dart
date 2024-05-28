@@ -1,6 +1,9 @@
 import '../common_libs.dart';
+import '../services/cart_service.dart';
 
 class ProductCart with ChangeNotifier {
+  ProductCart();
+
   final List<ProductItem> _cartProducts = [];
 
   List<List<ProductItem>> get productsGruppedByProductId {
@@ -82,6 +85,59 @@ class ProductCart with ChangeNotifier {
   @override
   String toString() {
     return 'ProductCart{products: $cartProducts}';
+  }
+
+  // from json
+  ProductCart.fromJson(Map<String, dynamic> json) {
+    if (json['productsItems'] != null) {
+      json['productsItems'].forEach((product) {
+        _cartProducts.add(ProductItem.fromJson(product));
+      });
+    }
+  }
+
+  // to json
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['productsItems'] =
+        _cartProducts.map((product) => product.toJson()).toList();
+    return data;
+  }
+
+  // Métodos de sincronização conforme os cenários BDD
+  void syncCartWithBackend(CartService cartService) async {
+    if (session.user != null) {
+      await cartService.syncCart(this);
+      notifyListeners();
+    }
+  }
+
+  void addProductAndSync(
+      BuildContext context, CartService cartService, Product product) {
+    incrementProduct(context, product);
+    syncCartWithBackend(cartService);
+  }
+
+  void removeProductAndSync(
+      BuildContext context, CartService cartService, Product product) {
+    decrementProduct(context, product);
+    syncCartWithBackend(cartService);
+  }
+
+  void clearCartAndSync(CartService cartService) {
+    clearCart();
+    syncCartWithBackend(cartService);
+  }
+
+  void updateQuantityAndSync(BuildContext context, CartService cartService,
+      Product product, int quantity) {
+    int index =
+        _cartProducts.indexWhere((element) => element.productId == product.id);
+    if (index != -1) {
+      _cartProducts[index].selectedQuantity = quantity;
+      notifyListeners();
+      syncCartWithBackend(cartService);
+    }
   }
 }
 

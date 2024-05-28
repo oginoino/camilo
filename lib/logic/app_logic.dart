@@ -9,7 +9,11 @@ class AppLogic {
     await dotenv.load(fileName: ".env");
 
     products.getAllProducts();
-    // Flag bootStrap as complete
+
+    if (session.user != null) {
+      await cartService.syncCartAfterLogin();
+    }
+
     isBootstrapComplete = true;
   }
 }
