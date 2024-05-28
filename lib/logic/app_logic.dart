@@ -10,10 +10,6 @@ class AppLogic {
 
     products.getAllProducts();
 
-    if (session.user != null) {
-      await cartService.syncCartAfterLogin();
-    }
-
     isBootstrapComplete = true;
   }
 }
