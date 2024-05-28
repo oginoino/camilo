@@ -161,7 +161,7 @@ class ProductItem {
     return ProductItem(
       productId: json['productId'],
       product: Product.fromJson(json['product']),
-      selectedQuantity: (json['selectedQuantity'] as num).toInt(),
+      selectedQuantity: json['selectedQuantity'],
     );
   }
 

@@ -6,9 +6,14 @@ class CartService with ChangeNotifier {
   late ProductCart _productCart;
   bool isLoading = false;
 
+  CartService() {
+    _productCart = ProductCart();
+  }
+
   ProductCart get productCart => _productCart;
 
   Future<String?> _getToken() async {
+    // Retorna o token JWT atual do usuário
     return await session.user?.getIdToken();
   }
 
@@ -18,12 +23,20 @@ class CartService with ChangeNotifier {
   }
 
   void _handleResponse(http.Response response) {
+    debugPrint('Response status code: ${response.statusCode}');
+    debugPrint('Response body: ${response.body}');
     if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
-      _productCart = ProductCart.fromJson(data.first['data']);
-      notifyListeners();
+      try {
+        final Map<String, dynamic> data = jsonDecode(response.body);
+        _productCart = ProductCart.fromJson(data['data']);
+        notifyListeners();
+      } catch (e) {
+        debugPrint('Error parsing product cart: $e');
+        throw Exception('Failed to parse product cart');
+      }
     } else {
-      throw Exception('Failed to load product cart');
+      throw Exception(
+          'Failed to load product cart with status code ${response.statusCode}');
     }
   }
 
@@ -34,12 +47,17 @@ class CartService with ChangeNotifier {
     final Uri uri = _buildUri('/carts');
     final String? token = await _getToken();
 
+    if (token == null) {
+      debugPrint('Token is null');
+      return;
+    }
+
     try {
       final response = await http.get(
         uri,
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': '$token',
+          'Authorization': token,
         },
       );
       _handleResponse(response);
@@ -58,12 +76,17 @@ class CartService with ChangeNotifier {
     final Uri uri = _buildUri('/carts');
     final String? token = await _getToken();
 
+    if (token == null) {
+      debugPrint('Token is null');
+      return;
+    }
+
     try {
       final response = await http.post(
         uri,
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $token',
+          'Authorization': token,
         },
         body: jsonEncode(productCart.toJson()),
       );
