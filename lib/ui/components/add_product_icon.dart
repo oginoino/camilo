@@ -64,8 +64,7 @@ class _AddProductIconState extends State<AddProductIcon> {
                   .then(),
           onPressed: () {
             if (selectedQuantityByProductId == 0) {
-              productCart.addProductAndSync(
-                  context, cartService, widget.product);
+              productCart.incrementProduct(context, widget.product);
             }
             showIncrementMenu(context);
           },
@@ -138,8 +137,8 @@ class _AddProductIconState extends State<AddProductIcon> {
                         tooltip: 'Remover',
                         onPressed: () {
                           if (selectedQuantityByProductId > 0) {
-                            productCart.removeProductAndSync(
-                                context, cartService, widget.product);
+                            productCart.decrementProduct(
+                                context, widget.product);
                           }
                           restartTimer();
                         },
@@ -183,8 +182,7 @@ class _AddProductIconState extends State<AddProductIcon> {
                       padding: EdgeInsets.zero,
                       tooltip: 'Adicionar',
                       onPressed: () {
-                        productCart.addProductAndSync(
-                            context, cartService, widget.product);
+                        productCart.incrementProduct(context, widget.product);
                         restartTimer();
                       },
                       iconSize: uiConstants.iconSizeMedium,
