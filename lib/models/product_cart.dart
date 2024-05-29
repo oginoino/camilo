@@ -45,7 +45,9 @@ class ProductCart with ChangeNotifier {
           selectedQuantity: 1,
         ),
       );
-      syncCartWithBackend(cartService);
+      if (session.user != null) {
+        syncCartWithBackend(cartService);
+      }
       notifyListeners();
     } else {
       ScaffoldMessenger.of(context).clearSnackBars();
@@ -68,14 +70,16 @@ class ProductCart with ChangeNotifier {
       } else {
         _cartProducts.removeAt(index);
       }
-      syncCartWithBackend(cartService);
+      if (session.user != null) {
+        syncCartWithBackend(cartService);
+      }
       notifyListeners();
     }
   }
 
   void clearCart([CartService? cartService]) {
     _cartProducts.clear();
-    if (cartService != null) {
+    if (cartService != null && session.user != null) {
       syncCartWithBackend(cartService);
     }
     notifyListeners();
@@ -112,6 +116,11 @@ class ProductCart with ChangeNotifier {
     return data;
   }
 
+  void updateCartItems(List<ProductItem> newItems) {
+    _cartProducts = newItems;
+    notifyListeners();
+  }
+
   void syncCartWithBackend(CartService cartService) async {
     if (session.user != null) {
       await cartService.syncCart(this);
@@ -141,7 +150,9 @@ class ProductCart with ChangeNotifier {
     if (index != -1) {
       _cartProducts[index].selectedQuantity = quantity;
       notifyListeners();
-      syncCartWithBackend(cartService);
+      if (session.user != null) {
+        syncCartWithBackend(cartService);
+      }
     }
   }
 }

@@ -14,7 +14,10 @@ class CartService with ChangeNotifier {
   ProductCart get productCart => _productCart;
 
   Future<void> _initializeCart() async {
-    await fetchProductCart();
+    // Verifica se o usuário está logado
+    if (session.user != null) {
+      await fetchProductCart();
+    }
   }
 
   Future<String?> _getToken() async {
@@ -161,7 +164,13 @@ class CartService with ChangeNotifier {
 
   Future<void> syncCartAfterLogin() async {
     if (session.user != null) {
+      // Fetch the cart from the backend
       await fetchProductCart();
+      // Check the state of the cart in the backend
+      if (_productCart.cartProducts.isNotEmpty) {
+        // Update the local cart with the backend cart if the backend cart is not empty
+        _productCart.updateCartItems(_productCart.cartProducts);
+      }
       notifyListeners();
     }
   }
