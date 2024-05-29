@@ -77,7 +77,7 @@ class CartService with ChangeNotifier {
       _handleResponse(response);
     } catch (e) {
       debugPrint('Error fetching product cart: $e');
-      _productCart.clearCart(); // Clear cart on exception
+      _productCart.clearCart();
       notifyListeners();
     } finally {
       isLoading = false;
