@@ -14,7 +14,6 @@ class CartService with ChangeNotifier {
   ProductCart get productCart => _productCart;
 
   Future<void> _initializeCart() async {
-    // Verifica se o usuário está logado
     if (session.user != null) {
       await fetchProductCart();
     }
@@ -35,7 +34,9 @@ class CartService with ChangeNotifier {
     if (response.statusCode == 200) {
       try {
         final extractedData = json.decode(utf8.decode(response.bodyBytes));
-        _productCart = ProductCart.fromJson(extractedData['data']);
+        _productCart.updateCartItems(
+          ProductCart.fromJson(extractedData['data']).cartProducts,
+        );
         notifyListeners();
       } catch (e) {
         debugPrint('Error parsing product cart: $e');
@@ -129,16 +130,13 @@ class CartService with ChangeNotifier {
       }),
     );
 
-    // Handle 307 redirect
     if (response.statusCode == 307) {
       final redirectUrl = response.headers['location'];
       if (redirectUrl != null) {
         Uri newUri;
         if (redirectUrl.startsWith('/')) {
-          // If the redirect URL is relative, combine it with the base URL
           newUri = Uri.parse(uri.origin + redirectUrl);
         } else {
-          // If the redirect URL is absolute, parse it directly
           newUri = Uri.parse(redirectUrl);
         }
         response = await http.put(
@@ -164,13 +162,7 @@ class CartService with ChangeNotifier {
 
   Future<void> syncCartAfterLogin() async {
     if (session.user != null) {
-      // Fetch the cart from the backend
       await fetchProductCart();
-      // Check the state of the cart in the backend
-      if (_productCart.cartProducts.isNotEmpty) {
-        // Update the local cart with the backend cart if the backend cart is not empty
-        _productCart.updateCartItems(_productCart.cartProducts);
-      }
       notifyListeners();
     }
   }
