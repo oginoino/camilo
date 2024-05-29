@@ -138,7 +138,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                   onPressed: () {
                                     if (selectedQuantityByProductId > 0) {
                                       productCart.decrementProduct(
-                                          context, product);
+                                          context, product, cartService);
                                     }
                                   },
                                   iconSize: uiConstants.iconSizeMedium,
@@ -213,7 +213,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                 tooltip: 'Adicionar',
                                 onPressed: () {
                                   productCart.incrementProduct(
-                                      context, product);
+                                      context, product, cartService);
                                 },
                                 iconSize: uiConstants.iconSizeMedium,
                                 icon: Row(

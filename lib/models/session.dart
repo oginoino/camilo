@@ -20,14 +20,14 @@ class Session with ChangeNotifier {
       _isAuthenticated = false;
       _userData = null;
       _selectedAddress = null;
-      productCart.clearCart();
+      productCart.clearCart(cartService);
       notifyListeners();
       return null;
     } on FirebaseAuthException catch (e) {
       _isAuthenticated = false;
       _userData = null;
       _selectedAddress = null;
-      productCart.clearCart();
+      productCart.clearCart(cartService);
       notifyListeners();
       return AuthErrorMessages.getErrorMessage(e.code);
     }

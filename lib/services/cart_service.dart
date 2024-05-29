@@ -1,5 +1,5 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http; // Import the dart:convert package
+import 'package:http/http.dart' as http;
 import '../common_libs.dart';
 
 class CartService with ChangeNotifier {
@@ -8,9 +8,14 @@ class CartService with ChangeNotifier {
 
   CartService() {
     _productCart = ProductCart();
+    _initializeCart();
   }
 
   ProductCart get productCart => _productCart;
+
+  Future<void> _initializeCart() async {
+    await fetchProductCart();
+  }
 
   Future<String?> _getToken() async {
     return await session.user?.getIdToken(true);
@@ -23,8 +28,7 @@ class CartService with ChangeNotifier {
 
   void _handleResponse(http.Response response) {
     debugPrint('Response status code: ${response.statusCode}');
-    debugPrint(
-        'Response body: ${json.decode(utf8.decode(response.bodyBytes))}');
+    debugPrint('Response body: ${utf8.decode(response.bodyBytes)}');
     if (response.statusCode == 200) {
       try {
         final extractedData = json.decode(utf8.decode(response.bodyBytes));
@@ -32,9 +36,13 @@ class CartService with ChangeNotifier {
         notifyListeners();
       } catch (e) {
         debugPrint('Error parsing product cart: $e');
+        _productCart.clearCart(); // Clear cart on parsing error
+        notifyListeners();
         throw Exception('Failed to parse product cart');
       }
     } else {
+      _productCart.clearCart(); // Clear cart on non-200 status code
+      notifyListeners();
       throw Exception(
           'Failed to load product cart with status code ${response.statusCode}');
     }
@@ -49,6 +57,8 @@ class CartService with ChangeNotifier {
 
     if (token == null) {
       debugPrint('Token is null');
+      isLoading = false;
+      notifyListeners();
       return;
     }
 
@@ -63,6 +73,8 @@ class CartService with ChangeNotifier {
       _handleResponse(response);
     } catch (e) {
       debugPrint('Error fetching product cart: $e');
+      _productCart.clearCart(); // Clear cart on exception
+      notifyListeners();
     } finally {
       isLoading = false;
       notifyListeners();
@@ -78,33 +90,78 @@ class CartService with ChangeNotifier {
 
     if (token == null) {
       debugPrint('Token is null');
+      isLoading = false;
+      notifyListeners();
       return;
     }
 
     try {
-      final response = await http.post(
-        uri,
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': token,
-        },
-        body: jsonEncode(
-          productCart.toJson(),
-        ), // Use jsonEncode to encode the data
-      );
+      final response = await _sendPutRequest(uri, token, productCart);
       _handleResponse(response);
     } catch (e) {
       debugPrint('Error updating product cart: $e');
+      notifyListeners();
     } finally {
       isLoading = false;
       notifyListeners();
     }
   }
 
+  Future<http.Response> _sendPutRequest(
+      Uri uri, String token, ProductCart productCart) async {
+    var response = await http.put(
+      uri,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': token,
+      },
+      body: jsonEncode({
+        'productsItems': productCart.cartProducts.map((product) {
+          return {
+            'productId': product.productId,
+            'selectedQuantity': product.selectedQuantity,
+            'product': product.product.toJson(),
+          };
+        }).toList(),
+      }),
+    );
+
+    // Handle 307 redirect
+    if (response.statusCode == 307) {
+      final redirectUrl = response.headers['location'];
+      if (redirectUrl != null) {
+        Uri newUri;
+        if (redirectUrl.startsWith('/')) {
+          // If the redirect URL is relative, combine it with the base URL
+          newUri = Uri.parse(uri.origin + redirectUrl);
+        } else {
+          // If the redirect URL is absolute, parse it directly
+          newUri = Uri.parse(redirectUrl);
+        }
+        response = await http.put(
+          newUri,
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': token,
+          },
+          body: jsonEncode({
+            'productsItems': productCart.cartProducts.map((product) {
+              return {
+                'productId': product.productId,
+                'selectedQuantity': product.selectedQuantity,
+                'product': product.product.toJson(),
+              };
+            }).toList(),
+          }),
+        );
+      }
+    }
+    return response;
+  }
+
   Future<void> syncCartAfterLogin() async {
     if (session.user != null) {
       await fetchProductCart();
-
       notifyListeners();
     }
   }

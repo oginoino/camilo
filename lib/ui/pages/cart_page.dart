@@ -59,7 +59,8 @@ class CartPage extends StatelessWidget {
             elevation: 0.0,
           ),
           onPressed: () {
-            Provider.of<ProductCart>(context, listen: false).clearCart();
+            Provider.of<ProductCart>(context, listen: false)
+                .clearCart(cartService);
           },
           label: Text(
             'Limpar carrinho',
@@ -252,8 +253,8 @@ class CartPage extends StatelessWidget {
                   : Icons.remove_rounded,
             ),
             onPressed: () {
-              Provider.of<ProductCart>(context, listen: false)
-                  .decrementProduct(context, productGroup.first.product);
+              Provider.of<ProductCart>(context, listen: false).decrementProduct(
+                  context, productGroup.first.product, cartService);
             },
           ),
           Text(
@@ -268,8 +269,8 @@ class CartPage extends StatelessWidget {
             ),
             icon: const Icon(Icons.add_rounded),
             onPressed: () {
-              Provider.of<ProductCart>(context, listen: false)
-                  .incrementProduct(context, productGroup.first.product);
+              Provider.of<ProductCart>(context, listen: false).incrementProduct(
+                  context, productGroup.first.product, cartService);
             },
           ),
         ],

@@ -34,7 +34,8 @@ class ProductCart with ChangeNotifier {
 
   double get minimumOrder => 10.0;
 
-  void incrementProduct(BuildContext context, Product product) {
+  void incrementProduct(
+      BuildContext context, Product product, CartService cartService) {
     int selectedQuantity = getSelectedQuantityByProductId(product.id);
     if (product.availableQuantity > selectedQuantity) {
       _cartProducts.add(
@@ -44,6 +45,7 @@ class ProductCart with ChangeNotifier {
           selectedQuantity: 1,
         ),
       );
+      syncCartWithBackend(cartService);
       notifyListeners();
     } else {
       ScaffoldMessenger.of(context).clearSnackBars();
@@ -56,7 +58,8 @@ class ProductCart with ChangeNotifier {
     }
   }
 
-  void decrementProduct(BuildContext context, Product product) {
+  void decrementProduct(
+      BuildContext context, Product product, CartService cartService) {
     int index =
         _cartProducts.indexWhere((element) => element.productId == product.id);
     if (index != -1) {
@@ -65,12 +68,16 @@ class ProductCart with ChangeNotifier {
       } else {
         _cartProducts.removeAt(index);
       }
+      syncCartWithBackend(cartService);
       notifyListeners();
     }
   }
 
-  void clearCart() {
+  void clearCart([CartService? cartService]) {
     _cartProducts.clear();
+    if (cartService != null) {
+      syncCartWithBackend(cartService);
+    }
     notifyListeners();
   }
 
@@ -105,7 +112,6 @@ class ProductCart with ChangeNotifier {
     return data;
   }
 
-  // Métodos de sincronização conforme os cenários BDD
   void syncCartWithBackend(CartService cartService) async {
     if (session.user != null) {
       await cartService.syncCart(this);
@@ -116,25 +122,16 @@ class ProductCart with ChangeNotifier {
 
   void addProductAndSync(
       BuildContext context, CartService cartService, Product product) {
-    incrementProduct(context, product);
-    syncCartWithBackend(cartService);
-    _cartProducts = cartService.productCart.cartProducts;
-    notifyListeners();
+    incrementProduct(context, product, cartService);
   }
 
   void removeProductAndSync(
       BuildContext context, CartService cartService, Product product) {
-    decrementProduct(context, product);
-    syncCartWithBackend(cartService);
-    _cartProducts = cartService.productCart.cartProducts;
-    notifyListeners();
+    decrementProduct(context, product, cartService);
   }
 
   void clearCartAndSync(CartService cartService) {
-    clearCart();
-    syncCartWithBackend(cartService);
-    _cartProducts = cartService.productCart.cartProducts;
-    notifyListeners();
+    clearCart(cartService);
   }
 
   void updateQuantityAndSync(BuildContext context, CartService cartService,
@@ -145,8 +142,6 @@ class ProductCart with ChangeNotifier {
       _cartProducts[index].selectedQuantity = quantity;
       notifyListeners();
       syncCartWithBackend(cartService);
-      _cartProducts = cartService.productCart.cartProducts;
-      notifyListeners();
     }
   }
 }
