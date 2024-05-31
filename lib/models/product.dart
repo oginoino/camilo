@@ -38,7 +38,7 @@ class Product {
       productUnitOfMeasure: json['productUnitOfMeasure'],
       productUnitQuantity: json['productUnitQuantity'],
       productCategories: List<String>.from(json['productCategories']),
-      availableQuantity: json['availableQuantity'],
+      availableQuantity: (json['availableQuantity'] as num).toInt(),
       contentValue: json['contentValue'],
       productImageSrc: json['productImageSrc'],
       producKilogramsWeight: (json['producKilogramsWeight'] as num).toDouble(),
