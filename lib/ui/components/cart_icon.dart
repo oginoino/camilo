@@ -50,7 +50,13 @@ class CartIcon extends StatelessWidget {
                       ),
                   label: Center(
                     child: Text(
-                      productCart.cartProducts.length.toString(),
+                      // somar todos os produtos do carrinho
+                      productCart.cartProducts
+                          .fold(
+                              0,
+                              (previousValue, element) =>
+                                  previousValue + element.selectedQuantity)
+                          .toString(),
                       textAlign: TextAlign.center,
                     ),
                   ),
