@@ -212,12 +212,12 @@ class CartPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '${productGroup.length} ${productGroup.first.product.productUnitOfMeasure} por R\$ ${productGroup.first.product.productPrice.toStringAsFixed(2)}',
+            '${productGroup.first.selectedQuantity} ${productGroup.first.product.productUnitOfMeasure} por R\$ ${productGroup.first.product.productPrice.toStringAsFixed(2)}',
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.labelMedium,
           ),
           Text(
-            'R\$ ${(productGroup.first.product.productPrice * productGroup.length).toStringAsFixed(2)}',
+            'R\$ ${(productGroup.first.product.productPrice * productGroup.first.selectedQuantity).toStringAsFixed(2)}',
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.labelMedium,
           ),
@@ -248,7 +248,7 @@ class CartPage extends StatelessWidget {
               visualDensity: VisualDensity.compact,
             ),
             icon: Icon(
-              productGroup.length == 1
+              productGroup.first.selectedQuantity == 1
                   ? Icons.delete_rounded
                   : Icons.remove_rounded,
             ),
@@ -258,7 +258,7 @@ class CartPage extends StatelessWidget {
             },
           ),
           Text(
-            productGroup.length.toString(),
+            productGroup.first.selectedQuantity.toString(),
             style: Theme.of(context).textTheme.labelLarge,
           ),
           IconButton(

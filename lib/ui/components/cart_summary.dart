@@ -142,7 +142,7 @@ class CartSummaryState extends State<CartSummary> {
                             ),
                       ),
                       subtitle: Text(
-                        '${productCart.productsGruppedByProductId[index].length} ${productCart.productsGruppedByProductId[index].first.product.productUnitOfMeasure} por R\$ ${productCart.productsGruppedByProductId[index].first.product.productPrice.toStringAsFixed(2)}',
+                        '${productCart.productsGruppedByProductId[index].first.selectedQuantity} ${productCart.productsGruppedByProductId[index].first.product.productUnitOfMeasure} por R\$ ${productCart.productsGruppedByProductId[index].first.product.productPrice.toStringAsFixed(2)}',
                         overflow: TextOverflow.ellipsis,
                         style:
                             Theme.of(context).textTheme.labelMedium?.copyWith(),
@@ -154,7 +154,7 @@ class CartSummaryState extends State<CartSummary> {
                             height: uiConstants.paddingMedium,
                           ),
                           Text(
-                            'R\$ ${(item.product.productPrice * productCart.productsGruppedByProductId[index].length).toStringAsFixed(2)}',
+                            'R\$ ${(item.product.productPrice * productCart.productsGruppedByProductId[index].first.selectedQuantity).toStringAsFixed(2)}',
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium
