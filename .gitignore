@@ -66,3 +66,6 @@ firestore.rules
 .firebase/
 
 devtools_options.yaml
+
+
+features/

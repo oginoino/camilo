@@ -103,7 +103,7 @@ class CartSummaryState extends State<CartSummary> {
                         child: Image.network(
                           cacheWidth: 40,
                           cacheHeight: 40,
-                          item.product.productImageSrc!,
+                          item.product.productImageSrc,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
                             return Center(

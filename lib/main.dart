@@ -1,4 +1,3 @@
-import 'package:camilo/services/user_data_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'common_libs.dart';
@@ -28,6 +27,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => categorySelection),
         ChangeNotifierProvider(create: (_) => checkout),
         ChangeNotifierProvider(create: (_) => userDataService),
+        ChangeNotifierProvider(create: (_) => cartService),
       ],
       child: const CamiloApp(),
     ),
@@ -62,6 +62,7 @@ void registerSingletons() {
   GetIt.I.registerLazySingleton<CategorySelection>(() => CategorySelection());
   GetIt.I.registerLazySingleton<Checkout>(() => Checkout());
   GetIt.I.registerLazySingleton<UserDataService>(() => UserDataService());
+  GetIt.I.registerLazySingleton<CartService>(() => CartService());
 }
 
 UiConstants get uiConstants => GetIt.I<UiConstants>();
@@ -75,3 +76,4 @@ MapsService get mapsApiService => GetIt.I<MapsService>();
 CategorySelection get categorySelection => GetIt.I<CategorySelection>();
 Checkout get checkout => GetIt.I<Checkout>();
 UserDataService get userDataService => GetIt.I<UserDataService>();
+CartService get cartService => GetIt.I<CartService>();

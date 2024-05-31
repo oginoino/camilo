@@ -1,41 +1,38 @@
-import '../common_libs.dart';
-
-class Product extends ChangeNotifier {
+class Product {
   final String id;
+  final String productCode;
   final String productName;
   final double productPrice;
   final String productUnitOfMeasure;
   final String productUnitQuantity;
   final List<String> productCategories;
   final int availableQuantity;
-  final String? contentValue;
-  final String? productImageSrc;
-  final double? producKilogramsWeight;
-  final double? productCubicMeterVolume;
+  final String contentValue;
+  final String productImageSrc;
+  final double producKilogramsWeight;
+  final double productCubicMeterVolume;
+  final bool isActivated;
 
   Product({
     required this.id,
+    required this.productCode,
     required this.productName,
     required this.productPrice,
     required this.productUnitOfMeasure,
     required this.productUnitQuantity,
-    this.contentValue,
-    this.productImageSrc,
     required this.productCategories,
     required this.availableQuantity,
-    this.producKilogramsWeight = 0.3,
-    this.productCubicMeterVolume = 0.0001,
+    required this.contentValue,
+    required this.productImageSrc,
+    required this.producKilogramsWeight,
+    required this.productCubicMeterVolume,
+    required this.isActivated,
   });
 
-  @override
-  String toString() {
-    return 'Product{id: $id, productName: $productName, productPrice: $productPrice, productUnitOfMeasurement: $productUnitOfMeasure, productUnitQuantity: $productUnitQuantity, contentValue: $contentValue, productImageSrc: $productImageSrc, productCategories: $productCategories, availableQuantity: $availableQuantity, producKilogramsWeight: $producKilogramsWeight, productCubicMeterVolume: $productCubicMeterVolume}';
-  }
-
-  // from json
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       id: json['id'],
+      productCode: json['productCode'],
       productName: json['productName'],
       productPrice: (json['productPrice'] as num).toDouble(),
       productUnitOfMeasure: json['productUnitOfMeasure'],
@@ -47,13 +44,14 @@ class Product extends ChangeNotifier {
       producKilogramsWeight: (json['producKilogramsWeight'] as num).toDouble(),
       productCubicMeterVolume:
           (json['productCubicMeterVolume'] as num).toDouble(),
+      isActivated: json['isActivated'],
     );
   }
 
-  // to json
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'productCode': productCode,
       'productName': productName,
       'productPrice': productPrice,
       'productUnitOfMeasure': productUnitOfMeasure,
@@ -64,6 +62,7 @@ class Product extends ChangeNotifier {
       'productImageSrc': productImageSrc,
       'producKilogramsWeight': producKilogramsWeight,
       'productCubicMeterVolume': productCubicMeterVolume,
+      'isActivated': isActivated,
     };
   }
 }

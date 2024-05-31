@@ -21,7 +21,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                 width: 360,
                 color: Theme.of(context).colorScheme.surface,
                 child:
-                    Image.network(product.productImageSrc!, fit: BoxFit.contain,
+                    Image.network(product.productImageSrc, fit: BoxFit.contain,
                         errorBuilder: (context, error, stackTrace) {
                   return Center(
                     child: Icon(
@@ -88,7 +88,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            '${product.contentValue}',
+                            product.contentValue,
                             style: Theme.of(context).textTheme.bodyMedium,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -138,7 +138,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                   onPressed: () {
                                     if (selectedQuantityByProductId > 0) {
                                       productCart.decrementProduct(
-                                          context, product);
+                                          context, product, cartService);
                                     }
                                   },
                                   iconSize: uiConstants.iconSizeMedium,
@@ -213,7 +213,7 @@ class CustomProductModalBottomSheet extends StatelessWidget {
                                 tooltip: 'Adicionar',
                                 onPressed: () {
                                   productCart.incrementProduct(
-                                      context, product);
+                                      context, product, cartService);
                                 },
                                 iconSize: uiConstants.iconSizeMedium,
                                 icon: Row(

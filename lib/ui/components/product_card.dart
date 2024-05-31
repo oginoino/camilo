@@ -52,7 +52,7 @@ class _ProductCardState extends State<ProductCard> {
                         topRight: Radius.circular(uiConstants.paddingMedium),
                       ),
                       child: Image.network(
-                        widget.product.productImageSrc!,
+                        widget.product.productImageSrc,
                         cacheHeight: 420,
                         cacheWidth: 420,
                         fit: BoxFit.cover,

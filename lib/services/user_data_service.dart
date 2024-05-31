@@ -19,6 +19,8 @@ class UserDataService with ChangeNotifier {
 
     String? token = await session.user?.getIdToken();
 
+    debugPrint('token: $token');
+
     final response = await http.get(
       uri,
       headers: {

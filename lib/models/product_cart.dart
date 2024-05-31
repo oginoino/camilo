@@ -1,7 +1,9 @@
 import '../common_libs.dart';
 
 class ProductCart with ChangeNotifier {
-  final List<ProductItem> _cartProducts = [];
+  ProductCart();
+
+  List<ProductItem> _cartProducts = [];
 
   List<List<ProductItem>> get productsGruppedByProductId {
     List<List<ProductItem>> productsGruppedByProductId = [];
@@ -32,14 +34,20 @@ class ProductCart with ChangeNotifier {
 
   double get minimumOrder => 10.0;
 
-  void incrementProduct(BuildContext context, Product product) {
+  void incrementProduct(
+      BuildContext context, Product product, CartService cartService) {
     int selectedQuantity = getSelectedQuantityByProductId(product.id);
     if (product.availableQuantity > selectedQuantity) {
-      _cartProducts.add(ProductItem(
-        productId: product.id,
-        product: product,
-        selectedQuantity: 1,
-      ));
+      _cartProducts.add(
+        ProductItem(
+          productId: product.id,
+          product: product,
+          selectedQuantity: 1,
+        ),
+      );
+      if (session.user != null) {
+        syncCartWithBackend(cartService);
+      }
       notifyListeners();
     } else {
       ScaffoldMessenger.of(context).clearSnackBars();
@@ -52,7 +60,8 @@ class ProductCart with ChangeNotifier {
     }
   }
 
-  void decrementProduct(BuildContext context, Product product) {
+  void decrementProduct(
+      BuildContext context, Product product, CartService cartService) {
     int index =
         _cartProducts.indexWhere((element) => element.productId == product.id);
     if (index != -1) {
@@ -61,12 +70,18 @@ class ProductCart with ChangeNotifier {
       } else {
         _cartProducts.removeAt(index);
       }
+      if (session.user != null) {
+        syncCartWithBackend(cartService);
+      }
       notifyListeners();
     }
   }
 
-  void clearCart() {
+  void clearCart([CartService? cartService]) {
     _cartProducts.clear();
+    if (cartService != null && session.user != null) {
+      syncCartWithBackend(cartService);
+    }
     notifyListeners();
   }
 
@@ -83,37 +98,61 @@ class ProductCart with ChangeNotifier {
   String toString() {
     return 'ProductCart{products: $cartProducts}';
   }
-}
 
-class ProductItem {
-  final String productId;
-  final Product product;
-  int selectedQuantity;
-
-  ProductItem({
-    required this.productId,
-    required this.product,
-    required this.selectedQuantity,
-  });
-
-  @override
-  String toString() {
-    return 'ProductItem{productId: $productId, product: $product, selectedQuantity: $selectedQuantity}';
+  // from json
+  ProductCart.fromJson(Map<String, dynamic> json) {
+    if (json['productsItems'] != null) {
+      json['productsItems'].forEach((product) {
+        _cartProducts.add(ProductItem.fromJson(product));
+      });
+    }
   }
 
-  factory ProductItem.fromJson(Map<String, dynamic> json) {
-    return ProductItem(
-      productId: json['productId'],
-      product: Product.fromJson(json['product']),
-      selectedQuantity: (json['selectedQuantity'] as num).toInt(),
-    );
-  }
-
+  // to json
   Map<String, dynamic> toJson() {
-    return {
-      'productId': productId,
-      'product': product.toJson(),
-      'selectedQuantity': selectedQuantity,
-    };
+    final Map<String, dynamic> data = {};
+    data['productsItems'] =
+        _cartProducts.map((product) => product.toJson()).toList();
+    return data;
+  }
+
+  void updateCartItems(List<ProductItem> newItems) {
+    _cartProducts = newItems;
+    notifyListeners();
+  }
+
+  void syncCartWithBackend(CartService cartService) async {
+    if (session.user != null) {
+      await cartService.syncCart(this);
+      _cartProducts = cartService.productCart.cartProducts;
+      notifyListeners();
+    }
+  }
+
+  void addProductAndSync(
+      BuildContext context, CartService cartService, Product product) {
+    incrementProduct(context, product, cartService);
+  }
+
+  void removeProductAndSync(
+      BuildContext context, CartService cartService, Product product) {
+    decrementProduct(context, product, cartService);
+  }
+
+  void clearCartAndSync(CartService cartService) {
+    clearCart(cartService);
+  }
+
+  void updateQuantityAndSync(BuildContext context, CartService cartService,
+      Product product, int quantity) {
+    int index =
+        _cartProducts.indexWhere((element) => element.productId == product.id);
+    if (index != -1) {
+      _cartProducts[index].selectedQuantity = quantity;
+      notifyListeners();
+      if (session.user != null) {
+        syncCartWithBackend(cartService);
+      }
+    }
   }
 }
