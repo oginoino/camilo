@@ -36,8 +36,22 @@ class ProductCart with ChangeNotifier {
 
   void incrementProduct(
       BuildContext context, Product product, CartService cartService) {
-    int selectedQuantity = getSelectedQuantityByProductId(product.id);
-    if (product.availableQuantity > selectedQuantity) {
+    int index =
+        _cartProducts.indexWhere((element) => element.productId == product.id);
+    if (index != -1) {
+      if (product.availableQuantity > _cartProducts[index].selectedQuantity) {
+        _cartProducts[index].selectedQuantity++;
+        notifyListeners();
+      } else {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Só temos ${product.availableQuantity} unidades'),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
+    } else {
       _cartProducts.add(
         ProductItem(
           productId: product.id,
@@ -45,18 +59,10 @@ class ProductCart with ChangeNotifier {
           selectedQuantity: 1,
         ),
       );
-      if (session.user != null) {
-        syncCartWithBackend(cartService);
-      }
       notifyListeners();
-    } else {
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Só temos ${product.availableQuantity} unidades'),
-          duration: const Duration(seconds: 2),
-        ),
-      );
+    }
+    if (session.user != null) {
+      syncCartWithBackend(cartService);
     }
   }
 
@@ -70,10 +76,10 @@ class ProductCart with ChangeNotifier {
       } else {
         _cartProducts.removeAt(index);
       }
+      notifyListeners();
       if (session.user != null) {
         syncCartWithBackend(cartService);
       }
-      notifyListeners();
     }
   }
 
