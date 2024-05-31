@@ -5,18 +5,14 @@ class Session with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool _isAuthenticated = false;
-
   UserData? _userData;
-
   Address? _selectedAddress;
 
   bool get isAuthenticated => _isAuthenticated;
-
   User? get user => _auth.currentUser;
-
   UserData? get userData => _userData;
-
   Address? get selectedAddress => _selectedAddress;
+  ProductCart get productCart => cartService.productCart;
 
   Future<String?> logout() async {
     try {
@@ -24,14 +20,14 @@ class Session with ChangeNotifier {
       _isAuthenticated = false;
       _userData = null;
       _selectedAddress = null;
-      productCart.clearCart();
+      productCart.clearCart(cartService);
       notifyListeners();
       return null;
     } on FirebaseAuthException catch (e) {
       _isAuthenticated = false;
       _userData = null;
       _selectedAddress = null;
-      productCart.clearCart();
+      productCart.clearCart(cartService);
       notifyListeners();
       return AuthErrorMessages.getErrorMessage(e.code);
     }
@@ -51,6 +47,7 @@ class Session with ChangeNotifier {
       } else {
         _selectedAddress = _userData?.selectedAddress;
       }
+      await cartService.syncCartAfterLogin();
       notifyListeners();
       return null;
     } on FirebaseAuthException catch (e) {
@@ -84,6 +81,7 @@ class Session with ChangeNotifier {
       } else {
         _selectedAddress = _userData?.selectedAddress;
       }
+      await cartService.syncCartAfterLogin();
       notifyListeners();
       return null;
     } on FirebaseAuthException catch (e) {
