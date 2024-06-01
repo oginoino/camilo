@@ -6,8 +6,8 @@ class CartService with ChangeNotifier {
   late ProductCart _productCart;
   bool isLoading = false;
 
-  CartService() {
-    _productCart = ProductCart();
+  CartService(ProductCart productCart) {
+    _productCart = productCart;
     _initializeCart();
   }
 
