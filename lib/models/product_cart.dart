@@ -130,7 +130,6 @@ class ProductCart with ChangeNotifier {
   void syncCartWithBackend(CartService cartService) async {
     if (session.user != null) {
       await cartService.syncCart(this);
-      _cartProducts = cartService.productCart.cartProducts;
       notifyListeners();
     }
   }
