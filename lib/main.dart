@@ -19,7 +19,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => products),
-        ChangeNotifierProvider(create: (_) => productCart),
+        ChangeNotifierProvider(create: (_) => GetIt.I<ProductCart>()),
         ChangeNotifierProvider(create: (_) => productsService),
         ChangeNotifierProvider(create: (_) => session),
         ChangeNotifierProvider(create: (_) => inputValidators),
@@ -27,7 +27,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => categorySelection),
         ChangeNotifierProvider(create: (_) => checkout),
         ChangeNotifierProvider(create: (_) => userDataService),
-        ChangeNotifierProvider(create: (_) => cartService),
+        ChangeNotifierProvider(create: (_) => GetIt.I<CartService>()),
       ],
       child: const CamiloApp(),
     ),
@@ -53,8 +53,11 @@ class CamiloApp extends StatelessWidget {
 void registerSingletons() {
   GetIt.I.registerLazySingleton<UiConstants>(() => UiConstants());
   GetIt.I.registerLazySingleton<ProductList>(() => ProductList());
-  GetIt.I.registerLazySingleton<ProductCart>(() => ProductCart());
   GetIt.I.registerLazySingleton<ProductsService>(() => ProductsService());
+  GetIt.I.registerLazySingleton<ProductCart>(() => ProductCart());
+  GetIt.I.registerLazySingleton<CartService>(
+    () => CartService(GetIt.I<ProductCart>()),
+  );
   GetIt.I.registerLazySingleton<Session>(() => Session());
   GetIt.I.registerLazySingleton<InputValidators>(() => InputValidators());
   GetIt.I.registerLazySingleton<AppLogic>(() => AppLogic());
@@ -62,7 +65,6 @@ void registerSingletons() {
   GetIt.I.registerLazySingleton<CategorySelection>(() => CategorySelection());
   GetIt.I.registerLazySingleton<Checkout>(() => Checkout());
   GetIt.I.registerLazySingleton<UserDataService>(() => UserDataService());
-  GetIt.I.registerLazySingleton<CartService>(() => CartService());
 }
 
 UiConstants get uiConstants => GetIt.I<UiConstants>();
