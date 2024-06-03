@@ -29,8 +29,6 @@ class CartService with ChangeNotifier {
   }
 
   void _handleResponse(http.Response response) {
-    debugPrint('Response status code: ${response.statusCode}');
-    debugPrint('Response body: ${utf8.decode(response.bodyBytes)}');
     if (response.statusCode == 200) {
       try {
         final extractedData = json.decode(utf8.decode(response.bodyBytes));
@@ -39,7 +37,6 @@ class CartService with ChangeNotifier {
         );
         notifyListeners();
       } catch (e) {
-        debugPrint('Error parsing product cart: $e');
         _productCart.clearCart(); // Clear cart on parsing error
         notifyListeners();
         throw Exception('Failed to parse product cart');
@@ -60,7 +57,6 @@ class CartService with ChangeNotifier {
     final String? token = await _getToken();
 
     if (token == null) {
-      debugPrint('Token is null');
       isLoading = false;
       notifyListeners();
       return;
@@ -76,7 +72,6 @@ class CartService with ChangeNotifier {
       );
       _handleResponse(response);
     } catch (e) {
-      debugPrint('Error fetching product cart: $e');
       _productCart.clearCart();
       notifyListeners();
     } finally {
@@ -93,7 +88,6 @@ class CartService with ChangeNotifier {
     final String? token = await _getToken();
 
     if (token == null) {
-      debugPrint('Token is null');
       isLoading = false;
       notifyListeners();
       return;
@@ -103,7 +97,6 @@ class CartService with ChangeNotifier {
       final response = await _sendPutRequest(uri, token, productCart);
       _handleResponse(response);
     } catch (e) {
-      debugPrint('Error updating product cart: $e');
       notifyListeners();
     } finally {
       isLoading = false;

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,7 +20,9 @@ class UserDataService with ChangeNotifier {
 
     String? token = await session.user?.getIdToken();
 
-    debugPrint('token: $token');
+    if (kDebugMode) {
+      debugPrint('token: $token');
+    }
 
     final response = await http.get(
       uri,
