@@ -162,7 +162,9 @@ class CartService with ChangeNotifier {
 
   Future<void> syncCartAfterLogin() async {
     if (session.user != null) {
-      await fetchProductCart();
+      productCart.cartProducts.isEmpty
+          ? await fetchProductCart()
+          : await updateProductCart(productCart);
       notifyListeners();
     }
   }
