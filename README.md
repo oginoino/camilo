@@ -8,7 +8,7 @@ O projete consome a API Própria desenvolvida em GoLang
 
 E a API Places do Google para busca de endereços.
 
-- [Bridge API](https://developers.google.com/maps/documentation/places/web-service/query?hl=pt-br)
+- [Places API](https://developers.google.com/maps/documentation/places/web-service/query?hl=pt-br)
 
 
 As principais funcionalidades incluem:
